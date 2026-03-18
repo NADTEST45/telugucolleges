@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[88888,["/_next/static/chunks/fa551ba9d7d84aa5.js","/_next/static/chunks/3a698cd6b49369db.js","/_next/static/chunks/d14e885adcf621f3.js"],"default"]
+3:I[58735,["/_next/static/chunks/9c92de6755ad8ccb.js","/_next/static/chunks/d24137ebb25db10f.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"wNatF_4kCtdZPOMrvXIth","rsc":["$","$1","c",{"children":[["$","$L2",null,{"program":{"slug":"m-s-by-research","name":"M.S. by Research","level":"PG","duration":2,"collegeCount":1,"feeMin":200000,"feeMax":200000,"feeMedian":200000,"category":"Other"},"colleges":[{"college":{"id":177,"name":"International Institute of Information Technology, Hyderabad","code":"IIIT","slug":"iiit-hyderabad","district":"Hyderabad","state":"Telangana","type":"Deemed University","affiliation":"IIIT Hyderabad","naac":"A++","nba":false,"year":1998,"fee":450000,"goFee":0,"nirf":38,"cutoff":{"cse":0,"ece":0,"eee":0,"mech":0,"civil":0},"placements":{"avg":12,"highest":60,"companies":80},"branches":["CSE","ECE","CLD"]},"fee":200000}]}],[["$","script","script-0",{"src":"/_next/static/chunks/d14e885adcf621f3.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+5:null

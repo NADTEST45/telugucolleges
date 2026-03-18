@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[42429,["/_next/static/chunks/0ec1a0c5e3c438e2.js","/_next/static/chunks/c26151f4667bb9c0.js","/_next/static/chunks/ecb288a8f045f504.js","/_next/static/chunks/dcd08590dcc399a2.js"],"default"]
+3:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"JidSxjGzkNYnombDbOqyd","rsc":["$","$1","c",{"children":[["$","$L2",null,{"c":{"id":192,"name":"KL University — Hyderabad","code":"KLHD","slug":"kl-university-hyderabad","district":"Hyderabad","state":"Telangana","type":"Deemed University","affiliation":"KL University","naac":"A++","nba":false,"year":2018,"fee":300000,"goFee":0,"nirf":35,"cutoff":{"cse":0,"ece":0,"eee":0,"mech":0},"placements":{"avg":7.8,"highest":100,"companies":400},"branches":["CSE","ECE","EEE","MECH","AI&ML","DS","CYS"]},"similar":[],"historicalCutoffs":null,"cutoffYears":["2023","2022"]}],[["$","script","script-0",{"src":"/_next/static/chunks/ecb288a8f045f504.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/dcd08590dcc399a2.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+5:null

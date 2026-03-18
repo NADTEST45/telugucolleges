@@ -1,0 +1,10 @@
+var R=require("../../chunks/ssr/[turbopack]_runtime.js")("server/app/_global-error/page.js")
+R.c("server/chunks/ssr/[root-of-the-server]__b3aece8f._.js")
+R.c("server/chunks/ssr/0f9d8_next_dist_794c7656._.js")
+R.c("server/chunks/ssr/0f9d8_next_dist_2642b27e._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__4ccb7d5f._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__4d4c6308._.js")
+R.c("server/chunks/ssr/0f9d8_next_dist_ce9372ae._.js")
+R.c("server/chunks/ssr/mnt_telugucolleges__next-internal_server_app__global-error_page_actions_3a3c3c4f.js")
+R.m(84414)
+module.exports=R.m(84414).exports

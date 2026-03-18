@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[4936,["/_next/static/chunks/0ec1a0c5e3c438e2.js","/_next/static/chunks/c26151f4667bb9c0.js","/_next/static/chunks/d7cfade34ce7613c.js"],"default"]
+3:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"JidSxjGzkNYnombDbOqyd","rsc":["$","$1","c",{"children":[["$","$L2",null,{"program":{"slug":"ba-journalism-mass-communication","name":"BA Journalism & Mass Communication","level":"UG","duration":4,"collegeCount":1,"feeMin":350000,"feeMax":350000,"feeMedian":350000,"category":"Science"},"colleges":[{"college":{"id":179,"name":"Mahindra University","code":"MHND","slug":"mahindra-university-hyderabad","district":"Hyderabad","state":"Telangana","type":"Private University","affiliation":"Mahindra University","naac":"-","nba":false,"year":2020,"fee":505000,"goFee":0,"nirf":125,"cutoff":{"cse":0,"ece":0,"eee":0,"mech":0,"civil":0},"placements":{"avg":8,"highest":30,"companies":50},"branches":["CSE","ECE","EEE","MECH","CIVIL","AI&ML","DS"]},"fee":350000}]}],[["$","script","script-0",{"src":"/_next/static/chunks/d7cfade34ce7613c.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+5:null

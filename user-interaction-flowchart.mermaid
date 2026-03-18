@@ -1,0 +1,127 @@
+---
+title: TeluguColleges.com — User Interaction Flowchart
+---
+flowchart TD
+    START((User Lands\non Site)) --> HOME[Home Page]
+
+    %% ── Home Page Actions ──
+    HOME --> NAV_SEARCH[Use Search Bar\nin Navigation]
+    HOME --> HERO_CTA{Hero CTA Clicked}
+    HOME --> BROWSE[Browse by\nCategory Cards]
+    HOME --> TOP5[View Top 5 CSE\nColleges Section]
+    HOME --> AFFORD[View Most Affordable\nB.Tech Programs]
+    HOME --> FOOTER[Footer Quick Links]
+
+    HERO_CTA -->|Explore Colleges| COLLEGES
+    HERO_CTA -->|EAPCET Predictor| EAPCET
+
+    BROWSE -->|Engineering| COLLEGES
+    BROWSE -->|Pharmacy| COLLEGES
+    BROWSE -->|Medical| COLLEGES
+    BROWSE -->|Compare| COMPARE
+
+    TOP5 --> COLLEGE_DETAIL
+    AFFORD --> COLLEGE_DETAIL
+
+    NAV_SEARCH --> SEARCH_RESULTS[Search Dropdown\nup to 8 results]
+    SEARCH_RESULTS --> COLLEGE_DETAIL[College Detail Page]
+
+    FOOTER -->|All Colleges| COLLEGES
+    FOOTER -->|Programs| PROGRAMS
+    FOOTER -->|EAPCET| EAPCET
+    FOOTER -->|Compare| COMPARE
+    FOOTER -->|About| ABOUT[About Page]
+
+    %% ── Colleges Directory ──
+    COLLEGES[Colleges Directory] --> FILTER{Apply Filters}
+    FILTER -->|State| FILTER_STATE[AP / TS / All]
+    FILTER -->|Category| FILTER_CAT[Engineering /\nPharmacy / Medical]
+    FILTER -->|Type| FILTER_TYPE[Govt / Private /\nDeemed / Pvt Univ]
+    FILTER -->|Advanced| FILTER_ADV[District, University,\nMax Fee, NAAC]
+    FILTER_STATE --> RESULTS
+    FILTER_CAT --> RESULTS
+    FILTER_TYPE --> RESULTS
+    FILTER_ADV --> RESULTS
+
+    COLLEGES --> SORT{Sort Results}
+    SORT --> SORT_OPT[Name / Fee ↑↓ /\nPlacements / CSE Cutoff /\nNIRF Rank]
+    SORT_OPT --> RESULTS
+
+    RESULTS[Filtered &\nSorted Results] --> COLLEGE_DETAIL
+
+    %% ── College Detail Page ──
+    COLLEGE_DETAIL --> TAB{Select Tab}
+    TAB -->|Overview| TAB_OVER[Basic Info, NAAC,\nNBA, NIRF Badges]
+    TAB -->|Fees & Courses| TAB_FEES[Course List,\nFee Details,\nMgmt Quota Fees]
+    TAB -->|Cutoffs| TAB_CUT[EAPCET Branch Cutoffs,\nHistorical AP Data\n2022–2024]
+    TAB -->|Placements| TAB_PLACE[Avg & Highest Package,\nRecruiting Companies]
+
+    COLLEGE_DETAIL --> RELATED[View Related\nColleges]
+    RELATED --> COLLEGE_DETAIL
+
+    TAB_OVER --> DECIDE{User Decision}
+    TAB_FEES --> DECIDE
+    TAB_CUT --> DECIDE
+    TAB_PLACE --> DECIDE
+    DECIDE -->|Compare| COMPARE
+    DECIDE -->|Check Chances| EAPCET
+    DECIDE -->|Browse More| COLLEGES
+
+    %% ── EAPCET Predictor ──
+    EAPCET[EAPCET Predictor] --> INPUT[Enter Inputs]
+    INPUT --> RANK[EAPCET Rank]
+    INPUT --> CATEGORY[Category / Caste\nOC, SC, ST, OBC, etc.]
+    INPUT --> BRANCH[Branch\nCSE, ECE, EEE, etc.]
+    INPUT --> STATE_FILTER[State Filter\nAP / TS / Both]
+
+    RANK --> PREDICT
+    CATEGORY --> PREDICT
+    BRANCH --> PREDICT
+    STATE_FILTER --> PREDICT
+
+    PREDICT[Prediction Results] --> CHANCE{Chance Indicator}
+    CHANCE -->|Safe 🟢| COLLEGE_DETAIL
+    CHANCE -->|Moderate 🟡| COLLEGE_DETAIL
+    CHANCE -->|Reach 🔴| COLLEGE_DETAIL
+
+    EAPCET --> INFO_SECTIONS[Info Sections:\nExam Pattern,\nQuick Stats]
+
+    %% ── Compare Tool ──
+    COMPARE[Compare Tool] --> SELECT[Search & Select\n2–4 Colleges]
+    SELECT --> COMPARE_TABLE[Side-by-Side Table]
+    COMPARE_TABLE --> COMP_BASIC[Basic Info:\nType, Location,\nNAAC, NBA]
+    COMPARE_TABLE --> COMP_FEES[Fee Structure\nLowest Highlighted 🟢]
+    COMPARE_TABLE --> COMP_CUT[EAPCET Cutoffs\nBest Highlighted]
+    COMPARE_TABLE --> COMP_PLACE[Placements\nBest Highlighted]
+
+    COMP_BASIC --> FINAL{Final Decision}
+    COMP_FEES --> FINAL
+    COMP_CUT --> FINAL
+    COMP_PLACE --> FINAL
+    FINAL -->|View Details| COLLEGE_DETAIL
+    FINAL -->|Restart Search| COLLEGES
+
+    %% ── Programs Directory ──
+    PROGRAMS[Programs Directory] --> PROG_CAT{Browse by Category}
+    PROG_CAT -->|Engineering| PROG_LIST[Program List:\nName, Level, Duration,\nCollege Count, Fee Range]
+    PROG_CAT -->|Pharmacy| PROG_LIST
+    PROG_CAT -->|Medical| PROG_LIST
+    PROG_CAT -->|Management| PROG_LIST
+    PROG_CAT -->|Science| PROG_LIST
+    PROG_CAT -->|Other| PROG_LIST
+
+    PROG_LIST --> PROG_DETAIL[Program Detail Page:\nAll Colleges Offering\nThis Program]
+    PROG_DETAIL --> COLLEGE_DETAIL
+
+    %% ── Styling ──
+    classDef page fill:#4F46E5,stroke:#3730A3,color:#fff,rx:8,ry:8
+    classDef action fill:#F59E0B,stroke:#D97706,color:#000,rx:4,ry:4
+    classDef decision fill:#10B981,stroke:#059669,color:#fff
+    classDef start fill:#EF4444,stroke:#DC2626,color:#fff
+    classDef info fill:#8B5CF6,stroke:#7C3AED,color:#fff,rx:4,ry:4
+
+    class HOME,COLLEGES,COLLEGE_DETAIL,EAPCET,COMPARE,PROGRAMS,ABOUT page
+    class NAV_SEARCH,SEARCH_RESULTS,FILTER_STATE,FILTER_CAT,FILTER_TYPE,FILTER_ADV,SORT_OPT,RESULTS,INPUT,RANK,CATEGORY,BRANCH,STATE_FILTER,PREDICT,SELECT,COMPARE_TABLE,PROG_LIST,PROG_DETAIL,RELATED action
+    class HERO_CTA,FILTER,SORT,TAB,DECIDE,CHANCE,PROG_CAT,FINAL decision
+    class START start
+    class TAB_OVER,TAB_FEES,TAB_CUT,TAB_PLACE,COMP_BASIC,COMP_FEES,COMP_CUT,COMP_PLACE,INFO_SECTIONS info

@@ -1,0 +1,20 @@
+{
+  "go": "G.O.Rt.No.503",
+  "date": "06.08.2024",
+  "period": "2024-25",
+  "note": "Tentative, 10% enhancement on 2020-23 block period fees, pending court outcome",
+  "courses": [
+    {
+      "course": "MBBS",
+      "a_category": 16500,
+      "b_category": 1320000,
+      "c_category": 3960000
+    },
+    {
+      "course": "BDS",
+      "a_category": 14300,
+      "b_category": 440000,
+      "c_category": 1320000
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[88888,["/_next/static/chunks/fa551ba9d7d84aa5.js","/_next/static/chunks/3a698cd6b49369db.js","/_next/static/chunks/d14e885adcf621f3.js"],"default"]
+3:I[58735,["/_next/static/chunks/9c92de6755ad8ccb.js","/_next/static/chunks/d24137ebb25db10f.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"wNatF_4kCtdZPOMrvXIth","rsc":["$","$1","c",{"children":[["$","$L2",null,{"program":{"slug":"b-sc-hons","name":"B.Sc (Hons)","level":"UG","duration":4,"collegeCount":1,"feeMin":180000,"feeMax":180000,"feeMedian":180000,"category":"Science"},"colleges":[{"college":{"id":181,"name":"Malla Reddy University","code":"MRDU","slug":"malla-reddy-university-hyderabad","district":"Hyderabad","state":"Telangana","type":"Private University","affiliation":"Malla Reddy University","naac":"-","nba":false,"year":2021,"fee":200000,"goFee":0,"nirf":0,"cutoff":{"cse":0,"ece":0,"eee":0,"mech":0,"civil":0},"placements":{"avg":5,"highest":22,"companies":45},"branches":["CSE","ECE","EEE","MECH","CIVIL","AI&ML"]},"fee":180000}]}],[["$","script","script-0",{"src":"/_next/static/chunks/d14e885adcf621f3.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+5:null

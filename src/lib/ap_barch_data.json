@@ -1,0 +1,16 @@
+[
+  {
+    "sno": 1,
+    "code": "AP19",
+    "name": "M R K College of Architecture - Veeravasaram",
+    "district": "WG",
+    "fee": 35000
+  },
+  {
+    "sno": 2,
+    "code": "CASA",
+    "name": "Chadalawada Aruna School of Architecture - Tirupati",
+    "district": "TPT",
+    "fee": 35000
+  }
+]

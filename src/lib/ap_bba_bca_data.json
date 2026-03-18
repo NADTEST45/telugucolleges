@@ -1,0 +1,38 @@
+[
+  {
+    "sno": 1,
+    "code": "GTMT",
+    "name": "Gate Institute of Technology and Management Sciences - Tirupati",
+    "district": "TPT",
+    "programme": "BCA",
+    "fee": 18000,
+    "go": "G.O.Ms.No.50"
+  },
+  {
+    "sno": 2,
+    "code": "SANKB",
+    "name": "Audisankara College of Engineering & Technology - Gudur",
+    "district": "NLR",
+    "programme": "BCA",
+    "fee": 18000,
+    "go": "G.O.Ms.No.50"
+  },
+  {
+    "sno": 3,
+    "code": "SANK",
+    "name": "Audisankara College of Engineering & Technology - Gudur",
+    "district": "NLR",
+    "programme": "BBA",
+    "fee": 18000,
+    "go": "G.O.Ms.No.50"
+  },
+  {
+    "sno": 4,
+    "code": "VLNK",
+    "name": "Velankanni Inst of Comp and Mgmt Studies - Venkatachalam",
+    "district": "NLR",
+    "programme": "BBA",
+    "fee": 18000,
+    "go": "G.O.Ms.No.59"
+  }
+]

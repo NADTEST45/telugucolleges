@@ -1,0 +1,458 @@
+[
+  {
+    "sno": 1,
+    "code": "AKIT",
+    "name": "Abdul Kalam Institute of Technological Sciences",
+    "fee": 57000
+  },
+  {
+    "sno": 2,
+    "code": "AITH",
+    "name": "Annamacharya Inst. of Technology & Science",
+    "fee": 57000
+  },
+  {
+    "sno": 3,
+    "code": "ANRK",
+    "name": "Anurag Engineering College",
+    "fee": 57000
+  },
+  {
+    "sno": 4,
+    "code": "CVSR",
+    "name": "Anurag University",
+    "fee": 57000
+  },
+  {
+    "sno": 5,
+    "code": "AVIH",
+    "name": "Avanthi Institute of Engineering & Technology",
+    "fee": 60000
+  },
+  {
+    "sno": 6,
+    "code": "BVRI",
+    "name": "B.V.Raju Institute of Technology",
+    "fee": 70000
+  },
+  {
+    "sno": 7,
+    "code": "BIET",
+    "name": "Bharat Institute of Engineering & Technology",
+    "fee": 90000
+  },
+  {
+    "sno": 8,
+    "code": "BVRW",
+    "name": "BVRIT Hyderabad College of Engineering for Women",
+    "fee": 57000
+  },
+  {
+    "sno": 9,
+    "code": "CBIT",
+    "name": "Chaitanya Bharathi Institute of Technology",
+    "fee": 151600
+  },
+  {
+    "sno": 10,
+    "code": "CJIT",
+    "name": "Christu Jyothi Institute of Technology & Science",
+    "fee": 57000
+  },
+  {
+    "sno": 11,
+    "code": "CMRK",
+    "name": "CMR College of Engineering & Technology",
+    "fee": 65000
+  },
+  {
+    "sno": 12,
+    "code": "CMRN",
+    "name": "CMR Engineering College",
+    "fee": 60000
+  },
+  {
+    "sno": 13,
+    "code": "CMRM",
+    "name": "CMR Institute of Technology",
+    "fee": 65000
+  },
+  {
+    "sno": 14,
+    "code": "CMRG",
+    "name": "CMR Technical Campus",
+    "fee": 60000
+  },
+  {
+    "sno": 15,
+    "code": "CVRH",
+    "name": "CVR College of Engineering",
+    "fee": 81000
+  },
+  {
+    "sno": 16,
+    "code": "DCET",
+    "name": "Deccan College of Engineering & Technology",
+    "fee": 110000
+  },
+  {
+    "sno": 17,
+    "code": "VRKW",
+    "name": "Dr.V.R.K Womens College of Engineering & Technology",
+    "fee": 75000
+  },
+  {
+    "sno": 18,
+    "code": "ELEN",
+    "name": "Ellenki College of Engineering & Technology",
+    "fee": 57000
+  },
+  {
+    "sno": 19,
+    "code": "GNTW",
+    "name": "G.Narayanamma Institute of Technology & Science for Women",
+    "fee": 100000
+  },
+  {
+    "sno": 20,
+    "code": "GATE",
+    "name": "Gate Institute of Technology and Sciences",
+    "fee": 110000
+  },
+  {
+    "sno": 21,
+    "code": "GCTC",
+    "name": "Geetanjali College of Engineering & Technology",
+    "fee": 66000
+  },
+  {
+    "sno": 22,
+    "code": "GRRR",
+    "name": "Gokaraju Rangaraju Institute of Engineering & Technology",
+    "fee": 80000
+  },
+  {
+    "sno": 23,
+    "code": "GURU",
+    "name": "Guru Nanak Institutions Technical Campus",
+    "fee": 75000
+  },
+  {
+    "sno": 24,
+    "code": "HOLY",
+    "name": "Holy Mary Institute of Technology & Science",
+    "fee": 57000
+  },
+  {
+    "sno": 25,
+    "code": "IARE",
+    "name": "Institute of Aeronautical Engineering",
+    "fee": 60000
+  },
+  {
+    "sno": 26,
+    "code": "ISLC",
+    "name": "ISL Womens Engineering College",
+    "fee": 57000
+  },
+  {
+    "sno": 27,
+    "code": "JPNE",
+    "name": "Jaya Prakash Narayan College of Engineering",
+    "fee": 57000
+  },
+  {
+    "sno": 28,
+    "code": "JAYA",
+    "name": "Jayamukhi Institute of Tech. & Scis.",
+    "fee": 57000
+  },
+  {
+    "sno": 29,
+    "code": "JBIT",
+    "name": "JB Institute of Engineering & Technology",
+    "fee": 80000
+  },
+  {
+    "sno": 30,
+    "code": "JOGI",
+    "name": "Joginpally B.R. Engineering College",
+    "fee": 68000
+  },
+  {
+    "sno": 31,
+    "code": "JMTS",
+    "name": "Jyothismathi Institute of Technology & Science",
+    "fee": 80000
+  },
+  {
+    "sno": 32,
+    "code": "KITS",
+    "name": "Kakatiya Institute of Tech. & Sci",
+    "fee": 70000
+  },
+  {
+    "sno": 33,
+    "code": "KTKM",
+    "name": "Kamala Institute of Technology and Science",
+    "fee": 75000
+  },
+  {
+    "sno": 34,
+    "code": "KLRT",
+    "name": "KLR College of Engineering & Technology",
+    "fee": 65000
+  },
+  {
+    "sno": 35,
+    "code": "LRDS",
+    "name": "Lords Institute of Engineering & Technology",
+    "fee": 75000
+  },
+  {
+    "sno": 36,
+    "code": "MGIT",
+    "name": "Mahatma Gandhi Institute of Technology",
+    "fee": 135200
+  },
+  {
+    "sno": 37,
+    "code": "MHVR",
+    "name": "Mahaveer Institute of Science & Technology",
+    "fee": 57000
+  },
+  {
+    "sno": 38,
+    "code": "MLRD",
+    "name": "Malla Reddy College of Engg & Technology",
+    "fee": 60000
+  },
+  {
+    "sno": 39,
+    "code": "MREC",
+    "name": "Malla Reddy Engineering College",
+    "fee": 60000
+  },
+  {
+    "sno": 40,
+    "code": "MRCW",
+    "name": "Malla Reddy Engineering College for Women",
+    "fee": 57000
+  },
+  {
+    "sno": 41,
+    "code": "MLRS",
+    "name": "Marri Educational Societys Group of Institutions",
+    "fee": 60000
+  },
+  {
+    "sno": 42,
+    "code": "MVSR",
+    "name": "Maturi Venkata Subba Rao (MVSR) Engineering College",
+    "fee": 100000
+  },
+  {
+    "sno": 43,
+    "code": "METH",
+    "name": "Methodist College of Engineering & Technology",
+    "fee": 75000
+  },
+  {
+    "sno": 44,
+    "code": "MINA",
+    "name": "Mina Institute of Engineering & Technology for Women",
+    "fee": 57000
+  },
+  {
+    "sno": 45,
+    "code": "MLID",
+    "name": "MLR Institute of Technology",
+    "fee": 60000
+  },
+  {
+    "sno": 46,
+    "code": "MOTK",
+    "name": "Mother Teresa Institute of Science & Technology",
+    "fee": 75000
+  },
+  {
+    "sno": 47,
+    "code": "MTEC",
+    "name": "Mother Theressa College of Engineering & Technology",
+    "fee": 57000
+  },
+  {
+    "sno": 48,
+    "code": "MJCT",
+    "name": "Muffakham Jah (MJ) College of Engineering & Technology",
+    "fee": 130000
+  },
+  {
+    "sno": 49,
+    "code": "NREC",
+    "name": "Nalla Malla Reddy Engineering College",
+    "fee": 80000
+  },
+  {
+    "sno": 50,
+    "code": "NAWB",
+    "name": "Nawab Shah Alam Khan College of Engineering & Technology",
+    "fee": 57000
+  },
+  {
+    "sno": 51,
+    "code": "SCET",
+    "name": "Shadan College of Engineering & Technology",
+    "fee": 70000
+  },
+  {
+    "sno": 52,
+    "code": "SWET",
+    "name": "Shadan Womens College of Engineering & Technology",
+    "fee": 75000
+  },
+  {
+    "sno": 53,
+    "code": "SIEI",
+    "name": "Siddhartha Institute of Engineering & Technology",
+    "fee": 80000
+  },
+  {
+    "sno": 54,
+    "code": "SISG",
+    "name": "Siddhartha Institute of Technology & Sciences",
+    "fee": 80000
+  },
+  {
+    "sno": 55,
+    "code": "SRHP",
+    "name": "SR Engineering College",
+    "fee": 95000
+  },
+  {
+    "sno": 56,
+    "code": "SNIS",
+    "name": "Sreenidhi Institute of Science and Technology",
+    "fee": 150000
+  },
+  {
+    "sno": 57,
+    "code": "SDES",
+    "name": "Sri Datta Institute of Engineering & Science",
+    "fee": 57000
+  },
+  {
+    "sno": 58,
+    "code": "INDU",
+    "name": "Sri Indu College of Engineering & Technology",
+    "fee": 70000
+  },
+  {
+    "sno": 59,
+    "code": "STLW",
+    "name": "Stanley College of Engineering & Technology for Women",
+    "fee": 57000
+  },
+  {
+    "sno": 60,
+    "code": "SVSE",
+    "name": "SVS Group of Institutions",
+    "fee": 60000
+  },
+  {
+    "sno": 61,
+    "code": "SBIT",
+    "name": "Swarna Bharathi Institute of Science & Technology",
+    "fee": 57000
+  },
+  {
+    "sno": 62,
+    "code": "TPCE",
+    "name": "Talla Padmavathi College of Engineering",
+    "fee": 57000
+  },
+  {
+    "sno": 63,
+    "code": "TKEM",
+    "name": "Teegala Krishna Reddy Engineering College",
+    "fee": 57000
+  },
+  {
+    "sno": 64,
+    "code": "TKRC",
+    "name": "TKR College of Engineering & Technology",
+    "fee": 75000
+  },
+  {
+    "sno": 65,
+    "code": "VAGE",
+    "name": "Vaagdevi College of Engineering",
+    "fee": 57000
+  },
+  {
+    "sno": 66,
+    "code": "VGWL",
+    "name": "Vaagdevi Engineering College",
+    "fee": 57000
+  },
+  {
+    "sno": 67,
+    "code": "VGSE",
+    "name": "Vaageswari College of Engineering",
+    "fee": 57000
+  },
+  {
+    "sno": 68,
+    "code": "VMEG",
+    "name": "Vardhaman College of Engineering",
+    "fee": 57000
+  },
+  {
+    "sno": 69,
+    "code": "VASV",
+    "name": "Vasavi College of Engineering",
+    "fee": 110000
+  },
+  {
+    "sno": 70,
+    "code": "VJIT",
+    "name": "Vidya Jyothi Institute of Technology",
+    "fee": 57000
+  },
+  {
+    "sno": 71,
+    "code": "VGNT",
+    "name": "Vignan Institute of Technology & Science",
+    "fee": 60000
+  },
+  {
+    "sno": 72,
+    "code": "VBIT",
+    "name": "Vignana Bharati Institute of Technology",
+    "fee": 57000
+  },
+  {
+    "sno": 73,
+    "code": "VMTW",
+    "name": "Vignans Institute of Management & Technology for Women",
+    "fee": 60000
+  },
+  {
+    "sno": 74,
+    "code": "VCET",
+    "name": "Visveswaraya College of Engineering & Technology",
+    "fee": 57000
+  },
+  {
+    "sno": 75,
+    "code": "VJEC",
+    "name": "VNR Vignan Jyothi Institute of Engineering & Technology",
+    "fee": 130000
+  },
+  {
+    "sno": 76,
+    "code": "WITS",
+    "name": "Warangal Institute of Technology & Science",
+    "fee": 85000
+  }
+]

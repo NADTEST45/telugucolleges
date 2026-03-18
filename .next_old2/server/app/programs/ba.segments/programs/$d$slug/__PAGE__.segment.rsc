@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[88888,["/_next/static/chunks/fa551ba9d7d84aa5.js","/_next/static/chunks/3a698cd6b49369db.js","/_next/static/chunks/d14e885adcf621f3.js"],"default"]
+3:I[58735,["/_next/static/chunks/9c92de6755ad8ccb.js","/_next/static/chunks/d24137ebb25db10f.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"wNatF_4kCtdZPOMrvXIth","rsc":["$","$1","c",{"children":[["$","$L2",null,{"program":{"slug":"ba","name":"BA","level":"UG","duration":3,"collegeCount":1,"feeMin":70000,"feeMax":70000,"feeMedian":70000,"category":"Science"},"colleges":[{"college":{"id":167,"name":"GITAM University — Visakhapatnam","code":"GITM","slug":"gitam-vizag","district":"Visakhapatnam","state":"Andhra Pradesh","type":"Deemed University","affiliation":"GITAM","naac":"A++","nba":true,"year":1980,"fee":356000,"goFee":0,"nirf":125,"cutoff":{"cse":0,"ece":0,"eee":0,"mech":0,"civil":0},"placements":{"avg":4.8,"highest":18,"companies":150},"branches":["CSE","ECE","EEE","MECH","CIVIL","IT","AI&ML","DS"]},"fee":70000}]}],[["$","script","script-0",{"src":"/_next/static/chunks/d14e885adcf621f3.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+5:null

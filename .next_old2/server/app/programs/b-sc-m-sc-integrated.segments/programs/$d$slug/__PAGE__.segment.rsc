@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[88888,["/_next/static/chunks/fa551ba9d7d84aa5.js","/_next/static/chunks/3a698cd6b49369db.js","/_next/static/chunks/d14e885adcf621f3.js"],"default"]
+3:I[58735,["/_next/static/chunks/9c92de6755ad8ccb.js","/_next/static/chunks/d24137ebb25db10f.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"wNatF_4kCtdZPOMrvXIth","rsc":["$","$1","c",{"children":[["$","$L2",null,{"program":{"slug":"b-sc-m-sc-integrated","name":"B.Sc + M.Sc (Integrated)","level":"Integrated","duration":5,"collegeCount":1,"feeMin":328000,"feeMax":328000,"feeMedian":328000,"category":"Science"},"colleges":[{"college":{"id":187,"name":"VIT-AP University","code":"VTAP","slug":"vit-ap-amaravati","district":"Guntur","state":"Andhra Pradesh","type":"Private University","affiliation":"VIT-AP University","naac":"-","nba":false,"year":2017,"fee":500000,"goFee":0,"nirf":0,"cutoff":{"cse":0,"ece":0,"eee":0,"mech":0,"civil":0},"placements":{"avg":9.9,"highest":88,"companies":400},"branches":["CSE","ECE","EEE","MECH","CIVIL","AI&ML","DS","IoT"]},"fee":328000}]}],[["$","script","script-0",{"src":"/_next/static/chunks/d14e885adcf621f3.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+5:null

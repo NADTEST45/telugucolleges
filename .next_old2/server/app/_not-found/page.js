@@ -1,0 +1,13 @@
+var R=require("../../chunks/ssr/[turbopack]_runtime.js")("server/app/_not-found/page.js")
+R.c("server/chunks/ssr/[root-of-the-server]__943daad5._.js")
+R.c("server/chunks/ssr/0f9d8_next_dist_794c7656._.js")
+R.c("server/chunks/ssr/0f9d8_next_dist_esm_build_templates_app-page_34500022.js")
+R.c("server/chunks/ssr/[root-of-the-server]__4ccb7d5f._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__4d4c6308._.js")
+R.c("server/chunks/ssr/0f9d8_next_dist_ce9372ae._.js")
+R.c("server/chunks/ssr/mnt_telugucolleges_5b5602f3._.js")
+R.c("server/chunks/ssr/0f9d8_next_dist_client_components_9a1fb573._.js")
+R.c("server/chunks/ssr/0f9d8_next_dist_client_components_builtin_forbidden_d0d8d30c.js")
+R.c("server/chunks/ssr/mnt_telugucolleges__next-internal_server_app__not-found_page_actions_54b2be57.js")
+R.m(80347)
+module.exports=R.m(80347).exports

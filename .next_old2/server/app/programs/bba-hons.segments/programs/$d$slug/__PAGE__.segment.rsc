@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[88888,["/_next/static/chunks/fa551ba9d7d84aa5.js","/_next/static/chunks/3a698cd6b49369db.js","/_next/static/chunks/d14e885adcf621f3.js"],"default"]
+3:I[58735,["/_next/static/chunks/9c92de6755ad8ccb.js","/_next/static/chunks/d24137ebb25db10f.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"wNatF_4kCtdZPOMrvXIth","rsc":["$","$1","c",{"children":[["$","$L2",null,{"program":{"slug":"bba-hons","name":"BBA (Hons)","level":"UG","duration":3,"collegeCount":1,"feeMin":255000,"feeMax":255000,"feeMedian":255000,"category":"Management"},"colleges":[{"college":{"id":168,"name":"SRM University AP, Amaravati","code":"SRMA","slug":"srm-ap-amaravati","district":"Guntur","state":"Andhra Pradesh","type":"Private University","affiliation":"SRM AP","naac":"-","nba":false,"year":2017,"fee":400000,"goFee":0,"nirf":0,"cutoff":{"cse":4500,"ece":8500,"eee":18000,"mech":15000,"civil":28000},"placements":{"avg":13.4,"highest":55,"companies":300},"branches":["CSE","ECE","EEE","MECH","CIVIL","AI&ML","DS"]},"fee":255000}]}],[["$","script","script-0",{"src":"/_next/static/chunks/d14e885adcf621f3.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+5:null

@@ -1,0 +1,159 @@
+{
+  "go": "G.O.RT.No.552",
+  "date": "03.09.2024",
+  "period": "2024-27",
+  "universities": [
+    {
+      "name": "Mohan Babu University (MBUTPU)",
+      "location": "Rangampet, Tirupathi District",
+      "programmes": [
+        {
+          "name": "B.Sc (Anaesthesiology Technology & Operation Technology)",
+          "fee": 37000
+        },
+        {
+          "name": "B.Sc (Cardiac Care Technology & Cardio Vascular Technology)",
+          "fee": 37000
+        },
+        {
+          "name": "B.Sc (Renal Dialysis Technology)",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc (Emergency Medical Technology)",
+          "fee": 37000
+        },
+        {
+          "name": "B.Sc (Respiratory Therapy Technology)",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc (Optometry Technology)",
+          "fee": 37000
+        },
+        {
+          "name": "B.Sc (Radiology & Imaging Technology)",
+          "fee": 37000
+        },
+        {
+          "name": "B.Sc(MLT)",
+          "fee": 37000
+        },
+        {
+          "name": "BPT",
+          "fee": 37000
+        },
+        {
+          "name": "MPT",
+          "fee": 73500
+        }
+      ]
+    },
+    {
+      "name": "Godavari Global University (GGURPU)",
+      "location": "Rajamahendravaram, East Godavari District",
+      "programmes": [
+        {
+          "name": "B.Sc (Anaesthesiology Technology & Operation Technology)",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc (Cardiac Care Technology & Cardio Vascular Technology)",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc (Renal Dialysis Technology)",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc (Emergency Medical Technology)",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc(MLT)",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc (Optometry Technology)",
+          "fee": 35500
+        },
+        {
+          "name": "BPT",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc.Nursing",
+          "fee": 35500
+        }
+      ]
+    },
+    {
+      "name": "Annamacharya University (AITSPU)",
+      "location": "Rajampet, Annamayya District",
+      "programmes": [
+        {
+          "name": "B.Sc (Anaesthesiology Technology & Operation Technology)",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc(MLT)",
+          "fee": 35500
+        },
+        {
+          "name": "BPT",
+          "fee": 35500
+        }
+      ]
+    },
+    {
+      "name": "The Apollo University (APUCPU)",
+      "location": "Murukambattu, Chittoor District",
+      "programmes": [
+        {
+          "name": "B.Sc (Anaesthesiology Technology & Operation Technology)",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc (Renal Dialysis Technology)",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc (Emergency Medical Technology)",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc (Respiratory Therapy Technology)",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc(MLT)",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc (Optometry Technology)",
+          "fee": 35500
+        },
+        {
+          "name": "Bachelor of Occupational Therapy",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc (Imaging Technology)",
+          "fee": 35500
+        },
+        {
+          "name": "B.Sc. Physician Assistant",
+          "fee": 35500
+        },
+        {
+          "name": "BPT",
+          "fee": 35500
+        },
+        {
+          "name": "MPT",
+          "fee": 71000
+        }
+      ]
+    }
+  ]
+}

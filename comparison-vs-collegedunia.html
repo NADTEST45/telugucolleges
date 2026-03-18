@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TeluguColleges.com vs CollegeDunia.com — User Flow & Feature Comparison</title>
+<style>
+  :root {
+    --tc: #4F46E5;
+    --cd: #E11D48;
+    --green: #059669;
+    --amber: #D97706;
+    --gray: #6B7280;
+    --bg: #F9FAFB;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: #1F2937; background: var(--bg); line-height: 1.6; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 48px; }
+  .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .header .subtitle { color: var(--gray); font-size: 15px; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin: 0 4px; }
+  .badge-tc { background: #EEF2FF; color: var(--tc); }
+  .badge-cd { background: #FFF1F2; color: var(--cd); }
+
+  /* Section */
+  .section { margin-bottom: 40px; }
+  .section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #E5E7EB; }
+
+  /* Comparison Table */
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.08); margin-bottom: 24px; }
+  th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #F3F4F6; font-size: 14px; }
+  th { background: #F9FAFB; font-weight: 600; color: #374151; font-size: 13px; text-transform: uppercase; letter-spacing: .3px; }
+  th.tc { color: var(--tc); }
+  th.cd { color: var(--cd); }
+  td:first-child { font-weight: 600; color: #374151; width: 22%; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover { background: #FAFBFC; }
+
+  .check { color: var(--green); font-weight: 700; }
+  .cross { color: var(--cd); font-weight: 700; }
+  .partial { color: var(--amber); font-weight: 700; }
+
+  /* Cards */
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  .card { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.08); border-left: 4px solid var(--gray); }
+  .card.strength { border-left-color: var(--green); }
+  .card.gap { border-left-color: var(--cd); }
+  .card.opportunity { border-left-color: var(--amber); }
+  .card h3 { font-size: 15px; margin-bottom: 8px; }
+  .card p, .card li { font-size: 13.5px; color: #4B5563; }
+  .card ul { padding-left: 18px; margin-top: 6px; }
+  .card li { margin-bottom: 4px; }
+
+  /* Flow comparison */
+  .flow-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 2px; }
+  .flow-label { grid-column: 1 / -1; background: #374151; color: #fff; padding: 10px 16px; font-weight: 600; font-size: 14px; border-radius: 6px 6px 0 0; margin-top: 16px; }
+  .flow-cell { padding: 14px 16px; font-size: 13.5px; background: #fff; border: 1px solid #F3F4F6; }
+  .flow-cell.tc-cell { border-right: none; }
+  .flow-cell:first-child { border-right: 1px solid #E5E7EB; }
+  .flow-header { display: grid; grid-template-columns: 1fr 1fr; }
+  .flow-header div { padding: 10px 16px; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .3px; }
+  .flow-header .tc-h { background: #EEF2FF; color: var(--tc); }
+  .flow-header .cd-h { background: #FFF1F2; color: var(--cd); }
+
+  .step { display: flex; align-items: flex-start; margin-bottom: 6px; }
+  .step-num { background: #E5E7EB; color: #374151; font-size: 11px; font-weight: 700; min-width: 20px; height: 20px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-right: 8px; flex-shrink: 0; margin-top: 1px; }
+  .step-text { font-size: 13.5px; }
+  .arrow { color: #9CA3AF; margin: 2px 0; padding-left: 7px; font-size: 12px; }
+
+  /* Priority matrix */
+  .priority { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+  .p-high { background: #FEE2E2; color: #991B1B; }
+  .p-med { background: #FEF3C7; color: #92400E; }
+  .p-low { background: #DBEAFE; color: #1E40AF; }
+
+  .footer { text-align: center; color: var(--gray); font-size: 13px; margin-top: 48px; padding-top: 24px; border-top: 1px solid #E5E7EB; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>User Flow &amp; Feature Comparison</h1>
+    <p class="subtitle">
+      <span class="badge badge-tc">TeluguColleges.com</span> vs <span class="badge badge-cd">CollegeDunia.com</span>
+      &mdash; Internal Analysis &bull; March 2026
+    </p>
+  </div>
+
+  <!-- ===== 1. SCALE ===== -->
+  <div class="section">
+    <h2>1. Platform Scale &amp; Scope</h2>
+    <table>
+      <tr><th style="width:22%">Dimension</th><th class="tc">TeluguColleges.com</th><th class="cd">CollegeDunia.com</th></tr>
+      <tr><td>Geographic Focus</td><td>Andhra Pradesh &amp; Telangana only</td><td>All-India (pan-India)</td></tr>
+      <tr><td>Colleges Listed</td><td>200+ (Telugu state colleges)</td><td>60,000+</td></tr>
+      <tr><td>Courses / Programs</td><td>B.Tech, MBA, MCA, M.Tech, B.Pharm, MBBS + more</td><td>350,000+ across all disciplines</td></tr>
+      <tr><td>Entrance Exams</td><td>EAPCET (TS &amp; AP)</td><td>450+ exams (JEE, NEET, CAT, etc.)</td></tr>
+      <tr><td>Data Sources</td><td>Official govt orders, APSCHE/TSCHE PDFs, AICTE, NAAC, NBA, NIRF</td><td>Mix of official data, institution-submitted data, and crowdsourced reviews</td></tr>
+      <tr><td>Monetization</td><td>None (no ads, no lead gen)</td><td>Ads, sponsored listings, lead generation, premium analytics</td></tr>
+    </table>
+  </div>
+
+  <!-- ===== 2. FEATURE MATRIX ===== -->
+  <div class="section">
+    <h2>2. Feature-by-Feature Comparison</h2>
+    <table>
+      <tr><th style="width:28%">Feature</th><th class="tc" style="width:36%">TeluguColleges.com</th><th class="cd" style="width:36%">CollegeDunia.com</th></tr>
+      <tr>
+        <td>College Search</td>
+        <td><span class="check">&#10003;</span> Client-side instant search by name, code, district (8 results)</td>
+        <td><span class="check">&#10003;</span> Server-side search with autocomplete, personalized results</td>
+      </tr>
+      <tr>
+        <td>College Filters</td>
+        <td><span class="check">&#10003;</span> State, category, type, district, university, max fee, NAAC — all client-side real-time</td>
+        <td><span class="check">&#10003;</span> Location, stream, sub-stream, ranking, fees, cutoff, ownership, rating — server-side with URL persistence</td>
+      </tr>
+      <tr>
+        <td>Sorting</td>
+        <td><span class="check">&#10003;</span> 6 options: Name, Fee ↑↓, Placements, CSE Cutoff, NIRF Rank</td>
+        <td><span class="check">&#10003;</span> Popularity, ranking, fees, cutoff, user rating</td>
+      </tr>
+      <tr>
+        <td>College Detail Page</td>
+        <td><span class="check">&#10003;</span> 4-tab layout: Overview, Fees &amp; Courses, Cutoffs, Placements + Related Colleges</td>
+        <td><span class="check">&#10003;</span> Comprehensive page: Overview, Courses, Fees, Admissions, Cutoffs, Placements, Reviews, Gallery, Q&amp;A, News</td>
+      </tr>
+      <tr>
+        <td>College Comparison</td>
+        <td><span class="check">&#10003;</span> 2–4 colleges, side-by-side with best-value highlights</td>
+        <td><span class="check">&#10003;</span> Multi-college compare with detailed attribute tables</td>
+      </tr>
+      <tr>
+        <td>Rank Predictor</td>
+        <td><span class="check">&#10003;</span> EAPCET-specific with Safe / Moderate / Reach badges, category-wise AP cutoffs</td>
+        <td><span class="check">&#10003;</span> Multi-exam: JEE Main, NEET, CAT, etc. Algorithm-based probability scoring</td>
+      </tr>
+      <tr>
+        <td>Student Reviews</td>
+        <td><span class="cross">&#10007;</span> Not available</td>
+        <td><span class="check">&#10003;</span> 55,000+ verified student reviews and ratings</td>
+      </tr>
+      <tr>
+        <td>Q&amp;A / Forums</td>
+        <td><span class="cross">&#10007;</span> Not available</td>
+        <td><span class="check">&#10003;</span> Community Q&amp;A forum with expert answers</td>
+      </tr>
+      <tr>
+        <td>User Accounts</td>
+        <td><span class="cross">&#10007;</span> Not available — stateless browsing</td>
+        <td><span class="check">&#10003;</span> Profiles, saved colleges, synced preferences, notifications</td>
+      </tr>
+      <tr>
+        <td>Exam Prep / Mock Tests</td>
+        <td><span class="cross">&#10007;</span> Not available</td>
+        <td><span class="check">&#10003;</span> Mock tests, syllabus, exam tips</td>
+      </tr>
+      <tr>
+        <td>News &amp; Alerts</td>
+        <td><span class="cross">&#10007;</span> Not available</td>
+        <td><span class="check">&#10003;</span> Exam alerts, admission deadlines, college news</td>
+      </tr>
+      <tr>
+        <td>Career Counselling</td>
+        <td><span class="cross">&#10007;</span> Not available</td>
+        <td><span class="check">&#10003;</span> Expert counsellor connections</td>
+      </tr>
+      <tr>
+        <td>Virtual Campus Tours</td>
+        <td><span class="cross">&#10007;</span> Not available</td>
+        <td><span class="check">&#10003;</span> Virtual tours and gallery</td>
+      </tr>
+      <tr>
+        <td>Mobile App</td>
+        <td><span class="cross">&#10007;</span> Web only (responsive)</td>
+        <td><span class="check">&#10003;</span> Native iOS &amp; Android apps</td>
+      </tr>
+      <tr>
+        <td>Scholarship Info</td>
+        <td><span class="cross">&#10007;</span> Not available</td>
+        <td><span class="check">&#10003;</span> Scholarship search and guidance</td>
+      </tr>
+      <tr>
+        <td>Programs Directory</td>
+        <td><span class="check">&#10003;</span> Grouped by category with fee range, college count, and detailed program pages</td>
+        <td><span class="check">&#10003;</span> Extensive course catalog across all streams</td>
+      </tr>
+      <tr>
+        <td>Government Order Links</td>
+        <td><span class="check">&#10003;</span> Direct links to official G.O.s for fee verification</td>
+        <td><span class="cross">&#10007;</span> Not linked to source documents</td>
+      </tr>
+      <tr>
+        <td>Category-Wise Cutoffs</td>
+        <td><span class="check">&#10003;</span> Detailed OC, SC, ST, OBC, Muslim Minority breakdowns for AP</td>
+        <td><span class="partial">~</span> General cutoff data; less granular caste-wise breakdowns</td>
+      </tr>
+      <tr>
+        <td>Data Transparency</td>
+        <td><span class="check">&#10003;</span> All data sourced from official govt records; explicitly no lead gen</td>
+        <td><span class="partial">~</span> Mix of sources; revenue model includes selling student leads</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ===== 3. USER FLOW COMPARISON ===== -->
+  <div class="section">
+    <h2>3. User Flow Comparison — Key Journeys</h2>
+
+    <div class="flow-header">
+      <div class="tc-h">TeluguColleges.com</div>
+      <div class="cd-h">CollegeDunia.com</div>
+    </div>
+
+    <div class="flow-label">Journey A: "Find the right college for my EAPCET rank"</div>
+    <div class="flow-row">
+      <div class="flow-cell tc-cell">
+        <div class="step"><span class="step-num">1</span><span class="step-text">Land on Home page</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">2</span><span class="step-text">Click "EAPCET Predictor" CTA</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">3</span><span class="step-text">Enter rank, category, branch, state</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">4</span><span class="step-text">See results with Safe / Moderate / Reach badges</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">5</span><span class="step-text">Click college &rarr; Detail page (fees, cutoffs, placements)</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">6</span><span class="step-text">Compare shortlisted colleges side-by-side</span></div>
+        <p style="margin-top:8px; font-size:12px; color:#059669; font-weight:600;">&#9679; 3 clicks to results &bull; No login required &bull; Official cutoff data</p>
+      </div>
+      <div class="flow-cell">
+        <div class="step"><span class="step-num">1</span><span class="step-text">Land on Home page</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">2</span><span class="step-text">Find "College Predictor" in navigation</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">3</span><span class="step-text">Select exam type from 450+ options</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">4</span><span class="step-text">Enter score/rank + preferences</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">5</span><span class="step-text">Prompted to sign up / log in for full results</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">6</span><span class="step-text">View probability-scored results</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">7</span><span class="step-text">Click college &rarr; Heavy detail page (may show ads / apply CTAs)</span></div>
+        <p style="margin-top:8px; font-size:12px; color:#E11D48; font-weight:600;">&#9679; More steps &bull; Login wall &bull; Lead-gen apply buttons</p>
+      </div>
+    </div>
+
+    <div class="flow-label">Journey B: "Browse engineering colleges in my state"</div>
+    <div class="flow-row">
+      <div class="flow-cell tc-cell">
+        <div class="step"><span class="step-num">1</span><span class="step-text">Home &rarr; "Engineering" category card</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">2</span><span class="step-text">Colleges page with instant client-side filters</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">3</span><span class="step-text">Toggle state (AP / TS), refine by type, fee, NAAC</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">4</span><span class="step-text">Grouped view by college type — all data visible on card</span></div>
+        <p style="margin-top:8px; font-size:12px; color:#059669; font-weight:600;">&#9679; Instant filtering &bull; No page reloads &bull; Clean cards</p>
+      </div>
+      <div class="flow-cell">
+        <div class="step"><span class="step-num">1</span><span class="step-text">Home &rarr; "Engineering" from top nav dropdown</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">2</span><span class="step-text">Server-rendered listing with sidebar filters</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">3</span><span class="step-text">Filter by state, city, fees, ranking — page reload each time</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">4</span><span class="step-text">Paginated results with sponsored listings mixed in</span></div>
+        <p style="margin-top:8px; font-size:12px; color:#E11D48; font-weight:600;">&#9679; Server-side (slower) &bull; Pagination &bull; Ads in results</p>
+      </div>
+    </div>
+
+    <div class="flow-label">Journey C: "Research a specific college"</div>
+    <div class="flow-row">
+      <div class="flow-cell tc-cell">
+        <div class="step"><span class="step-num">1</span><span class="step-text">Type in search bar (navbar) &rarr; instant dropdown</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">2</span><span class="step-text">Click college &rarr; Clean 4-tab detail page</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">3</span><span class="step-text">View official fees (linked to G.O.), verified cutoffs, placement data</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">4</span><span class="step-text">Browse 4 related colleges with similar profiles</span></div>
+        <p style="margin-top:8px; font-size:12px; color:#059669; font-weight:600;">&#9679; Fast &bull; Ad-free &bull; Verifiable data</p>
+      </div>
+      <div class="flow-cell">
+        <div class="step"><span class="step-num">1</span><span class="step-text">Type in search &rarr; autocomplete suggestions</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">2</span><span class="step-text">Click college &rarr; Long scrolling page with 10+ sections</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">3</span><span class="step-text">Fees, cutoffs, placements + reviews, Q&amp;A, gallery, news, courses</span></div>
+        <div class="arrow">&#8595;</div>
+        <div class="step"><span class="step-num">4</span><span class="step-text">"Apply Now" CTAs, brochure downloads (lead capture), counsellor popups</span></div>
+        <p style="margin-top:8px; font-size:12px; color:#D97706; font-weight:600;">&#9679; More content &bull; But cluttered with conversion elements</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 4. STRENGTHS & GAPS ===== -->
+  <div class="section">
+    <h2>4. Where TeluguColleges.com Wins</h2>
+    <div class="card-grid">
+      <div class="card strength">
+        <h3>Trust &amp; Transparency</h3>
+        <ul>
+          <li>All data traced to official government orders with direct links</li>
+          <li>No sponsored listings or paid placements — results are unbiased</li>
+          <li>No lead generation — student data is never sold</li>
+          <li>CollegeDunia has <a href="https://www.trustpilot.com/review/collegedunia.com" style="color:var(--tc)">Trustpilot complaints</a> about unsolicited calls after applying</li>
+        </ul>
+      </div>
+      <div class="card strength">
+        <h3>Telugu State Depth</h3>
+        <ul>
+          <li>Category-wise EAPCET cutoffs (OC, SC, ST, OBC, Muslim Minorities) — CollegeDunia lacks this granularity</li>
+          <li>Historical AP cutoff trends (2022–2024) for pattern analysis</li>
+          <li>Safe / Moderate / Reach badges give clear, actionable guidance</li>
+          <li>Management quota fee data alongside G.O. fees</li>
+        </ul>
+      </div>
+      <div class="card strength">
+        <h3>Speed &amp; Simplicity</h3>
+        <ul>
+          <li>Client-side filtering — zero page reloads, instant results</li>
+          <li>3 clicks from homepage to EAPCET predictions (vs. 5+ on CollegeDunia)</li>
+          <li>No login walls, no popups, no "Apply Now" pressure</li>
+          <li>Clean, focused UI without ad clutter</li>
+        </ul>
+      </div>
+      <div class="card strength">
+        <h3>Student-First Design</h3>
+        <ul>
+          <li>Comparison tool highlights best values in green — instant visual decisions</li>
+          <li>Grouped college view by type gives natural hierarchy</li>
+          <li>Programs directory shows min/median/max fees at a glance</li>
+          <li>"Built for Telugu States" resonates with local audience</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>5. Feature Gaps — What CollegeDunia Has That We Don't</h2>
+    <table>
+      <tr><th style="width:24%">Missing Feature</th><th style="width:14%">Priority</th><th style="width:30%">Why It Matters</th><th style="width:32%">Recommendation</th></tr>
+      <tr>
+        <td>Student Reviews &amp; Ratings</td>
+        <td><span class="priority p-high">HIGH</span></td>
+        <td>Students heavily rely on peer experiences. CollegeDunia's 55K+ reviews are a major draw. This is the #1 reason users visit CollegeDunia over pure-data sites.</td>
+        <td>Start with curated, verified reviews. Even 2–3 per college adds massive value. Consider a moderated system to avoid fake reviews (a CollegeDunia weakness).</td>
+      </tr>
+      <tr>
+        <td>User Accounts &amp; Saved Colleges</td>
+        <td><span class="priority p-high">HIGH</span></td>
+        <td>College research spans days/weeks. Without saving, users lose their shortlist every session. This also limits personalization.</td>
+        <td>Simple bookmarking (localStorage first, then optional sign-up). Track which colleges users save to inform content priorities.</td>
+      </tr>
+      <tr>
+        <td>News &amp; Admission Alerts</td>
+        <td><span class="priority p-med">MEDIUM</span></td>
+        <td>Admission deadlines, EAPCET date changes, and fee revisions are time-sensitive. Students currently go to CollegeDunia or news sites for this.</td>
+        <td>A simple blog/news section with EAPCET and admission updates for AP &amp; TS. Low effort, high SEO value.</td>
+      </tr>
+      <tr>
+        <td>Q&amp;A / Community</td>
+        <td><span class="priority p-med">MEDIUM</span></td>
+        <td>Students ask hyper-specific questions ("Is hostel mandatory at JNTU Kakinada?"). Forums create sticky engagement and long-tail SEO.</td>
+        <td>Start with a curated FAQ per college. Full Q&amp;A forum is a larger investment — consider later phase.</td>
+      </tr>
+      <tr>
+        <td>Mobile App</td>
+        <td><span class="priority p-med">MEDIUM</span></td>
+        <td>Indian students overwhelmingly browse on mobile. A PWA or native app improves retention.</td>
+        <td>Prioritize PWA (add-to-homescreen + offline) before native app. The site is already responsive — this is incremental.</td>
+      </tr>
+      <tr>
+        <td>Scholarship Directory</td>
+        <td><span class="priority p-med">MEDIUM</span></td>
+        <td>Fee affordability is a core value prop. Scholarship info completes the financial picture.</td>
+        <td>Aggregate AP &amp; TS state scholarship data (Vidya Deevena, Vasathi Deevena, etc.) with eligibility criteria.</td>
+      </tr>
+      <tr>
+        <td>Exam Prep / Mock Tests</td>
+        <td><span class="priority p-low">LOW</span></td>
+        <td>Not core to the college discovery mission. Many free alternatives exist (Testbook, Embibe, etc.).</td>
+        <td>Skip for now. Link to external EAPCET prep resources instead.</td>
+      </tr>
+      <tr>
+        <td>Virtual Campus Tours</td>
+        <td><span class="priority p-low">LOW</span></td>
+        <td>Nice-to-have but low ROI. Most Indian colleges don't provide tour assets.</td>
+        <td>Deprioritize. Add campus photos when available, but don't build infrastructure for this.</td>
+      </tr>
+      <tr>
+        <td>Career Counselling</td>
+        <td><span class="priority p-low">LOW</span></td>
+        <td>CollegeDunia uses this as a lead-gen funnel (connects students to paid counsellors). Doesn't align with the no-lead-gen ethos.</td>
+        <td>Skip. Provide informational resources instead (branch-wise career paths, avg salaries by program).</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ===== 6. STRATEGIC SUMMARY ===== -->
+  <div class="section">
+    <h2>6. Strategic Summary</h2>
+    <div class="card-grid">
+      <div class="card opportunity">
+        <h3>TeluguColleges.com Positioning</h3>
+        <p>You don't need to be CollegeDunia. Your moat is <strong>depth over breadth</strong> — deep, verified, government-sourced data for Telugu state students specifically. CollegeDunia tries to cover all of India and spreads thin; you can go deeper for AP &amp; TS than they ever will.</p>
+      </div>
+      <div class="card opportunity">
+        <h3>Key Competitive Advantages to Protect</h3>
+        <ul>
+          <li><strong>Trust:</strong> No ads, no lead gen, no sponsored results</li>
+          <li><strong>Accuracy:</strong> Official G.O.-linked fee data</li>
+          <li><strong>Specificity:</strong> Caste-wise cutoffs, management quota fees</li>
+          <li><strong>Speed:</strong> Instant client-side filtering vs. slow server pages</li>
+        </ul>
+      </div>
+      <div class="card opportunity">
+        <h3>Top 3 Features to Build Next</h3>
+        <ul>
+          <li><strong>1. Student Reviews</strong> — Biggest engagement gap; even a small number adds massive credibility</li>
+          <li><strong>2. Save/Bookmark Colleges</strong> — Low effort, high retention impact</li>
+          <li><strong>3. News &amp; Alerts</strong> — Drives repeat visits and SEO; focuses on AP/TS-specific updates</li>
+        </ul>
+      </div>
+      <div class="card opportunity">
+        <h3>What NOT to Copy from CollegeDunia</h3>
+        <ul>
+          <li>Lead generation / selling student data</li>
+          <li>Sponsored listings that bias search results</li>
+          <li>"Apply Now" popups and pressure tactics</li>
+          <li>Incentivized fake reviews</li>
+          <li>Login walls blocking access to predictions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Internal document &mdash; TeluguColleges.com vs CollegeDunia.com Analysis &mdash; March 2026</p>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,2 @@
+:HL["/_next/static/chunks/bbdb53175246c1ac.css","style"]
+0:{"buildId":"wNatF_4kCtdZPOMrvXIth","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"compare","paramType":null,"paramKey":"compare","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}

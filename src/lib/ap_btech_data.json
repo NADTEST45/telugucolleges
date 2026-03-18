@@ -1,0 +1,1472 @@
+[
+  {
+    "sno": 1,
+    "code": "ABRK",
+    "name": "ABR College of Engg and Technology - Kanigiri",
+    "district": "PKS",
+    "fee": 42100
+  },
+  {
+    "sno": 2,
+    "code": "ACEE",
+    "name": "Adarsh College of Engineering - Gollaprolu",
+    "district": "KKD",
+    "fee": 40000
+  },
+  {
+    "sno": 3,
+    "code": "ACEM",
+    "name": "Aditya College of Engineering - Madanapalle",
+    "district": "ANM",
+    "fee": 40000
+  },
+  {
+    "sno": 4,
+    "code": "ACES",
+    "name": "Aditya College of Engineering - Peddapuram",
+    "district": "KKD",
+    "fee": 52800
+  },
+  {
+    "sno": 5,
+    "code": "ACET",
+    "name": "Aditya College of Engineering and Technology - Peddapuram",
+    "district": "KKD",
+    "fee": 53500
+  },
+  {
+    "sno": 6,
+    "code": "ADIT",
+    "name": "Aditya Institute of Technology and Mgmt - Tekkali",
+    "district": "SKL",
+    "fee": 79600
+  },
+  {
+    "sno": 7,
+    "code": "ADTP",
+    "name": "Aditya Engineering College - Peddapuram",
+    "district": "KKD",
+    "fee": 93700
+  },
+  {
+    "sno": 8,
+    "code": "AECN",
+    "name": "Andhra Engineering College - Atmakur N",
+    "district": "NLR",
+    "fee": 40000
+  },
+  {
+    "sno": 9,
+    "code": "AITK",
+    "name": "Annamacharya Inst of Tech and Sci - Kadapa",
+    "district": "KDP",
+    "fee": 40000
+  },
+  {
+    "sno": 10,
+    "code": "AITS",
+    "name": "Annamacharya Inst of Technology and Sciences - Rajampeta",
+    "district": "ANM",
+    "fee": 40000
+  },
+  {
+    "sno": 11,
+    "code": "AITT",
+    "name": "Annamacharya Inst of Technology and Sciences - Tirupathi",
+    "district": "TPT",
+    "fee": 40000
+  },
+  {
+    "sno": 12,
+    "code": "ALIT",
+    "name": "Andhra Loyola Instt of Engg and Technology - Vijayawada",
+    "district": "NTR",
+    "fee": 50700
+  },
+  {
+    "sno": 13,
+    "code": "ALTS",
+    "name": "Anantha Lakshmi Inst of Technology and Sci - Anantapuramu",
+    "district": "ATP",
+    "fee": 50200
+  },
+  {
+    "sno": 14,
+    "code": "AMRN",
+    "name": "A.M.Reddy Memorial Coll. of Engineering - Narsaraopet",
+    "district": "PLN",
+    "fee": 40000
+  },
+  {
+    "sno": 15,
+    "code": "ANIL",
+    "name": "Anil Neerukonda Institute of Technology and Sci - Bheemunipatnam",
+    "district": "VSP",
+    "fee": 84100
+  },
+  {
+    "sno": 16,
+    "code": "ANSN",
+    "name": "St. Anns College of Engg. and Technology - Chirala",
+    "district": "BPT",
+    "fee": 56800
+  },
+  {
+    "sno": 17,
+    "code": "ARTB",
+    "name": "Avanthis Research and Technological Academy - Bhogapuram",
+    "district": "VZM",
+    "fee": 40000
+  },
+  {
+    "sno": 18,
+    "code": "ASIP",
+    "name": "Amrita Sai Inst. of Science and Technology - Paritala",
+    "district": "NTR",
+    "fee": 52900
+  },
+  {
+    "sno": 19,
+    "code": "ASKW",
+    "name": "Ashoka Womens Engineering College - Kurnool",
+    "district": "KNL",
+    "fee": 50000
+  },
+  {
+    "sno": 20,
+    "code": "ASTC",
+    "name": "Avanthis St Theressa Institute of Engg and Technology - Cheepurupalli",
+    "district": "VZM",
+    "fee": 40000
+  },
+  {
+    "sno": 21,
+    "code": "ASVR",
+    "name": "SVR Engineering College - Nandyal",
+    "district": "NDL",
+    "fee": 40000
+  },
+  {
+    "sno": 22,
+    "code": "AVEN",
+    "name": "Avanthi Institute of Engg. and Technology - Narsipatnam",
+    "district": "AKP",
+    "fee": 40000
+  },
+  {
+    "sno": 23,
+    "code": "AVEV",
+    "name": "Avanthi Inst. of Engineering and Technology - Bhogapuram",
+    "district": "VZM",
+    "fee": 40000
+  },
+  {
+    "sno": 24,
+    "code": "BABA",
+    "name": "Baba Inst of Tech and Sciences - Visakhapatnam",
+    "district": "VSP",
+    "fee": 40000
+  },
+  {
+    "sno": 25,
+    "code": "BECB",
+    "name": "Bapatla Engineering College - Bapatla",
+    "district": "BPT",
+    "fee": 84900
+  },
+  {
+    "sno": 26,
+    "code": "BEMA",
+    "name": "Bheema Inst of Technology and Sci - Adoni",
+    "district": "KNL",
+    "fee": 40000
+  },
+  {
+    "sno": 27,
+    "code": "BRNK",
+    "name": "Brindavan Inst of Technology and Sci - Kurnool",
+    "district": "KNL",
+    "fee": 40000
+  },
+  {
+    "sno": 28,
+    "code": "BVCE",
+    "name": "B V Chalamaiah Engineering College - Odalarevu",
+    "district": "KON",
+    "fee": 48800
+  },
+  {
+    "sno": 29,
+    "code": "BVCR",
+    "name": "BVC Engineering College - Rajahmundry",
+    "district": "EG",
+    "fee": 40000
+  },
+  {
+    "sno": 30,
+    "code": "BVRM",
+    "name": "Bhimavaram Inst. of Engg. and Technology - Bhimavaram",
+    "district": "WG",
+    "fee": 40000
+  },
+  {
+    "sno": 31,
+    "code": "BVSR",
+    "name": "BVSR Engineering College - Chimakurthy",
+    "district": "PKS",
+    "fee": 40000
+  },
+  {
+    "sno": 32,
+    "code": "BVTS",
+    "name": "Bonam Venkata Chalamaiah Inst. of Tech and Sci. - Amalapuram",
+    "district": "KON",
+    "fee": 52800
+  },
+  {
+    "sno": 33,
+    "code": "BWEC",
+    "name": "Bapatla Womens Engg College - Bapatla",
+    "district": "BPT",
+    "fee": 40000
+  },
+  {
+    "sno": 34,
+    "code": "CBIT",
+    "name": "Chaitanya Bharathi Institute of Technology - Pallavolu",
+    "district": "KDP",
+    "fee": 54500
+  },
+  {
+    "sno": 35,
+    "code": "CECC",
+    "name": "Chirala Engineering College - Chirala",
+    "district": "BPT",
+    "fee": 40000
+  },
+  {
+    "sno": 36,
+    "code": "CEVP",
+    "name": "Chaitanya Engineering College - Visakhapatnam",
+    "district": "VSP",
+    "fee": 40000
+  },
+  {
+    "sno": 37,
+    "code": "CHBR",
+    "name": "Chebrolu Engineering College - Guntur",
+    "district": "PLN",
+    "fee": 40000
+  },
+  {
+    "sno": 38,
+    "code": "CHDL",
+    "name": "Chadalawada Ramanamma Engg. College - Tirupathi",
+    "district": "TPT",
+    "fee": 55600
+  },
+  {
+    "sno": 39,
+    "code": "CHKN",
+    "name": "Chaitanya Inst. of Sci. and Technology - Kakinada",
+    "district": "KKD",
+    "fee": 40000
+  },
+  {
+    "sno": 40,
+    "code": "CIET",
+    "name": "Chalapathi Inst of Engg and Technology - Guntur",
+    "district": "GTR",
+    "fee": 40000
+  },
+  {
+    "sno": 41,
+    "code": "CITY",
+    "name": "Chalapathi Inst of Technology - Guntur",
+    "district": "GTR",
+    "fee": 40000
+  },
+  {
+    "sno": 42,
+    "code": "CRIT",
+    "name": "Chiranjivi Reddy Inst of Engg and Technology - Anantapuramu",
+    "district": "ATP",
+    "fee": 40000
+  },
+  {
+    "sno": 43,
+    "code": "CRRE",
+    "name": "Sir C R R College of Engineering - Eluru",
+    "district": "ELU",
+    "fee": 54200
+  },
+  {
+    "sno": 44,
+    "code": "CVRT",
+    "name": "Sir C.V Raman Inst of Technology Sciences - Tadipatri",
+    "district": "ATP",
+    "fee": 40000
+  },
+  {
+    "sno": 45,
+    "code": "DHAN",
+    "name": "Dhanekula Inst of Engg Technology - Vijayawada",
+    "district": "KRI",
+    "fee": 40000
+  },
+  {
+    "sno": 46,
+    "code": "DIET",
+    "name": "Dadi Instt. of Engineering and Technology - Anakapalle",
+    "district": "AKP",
+    "fee": 47400
+  },
+  {
+    "sno": 47,
+    "code": "DJRC",
+    "name": "Sri Chaitanya DJR Coll of Engg and Tech - Vijayawada",
+    "district": "KRI",
+    "fee": 40000
+  },
+  {
+    "sno": 48,
+    "code": "DLBC",
+    "name": "Dr L Bullayya College of Engineering - Visakhapatnam",
+    "district": "VSP",
+    "fee": 46700
+  },
+  {
+    "sno": 49,
+    "code": "DNRE",
+    "name": "DNR College of Engg and Tech - Bhimavaram",
+    "district": "WG",
+    "fee": 60000
+  },
+  {
+    "sno": 50,
+    "code": "DSIT",
+    "name": "D.B.S.Inst of Technology - Kavali",
+    "district": "NLR",
+    "fee": 40000
+  },
+  {
+    "sno": 51,
+    "code": "ELRU",
+    "name": "Eluru College of Engg and Technology - Eluru",
+    "district": "WG",
+    "fee": 40000
+  },
+  {
+    "sno": 52,
+    "code": "ESWR",
+    "name": "Eswar College of Engineering - Narsaraopet",
+    "district": "PLN",
+    "fee": 40000
+  },
+  {
+    "sno": 53,
+    "code": "GATE",
+    "name": "Gates Institute of Technology - Gooty",
+    "district": "ATP",
+    "fee": 40000
+  },
+  {
+    "sno": 54,
+    "code": "GDLV",
+    "name": "Seshadri Rao Gudlavalleru Engineering College - Gudlavalleru",
+    "district": "KRI",
+    "fee": 74600
+  },
+  {
+    "sno": 55,
+    "code": "GDMM",
+    "name": "G.D.M.M. Coll of Engg and Technology - Nandigama",
+    "district": "NTR",
+    "fee": 40000
+  },
+  {
+    "sno": 56,
+    "code": "GECG",
+    "name": "Guntur Engineering College - Guntur",
+    "district": "GTR",
+    "fee": 40000
+  },
+  {
+    "sno": 57,
+    "code": "GIER",
+    "name": "Godavari Institute of Engg. and Technology - Rajahmundry",
+    "district": "EG",
+    "fee": 76700
+  },
+  {
+    "sno": 58,
+    "code": "GIET",
+    "name": "GIET Engineering College - Rajahmundry",
+    "district": "EG",
+    "fee": 51000
+  },
+  {
+    "sno": 59,
+    "code": "GITS",
+    "name": "Gonna Inst of Info Technology Sciences - Visakhapatnam",
+    "district": "AKP",
+    "fee": 46300
+  },
+  {
+    "sno": 60,
+    "code": "GKCS",
+    "name": "Gokula Krishna College of Engineering - Sullurpet",
+    "district": "NLR",
+    "fee": 40000
+  },
+  {
+    "sno": 61,
+    "code": "GLIM",
+    "name": "A1 Global Inst of Engg Technology - Markapur",
+    "district": "PKS",
+    "fee": 40000
+  },
+  {
+    "sno": 62,
+    "code": "GMRI",
+    "name": "G M R Institute of Technology - Rajam",
+    "district": "VZM",
+    "fee": 77800
+  },
+  {
+    "sno": 63,
+    "code": "GPRE",
+    "name": "G P R Engineering College - Kurnool",
+    "district": "KNL",
+    "fee": 84000
+  },
+  {
+    "sno": 64,
+    "code": "GTMW",
+    "name": "Gouthami Inst of Technology Mgmt for Women - Proddatur",
+    "district": "KDP",
+    "fee": 40000
+  },
+  {
+    "sno": 65,
+    "code": "GTNN",
+    "name": "Geethanjali Inst of Science and Technology - Nellore",
+    "district": "NLR",
+    "fee": 55200
+  },
+  {
+    "sno": 66,
+    "code": "GVIC",
+    "name": "Golden Valley Integrated Campus - Madanapalle",
+    "district": "ANM",
+    "fee": 46700
+  },
+  {
+    "sno": 67,
+    "code": "GVPE",
+    "name": "Gayathri Vidya Parishad Coll. of Engineering - Visakhapatnam",
+    "district": "VSP",
+    "fee": 105000
+  },
+  {
+    "sno": 68,
+    "code": "GVPT",
+    "name": "G V P College for Degree and PG Courses - Visakhapatnam",
+    "district": "VSP",
+    "fee": 92400
+  },
+  {
+    "sno": 69,
+    "code": "GVPW",
+    "name": "Gayathri Vidya Parishad Coll of Engg for Women - Visakhapatnam",
+    "district": "VSP",
+    "fee": 105000
+  },
+  {
+    "sno": 70,
+    "code": "GVRS",
+    "name": "G V R and S College of Engg. and Technology - Guntur",
+    "district": "GTR",
+    "fee": 40000
+  },
+  {
+    "sno": 71,
+    "code": "HIND",
+    "name": "Hindu College of Engineering and Technology - Guntur",
+    "district": "GTR",
+    "fee": 40000
+  },
+  {
+    "sno": 72,
+    "code": "HITE",
+    "name": "Helapuri Inst of Tech and Science - Eluru",
+    "district": "ELU",
+    "fee": 40000
+  },
+  {
+    "sno": 73,
+    "code": "IDEL",
+    "name": "Ideal Institute of Technology - Kakinada",
+    "district": "KKD",
+    "fee": 40000
+  },
+  {
+    "sno": 74,
+    "code": "IITM",
+    "name": "Indira Inst of Technology Sci - Markapur",
+    "district": "PKS",
+    "fee": 40000
+  },
+  {
+    "sno": 75,
+    "code": "ISTS",
+    "name": "International School of Tech and Sci for Women - Rajahmundry",
+    "district": "EG",
+    "fee": 51100
+  },
+  {
+    "sno": 76,
+    "code": "JGNN",
+    "name": "Jagans College of Engg and Technology - Nellore",
+    "district": "NLR",
+    "fee": 40000
+  },
+  {
+    "sno": 77,
+    "code": "JONY",
+    "name": "St. Johns College of Engg. and Technology - Yemmiganoor",
+    "district": "KNL",
+    "fee": 40000
+  },
+  {
+    "sno": 78,
+    "code": "KCIT",
+    "name": "Krishna Chaitanya Inst of Technology and Sciences - Markapur",
+    "district": "PKS",
+    "fee": 40000
+  },
+  {
+    "sno": 79,
+    "code": "KECW",
+    "name": "Krishnaveni Engg College for Women - Narsaraopet",
+    "district": "PLN",
+    "fee": 40000
+  },
+  {
+    "sno": 80,
+    "code": "KHIT",
+    "name": "Kallam Haranadh Reddy Inst of Tech - Guntur",
+    "district": "GTR",
+    "fee": 40500
+  },
+  {
+    "sno": 81,
+    "code": "KIEK",
+    "name": "Kakinada Institute of Engg. and Technology - Kakinada",
+    "district": "KKD",
+    "fee": 40000
+  },
+  {
+    "sno": 82,
+    "code": "KIET",
+    "name": "Kakinada Institute of Engg. and Technology - Kakinada",
+    "district": "KKD",
+    "fee": 52400
+  },
+  {
+    "sno": 83,
+    "code": "KIEW",
+    "name": "Kakinada Inst of Engg and Technology for Women - Kakinada",
+    "district": "KKD",
+    "fee": 40000
+  },
+  {
+    "sno": 84,
+    "code": "KISR",
+    "name": "Kakinada Institute of Technology Sciences - Ramachandrapuram",
+    "district": "KON",
+    "fee": 40000
+  },
+  {
+    "sno": 85,
+    "code": "KITS",
+    "name": "KKR and KSR Inst of Technology and Sci - Guntur",
+    "district": "GTR",
+    "fee": 40900
+  },
+  {
+    "sno": 86,
+    "code": "KLMW",
+    "name": "K.Lakshumma Memorial College of Engg for Women - Kadapa",
+    "district": "KDP",
+    "fee": 40000
+  },
+  {
+    "sno": 87,
+    "code": "KMMT",
+    "name": "KMM Inst of Technology and Science - Tirupathi",
+    "district": "TPT",
+    "fee": 40000
+  },
+  {
+    "sno": 88,
+    "code": "KORK",
+    "name": "Kandula Obul Reddy Memorial Coll. of Engg. - Kadapa",
+    "district": "KDP",
+    "fee": 40000
+  },
+  {
+    "sno": 89,
+    "code": "KSRM",
+    "name": "K S R M College of Engineering - Kadapa",
+    "district": "KDP",
+    "fee": 69600
+  },
+  {
+    "sno": 90,
+    "code": "KTSP",
+    "name": "Kakinada Institute of Technology and Science - Divili",
+    "district": "KKD",
+    "fee": 40000
+  },
+  {
+    "sno": 91,
+    "code": "KUPM",
+    "name": "Kuppam Engineering College - Kuppam",
+    "district": "CTR",
+    "fee": 40000
+  },
+  {
+    "sno": 92,
+    "code": "KVSR",
+    "name": "Dr.K.V.Subba Reddy Inst. of Technology - Kurnool",
+    "district": "KNL",
+    "fee": 45700
+  },
+  {
+    "sno": 93,
+    "code": "LBCE",
+    "name": "Lakireddy Balireddy College of Engineering - Mylavaram",
+    "district": "NTR",
+    "fee": 78600
+  },
+  {
+    "sno": 94,
+    "code": "LENO",
+    "name": "Lenora College of Engineering - Rampachodavaram",
+    "district": "ASR",
+    "fee": 40000
+  },
+  {
+    "sno": 95,
+    "code": "LIET",
+    "name": "Lendi Inst of Engg and Technology - Vizianagaram",
+    "district": "VZM",
+    "fee": 62300
+  },
+  {
+    "sno": 96,
+    "code": "LIMT",
+    "name": "Lingayas Inst of Mgmt and Technology - Vijayawada",
+    "district": "KRI",
+    "fee": 53300
+  },
+  {
+    "sno": 97,
+    "code": "LOYL",
+    "name": "Loyola Institute of Technology and Mgmt - Sattenapally",
+    "district": "PLN",
+    "fee": 40000
+  },
+  {
+    "sno": 98,
+    "code": "MICT",
+    "name": "DVR and Dr.HS MIC College of Technology - Kanchikacherla",
+    "district": "NTR",
+    "fee": 40000
+  },
+  {
+    "sno": 99,
+    "code": "MIET",
+    "name": "Mandava Institute of Engg and Technology - Jaggaiahpeta",
+    "district": "NTR",
+    "fee": 40000
+  },
+  {
+    "sno": 100,
+    "code": "MITS",
+    "name": "Madanapally Institute of Technology and Sci - Madanapalle",
+    "district": "ANM",
+    "fee": 67800
+  },
+  {
+    "sno": 101,
+    "code": "MJRT",
+    "name": "MJR College of Engg and Technology - Piler",
+    "district": "CTR",
+    "fee": 40000
+  },
+  {
+    "sno": 102,
+    "code": "MLEW",
+    "name": "Malineni Lakshmaiah Womens Engg. College - Guntur",
+    "district": "GTR",
+    "fee": 52100
+  },
+  {
+    "sno": 103,
+    "code": "MPLG",
+    "name": "Sri Mittapalli College of Engineering - Guntur",
+    "district": "GTR",
+    "fee": 40000
+  },
+  {
+    "sno": 104,
+    "code": "MPLW",
+    "name": "Sri Mittapalli iNst of Technology for Women - Guntur",
+    "district": "GTR",
+    "fee": 42500
+  },
+  {
+    "sno": 105,
+    "code": "MRCL",
+    "name": "Miracle EDNL Soc Group of Instns - Bhogapuram",
+    "district": "VZM",
+    "fee": 40000
+  },
+  {
+    "sno": 106,
+    "code": "MSEW",
+    "name": "Malineni Suseelamma Womens Engineering College - Prakasam",
+    "district": "PKS",
+    "fee": 40000
+  },
+  {
+    "sno": 107,
+    "code": "MTIE",
+    "name": "Mother Theresa Inst of Engg and Tech - Palamner",
+    "district": "CTR",
+    "fee": 57200
+  },
+  {
+    "sno": 108,
+    "code": "MVRG",
+    "name": "M V G R College of Engineering - Vizianagaram",
+    "district": "VZM",
+    "fee": 76900
+  },
+  {
+    "sno": 109,
+    "code": "MVRS",
+    "name": "M.V.R.Coll of Engineering and Technology - Paritala",
+    "district": "NTR",
+    "fee": 40000
+  },
+  {
+    "sno": 110,
+    "code": "NARN",
+    "name": "Narayana Engineering College - Nellore",
+    "district": "NLR",
+    "fee": 47200
+  },
+  {
+    "sno": 111,
+    "code": "NBKR",
+    "name": "NBKR Institute of Sci. and Technology - Vidyanagar",
+    "district": "TPT",
+    "fee": 46400
+  },
+  {
+    "sno": 112,
+    "code": "NEWS",
+    "name": "Newtons Inst of Sci and Tech - Macherla",
+    "district": "PLN",
+    "fee": 40000
+  },
+  {
+    "sno": 113,
+    "code": "NEWT",
+    "name": "Newton Institute of Engineering - Macherla",
+    "district": "PLN",
+    "fee": 40000
+  },
+  {
+    "sno": 114,
+    "code": "NIST",
+    "name": "Narayanadri Inst of Sci Technology - Kadapa",
+    "district": "ANM",
+    "fee": 40000
+  },
+  {
+    "sno": 115,
+    "code": "NMRE",
+    "name": "Nimra College of Engg and Technology - Jupudi",
+    "district": "NTR",
+    "fee": 40000
+  },
+  {
+    "sno": 116,
+    "code": "NRIA",
+    "name": "NRI Institute of Technology - Agiripally",
+    "district": "NTR",
+    "fee": 55000
+  },
+  {
+    "sno": 117,
+    "code": "NRIT",
+    "name": "NRI Instt of Technology - Guntur",
+    "district": "GTR",
+    "fee": 40000
+  },
+  {
+    "sno": 118,
+    "code": "NRNG",
+    "name": "Narayana Engineering College - Gudur",
+    "district": "TPT",
+    "fee": 40000
+  },
+  {
+    "sno": 119,
+    "code": "NSPE",
+    "name": "Narsaropeta Engineering College - Narsaraopet",
+    "district": "PLN",
+    "fee": 73800
+  },
+  {
+    "sno": 120,
+    "code": "NSRT",
+    "name": "Nadimpalli Satyanarayana Raju Institute of Technology - Visakhapatnam",
+    "district": "VSP",
+    "fee": 40000
+  },
+  {
+    "sno": 121,
+    "code": "PACE",
+    "name": "Pace Institute of Technology and Sciences - Ongole",
+    "district": "PKS",
+    "fee": 43600
+  },
+  {
+    "sno": 122,
+    "code": "PCEK",
+    "name": "G.Pullaiah Coll. of Engg. and Technology - Kurnool",
+    "district": "KNL",
+    "fee": 60900
+  },
+  {
+    "sno": 123,
+    "code": "PIIT",
+    "name": "Priyadarshini Inst of Tech and Mgmt - Guntur",
+    "district": "GTR",
+    "fee": 40000
+  },
+  {
+    "sno": 124,
+    "code": "PITT",
+    "name": "Priyadarshini Inst. of Technology and Sciences - Tenali",
+    "district": "GTR",
+    "fee": 40000
+  },
+  {
+    "sno": 125,
+    "code": "PITW",
+    "name": "Priyadarshini Inst. of Tech and Sciences for Women - Tenali",
+    "district": "GTR",
+    "fee": 40000
+  },
+  {
+    "sno": 126,
+    "code": "PKSK",
+    "name": "Prakasam Engineering College - Kandkur",
+    "district": "NLR",
+    "fee": 40000
+  },
+  {
+    "sno": 127,
+    "code": "PPDV",
+    "name": "Paladugu Parvathi Devi College of Engg and Tech - Vijayawada",
+    "district": "KRI",
+    "fee": 40000
+  },
+  {
+    "sno": 128,
+    "code": "PPSV",
+    "name": "Prasad V Potluri Siddhartha Instt of Technology - Vijayawada",
+    "district": "KRI",
+    "fee": 105000
+  },
+  {
+    "sno": 129,
+    "code": "PRAG",
+    "name": "Pragati Engineering College - Peddapuram",
+    "district": "KKD",
+    "fee": 77800
+  },
+  {
+    "sno": 130,
+    "code": "PREC",
+    "name": "Dr Paul Rajs Engineering College - Yetapaka",
+    "district": "ASR",
+    "fee": 40000
+  },
+  {
+    "sno": 131,
+    "code": "PSCV",
+    "name": "Potti Sriramulu College of Engg and Technology - Vijayawada",
+    "district": "NTR",
+    "fee": 54000
+  },
+  {
+    "sno": 132,
+    "code": "PVKK",
+    "name": "P.V.K.K. Institute of Technology - Anantapuramu",
+    "district": "ATP",
+    "fee": 40000
+  },
+  {
+    "sno": 133,
+    "code": "PYDE",
+    "name": "Pydah Coll of Engineering - Kakinada",
+    "district": "KKD",
+    "fee": 40000
+  },
+  {
+    "sno": 134,
+    "code": "QISE",
+    "name": "QIS College of Engg. and Technology - Ongole",
+    "district": "PKS",
+    "fee": 87600
+  },
+  {
+    "sno": 135,
+    "code": "QUBA",
+    "name": "Quba Coll of Engg and Technology - Nellore",
+    "district": "NLR",
+    "fee": 40000
+  },
+  {
+    "sno": 136,
+    "code": "RAGU",
+    "name": "Raghu Engineering College - Bheemunipatnam",
+    "district": "VSP",
+    "fee": 80800
+  },
+  {
+    "sno": 137,
+    "code": "RAVW",
+    "name": "Ravindra College of Engg for Women - Kurnool",
+    "district": "KNL",
+    "fee": 40000
+  },
+  {
+    "sno": 138,
+    "code": "RCEE",
+    "name": "Ramachandra College of Engineering - Eluru",
+    "district": "ELU",
+    "fee": 60200
+  },
+  {
+    "sno": 139,
+    "code": "RGAN",
+    "name": "Rise Krishna Sai Gandhi Group of Institutions - Ongole",
+    "district": "PKS",
+    "fee": 40000
+  },
+  {
+    "sno": 140,
+    "code": "RGIT",
+    "name": "Rajiv Gandhi Memorial College of Engg. and Tech. - Nandyal",
+    "district": "NDL",
+    "fee": 59400
+  },
+  {
+    "sno": 141,
+    "code": "RIET",
+    "name": "Rajamahendri Inst of Engg and Technology - Rajahmundry",
+    "district": "EG",
+    "fee": 41000
+  },
+  {
+    "sno": 142,
+    "code": "RKCE",
+    "name": "R.K.College of Engineering - Ibrahimpatnam",
+    "district": "NTR",
+    "fee": 40000
+  },
+  {
+    "sno": 143,
+    "code": "RPRA",
+    "name": "Rise Krishna Sai Prakasam Group of Institutions - Ongole",
+    "district": "PKS",
+    "fee": 40300
+  },
+  {
+    "sno": 144,
+    "code": "RSRN",
+    "name": "Ramireddy Subba Ramireddy Engg College - Nellore",
+    "district": "NLR",
+    "fee": 40000
+  },
+  {
+    "sno": 145,
+    "code": "RVJC",
+    "name": "R V R and J C College of Engineering - Guntur",
+    "district": "GTR",
+    "fee": 105000
+  },
+  {
+    "sno": 146,
+    "code": "SANK",
+    "name": "Audhisankara College of Engg. and Technology - Gudur",
+    "district": "NLR",
+    "fee": 61100
+  },
+  {
+    "sno": 147,
+    "code": "SASI",
+    "name": "Sasi Institute of Technology and Engineering - Tadepalligudem",
+    "district": "WG",
+    "fee": 40000
+  },
+  {
+    "sno": 148,
+    "code": "SAVE",
+    "name": "Sankethika Vidya Parishad Engineering College - Visakhapatnam",
+    "district": "VSP",
+    "fee": 40000
+  },
+  {
+    "sno": 149,
+    "code": "SDTN",
+    "name": "Siddharth Institute of Engg. and Technology - Puttur",
+    "district": "TPT",
+    "fee": 65400
+  },
+  {
+    "sno": 150,
+    "code": "SEAT",
+    "name": "Siddartha EDNL Academy Grp of Instns - Tirupathi",
+    "district": "TPT",
+    "fee": 60600
+  },
+  {
+    "sno": 151,
+    "code": "SGEC",
+    "name": "Sai Ganapathi Engineering College - Visakhapatnam",
+    "district": "VSP",
+    "fee": 45000
+  },
+  {
+    "sno": 152,
+    "code": "SGIT",
+    "name": "Dr Samuel George Institute of Engg. and Technology - Markapur",
+    "district": "PKS",
+    "fee": 40000
+  },
+  {
+    "sno": 153,
+    "code": "SGVP",
+    "name": "Satya Inst of Technology and Mgmt - Vizianagaram",
+    "district": "VZM",
+    "fee": 40000
+  },
+  {
+    "sno": 154,
+    "code": "SIEN",
+    "name": "Sri Sarathi Institute of Engg. and Technology - Nuzvid",
+    "district": "ELU",
+    "fee": 40000
+  },
+  {
+    "sno": 155,
+    "code": "SIMH",
+    "name": "Simhadri EDNL Soc Grp of Instns - Visakhapatnam",
+    "district": "AKP",
+    "fee": 40000
+  },
+  {
+    "sno": 156,
+    "code": "SIST",
+    "name": "Siddhartha Inst of Sci and Technology - Puttur",
+    "district": "TPT",
+    "fee": 52500
+  },
+  {
+    "sno": 157,
+    "code": "SMGG",
+    "name": "St.Marys Group of Institutions - Guntur",
+    "district": "GTR",
+    "fee": 40000
+  },
+  {
+    "sno": 158,
+    "code": "SREC",
+    "name": "Santhiram Engineering College - Nandyal",
+    "district": "NDL",
+    "fee": 46300
+  },
+  {
+    "sno": 159,
+    "code": "SRET",
+    "name": "Sree Rama Engineering College - Tirupathi",
+    "district": "TPT",
+    "fee": 51400
+  },
+  {
+    "sno": 160,
+    "code": "SRIN",
+    "name": "Srinivasa Inst of Engg and Technology - Cheyyeru",
+    "district": "KON",
+    "fee": 45700
+  },
+  {
+    "sno": 161,
+    "code": "SRIP",
+    "name": "Sai Rajeswari Institute of Technology - Proddatur",
+    "district": "KDP",
+    "fee": 50300
+  },
+  {
+    "sno": 162,
+    "code": "SRIT",
+    "name": "Srinivasa Ramanujan Inst of Technology - Anantapuramu",
+    "district": "ATP",
+    "fee": 49100
+  },
+  {
+    "sno": 163,
+    "code": "SRKI",
+    "name": "S R K Inst. of Technology - Vijayawada",
+    "district": "NTR",
+    "fee": 45600
+  },
+  {
+    "sno": 164,
+    "code": "SRKR",
+    "name": "S R K R Engineering College - Bhimavaram",
+    "district": "WG",
+    "fee": 105000
+  },
+  {
+    "sno": 165,
+    "code": "SRSR",
+    "name": "Sri Sai Institute of Technology and Sci. - Raychoti",
+    "district": "ANM",
+    "fee": 40000
+  },
+  {
+    "sno": 166,
+    "code": "SRTS",
+    "name": "Srinivasa Inst of Technology and Science - Kadapa",
+    "district": "KDP",
+    "fee": 40000
+  },
+  {
+    "sno": 167,
+    "code": "SSCC",
+    "name": "Srinivasa Institute of Technology and Mang Studies - Chittoor",
+    "district": "CTR",
+    "fee": 50300
+  },
+  {
+    "sno": 168,
+    "code": "SSCE",
+    "name": "Sri Sivani College of Engineering - Srikakulam",
+    "district": "SKL",
+    "fee": 40200
+  },
+  {
+    "sno": 169,
+    "code": "SSSE",
+    "name": "Sanskrithi School of Engineering - Puttaparthi",
+    "district": "SSS",
+    "fee": 40000
+  },
+  {
+    "sno": 170,
+    "code": "STEN",
+    "name": "Sai Tirumala N V R Engineering College - Narsaraopet",
+    "district": "PLN",
+    "fee": 40000
+  },
+  {
+    "sno": 171,
+    "code": "STMV",
+    "name": "Sankethika Inst of Technology Management - Visakhapatnam",
+    "district": "VSP",
+    "fee": 40000
+  },
+  {
+    "sno": 172,
+    "code": "STMW",
+    "name": "St.Marys Womens Engineering College - Guntur",
+    "district": "GTR",
+    "fee": 40000
+  },
+  {
+    "sno": 173,
+    "code": "SVCE",
+    "name": "Sri Venkateswara Coll of Engineering - Tirupathi",
+    "district": "TPT",
+    "fee": 74500
+  },
+  {
+    "sno": 174,
+    "code": "SVCK",
+    "name": "Sri Venkateswara College of Engineering - Kadapa",
+    "district": "KDP",
+    "fee": 47100
+  },
+  {
+    "sno": 175,
+    "code": "SVCN",
+    "name": "Sree Venkateswara Coll of Engg - Nellore",
+    "district": "NLR",
+    "fee": 43000
+  },
+  {
+    "sno": 176,
+    "code": "SVCT",
+    "name": "Sri Venkateswara College of Engg. and Technology - Chittoor",
+    "district": "CTR",
+    "fee": 71200
+  },
+  {
+    "sno": 177,
+    "code": "SVET",
+    "name": "Sri Vasavi Instt of Engineering and Technology - Pedana",
+    "district": "KRI",
+    "fee": 40000
+  },
+  {
+    "sno": 178,
+    "code": "SVHE",
+    "name": "D M S S V H College of Engineering - Machilipatnam",
+    "district": "KRI",
+    "fee": 40000
+  },
+  {
+    "sno": 179,
+    "code": "SVIK",
+    "name": "Sri Venkateswara Instt. of Science and Technology - Kadapa",
+    "district": "KDP",
+    "fee": 46800
+  },
+  {
+    "sno": 180,
+    "code": "SVIT",
+    "name": "Sri Venkateswara Inst of Technology - Anantapuramu",
+    "district": "ATP",
+    "fee": 40000
+  },
+  {
+    "sno": 181,
+    "code": "SVPP",
+    "name": "Sri Venkatesa Perumal College of Engg. and Tech - Puttur",
+    "district": "TPT",
+    "fee": 40900
+  },
+  {
+    "sno": 182,
+    "code": "SWRN",
+    "name": "Swarnandhra Coll. of Engg and Technology - Narsapuram",
+    "district": "WG",
+    "fee": 58700
+  },
+  {
+    "sno": 183,
+    "code": "TECH",
+    "name": "Tadipatri Engg College - Tadipatri",
+    "district": "ATP",
+    "fee": 52400
+  },
+  {
+    "sno": 184,
+    "code": "TMLN",
+    "name": "Tirumala Engineering College - Narsaraopet",
+    "district": "PLN",
+    "fee": 65800
+  },
+  {
+    "sno": 185,
+    "code": "UNIV",
+    "name": "Universal College of Engg and Technology - Guntur",
+    "district": "GTR",
+    "fee": 40000
+  },
+  {
+    "sno": 186,
+    "code": "URCE",
+    "name": "Usha Rama Coll of Engg and Technology - Telaprolu",
+    "district": "KRI",
+    "fee": 40000
+  },
+  {
+    "sno": 187,
+    "code": "VCTN",
+    "name": "Vikas College of Engineering and Technology - Vijayawada",
+    "district": "NTR",
+    "fee": 59000
+  },
+  {
+    "sno": 188,
+    "code": "VEMU",
+    "name": "Vemu Institute of Technology - Chittoor",
+    "district": "CTR",
+    "fee": 40000
+  },
+  {
+    "sno": 189,
+    "code": "VETS",
+    "name": "SR Venkateswara Coll of Engineering - Srikakulam",
+    "district": "SKL",
+    "fee": 40000
+  },
+  {
+    "sno": 190,
+    "code": "VGTN",
+    "name": "Vikas Group of Institutions - Vijayawada Rural",
+    "district": "NTR",
+    "fee": 57500
+  },
+  {
+    "sno": 191,
+    "code": "VHNI",
+    "name": "Sree Vahini Instt of Science and Technology - Tiruvuru",
+    "district": "NTR",
+    "fee": 51400
+  },
+  {
+    "sno": 192,
+    "code": "VIEW",
+    "name": "Vignans Instt of Engineering for Women - Visakhapatnam",
+    "district": "VSP",
+    "fee": 53000
+  },
+  {
+    "sno": 193,
+    "code": "VISM",
+    "name": "Viswam Engineering College - Chittoor",
+    "district": "ANM",
+    "fee": 40000
+  },
+  {
+    "sno": 194,
+    "code": "VISW",
+    "name": "Shri Vishnu Engg. College for Women - Bhimavaram",
+    "district": "WG",
+    "fee": 105000
+  },
+  {
+    "sno": 195,
+    "code": "VITB",
+    "name": "Vishnu Grp of Instns Vishnu Inst of Technology - Bhimavaram",
+    "district": "WG",
+    "fee": 103000
+  },
+  {
+    "sno": 196,
+    "code": "VITK",
+    "name": "P B R Visvodaya Institute of Technology and Sci. - Kavali",
+    "district": "NLR",
+    "fee": 40000
+  },
+  {
+    "sno": 197,
+    "code": "VITS",
+    "name": "Vaagdevi Institute of Technology and Sci. - Proddatur",
+    "district": "KDP",
+    "fee": 40000
+  },
+  {
+    "sno": 198,
+    "code": "VITW",
+    "name": "Vijaya Inst. of Technology for Women - Vijayawada",
+    "district": "NTR",
+    "fee": 40000
+  },
+  {
+    "sno": 199,
+    "code": "VIVP",
+    "name": "Vignans Institute of Information Technology - Visakhapatnam",
+    "district": "VSP",
+    "fee": 68700
+  },
+  {
+    "sno": 200,
+    "code": "VLIT",
+    "name": "Vignans Lara Inst. of Technology and Sci - Vadlamudi",
+    "district": "GTR",
+    "fee": 70000
+  },
+  {
+    "sno": 201,
+    "code": "VNIW",
+    "name": "Vignans Nirula Inst of Tech. and Sci for Women - Guntur",
+    "district": "GTR",
+    "fee": 40000
+  },
+  {
+    "sno": 202,
+    "code": "VNRC",
+    "name": "Velaga Nagesware Rao Coll of Engineering - Ponnur",
+    "district": "GTR",
+    "fee": 40000
+  },
+  {
+    "sno": 203,
+    "code": "VRSE",
+    "name": "V R Siddhartha Engineering College - Vijayawada",
+    "district": "KRI",
+    "fee": 105000
+  },
+  {
+    "sno": 204,
+    "code": "VSMR",
+    "name": "V.S.M College of Engineering - Ramachandrapuram",
+    "district": "KON",
+    "fee": 65800
+  },
+  {
+    "sno": 205,
+    "code": "VSPT",
+    "name": "Visakha Inst of Engg and Technology - Visakhapatnam",
+    "district": "VSP",
+    "fee": 40000
+  },
+  {
+    "sno": 206,
+    "code": "VSVT",
+    "name": "Sri Vasavi Engineering College - Tadepalligudem",
+    "district": "WG",
+    "fee": 77200
+  },
+  {
+    "sno": 207,
+    "code": "VVGV",
+    "name": "VKR VNB and AGK Engineering College - Gudivada",
+    "district": "KRI",
+    "fee": 40000
+  },
+  {
+    "sno": 208,
+    "code": "VVIT",
+    "name": "Vasireddy Venkatadri Inst. of Technology - Guntur",
+    "district": "GTR",
+    "fee": 65200
+  },
+  {
+    "sno": 209,
+    "code": "WISE",
+    "name": "West Godavari Instt of Science and Engineering - Nallajerla",
+    "district": "EG",
+    "fee": 40000
+  },
+  {
+    "sno": 210,
+    "code": "WSTM",
+    "name": "Wellfare Inst of Science Tech and Mgmt - Pinagadi",
+    "district": "VSP",
+    "fee": 40000
+  }
+]

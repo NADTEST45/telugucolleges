@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[88888,["/_next/static/chunks/fa551ba9d7d84aa5.js","/_next/static/chunks/3a698cd6b49369db.js","/_next/static/chunks/d14e885adcf621f3.js"],"default"]
+3:I[58735,["/_next/static/chunks/9c92de6755ad8ccb.js","/_next/static/chunks/d24137ebb25db10f.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"wNatF_4kCtdZPOMrvXIth","rsc":["$","$1","c",{"children":[["$","$L2",null,{"program":{"slug":"m-sc-hons","name":"M.Sc (Hons)","level":"Integrated","duration":4,"collegeCount":1,"feeMin":550000,"feeMax":550000,"feeMedian":550000,"category":"Science"},"colleges":[{"college":{"id":176,"name":"BITS Pilani, Hyderabad Campus","code":"BITS","slug":"bits-pilani-hyderabad","district":"Hyderabad","state":"Telangana","type":"Deemed University","affiliation":"BITS Pilani","naac":"A++","nba":false,"year":2008,"fee":550000,"goFee":0,"nirf":0,"cutoff":{"cse":0,"ece":0,"eee":0,"mech":0,"civil":0},"placements":{"avg":20.8,"highest":61,"companies":297},"branches":["CSE","ECE","EEE","MECH","CIVIL","ChE","Pharma"]},"fee":550000,"specialization":"Biology / Chemistry / Economics / Maths / Physics"}]}],[["$","script","script-0",{"src":"/_next/static/chunks/d14e885adcf621f3.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+5:null

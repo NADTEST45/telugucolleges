@@ -1,0 +1,905 @@
+[
+  {
+    "sno": 1,
+    "code": "NMBM",
+    "name": "NIMRA COLLEGE OF BUSINESS MNGT-JUPUDI-KRI",
+    "fee": 35000,
+    "district": "KRI"
+  },
+  {
+    "sno": 2,
+    "code": "SRKR",
+    "name": "S R K R ENGINEERING COLLEGE-BHIMAVARAM-WG",
+    "fee": 27000,
+    "district": "WG"
+  },
+  {
+    "sno": 3,
+    "code": "BVRT",
+    "name": "B.V.RAJU COLLEGE-BHIMAVARAM-WG",
+    "fee": 40000,
+    "district": "WG"
+  },
+  {
+    "sno": 4,
+    "code": "LBCE",
+    "name": "LAKIREDDY BALIREDDY COLLEGE OF ENGINEERING- MYLAVARAM-KRI",
+    "fee": 45500,
+    "district": "KRI"
+  },
+  {
+    "sno": 5,
+    "code": "BVTS",
+    "name": "BONAM VENKATA CHALAMAIAH INST. OF TECH AND SCI.-AMALAPURAM-EG",
+    "fee": 35000,
+    "district": "EG"
+  },
+  {
+    "sno": 6,
+    "code": "ANSN",
+    "name": "ST. ANNS COLLEGE OF ENGG. AND TECHNOLOGY- CHIRALA-PKS",
+    "fee": 34900,
+    "district": "PKS"
+  },
+  {
+    "sno": 7,
+    "code": "CRRE",
+    "name": "SIR C R R COLLEGE OF ENGINEERING-ELURU-WG",
+    "fee": 35000,
+    "district": "WG"
+  },
+  {
+    "sno": 8,
+    "code": "CRPG",
+    "name": "SIR CRR COLLEGE PG COURSES-ELURU-WG",
+    "fee": 32100,
+    "district": "WG"
+  },
+  {
+    "sno": 9,
+    "code": "MITS",
+    "name": "MADANAPALLY INSTITUTE OF TECHNOLOGY AND SCI- MADANAPALLE-CTR",
+    "fee": 38300,
+    "district": "CTR"
+  },
+  {
+    "sno": 10,
+    "code": "SBLJ",
+    "name": "SRI BALAJI PG COLLEGE-ANANTAPUR-ATP",
+    "fee": 27000,
+    "district": "ATP"
+  },
+  {
+    "sno": 11,
+    "code": "ALCV",
+    "name": "ANDHRA LOYOLA COLLEGE-VIJAYAWADA-KRI",
+    "fee": 30000,
+    "district": "KRI"
+  },
+  {
+    "sno": 12,
+    "code": "VRSE",
+    "name": "V R SIDDHARTHA ENGINEERING COLLEGE- VIJAYAWADA-KRI",
+    "fee": 40000,
+    "district": "KRI"
+  },
+  {
+    "sno": 13,
+    "code": "PBSV",
+    "name": "PB SIDDARTHA COLLEGE OF ARTS AND SCIENCE- VIJAYAWADA-KRI",
+    "fee": 50000,
+    "district": "KRI"
+  },
+  {
+    "sno": 14,
+    "code": "AITS",
+    "name": "ANNAMACHARYA INST OF TECHNOLOGY AND SCIENCES-RAJAMPETA-KDP",
+    "fee": 50000,
+    "district": "KDP"
+  },
+  {
+    "sno": 15,
+    "code": "ANMK",
+    "name": "ANNAMACHARYA P G COLLEGE OF COMPUTER STUDIES-RAJAMPETA-KDP",
+    "fee": 50000,
+    "district": "KDP"
+  },
+  {
+    "sno": 16,
+    "code": "SVCT",
+    "name": "SRI VENKATESWARA COLLEGE OF ENGG. AND TECHNOLOGY-CHITTOOR-CTR",
+    "fee": 35000,
+    "district": "CTR"
+  },
+  {
+    "sno": 17,
+    "code": "SSTR",
+    "name": "SAASTRA COLLEGE OF COMPUTER SCIENCE-NELLORE- NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 18,
+    "code": "SRKI",
+    "name": "S R K INST. OF TECHNOLOGY-VIJAYAWADA-KRI",
+    "fee": 27000,
+    "district": "KRI"
+  },
+  {
+    "sno": 19,
+    "code": "VIMW",
+    "name": "VIJAYA INST OF MGMT SCI FOR WOMEN- VIJAYAWADA-KRI",
+    "fee": 27000,
+    "district": "KRI"
+  },
+  {
+    "sno": 20,
+    "code": "NSPE",
+    "name": "NARSARAOPETA ENGINEERING COLLEGE- NARSARAOPET-GTR",
+    "fee": 40000,
+    "district": "GTR"
+  },
+  {
+    "sno": 21,
+    "code": "SVNE",
+    "name": "SRI VIDYA NIKETAN ENGINEERING COLLEGE- RANGAMPETA-CTR",
+    "fee": 50000,
+    "district": "CTR"
+  },
+  {
+    "sno": 22,
+    "code": "SVNM",
+    "name": "SRI VIDYANIKETAN INST OF MNGT-RANGAMPETA- CTR",
+    "fee": 50000,
+    "district": "CTR"
+  },
+  {
+    "sno": 23,
+    "code": "HNDG",
+    "name": "THE HINDU COLLEGE PG COURSES-GUNTUR-GTR",
+    "fee": 27000,
+    "district": "GTR"
+  },
+  {
+    "sno": 24,
+    "code": "AIET",
+    "name": "AMARA INST. OF ENGINEERING AND TECHNOLOGY- NARSARAOPET-GTR",
+    "fee": 30000,
+    "district": "GTR"
+  },
+  {
+    "sno": 25,
+    "code": "RGIT",
+    "name": "RAJIV GANDHI MEMORIAL COLLEGE OF ENGG. AND TECH.-NANDYAL-KNL",
+    "fee": 40700,
+    "district": "KNL"
+  },
+  {
+    "sno": 26,
+    "code": "DIET",
+    "name": "DADI INSTT. OF ENGINEERING AND TECHNOLOGY- ANAKAPALLE-VSP",
+    "fee": 27000,
+    "district": "VSP"
+  },
+  {
+    "sno": 27,
+    "code": "KIET",
+    "name": "KAKINADA INSTITUTE OF ENGG. AND TECHNOLOGY- KAKINADA-EG",
+    "fee": 32400,
+    "district": "EG"
+  },
+  {
+    "sno": 28,
+    "code": "MRCL",
+    "name": "MIRACLE EDNL SOC GROUP OF INSTNS- BHOGAPURAM-VZM",
+    "fee": 27000,
+    "district": "VZM"
+  },
+  {
+    "sno": 29,
+    "code": "SWRN",
+    "name": "SWARNANDHRA COLL. OF ENGG AND TECHNOLOGY- NARSAPURAM-WG",
+    "fee": 27000,
+    "district": "WG"
+  },
+  {
+    "sno": 30,
+    "code": "SSCE",
+    "name": "SRI SIVANICOLLEGE OF ENGINEERING-SRIKAKULAM- SKL",
+    "fee": 27000,
+    "district": "SKL"
+  },
+  {
+    "sno": 31,
+    "code": "ASIP",
+    "name": "AMRITA SAI INST. OF SCIENCE AND TECHNOLOGY- PARITALA-KRI",
+    "fee": 42000,
+    "district": "KRI"
+  },
+  {
+    "sno": 32,
+    "code": "KMMC",
+    "name": "KMM INSTITUTE OF PG STUDIES-TIRUPATHI-CTR",
+    "fee": 32600,
+    "district": "CTR"
+  },
+  {
+    "sno": 33,
+    "code": "SVDK",
+    "name": "SVKP AND DR K S RAJU ARTS AND SCIENCE COLLEGE- PENUGONDA-WG",
+    "fee": 30000,
+    "district": "WG"
+  },
+  {
+    "sno": 34,
+    "code": "VSMR",
+    "name": "VSM COLLEGE-RAMACHANDRAPURAM-EG",
+    "fee": 35000,
+    "district": "EG"
+  },
+  {
+    "sno": 35,
+    "code": "ASIT",
+    "name": "AUDI SANKARA INST OF TECHNOLOGY-GUDUR-NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 36,
+    "code": "SANK",
+    "name": "AUDHISANKARA COLLEGE OF ENGG. AND TECHNOLOGY-GUDUR-NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 37,
+    "code": "IDEL",
+    "name": "IDEAL COLLEGE OF ARTS AND SCIENCES-KAKINADA- EG",
+    "fee": 27000,
+    "district": "EG"
+  },
+  {
+    "sno": 38,
+    "code": "NRIA",
+    "name": "NRI INST OF TECHNOLOGY-AGIRIPALLY-KRI",
+    "fee": 27000,
+    "district": "KRI"
+  },
+  {
+    "sno": 39,
+    "code": "JITS",
+    "name": "JOGAIAH INSTITUTEOF TECH AND SCIENCE-PALAKOL- WG",
+    "fee": 30000,
+    "district": "WG"
+  },
+  {
+    "sno": 40,
+    "code": "SVCE",
+    "name": "SRI VENKATESWARA COLL OF ENGINEERING- TIRUPATHI-CTR",
+    "fee": 35000,
+    "district": "CTR"
+  },
+  {
+    "sno": 41,
+    "code": "ADTP",
+    "name": "ADITYA ENGINEERING COLLEGE-PEDDAPURAM-EG",
+    "fee": 35000,
+    "district": "EG"
+  },
+  {
+    "sno": 42,
+    "code": "ADPK",
+    "name": "ADITYA INST OF PG STUDIES-PEDDAPURAM-EG",
+    "fee": 35000,
+    "district": "EG"
+  },
+  {
+    "sno": 43,
+    "code": "CJJC",
+    "name": "CHRISTU JAYANTHI JUBILEE COLLEGE-GUNTUR-GTR",
+    "fee": 27000,
+    "district": "GTR"
+  },
+  {
+    "sno": 44,
+    "code": "SISS",
+    "name": "SRI SAI ADITYA INSTITUTE OF SCI. AND TECHNOLOGY- PEDDAPURAM-EG",
+    "fee": 27000,
+    "district": "EG"
+  },
+  {
+    "sno": 45,
+    "code": "LOYL",
+    "name": "LOYOLA INSTITUTE OF TECHNOLOGY AND MGMT- SATTENAPALLY-GTR",
+    "fee": 27000,
+    "district": "GTR"
+  },
+  {
+    "sno": 46,
+    "code": "VITK",
+    "name": "P B R VISVODAYA INSTITUTE OF TECHNOLOGY AND SCI.-KAVALI-NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 47,
+    "code": "RIMS",
+    "name": "RAYALASEEMA INST OF INFO AND MNGT SCIENCES- TIRUPATI-CTR",
+    "fee": 45000,
+    "district": "CTR"
+  },
+  {
+    "sno": 48,
+    "code": "MLMB",
+    "name": "MALINENI LAKSHMAIAH MBA COLLEGE- SINGARAYAKONDA-PKS",
+    "fee": 27000,
+    "district": "PKS"
+  },
+  {
+    "sno": 49,
+    "code": "NLND",
+    "name": "NALANDA INSTITUTE OF ENGG. AND TECHNOLOGY- SATTENAPALLY-GTR",
+    "fee": 27700,
+    "district": "GTR"
+  },
+  {
+    "sno": 50,
+    "code": "RCRM",
+    "name": "RCR INSTITUTE OF MNGT AND TECHNOLOGY- TIRUPATI-CTR",
+    "fee": 27000,
+    "district": "CTR"
+  },
+  {
+    "sno": 51,
+    "code": "DLRG",
+    "name": "D L R COLLEGE PG COURSES-GOLLALAMAMIDADA-EG",
+    "fee": 27000,
+    "district": "EG"
+  },
+  {
+    "sno": 52,
+    "code": "SDTN",
+    "name": "SIDDHARTH INSTITUTE OF ENGG. AND TECHNOLOGY- PUTTUR-CTR",
+    "fee": 52000,
+    "district": "CTR"
+  },
+  {
+    "sno": 53,
+    "code": "MSTL",
+    "name": "MARIS STELLA COLLEGE PG-VIJAYAWADA-KRI",
+    "fee": 27000,
+    "district": "KRI"
+  },
+  {
+    "sno": 54,
+    "code": "ANRG",
+    "name": "AKKINENI NAGESWARA RAO COLLEGE-GUDIVADA-KRI",
+    "fee": 27000,
+    "district": "KRI"
+  },
+  {
+    "sno": 55,
+    "code": "NARN",
+    "name": "NARAYANA ENGINEERING COLLEGE-NELLORE-NLR",
+    "fee": 34600,
+    "district": "NLR"
+  },
+  {
+    "sno": 56,
+    "code": "NRNG",
+    "name": "NARAYANA ENGG COLLEGE-GUDUR-NLR",
+    "fee": 35000,
+    "district": "NLR"
+  },
+  {
+    "sno": 57,
+    "code": "MICT",
+    "name": "D VENKATARAMANA AND DR.HIMASEKHAR MIC COLL OF TECH-KANCHIKACHERLA-KRI",
+    "fee": 27000,
+    "district": "KRI"
+  },
+  {
+    "sno": 58,
+    "code": "RANG",
+    "name": "RAJAH R S R K RANGA RAO COLLEGE-BOBBILI-VZM",
+    "fee": 27000,
+    "district": "VZM"
+  },
+  {
+    "sno": 59,
+    "code": "PKSK",
+    "name": "PRAKASAM ENGINEERING COLLEGE-KANDKUR-PKS",
+    "fee": 27000,
+    "district": "PKS"
+  },
+  {
+    "sno": 60,
+    "code": "QISE",
+    "name": "QIS COLLEGE OF ENGG. AND TECHNOLOGY-ONGOLE- PKS",
+    "fee": 53000,
+    "district": "PKS"
+  },
+  {
+    "sno": 61,
+    "code": "VRYR",
+    "name": "VRS AND YRN COLLEGE-CHIRALA-PKS",
+    "fee": 27000,
+    "district": "PKS"
+  },
+  {
+    "sno": 62,
+    "code": "MTCA",
+    "name": "MOTHER THERESA INST OF COMP APPLICATIONS- PALAMANER-CTR",
+    "fee": 30000,
+    "district": "CTR"
+  },
+  {
+    "sno": 63,
+    "code": "CECC",
+    "name": "CHIRALA ENGINEERING COLLEGE-CHIRALA-PKS",
+    "fee": 27000,
+    "district": "PKS"
+  },
+  {
+    "sno": 64,
+    "code": "RVJC",
+    "name": "R V R AND J C COLLEGE OF ENGINEERING-GUNTUR- GTR",
+    "fee": 45000,
+    "district": "GTR"
+  },
+  {
+    "sno": 65,
+    "code": "JKCC",
+    "name": "J K C COLLEGE-GUNTUR-GTR",
+    "fee": 30000,
+    "district": "GTR"
+  },
+  {
+    "sno": 66,
+    "code": "KGRL",
+    "name": "K G R L COLLEGE PG COURSES-BHIMAVARAM-WG",
+    "fee": 30000,
+    "district": "WG"
+  },
+  {
+    "sno": 67,
+    "code": "CHAT",
+    "name": "CHAITANYA INST OF COMP SCIENCES-KAKINADA-EG",
+    "fee": 35000,
+    "district": "EG"
+  },
+  {
+    "sno": 68,
+    "code": "SPTC",
+    "name": "SRI PADMAVATHI COLLEGE OF COMP SCI AND TECH- TIRUCHANUR-CTR",
+    "fee": 27000,
+    "district": "CTR"
+  },
+  {
+    "sno": 69,
+    "code": "SVPP",
+    "name": "SRI VENKATESA PERUMAL COLLEGE OF ENGG. AND TECH-PUTTUR-CTR",
+    "fee": 27000,
+    "district": "CTR"
+  },
+  {
+    "sno": 70,
+    "code": "GTHJ",
+    "name": "GEETHANJALI INST OF PG STUDIES-NELLORE-NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 71,
+    "code": "VBIT",
+    "name": "VIGNANA BHARATI INSTITUTE OF TECH-PRODDATUR- KDP",
+    "fee": 27000,
+    "district": "KDP"
+  },
+  {
+    "sno": 72,
+    "code": "ANNG",
+    "name": "STANNS COLLEGE FOR WOMEN-GORANTLA-GTR",
+    "fee": 27000,
+    "district": "GTR"
+  },
+  {
+    "sno": 73,
+    "code": "MRRN",
+    "name": "MRR COLLEGE OF MCA-NANDIGAMA-KRI",
+    "fee": 27000,
+    "district": "KRI"
+  },
+  {
+    "sno": 74,
+    "code": "GKCS",
+    "name": "GOKULA KRISHNA COLLEGE OF ENGINEERING- SULLURPET-NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 75,
+    "code": "SHIN",
+    "name": "SRI HARSHA INST OF PG STUDIES-KOVUR-NLR",
+    "fee": 30000,
+    "district": "NLR"
+  },
+  {
+    "sno": 76,
+    "code": "SSBP",
+    "name": "SRI SAI COLLEGE OF IT AND MANAGEMENT-KADAPA- KDP",
+    "fee": 27000,
+    "district": "KDP"
+  },
+  {
+    "sno": 77,
+    "code": "SDCT",
+    "name": "SD COLLEGE OF INFO TECH-TANUKU-WG",
+    "fee": 27000,
+    "district": "WG"
+  },
+  {
+    "sno": 78,
+    "code": "BECB",
+    "name": "BAPATLA ENGINEERING COLLEGE-BAPATLA-GTR",
+    "fee": 45000,
+    "district": "GTR"
+  },
+  {
+    "sno": 79,
+    "code": "CHDL",
+    "name": "CHADALAWADA RAMANAMMA ENGG. COLLEGE- TIRUPATHI-CTR",
+    "fee": 40000,
+    "district": "CTR"
+  },
+  {
+    "sno": 80,
+    "code": "GVPE",
+    "name": "GAYATRI VIDYA PARISHAD COLL OF ENGINEERING- VISAKHAPATNAM-VSP",
+    "fee": 38400,
+    "district": "VSP"
+  },
+  {
+    "sno": 81,
+    "code": "GVPP",
+    "name": "GVP COLLEGE FOR DEGREE AND PG COURSES- VISAKHAPATNAM-VSP",
+    "fee": 60500,
+    "district": "VSP"
+  },
+  {
+    "sno": 82,
+    "code": "KUSH",
+    "name": "PYDAH KAUSHIK COLLEGE OF ENGINEERING- VISAKHAPATNAM-VSP",
+    "fee": 27000,
+    "district": "VSP"
+  },
+  {
+    "sno": 83,
+    "code": "PYDA",
+    "name": "PYDAH COLLEGE OF ENGG. AND TECHNOLOGY- VISAKHAPATNAM-VSP",
+    "fee": 27000,
+    "district": "VSP"
+  },
+  {
+    "sno": 84,
+    "code": "PYDC",
+    "name": "PYDAH COLLEGE PG COURSES-GAMBHEERAM-VSP",
+    "fee": 27000,
+    "district": "VSP"
+  },
+  {
+    "sno": 85,
+    "code": "GBRA",
+    "name": "GBR DEGREE COLLEGE PG COURSES-ANAPARTHI-EG",
+    "fee": 27000,
+    "district": "EG"
+  },
+  {
+    "sno": 86,
+    "code": "PRIK",
+    "name": "PRIYADARSHINI COLL OF ENGG. AND TECHNOLOGY- NELLORE-NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 87,
+    "code": "SAVE",
+    "name": "SANKETHIKA VIDYAPARISHAD ENGG COLLEGE- VISAKHAPATNAM-VSP",
+    "fee": 27000,
+    "district": "VSP"
+  },
+  {
+    "sno": 88,
+    "code": "SIMS",
+    "name": "SRINIVASA INST OF MANAGEMENT STUDIES- VISAKHAPATNAM-VSP",
+    "fee": 27000,
+    "district": "VSP"
+  },
+  {
+    "sno": 89,
+    "code": "INTL",
+    "name": "INTELL ENGINEERING COLLEGE-ANANTAPUR-ATP",
+    "fee": 27000,
+    "district": "ATP"
+  },
+  {
+    "sno": 90,
+    "code": "VRIP",
+    "name": "VR INSTITUTE OF PG STUDIES-NELLORE-NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 91,
+    "code": "SSNE",
+    "name": "SRI SATYANARAYANA ENGINEERING COLLEGE- ONGOLE-PKS",
+    "fee": 35000,
+    "district": "PKS"
+  },
+  {
+    "sno": 92,
+    "code": "KBNV",
+    "name": "K B N COLLEGE PG CENTRE-VIJAYAWADA-KRI",
+    "fee": 35000,
+    "district": "KRI"
+  },
+  {
+    "sno": 93,
+    "code": "DBBN",
+    "name": "DBB INST OF PG STUDIES-PUTTUR-CTR",
+    "fee": 27000,
+    "district": "CTR"
+  },
+  {
+    "sno": 94,
+    "code": "DNRB",
+    "name": "D N R COLLEGE PG COURSES-BHIMAVARAM-WG",
+    "fee": 27000,
+    "district": "WG"
+  },
+  {
+    "sno": 95,
+    "code": "KCHN",
+    "name": "K CHANDRAKALA PG COLLEGE-TENALI-GTR",
+    "fee": 27000,
+    "district": "GTR"
+  },
+  {
+    "sno": 96,
+    "code": "SMGG",
+    "name": "ST. MARYS GROUP OF INSTITUTIONS GUNTUR-GTR",
+    "fee": 51900,
+    "district": "GTR"
+  },
+  {
+    "sno": 97,
+    "code": "RAOS",
+    "name": "RAOS INST OF COMP SCIENCES-NELLORE-NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 98,
+    "code": "VLNK",
+    "name": "VELANKANNI INST OF COMP AND MGMT STUDIES- VENKATACHALAM-NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 99,
+    "code": "CSDS",
+    "name": "CH S D ST THERESAS COLLEGE FOR WOMEN-ELURU- WG",
+    "fee": 27000,
+    "district": "WG"
+  },
+  {
+    "sno": 100,
+    "code": "SSCC",
+    "name": "SRINIVASA INSTITUTE OF TECHNOLOGY AND MANG STUDIES-CHITTOOR-CTR",
+    "fee": 29300,
+    "district": "CTR"
+  },
+  {
+    "sno": 101,
+    "code": "SSRI",
+    "name": "SRI SAI RAM INST OF PG STUDIES-NELLORE-NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 102,
+    "code": "AGCT",
+    "name": "AKULA SREE RAMULU INSTITUTE OF ENGG. AND TECH.-TADEPALLIGUDEM-WG",
+    "fee": 27000,
+    "district": "WG"
+  },
+  {
+    "sno": 103,
+    "code": "ASEK",
+    "name": "AKULA SREERAMULU COLLEGE OF ENGINEERING- TANUKU-WG",
+    "fee": 27000,
+    "district": "WG"
+  },
+  {
+    "sno": 104,
+    "code": "PDNP",
+    "name": "THE PEDANANDIPADU COLL OF ARTS AND SCI- PEDANANDIPADU-GTR",
+    "fee": 27000,
+    "district": "GTR"
+  },
+  {
+    "sno": 105,
+    "code": "NEWT",
+    "name": "NEWTON INSTITUTE OF ENGINEERING-MACHERLA- GTR",
+    "fee": 27000,
+    "district": "GTR"
+  },
+  {
+    "sno": 106,
+    "code": "VVIG",
+    "name": "VASIREDDY VENKATADRI INST. OF TECHNOLOGY- GUNTUR-GTR",
+    "fee": 50000,
+    "district": "GTR"
+  },
+  {
+    "sno": 107,
+    "code": "VIVP",
+    "name": "VIGNANS INSTITUTE OF INFORMATION TECHNOLOGY-VISAKHAPATNAM-VSP",
+    "fee": 27000,
+    "district": "VSP"
+  },
+  {
+    "sno": 108,
+    "code": "VLIT",
+    "name": "VIGNANS LARA INST. OF TECHNOLOGY AND SCI- VADLAMUDI-GTR",
+    "fee": 40000,
+    "district": "GTR"
+  },
+  {
+    "sno": 109,
+    "code": "VIGG",
+    "name": "VIGNAN DEGREE COLLEGE-PEDAPALAKALUR-GTR",
+    "fee": 35000,
+    "district": "GTR"
+  },
+  {
+    "sno": 110,
+    "code": "BULL",
+    "name": "DR L BULLAYYA PG COLLEGE-VISAKHAPATNAM-VSP",
+    "fee": 27000,
+    "district": "VSP"
+  },
+  {
+    "sno": 111,
+    "code": "SDSK",
+    "name": "SRI DATTA SAI COLL OF MCA-KADAPA-KDP",
+    "fee": 27000,
+    "district": "KDP"
+  },
+  {
+    "sno": 112,
+    "code": "NPGC",
+    "name": "NOVA PG COLLEGE-VIJAYAWADA-KRI",
+    "fee": 27000,
+    "district": "KRI"
+  },
+  {
+    "sno": 113,
+    "code": "SCIM",
+    "name": "S CHAVAN INST OF COMP APPLICATIONS-NELLORE- NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 114,
+    "code": "SKBR",
+    "name": "S K B R COLLEGE PG COURSES-AMALAPURAM-EG",
+    "fee": 35800,
+    "district": "EG"
+  },
+  {
+    "sno": 115,
+    "code": "ASNT",
+    "name": "A S N DEGREE COLLEGE-TENALI-GTR",
+    "fee": 27000,
+    "district": "GTR"
+  },
+  {
+    "sno": 116,
+    "code": "SVED",
+    "name": "SV ARTS AND SCIENCE COLLEGE-GUDUR-NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 117,
+    "code": "DUVR",
+    "name": "DUVVURU RAMANAMMA WOMENS DEGREE COLLEGE-GUDUR-NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 118,
+    "code": "TJPS",
+    "name": "T J P S COLLEGE-GUNTUR-GTR",
+    "fee": 27000,
+    "district": "GTR"
+  },
+  {
+    "sno": 119,
+    "code": "NIST",
+    "name": "NOBLE INST OF SCIENCE AND TECH- VISAKHAPATNAM-VSP",
+    "fee": 40200,
+    "district": "VSP"
+  },
+  {
+    "sno": 120,
+    "code": "GIER",
+    "name": "GODAVARI INSTITUTE OF ENGG. AND TECHNOLOGY- RAJAHMUNDRY-EG",
+    "fee": 50000,
+    "district": "EG"
+  },
+  {
+    "sno": 121,
+    "code": "RPRA",
+    "name": "RISE KRISHNA SAI PRAKASAM GROUP OF INSTITUTIONS-ONGOLE-PKS",
+    "fee": 40000,
+    "district": "PKS"
+  },
+  {
+    "sno": 122,
+    "code": "SDDM",
+    "name": "SIDDARDHA COLLEGE OF COMPUTER SCIENCES- MUSUNUR-NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 123,
+    "code": "KCIK",
+    "name": "KRISHNA CHAITANYA INST OF SCIENCE AND TECHNOLOGY-KAKUTURU-NLR",
+    "fee": 27000,
+    "district": "NLR"
+  },
+  {
+    "sno": 124,
+    "code": "SVIS",
+    "name": "SHREE VIVEKANANDA INST OF SCIENCE-GUNTAKAL- ATP",
+    "fee": 27000,
+    "district": "ATP"
+  },
+  {
+    "sno": 125,
+    "code": "PICS",
+    "name": "PRABHATH INST OF COMPUTER SCIENCES- NANDYAL-KNL",
+    "fee": 27000,
+    "district": "KNL"
+  },
+  {
+    "sno": 126,
+    "code": "AQJV",
+    "name": "ABDUL QADIR JEELANI CENTER FOR PG STUDIES- VISAKHAPATNAM-VSP",
+    "fee": 27000,
+    "district": "VSP"
+  },
+  {
+    "sno": 127,
+    "code": "SRKN",
+    "name": "SRI RAMAKRISHNA DEGREE COLLEGE-NANDYAL- KNL",
+    "fee": 27000,
+    "district": "KNL"
+  },
+  {
+    "sno": 128,
+    "code": "CSNB",
+    "name": "DR CSN DEGREE AND PG COLLEGE-BHIMAVARAM- WG",
+    "fee": 27000,
+    "district": "WG"
+  },
+  {
+    "sno": 129,
+    "code": "EAIM",
+    "name": "EMERALDS ADV INST OF MNGT STUDIES-TIRUPATI- CTR",
+    "fee": 27000,
+    "district": "CTR"
+  }
+]

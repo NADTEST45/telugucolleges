@@ -1,0 +1,282 @@
+[
+  {
+    "code": "BECB",
+    "name": "Bapatla Engineering College - Bapatla",
+    "location": "Bapatla",
+    "district": "Bapatla",
+    "region": "JNTUK",
+    "type": "PVT"
+  },
+  {
+    "code": "ACES",
+    "name": "Aditya College of Engineering - Peddapuram",
+    "location": "Peddapuram",
+    "district": "East Godavari",
+    "region": "AU",
+    "type": "PVT"
+  },
+  {
+    "code": "ACET",
+    "name": "Aditya College of Engineering and Technology - Peddapuram",
+    "location": "Peddapuram",
+    "district": "East Godavari",
+    "region": "AU",
+    "type": "PVT"
+  },
+  {
+    "code": "KIEW",
+    "name": "Kakinada Inst of Engg and Technology for Women - Kakinada",
+    "location": "Kakinada",
+    "district": "East Godavari",
+    "region": "AU",
+    "type": "PVT"
+  },
+  {
+    "code": "KIEK",
+    "name": "Kakinada Institute of Engg. and Technology - Kakinada",
+    "location": "Kakinada",
+    "district": "East Godavari",
+    "region": "AU",
+    "type": "PVT"
+  },
+  {
+    "code": "KIET",
+    "name": "Kakinada Institute of Engg. and Technology - Kakinada",
+    "location": "Kakinada",
+    "district": "East Godavari",
+    "region": "AU",
+    "type": "PVT"
+  },
+  {
+    "code": "KISR",
+    "name": "Kakinada Institute of Technology Sciences - Ramachandrapuram",
+    "location": "Ramachandrapuram",
+    "district": "East Godavari",
+    "region": "AU",
+    "type": "PVT"
+  },
+  {
+    "code": "ELRU",
+    "name": "Eluru College of Engg and Technology - Eluru",
+    "location": "Eluru",
+    "district": "Eluru",
+    "region": "JNTUK",
+    "type": "PVT"
+  },
+  {
+    "code": "GVRS",
+    "name": "G V R and S College of Engg. and Technology - Guntur",
+    "location": "Guntur",
+    "district": "Guntur",
+    "region": "JNTUK",
+    "type": "PVT"
+  },
+  {
+    "code": "HIND",
+    "name": "Hindu College of Engineering and Technology - Guntur",
+    "location": "Guntur",
+    "district": "Guntur",
+    "region": "JNTUK",
+    "type": "PVT"
+  },
+  {
+    "code": "KITS",
+    "name": "KKR and KSR Inst of Technology and Sci - Guntur",
+    "location": "Guntur",
+    "district": "Guntur",
+    "region": "JNTUK",
+    "type": "PVT"
+  },
+  {
+    "code": "LOYL",
+    "name": "Loyola Institute of Technology and Mgmt - Sattenapally",
+    "location": "Sattenapally",
+    "district": "Guntur",
+    "region": "JNTUK",
+    "type": "PVT"
+  },
+  {
+    "code": "RVJC",
+    "name": "R V R and J C College of Engineering - Guntur",
+    "location": "Guntur",
+    "district": "Guntur",
+    "region": "JNTUK",
+    "type": "PVT"
+  },
+  {
+    "code": "STEN",
+    "name": "Sai Tirumala N V R Engineering College - Narsaraopet",
+    "location": "Narsaraopet",
+    "district": "Guntur",
+    "region": "JNTUK",
+    "type": "PVT"
+  },
+  {
+    "code": "MPLG",
+    "name": "Sri Mittapalli College of Engineering - Guntur",
+    "location": "Guntur",
+    "district": "Guntur",
+    "region": "JNTUK",
+    "type": "PVT"
+  },
+  {
+    "code": "STMW",
+    "name": "St.Marys Womens Engineering College - Guntur",
+    "location": "Guntur",
+    "district": "Guntur",
+    "region": "JNTUK",
+    "type": "PVT"
+  },
+  {
+    "code": "VNIW",
+    "name": "Vignans Nirula Inst of Tech. and Sci for Women - Guntur",
+    "location": "Guntur",
+    "district": "Guntur",
+    "region": "JNTUK",
+    "type": "PVT"
+  },
+  {
+    "code": "SRIP",
+    "name": "Sai Rajeswari Institute of Technology - Proddatur",
+    "location": "Proddatur",
+    "district": "Kadapa",
+    "region": "JNTUA/SVU",
+    "type": "PVT"
+  },
+  {
+    "code": "SVCK",
+    "name": "Sri Venkateswara College of Engineering - Kadapa",
+    "location": "Kadapa",
+    "district": "Kadapa",
+    "region": "JNTUA/SVU",
+    "type": "PVT"
+  },
+  {
+    "code": "VITS",
+    "name": "Vaagdevi Institute of Technology and Sci. - Proddatur",
+    "location": "Proddatur",
+    "district": "Kadapa",
+    "region": "JNTUA/SVU",
+    "type": "PVT"
+  },
+  {
+    "code": "ASKW",
+    "name": "Ashoka Womens Engineering College - Kurnool",
+    "location": "Kurnool",
+    "district": "Kurnool",
+    "region": "JNTUA/SVU",
+    "type": "PVT"
+  },
+  {
+    "code": "MVRS",
+    "name": "M.V.R.Coll of Engineering and Technology - Paritala",
+    "location": "Paritala",
+    "district": "NTR District",
+    "region": "JNTUK",
+    "type": "PVT"
+  },
+  {
+    "code": "VCTN",
+    "name": "Vikas College of Engineering and Technology - Vijayawada",
+    "location": "Vijayawada",
+    "district": "NTR District",
+    "region": "JNTUK",
+    "type": "PVT"
+  },
+  {
+    "code": "NRNG",
+    "name": "Narayana Engineering College - Gudur",
+    "location": "Gudur",
+    "district": "Nellore",
+    "region": "JNTUA/SVU",
+    "type": "PVT"
+  },
+  {
+    "code": "NARN",
+    "name": "Narayana Engineering College - Nellore",
+    "location": "Nellore",
+    "district": "Nellore",
+    "region": "JNTUA/SVU",
+    "type": "PVT"
+  },
+  {
+    "code": "VITK",
+    "name": "P B R Visvodaya Institute of Technology and Sci. - Kavali",
+    "location": "Kavali",
+    "district": "Nellore",
+    "region": "JNTUA/SVU",
+    "type": "PVT"
+  },
+  {
+    "code": "PACE",
+    "name": "Pace Institute of Technology and Sciences - Ongole",
+    "location": "Ongole",
+    "district": "Prakasam",
+    "region": "JNTUK",
+    "type": "PVT"
+  },
+  {
+    "code": "SSCE",
+    "name": "Sri Sivani College of Engineering - Srikakulam",
+    "location": "Srikakulam",
+    "district": "Srikakulam",
+    "region": "AU",
+    "type": "PVT"
+  },
+  {
+    "code": "SRET",
+    "name": "Sree Rama Engineering College - Tirupathi",
+    "location": "Tirupathi",
+    "district": "Tirupati",
+    "region": "JNTUA/SVU",
+    "type": "PVT"
+  },
+  {
+    "code": "SVCE",
+    "name": "Sri Venkateswara Coll of Engineering - Tirupathi",
+    "location": "Tirupathi",
+    "district": "Tirupati",
+    "region": "JNTUA/SVU",
+    "type": "PVT"
+  },
+  {
+    "code": "CEVP",
+    "name": "Chaitanya Engineering College - Visakhapatnam",
+    "location": "Visakhapatnam",
+    "district": "Visakhapatnam",
+    "region": "AU",
+    "type": "PVT"
+  },
+  {
+    "code": "SAVE",
+    "name": "Sankethika Vidya Parishad Engineering College - Visakhapatnam",
+    "location": "Visakhapatnam",
+    "district": "Visakhapatnam",
+    "region": "AU",
+    "type": "PVT"
+  },
+  {
+    "code": "VIVP",
+    "name": "Vignans Institute of Information Technology - Visakhapatnam",
+    "location": "Visakhapatnam",
+    "district": "Visakhapatnam",
+    "region": "AU",
+    "type": "PVT"
+  },
+  {
+    "code": "SASI",
+    "name": "Sasi Institute of Technology and Engineering - Tadepalligudem",
+    "location": "Tadepalligudem",
+    "district": "West Godavari",
+    "region": "JNTUK",
+    "type": "PVT"
+  },
+  {
+    "code": "VSVT",
+    "name": "Sri Vasavi Engineering College - Tadepalligudem",
+    "location": "Tadepalligudem",
+    "district": "West Godavari",
+    "region": "JNTUK",
+    "type": "PVT"
+  }
+]

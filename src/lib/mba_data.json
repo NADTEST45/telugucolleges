@@ -1,0 +1,1376 @@
+[
+  {
+    "sno": 1,
+    "code": "AYMB",
+    "name": "A Y Mandali School of Business for Women",
+    "fee": 50000
+  },
+  {
+    "sno": 2,
+    "code": "AKIT",
+    "name": "Abdul Kalam Institute of Technological Sciences",
+    "fee": 45000
+  },
+  {
+    "sno": 3,
+    "code": "ADRS",
+    "name": "Adarsh PG College of Computer Sciences",
+    "fee": 50000
+  },
+  {
+    "sno": 4,
+    "code": "AIZA",
+    "name": "Aizza College of Engineering and Technology",
+    "fee": 36000
+  },
+  {
+    "sno": 5,
+    "code": "AIMS",
+    "name": "Akshara Institute of Management Studies",
+    "fee": 42000
+  },
+  {
+    "sno": 6,
+    "code": "ALQR",
+    "name": "Al Qurmoshi Institute of Business Management",
+    "fee": 45000
+  },
+  {
+    "sno": 7,
+    "code": "ALLR",
+    "name": "Alluri Institute of Management Sciences",
+    "fee": 40000
+  },
+  {
+    "sno": 8,
+    "code": "AMJD",
+    "name": "Amjad Ali Khan College of Business Administration",
+    "fee": 85000
+  },
+  {
+    "sno": 9,
+    "code": "AMSW",
+    "name": "AMS School of Informatics for Women",
+    "fee": 45000
+  },
+  {
+    "sno": 10,
+    "code": "AITH",
+    "name": "Annamacharya Inst. of Technology & Science",
+    "fee": 50000
+  },
+  {
+    "sno": 11,
+    "code": "BOSE",
+    "name": "Anu Bose Institute of Technology",
+    "fee": 50000
+  },
+  {
+    "sno": 12,
+    "code": "ANRK",
+    "name": "Anurag Engineering College",
+    "fee": 45000
+  },
+  {
+    "sno": 13,
+    "code": "CVSR",
+    "name": "Anurag University",
+    "fee": 70000
+  },
+  {
+    "sno": 14,
+    "code": "ANWC",
+    "name": "Anwar Ul Uloom College for Computer Studies",
+    "fee": 70000
+  },
+  {
+    "sno": 15,
+    "code": "ANWB",
+    "name": "Anwar Ul Uloom College of Business Management",
+    "fee": 75000
+  },
+  {
+    "sno": 16,
+    "code": "APRV",
+    "name": "Apoorva Institute of Management and Sciences",
+    "fee": 27000
+  },
+  {
+    "sno": 17,
+    "code": "ASBM",
+    "name": "Aradhana School of Business Management",
+    "fee": 27000
+  },
+  {
+    "sno": 18,
+    "code": "ARIS",
+    "name": "Aristotle PG College",
+    "fee": 40000
+  },
+  {
+    "sno": 19,
+    "code": "ARJN",
+    "name": "Arjun College of Technology & Science",
+    "fee": 40000
+  },
+  {
+    "sno": 20,
+    "code": "ARCS",
+    "name": "Aurobindo Coll of Computer Sciences Olive PG College",
+    "fee": 37000
+  },
+  {
+    "sno": 21,
+    "code": "ARBM",
+    "name": "Aurobindo College of Business Management Olive PG College",
+    "fee": 37000
+  },
+  {
+    "sno": 22,
+    "code": "AURU",
+    "name": "Aurora's PG College MBA",
+    "fee": 80000
+  },
+  {
+    "sno": 23,
+    "code": "AURR",
+    "name": "Aurora's PG College MBA (Himayathnagar)",
+    "fee": 100000
+  },
+  {
+    "sno": 24,
+    "code": "AVCG",
+    "name": "AV College of Arts Science and Commerce",
+    "fee": 55000
+  },
+  {
+    "sno": 25,
+    "code": "AVIH",
+    "name": "Avanthi Institute of Engineering & Technology",
+    "fee": 55000
+  },
+  {
+    "sno": 26,
+    "code": "AVNT",
+    "name": "Avanthi PG College",
+    "fee": 80000
+  },
+  {
+    "sno": 27,
+    "code": "APRA",
+    "name": "Avanthis PG and Research Academy",
+    "fee": 55000
+  },
+  {
+    "sno": 28,
+    "code": "AZIM",
+    "name": "Azad Institute of Management",
+    "fee": 75000
+  },
+  {
+    "sno": 29,
+    "code": "BVBV",
+    "name": "B V Bhavans Vivekananda College of Science",
+    "fee": 110000
+  },
+  {
+    "sno": 30,
+    "code": "BVRI",
+    "name": "B.V.Raju Institute of Technology",
+    "fee": 75000
+  },
+  {
+    "sno": 31,
+    "code": "BDRK",
+    "name": "Badruka College PG Centre",
+    "fee": 85000
+  },
+  {
+    "sno": 32,
+    "code": "BIMN",
+    "name": "Balaji Institute of Management Science",
+    "fee": 45000
+  },
+  {
+    "sno": 33,
+    "code": "BITN",
+    "name": "Balaji Institute of Tech. and Sci.",
+    "fee": 45000
+  },
+  {
+    "sno": 34,
+    "code": "BIET",
+    "name": "Bharat Institute of Engineering & Technology",
+    "fee": 45000
+  },
+  {
+    "sno": 35,
+    "code": "BHRW",
+    "name": "Bharat PG College for Women",
+    "fee": 52000
+  },
+  {
+    "sno": 36,
+    "code": "BIBM",
+    "name": "Bharathi Institute of Business Management",
+    "fee": 45000
+  },
+  {
+    "sno": 37,
+    "code": "BOMA",
+    "name": "Bomma Institute of Technology & Science",
+    "fee": 45000
+  },
+  {
+    "sno": 38,
+    "code": "BRGT",
+    "name": "Bright Institute of Management",
+    "fee": 35000
+  },
+  {
+    "sno": 39,
+    "code": "BRIL",
+    "name": "Brilliant Institute of Engineering & Technology",
+    "fee": 45000
+  },
+  {
+    "sno": 40,
+    "code": "CBIT",
+    "name": "Chaitanya Bharathi Institute of Technology",
+    "fee": 90000
+  },
+  {
+    "sno": 41,
+    "code": "CKMD",
+    "name": "CKM Arts and Science College",
+    "fee": 27000
+  },
+  {
+    "sno": 42,
+    "code": "CMRK",
+    "name": "CMR College of Engineering & Technology",
+    "fee": 75000
+  },
+  {
+    "sno": 43,
+    "code": "CMRM",
+    "name": "CMR Institute of Technology",
+    "fee": 65000
+  },
+  {
+    "sno": 44,
+    "code": "CMRG",
+    "name": "CMR Technical Campus",
+    "fee": 65000
+  },
+  {
+    "sno": 45,
+    "code": "CCBM",
+    "name": "Crescent College of Business Management",
+    "fee": 45000
+  },
+  {
+    "sno": 46,
+    "code": "CSIS",
+    "name": "CSI Institute of PG Studies",
+    "fee": 40000
+  },
+  {
+    "sno": 47,
+    "code": "DARE",
+    "name": "Daripally Anantha Ramulu College of Engineering and Technology",
+    "fee": 40000
+  },
+  {
+    "sno": 48,
+    "code": "DAVD",
+    "name": "David Memorial Institute of Management",
+    "fee": 32000
+  },
+  {
+    "sno": 49,
+    "code": "DSOM",
+    "name": "Deccan Group of Institute School of Management",
+    "fee": 52000
+  },
+  {
+    "sno": 50,
+    "code": "BRAB",
+    "name": "Dr B R Ambedkar Institute of Management and Technology",
+    "fee": 40000
+  },
+  {
+    "sno": 51,
+    "code": "DRKC",
+    "name": "DRK College of Engineering & Technology",
+    "fee": 30000
+  },
+  {
+    "sno": 52,
+    "code": "DRKI",
+    "name": "DRK Institute of Science & Technology",
+    "fee": 30000
+  },
+  {
+    "sno": 53,
+    "code": "DVMC",
+    "name": "DVM College of Business Management",
+    "fee": 30000
+  },
+  {
+    "sno": 54,
+    "code": "ELEN",
+    "name": "Ellenki College of Engineering & Technology",
+    "fee": 45000
+  },
+  {
+    "sno": 55,
+    "code": "GNPT",
+    "name": "Ganapathy Engineering College",
+    "fee": 45000
+  },
+  {
+    "sno": 56,
+    "code": "GATE",
+    "name": "Gate Institute of Technology and Sciences",
+    "fee": 75000
+  },
+  {
+    "sno": 57,
+    "code": "GCTC",
+    "name": "Geetanjali College of Engineering & Technology",
+    "fee": 55000
+  },
+  {
+    "sno": 58,
+    "code": "GLBM",
+    "name": "Global Education Centre",
+    "fee": 60000
+  },
+  {
+    "sno": 59,
+    "code": "GIOM",
+    "name": "Global Institute of Management",
+    "fee": 42000
+  },
+  {
+    "sno": 60,
+    "code": "GUTN",
+    "name": "Gouthami PG College",
+    "fee": 35000
+  },
+  {
+    "sno": 61,
+    "code": "GNIT",
+    "name": "Guru Nanak Institute of Technology",
+    "fee": 60000
+  },
+  {
+    "sno": 62,
+    "code": "GURU",
+    "name": "Guru Nanak Institutions Technical Campus",
+    "fee": 60000
+  },
+  {
+    "sno": 63,
+    "code": "HOLY",
+    "name": "Holy Mary Institute of Technology & Science",
+    "fee": 65000
+  },
+  {
+    "sno": 64,
+    "code": "HMCM",
+    "name": "Holy Mary Institute of Technology and Management",
+    "fee": 47000
+  },
+  {
+    "sno": 65,
+    "code": "HOLM",
+    "name": "Holy Mother PG College",
+    "fee": 39000
+  },
+  {
+    "sno": 66,
+    "code": "HPPC",
+    "name": "Hyderabad Presidency College",
+    "fee": 52000
+  },
+  {
+    "sno": 67,
+    "code": "HSMG",
+    "name": "Hyderabad School of Management",
+    "fee": 65000
+  },
+  {
+    "sno": 68,
+    "code": "IBSS",
+    "name": "Immanuel Business School",
+    "fee": 40000
+  },
+  {
+    "sno": 69,
+    "code": "IITT",
+    "name": "Indur Institute of Engineering and Technology",
+    "fee": 45000
+  },
+  {
+    "sno": 70,
+    "code": "INDB",
+    "name": "Indur PG College of Business Management",
+    "fee": 32000
+  },
+  {
+    "sno": 71,
+    "code": "IARE",
+    "name": "Institute of Aeronautical Engineering",
+    "fee": 45000
+  },
+  {
+    "sno": 72,
+    "code": "ISLC",
+    "name": "ISL Womens Engineering College",
+    "fee": 50000
+  },
+  {
+    "sno": 73,
+    "code": "JAGM",
+    "name": "Jagruthi PG College of Management Studies",
+    "fee": 32000
+  },
+  {
+    "sno": 74,
+    "code": "JIBM",
+    "name": "Jaya Institute of Business Management",
+    "fee": 40000
+  },
+  {
+    "sno": 75,
+    "code": "JPNE",
+    "name": "Jaya Prakash Narayan College of Engineering",
+    "fee": 45000
+  },
+  {
+    "sno": 76,
+    "code": "JMIM",
+    "name": "Jayamukhi Institute of Management Sciences",
+    "fee": 32000
+  },
+  {
+    "sno": 77,
+    "code": "JAYA",
+    "name": "Jayamukhi Institute of Tech. & Scis.",
+    "fee": 35000
+  },
+  {
+    "sno": 78,
+    "code": "JBIT",
+    "name": "JB Institute of Engineering & Technology",
+    "fee": 50000
+  },
+  {
+    "sno": 79,
+    "code": "JOGI",
+    "name": "Joginpally B.R. Engineering College",
+    "fee": 40000
+  },
+  {
+    "sno": 80,
+    "code": "JMTS",
+    "name": "Jyothismathi Institute of Technology & Science",
+    "fee": 38000
+  },
+  {
+    "sno": 81,
+    "code": "KIMK",
+    "name": "Kakatiya Institute of Management Studies MBA",
+    "fee": 27000
+  },
+  {
+    "sno": 82,
+    "code": "KITS",
+    "name": "Kakatiya Institute of Tech. & Sci",
+    "fee": 65000
+  },
+  {
+    "sno": 83,
+    "code": "KNRR",
+    "name": "Kasireddy Narayana Reddy College of Engineering & Research",
+    "fee": 50000
+  },
+  {
+    "sno": 84,
+    "code": "KSTB",
+    "name": "Kasturba Gandhi PG Coll for Women",
+    "fee": 55000
+  },
+  {
+    "sno": 85,
+    "code": "KMIM",
+    "name": "Keshav Memorial Institute of Management",
+    "fee": 50000
+  },
+  {
+    "sno": 86,
+    "code": "KGRH",
+    "name": "KG Reddy College of Engineering & Technology",
+    "fee": 45000
+  },
+  {
+    "sno": 87,
+    "code": "KGRM",
+    "name": "KGR Institute of Technology and Management",
+    "fee": 45000
+  },
+  {
+    "sno": 88,
+    "code": "KMTS",
+    "name": "Khammam Institute of Technology & Sciences",
+    "fee": 45000
+  },
+  {
+    "sno": 89,
+    "code": "KING",
+    "name": "Kingston PG College",
+    "fee": 35000
+  },
+  {
+    "sno": 90,
+    "code": "KLRT",
+    "name": "KLR College of Engineering & Technology",
+    "fee": 55000
+  },
+  {
+    "sno": 91,
+    "code": "KPRM",
+    "name": "Kommuri Pratap Reddy Institute of Management",
+    "fee": 27000
+  },
+  {
+    "sno": 92,
+    "code": "KCEA",
+    "name": "Kshatriya College of Engineering",
+    "fee": 40000
+  },
+  {
+    "sno": 93,
+    "code": "LBHC",
+    "name": "Lal Bahadur College PG Centre",
+    "fee": 35000
+  },
+  {
+    "sno": 94,
+    "code": "LRDS",
+    "name": "Lords Institute of Engineering & Technology",
+    "fee": 60000
+  },
+  {
+    "sno": 95,
+    "code": "LOYL",
+    "name": "Loyola Academy",
+    "fee": 62000
+  },
+  {
+    "sno": 96,
+    "code": "MDRK",
+    "name": "Madhira Institute of Technology & Sciences",
+    "fee": 65000
+  },
+  {
+    "sno": 97,
+    "code": "MHVR",
+    "name": "Mahaveer Institute of Science & Technology",
+    "fee": 50000
+  },
+  {
+    "sno": 98,
+    "code": "MLRD",
+    "name": "Malla Reddy College of Engg & Technology",
+    "fee": 60000
+  },
+  {
+    "sno": 99,
+    "code": "MREC",
+    "name": "Malla Reddy Engineering College",
+    "fee": 60000
+  },
+  {
+    "sno": 100,
+    "code": "MREM",
+    "name": "Malla Reddy Engineering College and Management Sciences",
+    "fee": 40000
+  },
+  {
+    "sno": 101,
+    "code": "MRCW",
+    "name": "Malla Reddy Engineering College for Women",
+    "fee": 60000
+  },
+  {
+    "sno": 102,
+    "code": "MRIM",
+    "name": "Malla Reddy Institute of Management",
+    "fee": 40000
+  },
+  {
+    "sno": 103,
+    "code": "MANP",
+    "name": "Manpower Development College",
+    "fee": 35000
+  },
+  {
+    "sno": 104,
+    "code": "MNTR",
+    "name": "Mantra School of Business Management",
+    "fee": 37000
+  },
+  {
+    "sno": 105,
+    "code": "MLRS",
+    "name": "Marri Educational Societys Group of Institutions",
+    "fee": 30000
+  },
+  {
+    "sno": 106,
+    "code": "MVSR",
+    "name": "Maturi Venkata Subba Rao (MVSR) Engineering College",
+    "fee": 70000
+  },
+  {
+    "sno": 107,
+    "code": "MGHA",
+    "name": "Megha Inst. of Engineering & Technology for Women",
+    "fee": 40000
+  },
+  {
+    "sno": 108,
+    "code": "MESC",
+    "name": "Mesco Institute of Management and Computer Sciences",
+    "fee": 40000
+  },
+  {
+    "sno": 109,
+    "code": "METH",
+    "name": "Methodist College of Engineering & Technology",
+    "fee": 50000
+  },
+  {
+    "sno": 110,
+    "code": "MINA",
+    "name": "Mina Institute of Engineering & Technology for Women",
+    "fee": 40000
+  },
+  {
+    "sno": 111,
+    "code": "MLID",
+    "name": "MLR Institute of Technology",
+    "fee": 60000
+  },
+  {
+    "sno": 112,
+    "code": "MCPN",
+    "name": "Mother Teresa College of Management and Computer Applications",
+    "fee": 35000
+  },
+  {
+    "sno": 113,
+    "code": "MOTK",
+    "name": "Mother Teresa Institute of Science & Technology",
+    "fee": 45000
+  },
+  {
+    "sno": 114,
+    "code": "MTEC",
+    "name": "Mother Theressa College of Engineering & Technology",
+    "fee": 60000
+  },
+  {
+    "sno": 115,
+    "code": "MRMI",
+    "name": "MRM Institute of Management",
+    "fee": 60000
+  },
+  {
+    "sno": 116,
+    "code": "NREC",
+    "name": "Nalla Malla Reddy Engineering College",
+    "fee": 45000
+  },
+  {
+    "sno": 117,
+    "code": "NNRG",
+    "name": "Nalla Narasimha Reddy Education Societys Group of Institutions",
+    "fee": 45000
+  },
+  {
+    "sno": 118,
+    "code": "NRCM",
+    "name": "Narasimha Reddy Engineering College",
+    "fee": 40000
+  },
+  {
+    "sno": 119,
+    "code": "NAVB",
+    "name": "Nava Bharathi College of PG Studies",
+    "fee": 37000
+  },
+  {
+    "sno": 120,
+    "code": "NIET",
+    "name": "Netaji Institute of Engineering & Technology",
+    "fee": 35000
+  },
+  {
+    "sno": 121,
+    "code": "NSWL",
+    "name": "New Science PG College",
+    "fee": 45000
+  },
+  {
+    "sno": 122,
+    "code": "NGMA",
+    "name": "Nigama Engineering College",
+    "fee": 40000
+  },
+  {
+    "sno": 123,
+    "code": "NSTN",
+    "name": "Nishitha Degree College",
+    "fee": 50000
+  },
+  {
+    "sno": 124,
+    "code": "NOBL",
+    "name": "Noble PG College",
+    "fee": 35000
+  },
+  {
+    "sno": 125,
+    "code": "OMEG",
+    "name": "Omega PG College MBA",
+    "fee": 45000
+  },
+  {
+    "sno": 126,
+    "code": "PADL",
+    "name": "Padala Rama Reddi College of Commerce and Management",
+    "fee": 44000
+  },
+  {
+    "sno": 127,
+    "code": "PCBM",
+    "name": "Pallavi College of Business Management",
+    "fee": 35000
+  },
+  {
+    "sno": 128,
+    "code": "NAGL",
+    "name": "Pallavi Engineering College",
+    "fee": 40000
+  },
+  {
+    "sno": 129,
+    "code": "PRCB",
+    "name": "Pannala Ram Reddy College of Business Management",
+    "fee": 35000
+  },
+  {
+    "sno": 130,
+    "code": "PEND",
+    "name": "Pendekanti Institute of Management",
+    "fee": 100000
+  },
+  {
+    "sno": 131,
+    "code": "PRAG",
+    "name": "Pragati Mahavidyalaya PG College",
+    "fee": 47000
+  },
+  {
+    "sno": 132,
+    "code": "PRES",
+    "name": "Presidency School of Management and Computer Sciences MBA",
+    "fee": 60000
+  },
+  {
+    "sno": 133,
+    "code": "PRNC",
+    "name": "Princeton PG Coll of Information Technology Ramanthapur",
+    "fee": 40000
+  },
+  {
+    "sno": 134,
+    "code": "PRNM",
+    "name": "Princeton PG College of Management",
+    "fee": 50000
+  },
+  {
+    "sno": 135,
+    "code": "PRIW",
+    "name": "Priyadarshini Institute of Science & Technology for Women",
+    "fee": 35000
+  },
+  {
+    "sno": 136,
+    "code": "PURD",
+    "name": "Pulla Reddy Institute of Computer Science",
+    "fee": 40000
+  },
+  {
+    "sno": 137,
+    "code": "PVRR",
+    "name": "PV Ram Reddy PG College",
+    "fee": 39000
+  },
+  {
+    "sno": 138,
+    "code": "RBVW",
+    "name": "R B V R R College for Women",
+    "fee": 60000
+  },
+  {
+    "sno": 139,
+    "code": "RBVR",
+    "name": "R B V R R Institute of Technology",
+    "fee": 35000
+  },
+  {
+    "sno": 140,
+    "code": "RKLK",
+    "name": "R K L K PG College",
+    "fee": 55000
+  },
+  {
+    "sno": 141,
+    "code": "REAH",
+    "name": "Reah School of Business Management",
+    "fee": 32000
+  },
+  {
+    "sno": 142,
+    "code": "KEDA",
+    "name": "RG Kedia College of Commerce",
+    "fee": 35000
+  },
+  {
+    "sno": 143,
+    "code": "RISH",
+    "name": "Rishi UBR PG Coll for Women",
+    "fee": 55000
+  },
+  {
+    "sno": 144,
+    "code": "ROUS",
+    "name": "Rousseau Institute of Management Studies",
+    "fee": 27000
+  },
+  {
+    "sno": 145,
+    "code": "SNVI",
+    "name": "Saanvi PG College for Women",
+    "fee": 38000
+  },
+  {
+    "sno": 146,
+    "code": "SAIK",
+    "name": "Sai Krishna College",
+    "fee": 40000
+  },
+  {
+    "sno": 147,
+    "code": "SAIS",
+    "name": "Sai Spurthi Institute of Technology",
+    "fee": 54000
+  },
+  {
+    "sno": 148,
+    "code": "SSUD",
+    "name": "Sai Sudhir PG College",
+    "fee": 40000
+  },
+  {
+    "sno": 149,
+    "code": "SMSK",
+    "name": "Samskruthi College of Engineering",
+    "fee": 46000
+  },
+  {
+    "sno": 150,
+    "code": "SIBM",
+    "name": "Samskruti Institute of Business Management",
+    "fee": 46000
+  },
+  {
+    "sno": 151,
+    "code": "SANA",
+    "name": "Sana Engineering College",
+    "fee": 58000
+  },
+  {
+    "sno": 152,
+    "code": "SPTL",
+    "name": "Sardar Patel College",
+    "fee": 45000
+  },
+  {
+    "sno": 153,
+    "code": "SNVM",
+    "name": "Sarojini Naidu Vanita Mahavidyalaya Coll for Women",
+    "fee": 55000
+  },
+  {
+    "sno": 154,
+    "code": "SNTI",
+    "name": "Scient Institute of Technology",
+    "fee": 45000
+  },
+  {
+    "sno": 155,
+    "code": "SIGN",
+    "name": "SD Signodia Coll of Arts and Commerce and PG Centre",
+    "fee": 42000
+  },
+  {
+    "sno": 156,
+    "code": "SCET",
+    "name": "Shadan College of Engineering & Technology",
+    "fee": 40000
+  },
+  {
+    "sno": 157,
+    "code": "SCSW",
+    "name": "Shadan Institute of Comp Studies Girls",
+    "fee": 41000
+  },
+  {
+    "sno": 158,
+    "code": "SCSB",
+    "name": "Shadan Institute of Computer Studies Boys",
+    "fee": 49000
+  },
+  {
+    "sno": 159,
+    "code": "SMSB",
+    "name": "Shadan Institute of Management Studies Boys",
+    "fee": 46000
+  },
+  {
+    "sno": 160,
+    "code": "SMSW",
+    "name": "Shadan Institute of Management Studies Girls",
+    "fee": 41000
+  },
+  {
+    "sno": 161,
+    "code": "SWET",
+    "name": "Shadan Womens College of Engineering & Technology",
+    "fee": 40000
+  },
+  {
+    "sno": 162,
+    "code": "SIDD",
+    "name": "Siddhartha Institute of Computer Sciences",
+    "fee": 45000
+  },
+  {
+    "sno": 163,
+    "code": "SIEI",
+    "name": "Siddhartha Institute of Engineering & Technology",
+    "fee": 48000
+  },
+  {
+    "sno": 164,
+    "code": "SIDT",
+    "name": "Siddhartha Institute of Technology and Science",
+    "fee": 52000
+  },
+  {
+    "sno": 165,
+    "code": "SRHP",
+    "name": "SR Engineering College",
+    "fee": 60000
+  },
+  {
+    "sno": 166,
+    "code": "CHTN",
+    "name": "Sree Chaitanya College of Engineering",
+    "fee": 50000
+  },
+  {
+    "sno": 167,
+    "code": "CHTS",
+    "name": "Sree Chaitanya Institute of Technological Sciences",
+    "fee": 50000
+  },
+  {
+    "sno": 168,
+    "code": "SDGI",
+    "name": "Sree Dattha Group of Institutions",
+    "fee": 40000
+  },
+  {
+    "sno": 169,
+    "code": "VITS",
+    "name": "Sree Visvesvaraya Institute of Technology & Science",
+    "fee": 50000
+  },
+  {
+    "sno": 170,
+    "code": "SNIS",
+    "name": "Sreenidhi Institute of Science and Technology",
+    "fee": 100000
+  },
+  {
+    "sno": 171,
+    "code": "CHBM",
+    "name": "Sri Chaitanya Technical Campus (MBA)",
+    "fee": 45000
+  },
+  {
+    "sno": 172,
+    "code": "SDES",
+    "name": "Sri Datta Institute of Engineering & Science",
+    "fee": 40000
+  },
+  {
+    "sno": 173,
+    "code": "INDM",
+    "name": "Sri Indu Institute of Management",
+    "fee": 45000
+  },
+  {
+    "sno": 174,
+    "code": "INDV",
+    "name": "Sri Indu PG College",
+    "fee": 45000
+  },
+  {
+    "sno": 175,
+    "code": "SSMI",
+    "name": "Sri Shivani Institute of Management",
+    "fee": 27000
+  },
+  {
+    "sno": 176,
+    "code": "SDEW",
+    "name": "Sridevi Womens Engineering College",
+    "fee": 55000
+  },
+  {
+    "sno": 177,
+    "code": "SRMK",
+    "name": "SRM PG College MBA",
+    "fee": 27000
+  },
+  {
+    "sno": 178,
+    "code": "ANMP",
+    "name": "St Anns College for Women PG Centre",
+    "fee": 51000
+  },
+  {
+    "sno": 179,
+    "code": "SAPM",
+    "name": "St Anns PG College for Women",
+    "fee": 44000
+  },
+  {
+    "sno": 180,
+    "code": "STJN",
+    "name": "St Johns PG College",
+    "fee": 34000
+  },
+  {
+    "sno": 181,
+    "code": "VNCT",
+    "name": "St Vincent PG College",
+    "fee": 42000
+  },
+  {
+    "sno": 182,
+    "code": "SXGP",
+    "name": "St Xaviers PG College",
+    "fee": 39000
+  },
+  {
+    "sno": 183,
+    "code": "JOSE",
+    "name": "St. Josephs Degree & PG College",
+    "fee": 70000
+  },
+  {
+    "sno": 184,
+    "code": "PIUS",
+    "name": "St. Pious X PG MBA College for Women",
+    "fee": 60000
+  },
+  {
+    "sno": 185,
+    "code": "STFD",
+    "name": "Stanford PG College",
+    "fee": 35000
+  },
+  {
+    "sno": 186,
+    "code": "STLW",
+    "name": "Stanley College of Engineering & Technology for Women",
+    "fee": 55000
+  },
+  {
+    "sno": 187,
+    "code": "SJOT",
+    "name": "StJohns Institute of Science and Technology",
+    "fee": 30000
+  },
+  {
+    "sno": 188,
+    "code": "SJRD",
+    "name": "StJosephs PG College",
+    "fee": 52000
+  },
+  {
+    "sno": 189,
+    "code": "SUPR",
+    "name": "Suprabhath Institute for Computer Studies",
+    "fee": 45000
+  },
+  {
+    "sno": 190,
+    "code": "SUPK",
+    "name": "Suprabhath Institute of Management Studies",
+    "fee": 45000
+  },
+  {
+    "sno": 191,
+    "code": "SVSE",
+    "name": "SVS Group of Institutions",
+    "fee": 45000
+  },
+  {
+    "sno": 192,
+    "code": "SBIT",
+    "name": "Swarna Bharathi Institute of Science & Technology",
+    "fee": 45000
+  },
+  {
+    "sno": 193,
+    "code": "TPCE",
+    "name": "Talla Padmavathi College of Engineering",
+    "fee": 40000
+  },
+  {
+    "sno": 194,
+    "code": "TKEM",
+    "name": "Teegala Krishna Reddy Engineering College",
+    "fee": 48000
+  },
+  {
+    "sno": 195,
+    "code": "TKRC",
+    "name": "TKR College of Engineering & Technology",
+    "fee": 45000
+  },
+  {
+    "sno": 196,
+    "code": "TKRB",
+    "name": "TKR Institute of Management and Science",
+    "fee": 50000
+  },
+  {
+    "sno": 197,
+    "code": "TMSS",
+    "name": "TMSS College of Management",
+    "fee": 40000
+  },
+  {
+    "sno": 198,
+    "code": "TCTK",
+    "name": "Trinity College of Engineering & Technology",
+    "fee": 50000
+  },
+  {
+    "sno": 199,
+    "code": "UNTY",
+    "name": "Unity PG College",
+    "fee": 40000
+  },
+  {
+    "sno": 200,
+    "code": "BASB",
+    "name": "V.V.Sanghs Basaveshwara Institute of Information Technology",
+    "fee": 33000
+  },
+  {
+    "sno": 201,
+    "code": "VAGE",
+    "name": "Vaagdevi College of Engineering",
+    "fee": 56000
+  },
+  {
+    "sno": 202,
+    "code": "VGDG",
+    "name": "Vaagdevi College of Engineering",
+    "fee": 35000
+  },
+  {
+    "sno": 203,
+    "code": "VAPH",
+    "name": "Vaagdevi Degree and PG College",
+    "fee": 42000
+  },
+  {
+    "sno": 204,
+    "code": "VGWL",
+    "name": "Vaagdevi Engineering College",
+    "fee": 40000
+  },
+  {
+    "sno": 205,
+    "code": "VGIM",
+    "name": "Vaagdevi Institute of Management Sciences",
+    "fee": 40000
+  },
+  {
+    "sno": 206,
+    "code": "VGSE",
+    "name": "Vaageswari College of Engineering",
+    "fee": 35000
+  },
+  {
+    "sno": 207,
+    "code": "VNIM",
+    "name": "Vani Niketan Institute of Management Studies",
+    "fee": 55000
+  },
+  {
+    "sno": 208,
+    "code": "VMEG",
+    "name": "Vardhaman College of Engineering",
+    "fee": 45000
+  },
+  {
+    "sno": 209,
+    "code": "VISA",
+    "name": "Vathsalya Institute of Science and Technology",
+    "fee": 45000
+  },
+  {
+    "sno": 210,
+    "code": "VIBA",
+    "name": "Vennela Institute of Business Administration",
+    "fee": 27000
+  },
+  {
+    "sno": 211,
+    "code": "VDYN",
+    "name": "Vidya Dayini College of Information Technology",
+    "fee": 40000
+  },
+  {
+    "sno": 212,
+    "code": "VJIT",
+    "name": "Vidya Jyothi Institute of Technology",
+    "fee": 51800
+  },
+  {
+    "sno": 213,
+    "code": "VBIT",
+    "name": "Vignana Bharati Institute of Technology",
+    "fee": 50000
+  },
+  {
+    "sno": 214,
+    "code": "VREC",
+    "name": "Vijay Rural Engineering College",
+    "fee": 45000
+  },
+  {
+    "sno": 215,
+    "code": "VJYA",
+    "name": "Vijaya Engineering College",
+    "fee": 35000
+  },
+  {
+    "sno": 216,
+    "code": "VJMG",
+    "name": "Vijaya PG College",
+    "fee": 40000
+  },
+  {
+    "sno": 217,
+    "code": "VSBM",
+    "name": "Vijaya School of Business Management",
+    "fee": 55000
+  },
+  {
+    "sno": 218,
+    "code": "VILM",
+    "name": "Villa Marie PG College for Women",
+    "fee": 75000
+  },
+  {
+    "sno": 219,
+    "code": "VCBM",
+    "name": "Vinayaka College of IT and Business Management",
+    "fee": 32000
+  },
+  {
+    "sno": 220,
+    "code": "VCMH",
+    "name": "Vinuthna College of Management",
+    "fee": 27000
+  },
+  {
+    "sno": 221,
+    "code": "VVIS",
+    "name": "Vishwa Vishwani Institute of Syst and Management",
+    "fee": 90000
+  },
+  {
+    "sno": 222,
+    "code": "VISN",
+    "name": "Vision PG College",
+    "fee": 45000
+  },
+  {
+    "sno": 223,
+    "code": "WVSB",
+    "name": "Vishwa Vishwani School of Business",
+    "fee": 90000
+  },
+  {
+    "sno": 224,
+    "code": "VCET",
+    "name": "Visveswaraya College of Engineering & Technology",
+    "fee": 50000
+  },
+  {
+    "sno": 225,
+    "code": "VKSD",
+    "name": "Vivekananda College of Computer Sciences",
+    "fee": 30000
+  },
+  {
+    "sno": 226,
+    "code": "VDPG",
+    "name": "Vivekananda Degree and PG College",
+    "fee": 35000
+  },
+  {
+    "sno": 227,
+    "code": "VKPG",
+    "name": "Vivekananda PG College",
+    "fee": 27500
+  },
+  {
+    "sno": 228,
+    "code": "VVBM",
+    "name": "Vivekvardhini Coll School of Business Management",
+    "fee": 40000
+  },
+  {
+    "sno": 229,
+    "code": "WESL",
+    "name": "Wesley PG College",
+    "fee": 45000
+  }
+]

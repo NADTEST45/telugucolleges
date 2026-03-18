@@ -1,0 +1,140 @@
+[
+  {
+    "sno": 1,
+    "code": "AURA",
+    "name": "Auroras PG College",
+    "fee": 70000
+  },
+  {
+    "sno": 2,
+    "code": "AURI",
+    "name": "Auroras PG College MCA",
+    "fee": 80000
+  },
+  {
+    "sno": 3,
+    "code": "AURO",
+    "name": "Auroras PG College MCA",
+    "fee": 60000
+  },
+  {
+    "sno": 4,
+    "code": "AVNT",
+    "name": "Avanthi PG College",
+    "fee": 55000
+  },
+  {
+    "sno": 5,
+    "code": "AVCG",
+    "name": "AV College of Arts Science and Commerce",
+    "fee": 40000
+  },
+  {
+    "sno": 6,
+    "code": "CBIT",
+    "name": "Chaitanya Bharathi Institute of Technology",
+    "fee": 95000
+  },
+  {
+    "sno": 7,
+    "code": "DCET",
+    "name": "Deccan College of Engineering & Technology",
+    "fee": 45000
+  },
+  {
+    "sno": 8,
+    "code": "LOYL",
+    "name": "Loyola Academy",
+    "fee": 68000
+  },
+  {
+    "sno": 9,
+    "code": "MANP",
+    "name": "Manpower Development College",
+    "fee": 30000
+  },
+  {
+    "sno": 10,
+    "code": "MESC",
+    "name": "Mesco Institute of Management and Computer Sciences",
+    "fee": 40000
+  },
+  {
+    "sno": 11,
+    "code": "NANK",
+    "name": "Nanakram Bhagwan Das Science College",
+    "fee": 30000
+  },
+  {
+    "sno": 12,
+    "code": "NSTN",
+    "name": "Nishitha Degree College",
+    "fee": 40000
+  },
+  {
+    "sno": 13,
+    "code": "OMGA",
+    "name": "Omega PG College MCA",
+    "fee": 45000
+  },
+  {
+    "sno": 14,
+    "code": "PRNC",
+    "name": "Princeton PG Coll of Information Technology Ramanthapur",
+    "fee": 50000
+  },
+  {
+    "sno": 15,
+    "code": "RBVR",
+    "name": "R B V R R Institute of Technology",
+    "fee": 32000
+  },
+  {
+    "sno": 16,
+    "code": "KEDA",
+    "name": "RG Kedia College of Commerce",
+    "fee": 27000
+  },
+  {
+    "sno": 17,
+    "code": "CHTN",
+    "name": "Sree Chaitanya College of Engineering",
+    "fee": 50000
+  },
+  {
+    "sno": 18,
+    "code": "SRMC",
+    "name": "SRM Post Graduate College MCA",
+    "fee": 35000
+  },
+  {
+    "sno": 19,
+    "code": "ANMP",
+    "name": "St Anns College for Women PG Centre",
+    "fee": 51000
+  },
+  {
+    "sno": 20,
+    "code": "VGDG",
+    "name": "Vaagdevi College of Engineering",
+    "fee": 40000
+  },
+  {
+    "sno": 21,
+    "code": "VGSE",
+    "name": "Vaageswari College of Engineering",
+    "fee": 35000
+  },
+  {
+    "sno": 22,
+    "code": "VKPG",
+    "name": "Vivekananda PG College",
+    "fee": 30000
+  },
+  {
+    "sno": 23,
+    "code": "WESL",
+    "name": "Wesley PG College",
+    "fee": 35000
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "sno": 1,
+    "code": "RAVW",
+    "name": "Ravindra College of Engg for Women - Kurnool",
+    "district": "KNL",
+    "fee": 50000
+  },
+  {
+    "sno": 2,
+    "code": "MITS",
+    "name": "Madanapally Institute of Technology and Sci - Madanapalle",
+    "district": "ANM",
+    "fee": 50000
+  },
+  {
+    "sno": 3,
+    "code": "GIET",
+    "name": "GIET Engineering College - Rajahmundry",
+    "district": "EG",
+    "fee": 50000
+  }
+]
