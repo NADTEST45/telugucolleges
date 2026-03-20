@@ -13,3 +13,98 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* ─── Mobile Optimizations ─── */
+
+/* Prevent text size adjustment on orientation change (iOS) */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent overscroll bounce showing white bg on iOS */
+body {
+  overscroll-behavior-y: none;
+}
+
+/* Larger tap targets — all interactive elements get min 44px touch area */
+@media (pointer: coarse) {
+  button, a, select, input, [role="button"] {
+    min-height: 44px;
+  }
+  /* Except inline text links and tiny badges */
+  .inline-link, nav a, .badge {
+    min-height: auto;
+  }
+}
+
+/* Momentum scrolling for overflow containers on iOS */
+.overflow-x-auto, .overflow-y-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Snap scrolling for horizontal pill rows on mobile */
+@media (max-width: 640px) {
+  .snap-x-mobile {
+    scroll-snap-type: x mandatory;
+  }
+  .snap-x-mobile > * {
+    scroll-snap-align: start;
+  }
+}
+
+/* Hide scrollbar but keep scrollable (for filter bars) */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mobile-friendly table scrolling indicator (fade on right edge) */
+.table-scroll-hint {
+  position: relative;
+}
+.table-scroll-hint::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 24px;
+  background: linear-gradient(to right, transparent, white);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.table-scroll-hint.show-hint::after {
+  opacity: 1;
+}
+
+/* Prevent layout shift from scrollbar on desktop */
+@media (min-width: 768px) {
+  html {
+    scrollbar-gutter: stable;
+  }
+}
+
+/* Better focus styles for mobile accessibility */
+:focus-visible {
+  outline: 2px solid #2e86c1;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Active state for touch feedback */
+@media (pointer: coarse) {
+  button:active, a:active, [role="button"]:active {
+    opacity: 0.85;
+    transition: opacity 0.1s;
+  }
+}

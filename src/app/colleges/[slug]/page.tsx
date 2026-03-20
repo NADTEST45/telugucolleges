@@ -5,7 +5,12 @@ import { TS_PHASES, getTSPhaseCutoffs, type PhaseKey } from "@/lib/ts-cutoffs-ph
 import { notFound } from "next/navigation";
 import CollegeDetail from "./CollegeDetail";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.vercel.app";
+
 export type FAQItem = { question: string; answer: string };
+
+export const revalidate = 3600; // ISR: revalidate every hour
+export const dynamicParams = true; // Allow pages not in generateStaticParams
 
 export function generateStaticParams() {
   return COLLEGES.map(c => ({ slug: c.slug }));
@@ -17,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!c) return {};
   const title = `${c.name} — Fee, Cutoffs, Placements | TeluguColleges`;
   const description = `${c.name} (${c.code}) in ${c.district}, ${c.state}. B.Tech fee ${c.fee > 0 ? fmtFee(c.fee) + "/yr" : ""}, EAPCET cutoff ranks, placements, NAAC ${c.naac && c.naac !== "-" ? c.naac : ""} & NIRF rankings.`;
-  const url = `https://telugucolleges.vercel.app/colleges/${slug}`;
+  const url = `${SITE_URL}/colleges/${slug}`;
   return {
     title,
     description,
@@ -41,7 +46,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 /** Build JSON-LD EducationalOrganization schema for a college */
 function buildJsonLd(c: ReturnType<typeof getCollegeBySlug>) {
   if (!c) return null;
-  const url = `https://telugucolleges.vercel.app/colleges/${c.slug}`;
+  const url = `${SITE_URL}/colleges/${c.slug}`;
 
   const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -236,9 +241,9 @@ export default async function CollegePage({ params }: { params: Promise<{ slug: 
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://telugucolleges.vercel.app" },
-      { "@type": "ListItem", position: 2, name: "Colleges", item: "https://telugucolleges.vercel.app/colleges" },
-      { "@type": "ListItem", position: 3, name: c.name, item: `https://telugucolleges.vercel.app/colleges/${c.slug}` },
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}` },
+      { "@type": "ListItem", position: 2, name: "Colleges", item: `${SITE_URL}/colleges` },
+      { "@type": "ListItem", position: 3, name: c.name, item: `${SITE_URL}/colleges/${c.slug}` },
     ],
   };
 

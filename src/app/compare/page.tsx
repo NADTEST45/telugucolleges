@@ -33,8 +33,8 @@ function CollegeSearchSelect({ selected, onSelect, stateFilter }: {
   }, []);
 
   return (
-    <div ref={ref} className="relative flex-1 min-w-[240px]">
-      <label className="text-sm font-semibold text-gray-600 mb-2 block">Add colleges to compare:</label>
+    <div ref={ref} className="relative flex-1 min-w-0 sm:min-w-[240px]">
+      <label className="text-xs sm:text-sm font-semibold text-gray-600 mb-1.5 sm:mb-2 block">Add colleges to compare:</label>
       <div className="relative">
         <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
         <input
@@ -87,13 +87,13 @@ export default function ComparePage() {
       <p className="text-sm text-gray-500 mb-6">Select 2-4 colleges to compare fees, cutoffs, and placements side-by-side</p>
 
       {/* Selector */}
-      <div className="bg-white rounded-xl p-4 shadow-sm mb-6">
-        <div className="flex flex-wrap items-end gap-3 mb-3">
+      <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm mb-6">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-end gap-3 mb-3">
           <CollegeSearchSelect selected={selected} onSelect={addCollege} stateFilter={stateFilter} />
           <div>
             <label className="text-[11px] text-gray-400 font-semibold mb-1 block">Filter by State</label>
             <select value={stateFilter} onChange={e => setStateFilter(e.target.value as typeof stateFilter)}
-              className="px-4 py-2.5 rounded-lg border border-gray-200 text-sm cursor-pointer">
+              className="w-full sm:w-auto px-3 sm:px-4 py-2.5 rounded-lg border border-gray-200 text-sm cursor-pointer">
               <option value="">All States</option>
               <option value="Andhra Pradesh">Andhra Pradesh</option>
               <option value="Telangana">Telangana</option>
@@ -120,15 +120,17 @@ export default function ComparePage() {
           <p className="text-sm">Use the dropdown above to add colleges.</p>
         </div>
       ) : (
-        <div className="overflow-x-auto">
+        <>
+        <div className="sm:hidden text-[10px] text-gray-400 text-center mb-1.5">Swipe to see all columns →</div>
+        <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
           <table className="w-full bg-white rounded-xl overflow-hidden shadow-sm text-sm min-w-[500px]">
             <thead>
               <tr>
-                <th className="px-4 py-3 bg-[#1a5276] text-white text-left text-xs min-w-[140px]">Feature</th>
+                <th className="px-3 sm:px-4 py-2.5 sm:py-3 bg-[#1a5276] text-white text-left text-[11px] sm:text-xs min-w-[110px] sm:min-w-[140px] sticky left-0 z-10">Feature</th>
                 {colleges.map(c => (
-                  <th key={c.id} className="px-3 py-3 bg-[#1a5276] text-white text-center min-w-[150px]">
-                    <div className="font-bold">{c.code}</div>
-                    <div className="text-[11px] opacity-80 font-normal mt-0.5">{c.name.length > 25 ? c.name.slice(0, 25) + "..." : c.name}</div>
+                  <th key={c.id} className="px-2.5 sm:px-3 py-2.5 sm:py-3 bg-[#1a5276] text-white text-center min-w-[120px] sm:min-w-[150px]">
+                    <div className="font-bold text-xs sm:text-sm">{c.code}</div>
+                    <div className="text-[10px] sm:text-[11px] opacity-80 font-normal mt-0.5">{c.name.length > 20 ? c.name.slice(0, 20) + "..." : c.name}</div>
                   </th>
                 ))}
               </tr>
@@ -144,21 +146,21 @@ export default function ComparePage() {
                 ["NBA", (c: typeof colleges[0]) => c.nba ? "Yes" : "No"],
               ].map(([label, fn]) => (
                 <tr key={label as string} className="border-b border-gray-100">
-                  <td className="px-4 py-2.5 font-semibold text-gray-500 text-xs">{label as string}</td>
-                  {colleges.map(c => <td key={c.id} className="px-3 py-2.5 text-center text-xs">{(fn as (c: typeof colleges[0]) => string)(c)}</td>)}
+                  <td className="px-3 sm:px-4 py-2 sm:py-2.5 font-semibold text-gray-500 text-[11px] sm:text-xs sticky left-0 bg-white z-10">{label as string}</td>
+                  {colleges.map(c => <td key={c.id} className="px-2.5 sm:px-3 py-2 sm:py-2.5 text-center text-[11px] sm:text-xs">{(fn as (c: typeof colleges[0]) => string)(c)}</td>)}
                 </tr>
               ))}
 
               {/* Fees */}
-              <tr><td colSpan={colleges.length + 1} className="px-4 py-2.5 bg-blue-50 font-bold text-[#1a5276] text-xs">Fee Structure (Annual)</td></tr>
+              <tr><td colSpan={colleges.length + 1} className="px-3 sm:px-4 py-2 sm:py-2.5 bg-blue-50 font-bold text-[#1a5276] text-[11px] sm:text-xs">Fee Structure (Annual)</td></tr>
               {(() => {
                 const vals = colleges.map(c => c.fee || Infinity);
                 const bestIdx = vals.indexOf(Math.min(...vals));
                 return (
                   <tr className="border-b border-gray-100">
-                    <td className="px-4 py-2.5 font-semibold text-gray-500 text-xs">Annual Fee (GO)</td>
+                    <td className="px-3 sm:px-4 py-2 sm:py-2.5 font-semibold text-gray-500 text-[11px] sm:text-xs sticky left-0 bg-white z-10">Annual Fee (GO)</td>
                     {colleges.map((c, i) => (
-                      <td key={c.id} className={`px-3 py-2.5 text-center text-xs ${i === bestIdx ? "font-bold text-green-600 bg-green-50" : ""}`}>
+                      <td key={c.id} className={`px-2.5 sm:px-3 py-2 sm:py-2.5 text-center text-[11px] sm:text-xs ${i === bestIdx ? "font-bold text-green-600 bg-green-50" : ""}`}>
                         {fmtFee(c.fee)}
                       </td>
                     ))}
@@ -167,15 +169,15 @@ export default function ComparePage() {
               })()}
 
               {/* Cutoffs */}
-              <tr><td colSpan={colleges.length + 1} className="px-4 py-2.5 bg-blue-50 font-bold text-[#1a5276] text-xs">EAPCET Cutoffs (2024-25)</td></tr>
+              <tr><td colSpan={colleges.length + 1} className="px-3 sm:px-4 py-2 sm:py-2.5 bg-blue-50 font-bold text-[#1a5276] text-[11px] sm:text-xs">EAPCET Cutoffs (2024-25)</td></tr>
               {branches.map(b => {
                 const vals = colleges.map(c => c.cutoff[b] || Infinity);
                 const bestIdx = vals.indexOf(Math.min(...vals));
                 return (
                   <tr key={b} className="border-b border-gray-100">
-                    <td className="px-4 py-2.5 font-semibold text-gray-500 text-xs uppercase">{b} Rank</td>
+                    <td className="px-3 sm:px-4 py-2 sm:py-2.5 font-semibold text-gray-500 text-[11px] sm:text-xs uppercase sticky left-0 bg-white z-10">{b} Rank</td>
                     {colleges.map((c, i) => (
-                      <td key={c.id} className={`px-3 py-2.5 text-center text-xs ${i === bestIdx ? "font-bold text-green-600 bg-green-50" : ""}`}>
+                      <td key={c.id} className={`px-2.5 sm:px-3 py-2 sm:py-2.5 text-center text-[11px] sm:text-xs ${i === bestIdx ? "font-bold text-green-600 bg-green-50" : ""}`}>
                         {c.cutoff[b]?.toLocaleString() || "—"}
                       </td>
                     ))}
@@ -184,7 +186,7 @@ export default function ComparePage() {
               })}
 
               {/* Placements */}
-              <tr><td colSpan={colleges.length + 1} className="px-4 py-2.5 bg-blue-50 font-bold text-[#1a5276] text-xs">Placements</td></tr>
+              <tr><td colSpan={colleges.length + 1} className="px-3 sm:px-4 py-2 sm:py-2.5 bg-blue-50 font-bold text-[#1a5276] text-[11px] sm:text-xs">Placements</td></tr>
               {[
                 ["Avg Package", (c: typeof colleges[0]) => `₹${c.placements.avg} LPA`, (c: typeof colleges[0]) => -c.placements.avg],
                 ["Highest Package", (c: typeof colleges[0]) => `₹${c.placements.highest}L`, (c: typeof colleges[0]) => -c.placements.highest],
@@ -194,9 +196,9 @@ export default function ComparePage() {
                 const bestIdx = vals.indexOf(Math.min(...vals));
                 return (
                   <tr key={label as string} className="border-b border-gray-100">
-                    <td className="px-4 py-2.5 font-semibold text-gray-500 text-xs">{label as string}</td>
+                    <td className="px-3 sm:px-4 py-2 sm:py-2.5 font-semibold text-gray-500 text-[11px] sm:text-xs sticky left-0 bg-white z-10">{label as string}</td>
                     {colleges.map((c, i) => (
-                      <td key={c.id} className={`px-3 py-2.5 text-center text-xs ${i === bestIdx ? "font-bold text-green-600 bg-green-50" : ""}`}>
+                      <td key={c.id} className={`px-2.5 sm:px-3 py-2 sm:py-2.5 text-center text-[11px] sm:text-xs ${i === bestIdx ? "font-bold text-green-600 bg-green-50" : ""}`}>
                         {(display as (c: typeof colleges[0]) => string)(c)}
                       </td>
                     ))}
@@ -206,6 +208,7 @@ export default function ComparePage() {
             </tbody>
           </table>
         </div>
+        </>
       )}
     </main>
   );

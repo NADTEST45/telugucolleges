@@ -18,13 +18,19 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5" />
+        <meta name="theme-color" content="#1a5276" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+      </head>
       <body className="bg-gray-50 text-gray-900 antialiased">
         {/* Nav */}
         <nav className="bg-[#1a5276] text-white sticky top-0 z-50 shadow-lg">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
-            <Link href="/" className="flex items-center gap-2.5 shrink-0">
-              <div className="w-8 h-8 rounded-lg bg-[#2e86c1] flex items-center justify-center font-extrabold text-sm">TC</div>
-              <span className="font-bold text-lg hidden sm:inline">TeluguColleges<span className="text-blue-300">.com</span></span>
+          <div className="max-w-7xl mx-auto px-3 sm:px-6 flex items-center justify-between h-12 sm:h-14">
+            <Link href="/" className="flex items-center gap-2 shrink-0">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#2e86c1] flex items-center justify-center font-extrabold text-xs sm:text-sm">TC</div>
+              <span className="font-bold text-base sm:text-lg hidden sm:inline">TeluguColleges<span className="text-blue-300">.com</span></span>
             </Link>
             <SearchBar />
             <div className="hidden md:flex gap-0.5 shrink-0">
@@ -44,8 +50,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </nav>
 
-        {/* Bottom padding on mobile so content isn't hidden behind tab bar */}
-        <div className="pb-16 md:pb-0">
+        {/* Bottom padding on mobile so content isn't hidden behind tab bar + safe area */}
+        <div className="pb-20 md:pb-0">
           {children}
         </div>
 

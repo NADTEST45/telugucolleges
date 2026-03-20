@@ -5,26 +5,23 @@ import type { AdminUser } from "./types";
 const TOKEN_COOKIE = "tc_admin_token";
 const USER_COOKIE = "tc_admin_user";
 
-/** Set auth cookies after login */
+/** Set auth cookies after login — stores only ID and role (no PII) */
 export async function setAuthCookies(token: string, user: AdminUser) {
   const cookieStore = await cookies();
   cookieStore.set(TOKEN_COOKIE, token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    secure: true,
+    sameSite: "strict",
     path: "/",
     maxAge: 60 * 60 * 24 * 7, // 7 days
   });
   cookieStore.set(USER_COOKIE, JSON.stringify({
     id: user.id,
-    email: user.email,
     role: user.role,
-    college_code: user.college_code,
-    college_name: user.college_name,
   }), {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    secure: true,
+    sameSite: "strict",
     path: "/",
     maxAge: 60 * 60 * 24 * 7,
   });
@@ -37,7 +34,8 @@ export async function clearAuthCookies() {
   cookieStore.delete(USER_COOKIE);
 }
 
-/** Get current authenticated admin user from cookies (server-side) */
+/** Get current authenticated admin user from cookies (server-side).
+ *  Re-fetches full user from DB to ensure is_active and latest role. */
 export async function getAuthUser(): Promise<AdminUser | null> {
   const cookieStore = await cookies();
   const userCookie = cookieStore.get(USER_COOKIE);
@@ -45,14 +43,28 @@ export async function getAuthUser(): Promise<AdminUser | null> {
   if (!userCookie?.value || !tokenCookie?.value) return null;
 
   try {
-    const user = JSON.parse(userCookie.value) as AdminUser;
+    const cookieData = JSON.parse(userCookie.value) as { id: string; role: string };
 
     // Verify token is still valid with Supabase
     const sb = getServiceClient();
     const { data } = await sb.auth.getUser(tokenCookie.value);
     if (!data?.user) return null;
 
-    return user;
+    // Re-fetch full user from DB to check is_active and get latest data
+    const { data: dbUser, error } = await sb
+      .from("admin_users")
+      .select("*")
+      .eq("id", cookieData.id)
+      .eq("is_active", true)
+      .single();
+
+    if (error || !dbUser) {
+      // User deactivated or deleted — clear stale session
+      await clearAuthCookies();
+      return null;
+    }
+
+    return dbUser as AdminUser;
   } catch {
     return null;
   }

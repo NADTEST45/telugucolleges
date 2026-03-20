@@ -1,9 +1,10 @@
 "use client";
-import { useState, useMemo, useEffect, Suspense } from "react";
+import React, { useState, useMemo, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { COLLEGES, fmtFee, College } from "@/lib/colleges";
 import AdSlot from "@/components/ads/AdSlot";
+import { isEngineeringCollege, isPharmacyCollege, isMedicalCollege } from "@/lib/branch-constants";
 
 function nirfLabel(rank: number): string {
   if (rank <= 0) return "";
@@ -24,7 +25,7 @@ const SECTIONS: { key: College["type"]; label: string; color: string; border: st
 const ALL_DISTRICTS = [...new Set(COLLEGES.map(c => c.district))].sort();
 const ALL_AFFILIATIONS = [...new Set(COLLEGES.map(c => c.affiliation))].sort();
 
-function CollegeCard({ c, borderClass }: { c: College; borderClass: string }) {
+const CollegeCard = React.memo(function CollegeCard({ c, borderClass }: { c: College; borderClass: string }) {
   const feeLabel = (c.type === "Deemed University" || c.type === "Private University" || c.type === "Government") ? "Tuition/yr" : "Convener Fee";
   return (
     <Link href={`/colleges/${c.slug}`}
@@ -88,7 +89,7 @@ function CollegeCard({ c, borderClass }: { c: College; borderClass: string }) {
       </div>
     </Link>
   );
-}
+});
 
 function CollegesPageInner() {
   const searchParams = useSearchParams();
@@ -123,9 +124,9 @@ function CollegesPageInner() {
       if (naac === "rated" && (!c.naac || c.naac === "-")) return false;
       if (naac === "A+" && c.naac !== "A+" && c.naac !== "A++") return false;
       if (naac === "A" && c.naac !== "A" && c.naac !== "A+" && c.naac !== "A++") return false;
-      if (category === "engineering" && !c.branches.some(b => ["CSE","ECE","EEE","MECH","CIVIL","IT","AI&ML","DS","CYS","AERO","ChE","AI&DS"].includes(b))) return false;
-      if (category === "pharmacy" && !c.branches.some(b => ["B.Pharm","Pharm.D","M.Pharm","Pharma"].includes(b))) return false;
-      if (category === "medical" && !c.branches.includes("MBBS")) return false;
+      if (category === "engineering" && !isEngineeringCollege(c.branches)) return false;
+      if (category === "pharmacy" && !isPharmacyCollege(c.branches)) return false;
+      if (category === "medical" && !isMedicalCollege(c.branches)) return false;
       return true;
     });
     if (sort === "name") list.sort((a, b) => a.name.localeCompare(b.name));

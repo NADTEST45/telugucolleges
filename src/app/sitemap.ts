@@ -3,7 +3,7 @@ import { COLLEGES } from "@/lib/colleges";
 import { getAllProgramSlugs } from "@/lib/program-data";
 import { getAllBranchSlugs } from "@/lib/branch-data";
 
-const BASE = "https://telugucolleges.vercel.app";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.vercel.app";
 const NOW = new Date().toISOString();
 
 export default function sitemap(): MetadataRoute.Sitemap {
