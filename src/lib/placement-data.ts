@@ -200,6 +200,35 @@ export const PLACEMENT_DATA: Record<string, CollegePlacementData> = {
     ],
   },
 
+  /* ── MITS Madanapalle, Chittoor, AP ── 3-year overall data ──────────── */
+  MITS: {
+    source: "AICTE-MD",
+    sourceUrl: "https://mits.ac.in/mandatory-disclosures",
+    years: [
+      {
+        year: "2023-24",
+        totalPlaced: 1113,
+        branches: {
+          ALL: { placed: 1113, intake: 1854, avgPackage: 4.01, maxPackage: 29.5 },
+        },
+      },
+      {
+        year: "2024-25",
+        totalPlaced: 786,
+        branches: {
+          ALL: { placed: 786, intake: 1268, avgPackage: 3.9, maxPackage: 13.0 },
+        },
+      },
+      {
+        year: "2025-26",
+        totalPlaced: 724,
+        branches: {
+          ALL: { placed: 724, intake: 1564, avgPackage: 3.6, maxPackage: 23.0 },
+        },
+      },
+    ],
+  },
+
   /* ── Sreenidhi Institute of Science & Technology, Hyderabad ────────── */
   SNIS: {
     source: "AICTE-MD",
@@ -239,6 +268,7 @@ const BRANCH_NAMES: Record<string, string> = {
   ECM: "Electronics & Computer",
   CSBS: "CS & Business Systems",
   CHEM: "Chemical",
+  ALL: "All Branches",
 };
 
 export function branchDisplayName(code: string): string {
