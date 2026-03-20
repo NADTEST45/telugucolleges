@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const url = "https://telugucolleges.vercel.app/colleges";
+const url = `${process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.vercel.app"}/colleges`;
 
 export const metadata: Metadata = {
   title: "All Engineering Colleges in AP & Telangana | TeluguColleges",

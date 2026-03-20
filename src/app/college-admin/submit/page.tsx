@@ -19,7 +19,7 @@ export default function SubmitEditPage() {
     async function load() {
       const res = await fetch("/api/auth/me");
       const data = await res.json();
-      if (!data.user || data.user.role === "super_admin") {
+      if (!data.user || (data.user.role !== "college_admin" && data.user.role !== "super_admin")) {
         router.push("/college-admin/login");
         return;
       }

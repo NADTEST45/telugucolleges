@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!branch) return {};
   const title = `${branch.name} Colleges in AP & Telangana — EAPCET Cutoffs | TeluguColleges`;
   const description = `Top ${branch.name} (${branch.shortName}) colleges in Andhra Pradesh & Telangana. Compare EAPCET cutoff ranks, fees, and placements for B.Tech ${branch.shortName}.`;
-  const url = `https://telugucolleges.vercel.app/branches/${slug}`;
+  const url = `${process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.vercel.app"}/branches/${slug}`;
   return {
     title,
     description,

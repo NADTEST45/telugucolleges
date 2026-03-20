@@ -19,33 +19,45 @@ function applyOverrides(college: College, overrides: Override[]): College {
   for (const ov of overrides) {
     const val = ov.value;
     switch (ov.field_name) {
-      case "fee":
-        result.fee = Number(val) || result.fee;
+      case "fee": {
+        const n = Number(val);
+        if (!isNaN(n) && n >= 0) result.fee = n;
         break;
-      case "goFee":
-        result.goFee = Number(val) || result.goFee;
+      }
+      case "goFee": {
+        const n = Number(val);
+        if (!isNaN(n) && n >= 0) result.goFee = n;
         break;
+      }
       case "naac":
         result.naac = val;
         break;
       case "nba":
         result.nba = val === "true";
         break;
-      case "year":
-        result.year = Number(val) || result.year;
+      case "year": {
+        const n = Number(val);
+        if (!isNaN(n) && n > 1900) result.year = n;
         break;
+      }
       case "affiliation":
         result.affiliation = val;
         break;
-      case "placements.avg":
-        result.placements.avg = Number(val) || result.placements.avg;
+      case "placements.avg": {
+        const n = Number(val);
+        if (!isNaN(n) && n >= 0) result.placements.avg = n;
         break;
-      case "placements.highest":
-        result.placements.highest = Number(val) || result.placements.highest;
+      }
+      case "placements.highest": {
+        const n = Number(val);
+        if (!isNaN(n) && n >= 0) result.placements.highest = n;
         break;
-      case "placements.companies":
-        result.placements.companies = Number(val) || result.placements.companies;
+      }
+      case "placements.companies": {
+        const n = Number(val);
+        if (!isNaN(n) && n >= 0) result.placements.companies = n;
         break;
+      }
     }
   }
 

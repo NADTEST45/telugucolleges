@@ -13,8 +13,10 @@ export async function GET(req: NextRequest) {
     }
 
     const sb = getServiceClient();
-    const limit = Math.min(parseInt(req.nextUrl.searchParams.get("limit") || "50"), 200);
-    const offset = parseInt(req.nextUrl.searchParams.get("offset") || "0");
+    const parsedLimit = parseInt(req.nextUrl.searchParams.get("limit") || "50");
+    const parsedOffset = parseInt(req.nextUrl.searchParams.get("offset") || "0");
+    const limit = isNaN(parsedLimit) ? 50 : Math.min(Math.max(1, parsedLimit), 200);
+    const offset = isNaN(parsedOffset) ? 0 : Math.max(0, parsedOffset);
     const action = req.nextUrl.searchParams.get("action"); // optional filter
 
     let query = sb

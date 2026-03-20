@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!data) return {};
   const title = `${data.program.name} Colleges in AP & Telangana — Fees & Cutoffs | TeluguColleges`;
   const description = `${data.program.collegeCount}+ colleges offering ${data.program.name} in Andhra Pradesh & Telangana. Compare fees, cutoff ranks, and placements.`;
-  const url = `https://telugucolleges.vercel.app/programs/${slug}`;
+  const url = `${process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.vercel.app"}/programs/${slug}`;
   return {
     title,
     description,
