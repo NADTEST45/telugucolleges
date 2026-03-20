@@ -212,13 +212,6 @@ export const PLACEMENT_DATA: Record<string, CollegePlacementData> = {
           ALL: { placed: 1113, intake: 1854, avgPackage: 4.01, maxPackage: 29.5 },
         },
       },
-      {
-        year: "2024-25",
-        totalPlaced: 786,
-        branches: {
-          ALL: { placed: 786, intake: 1268, avgPackage: 3.9, maxPackage: 13.0 },
-        },
-      },
     ],
   },
 
