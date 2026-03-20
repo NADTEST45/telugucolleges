@@ -70,7 +70,7 @@ export const PLACEMENT_DATA: Record<string, CollegePlacementData> = {
   },
 
   /* ── Sri Vasavi Engineering College, Tadepalligudem ────────────────── */
-  SVEC: {
+  VSVT: {
     source: "AICTE-MD",
     sourceUrl: "https://www.svec.education/wp-content/uploads/2022/05/AICTE-Mandatory-Disclosure-2021-2022-as-per-APH-2022-2023-compressed.pdf",
     years: [
@@ -137,104 +137,84 @@ export const PLACEMENT_DATA: Record<string, CollegePlacementData> = {
     ],
   },
 
-  /* ── SR Engineering College, Warangal ──────────────────────────────── */
-  SRHP: {
+  /* ── GMR University (GMRIT), Rajam, AP ─── 3-year data ────────────── */
+  GMRI: {
     source: "AICTE-MD",
-    sourceUrl: "https://srec.ac.in/themes/frontend/document/MandatoryDisclosure.pdf",
+    sourceUrl: "https://gmrit.edu.in/PDFs/about_us/mandatory_disclosure.pdf",
     years: [
       {
-        year: "2020-21",
+        year: "2024-25",
+        totalPlaced: 662,
         branches: {
-          CIVIL:{ placed: 37, intake: 60, avgPackage: 3.87, minPackage: 1.5, maxPackage: 4.6 },
-          MECH: { placed: 27, intake: 60, avgPackage: 3.5,  minPackage: 1.8, maxPackage: 4.3 },
-          ECE:  { placed: 37, intake: 60, avgPackage: 3.6 },
+          CIVIL:{ placed: 97,  intake: 120, avgPackage: 3.46, maxPackage: 5.50, minPackage: 2.40 },
+          CSE:  { placed: 137, intake: 240, avgPackage: 4.56, maxPackage: 22.0, minPackage: 3.50 },
+          ECE:  { placed: 106, intake: 180, avgPackage: 4.11 },
+          EEE:  { placed: 103, intake: 120, avgPackage: 3.90, maxPackage: 7.0,  minPackage: 2.40 },
+          IT:   { placed: 79,  intake: 120, avgPackage: 4.20, maxPackage: 8.0,  minPackage: 2.50 },
+          MECH: { placed: 140, intake: 120, avgPackage: 4.32, maxPackage: 7.0,  minPackage: 2.40 },
         },
-        totalPlaced: 101,
+      },
+      {
+        year: "2023-24",
+        totalPlaced: 563,
+        branches: {
+          CIVIL:{ placed: 79,  intake: 120, avgPackage: 4.17, maxPackage: 7.0,  minPackage: 2.40 },
+          CSE:  { placed: 108, intake: 240, avgPackage: 5.46, maxPackage: 9.0,  minPackage: 2.40 },
+          ECE:  { placed: 74,  intake: 180, avgPackage: 3.83 },
+          EEE:  { placed: 77,  intake: 120, avgPackage: 4.34, maxPackage: 7.0,  minPackage: 2.40 },
+          IT:   { placed: 48,  intake: 120, avgPackage: 5.49, maxPackage: 40.0, minPackage: 2.40 },
+          MECH: { placed: 125, intake: 120, avgPackage: 4.20, maxPackage: 7.0,  minPackage: 2.40 },
+        },
+      },
+      {
+        year: "2022-23",
+        totalPlaced: 544,
+        branches: {
+          CIVIL:{ placed: 68,  intake: 120, avgPackage: 4.00, maxPackage: 7.0,  minPackage: 2.40 },
+          CSE:  { placed: 144, intake: 180, avgPackage: 5.02, maxPackage: 11.0, minPackage: 2.64 },
+          ECE:  { placed: 131, intake: 180, avgPackage: 4.63 },
+          EEE:  { placed: 75,  intake: 120, avgPackage: 4.28, maxPackage: 7.0,  minPackage: 2.16 },
+          IT:   { placed: 79,  intake: 120, avgPackage: 4.00, maxPackage: 7.0,  minPackage: 2.40 },
+          MECH: { placed: 101, intake: 180, avgPackage: 4.28, maxPackage: 7.0,  minPackage: 2.04 },
+        },
       },
     ],
   },
 
-  /* ── Chaitanya Bharathi Institute of Technology (CBIT) ─────────────── */
-  CBIT: {
+  /* ── Raghu Engineering College, Visakhapatnam ─────────────────────── */
+  RAGU: {
     source: "AICTE-MD",
-    sourceUrl: "https://www.cbit.ac.in/wp-content/uploads/2019/04/Mandatory-Disclosure-2024-25_20.08.2024.pdf",
+    sourceUrl: "https://www.raghuenggcollege.com/wp-content/uploads/2024/03/Mandatory-Disclosure-REC-Modified-1.pdf",
     years: [
       {
         year: "2023-24",
-        totalPlaced: 1200,
+        totalPlaced: 640,
         branches: {
-          CSE:  { placed: 280, intake: 300, avgPackage: 8.5,  maxPackage: 59.6 },
-          IT:   { placed: 160, intake: 180, avgPackage: 7.2,  maxPackage: 30.0 },
-          ECE:  { placed: 200, intake: 240, avgPackage: 5.5,  maxPackage: 25.0 },
-          EEE:  { placed: 120, intake: 180, avgPackage: 5.0,  maxPackage: 18.0 },
-          MECH: { placed: 80,  intake: 180, avgPackage: 4.2,  maxPackage: 12.0 },
-          CIVIL:{ placed: 40,  intake: 120, avgPackage: 3.8,  maxPackage: 8.0 },
+          CIVIL:{ placed: 8,   intake: 60,  avgPackage: 3.5,  maxPackage: 4.1,  minPackage: 2.0 },
+          EEE:  { placed: 80,  intake: 60,  avgPackage: 3.86, maxPackage: 7.0,  minPackage: 3.5 },
+          MECH: { placed: 136, intake: 180, avgPackage: 3.07, maxPackage: 7.0,  minPackage: 1.5 },
+          ECE:  { placed: 208, intake: 240, avgPackage: 4.7,  maxPackage: 16.0, minPackage: 3.2 },
+          CSE:  { placed: 208, intake: 180, avgPackage: 5.7,  maxPackage: 44.0, minPackage: 3.25 },
         },
-        topRecruiters: [
-          { name: "TCS",          offers: 180, avgPackage: 7.0 },
-          { name: "Infosys",      offers: 120, avgPackage: 6.5 },
-          { name: "Wipro",        offers: 90,  avgPackage: 5.5 },
-          { name: "Accenture",    offers: 85,  avgPackage: 6.0 },
-          { name: "Capgemini",    offers: 70,  avgPackage: 5.8 },
-          { name: "Microsoft",    offers: 12,  avgPackage: 42.0 },
-          { name: "Amazon",       offers: 8,   avgPackage: 35.0 },
-          { name: "Google",       offers: 3,   avgPackage: 59.0 },
-          { name: "Deloitte",     offers: 45,  avgPackage: 8.0 },
-          { name: "IBM",          offers: 40,  avgPackage: 5.5 },
-        ],
       },
     ],
   },
 
-  /* ── Mahatma Gandhi Institute of Technology (MGIT) ─────────────────── */
-  MGIT: {
+  /* ── Sreenidhi Institute of Science & Technology, Hyderabad ────────── */
+  SNIS: {
     source: "AICTE-MD",
-    sourceUrl: "https://mgit.ac.in/wp-content/uploads/2023/03/MGIT_Mandatory-Disclosure-_-2022.pdf",
+    sourceUrl: "https://drive.sreenidhi.edu.in/snist/civil/SNIST%20AicteMandatory%202025-26.pdf",
     years: [
       {
-        year: "2021-22",
-        totalPlaced: 950,
+        year: "2024-25",
         branches: {
-          CSE:  { placed: 240, intake: 300, avgPackage: 6.5, maxPackage: 43.0 },
-          IT:   { placed: 140, intake: 180, avgPackage: 5.8, maxPackage: 25.0 },
-          ECE:  { placed: 180, intake: 240, avgPackage: 4.8, maxPackage: 20.0 },
-          EEE:  { placed: 100, intake: 180, avgPackage: 4.5, maxPackage: 15.0 },
-          MECH: { placed: 60,  intake: 180, avgPackage: 3.8, maxPackage: 10.0 },
-          CIVIL:{ placed: 30,  intake: 120, avgPackage: 3.5, maxPackage: 8.0 },
+          ECM:  { placed: 64, intake: 120, avgPackage: 5.3 },
         },
-        topRecruiters: [
-          { name: "TCS",          offers: 150, avgPackage: 6.0 },
-          { name: "Infosys",      offers: 100, avgPackage: 5.5 },
-          { name: "Wipro",        offers: 80,  avgPackage: 5.0 },
-          { name: "Cognizant",    offers: 75,  avgPackage: 4.5 },
-          { name: "Capgemini",    offers: 60,  avgPackage: 5.2 },
-          { name: "Accenture",    offers: 55,  avgPackage: 5.8 },
-          { name: "Deloitte",     offers: 25,  avgPackage: 8.0 },
-          { name: "IBM",          offers: 30,  avgPackage: 5.5 },
-        ],
+        totalPlaced: 64,
       },
     ],
   },
 
-  /* ── Prasad V Potluri Siddhartha Institute of Technology ───────────── */
-  PPSV: {
-    source: "AICTE-MD",
-    sourceUrl: "https://www.pvpsiddhartha.ac.in/mandatory_disclosure24-25.pdf",
-    years: [
-      {
-        year: "2023-24",
-        totalPlaced: 850,
-        branches: {
-          CSE:  { placed: 200, intake: 240, avgPackage: 6.0, maxPackage: 45.0 },
-          IT:   { placed: 120, intake: 180, avgPackage: 5.2, maxPackage: 20.0 },
-          ECE:  { placed: 150, intake: 180, avgPackage: 4.5, maxPackage: 15.0 },
-          EEE:  { placed: 100, intake: 180, avgPackage: 4.0, maxPackage: 12.0 },
-          MECH: { placed: 60,  intake: 120, avgPackage: 3.5, maxPackage: 8.0 },
-          CIVIL:{ placed: 40,  intake: 120, avgPackage: 3.2, maxPackage: 6.0 },
-        },
-      },
-    ],
-  },
 };
 
 // ── Helper: get placement data by college code ──────────────────────────
@@ -255,6 +235,10 @@ const BRANCH_NAMES: Record<string, string> = {
   AIDS: "AI & Data Science",
   AIML: "AI & Machine Learning",
   CYS: "Cyber Security",
+  CSD: "CS (Data Science)",
+  ECM: "Electronics & Computer",
+  CSBS: "CS & Business Systems",
+  CHEM: "Chemical",
 };
 
 export function branchDisplayName(code: string): string {
