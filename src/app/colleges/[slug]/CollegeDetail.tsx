@@ -863,23 +863,19 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           {/* ── Placement Highlights (always shown) ── */}
           <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
             <h2 className="text-lg font-bold mb-1">Placement Highlights</h2>
-            <p className="text-xs text-gray-400 mb-4">
-              {pd ? `Source: AICTE Mandatory Disclosure${latestYear ? ` (${latestYear.year})` : ""}` : c.placements.avg > 0 ? "Based on NIRF 2025 submission data (median salary, AY 2023-24)" : "Placement data not available — college did not participate in NIRF or data not published"}
-            </p>
+            <p className="text-xs text-gray-400 mb-4">{c.placements.avg > 0 ? "Based on NIRF 2025 submission data (median salary, AY 2023-24)" : "Placement data not available — college did not participate in NIRF or data not published"}</p>
             <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6">
               <div className="bg-green-50 rounded-xl p-3 sm:p-5 text-center">
                 <div className="text-[10px] sm:text-xs text-gray-500 mb-1">Average Package</div>
-                <div className="text-lg sm:text-2xl font-extrabold text-green-700">{c.placements.avg > 0 ? `₹${c.placements.avg}L` : "—"}</div>
+                <div className="text-lg sm:text-2xl font-extrabold text-green-700">{c.placements.avg > 0 ? `₹${c.placements.avg} LPA` : "—"}</div>
               </div>
               <div className="bg-amber-50 rounded-xl p-3 sm:p-5 text-center">
                 <div className="text-[10px] sm:text-xs text-gray-500 mb-1">Highest Package</div>
-                <div className="text-lg sm:text-2xl font-extrabold text-amber-700">{c.placements.highest > 0 ? `₹${c.placements.highest}L` : "—"}</div>
+                <div className="text-lg sm:text-2xl font-extrabold text-amber-700">{c.placements.highest > 0 ? `₹${c.placements.highest} LPA` : "—"}</div>
               </div>
               <div className="bg-blue-50 rounded-xl p-3 sm:p-5 text-center">
-                <div className="text-[10px] sm:text-xs text-gray-500 mb-1">{latestYear?.totalPlaced ? "Students Placed" : "Companies"}</div>
-                <div className="text-lg sm:text-2xl font-extrabold text-[#2e86c1]">
-                  {latestYear?.totalPlaced ? latestYear.totalPlaced.toLocaleString() : c.placements.companies > 0 ? `${c.placements.companies}+` : "—"}
-                </div>
+                <div className="text-[10px] sm:text-xs text-gray-500 mb-1">Recruiting Companies</div>
+                <div className="text-lg sm:text-2xl font-extrabold text-[#2e86c1]">{c.placements.companies > 0 ? `${c.placements.companies}+` : "—"}</div>
               </div>
             </div>
 
