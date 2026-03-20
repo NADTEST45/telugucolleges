@@ -79,10 +79,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
               </div>
               <div>
-                <div className="text-white font-semibold mb-3">For Colleges</div>
+                <div className="text-white font-semibold mb-3">Company</div>
                 <div className="space-y-2 text-sm">
-                  <Link href="/college-admin/login" className="block hover:text-white">College Admin Login</Link>
-                  <Link href="/marketing/login" className="block hover:text-white">Marketing Login</Link>
+                  <Link href="/contact" className="block hover:text-white">Contact Us</Link>
+                  <Link href="/privacy" className="block hover:text-white">Privacy Policy</Link>
+                  <Link href="/terms" className="block hover:text-white">Terms of Use</Link>
+                  <Link href="/college-admin/login" className="block hover:text-white">College Admin</Link>
                 </div>
               </div>
             </div>
