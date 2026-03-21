@@ -40,7 +40,7 @@ export interface CourseInfo {
 export const UNIVERSITY_FEE_AY: Record<string, string> = {
   // AP — Deemed Universities
   KLUN: "2025-26", // kluniversity.in
-  GITM: "2025-26", // gitam.edu
+  GITM: "2026-27", // gitam.edu/fee-scholarship/fee-structure — ₹2.03L/sem CSE
   VIGF: "2025-26", // vignan.ac.in
   VRSE: "2025-26", // vrsiddhartha.ac.in
   AMRT: "2025-26", // amrita.edu
@@ -64,7 +64,7 @@ export const UNIVERSITY_FEE_AY: Record<string, string> = {
   BITS: "2025-26", // bits-pilani.ac.in — official PDF
   IIIT: "2025-26", // iiit.ac.in
   ICFA: "2026-27", // ifheindia.org — ₹1.4L/sem, batch 2026-30
-  GITH: "2025-26", // gitam.edu
+  GITH: "2026-27", // gitam.edu/fee-scholarship/fee-structure — same as Vizag
   KLHD: "2025-26", // kluniversity.in
 
   // TS — Private State Universities
@@ -107,29 +107,33 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "Ph.D", fee: 80000, duration: 3, level: "Doctoral" },
   ],
 
-  "GITM": [ // GITAM — Visakhapatnam (gitam.edu — CSE 1st yr fee)
-    { program: "B.Tech", specialization: "CSE", fee: 356000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 356000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (Data Science)", fee: 356000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "ECE", fee: 221000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "EEE", fee: 139000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Mechanical", fee: 139000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Civil", fee: 139000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "IT", fee: 221000, duration: 4, level: "UG" },
+  "GITM": [ // GITAM — Visakhapatnam (gitam.edu/fee-scholarship/fee-structure — 2026-27, sem fee × 2)
+    { program: "B.Tech", specialization: "CSE", fee: 405000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 405000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (Data Science)", fee: 405000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (Cyber Security)", fee: 405000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE", fee: 306000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Electronics (VLSI)", fee: 306000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Electrical & Computer", fee: 198000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Mechanical", fee: 198000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Civil", fee: 198000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Robotics & AI", fee: 306000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Biotechnology", fee: 306000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Biomedical", fee: 306000, duration: 4, level: "UG" },
     { program: "B.Pharm", fee: 188000, duration: 4, level: "UG" },
-    { program: "BBA", fee: 200000, duration: 3, level: "UG" },
-    { program: "B.Sc", fee: 100000, duration: 3, level: "UG" },
-    { program: "B.Com", fee: 80000, duration: 3, level: "UG" },
-    { program: "BA", fee: 70000, duration: 3, level: "UG" },
+    { program: "BBA", fee: 291000, duration: 3, level: "UG" },
+    { program: "B.Sc", fee: 65000, duration: 3, level: "UG" },
+    { program: "B.Com (ACCA)", fee: 195000, duration: 3, level: "UG" },
+    { program: "BA", fee: 65000, duration: 3, level: "UG" },
     { program: "BA LLB (Hons)", fee: 150000, duration: 5, level: "Integrated" },
     { program: "BBA LLB (Hons)", fee: 150000, duration: 5, level: "Integrated" },
-    { program: "B.Arch", fee: 250000, duration: 5, level: "UG" },
+    { program: "B.Arch", fee: 238000, duration: 5, level: "UG" },
     { program: "MBA", fee: 564000, duration: 2, level: "PG" },
-    { program: "MCA", fee: 150000, duration: 2, level: "PG" },
+    { program: "MCA", fee: 214000, duration: 2, level: "PG" },
     { program: "M.Tech", fee: 131000, duration: 2, level: "PG" },
-    { program: "M.Pharm", fee: 120000, duration: 2, level: "PG" },
-    { program: "M.Sc", fee: 80000, duration: 2, level: "PG" },
-    { program: "Ph.D", fee: 100000, duration: 3, level: "Doctoral" },
+    { program: "M.Pharm", fee: 220000, duration: 2, level: "PG" },
+    { program: "M.Sc", fee: 65000, duration: 2, level: "PG" },
+    { program: "Ph.D", fee: 30000, duration: 3, level: "Doctoral" },
   ],
 
   "VIGF": [ // Vignan's University (VFSTR) — Guntur (vignan.ac.in)
@@ -247,19 +251,26 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "Ph.D", fee: 100000, duration: 3, level: "Doctoral" },
   ],
 
-  "GITH": [ // GITAM — Hyderabad (gitam.edu — CSE 1st yr fee)
-    { program: "B.Tech", specialization: "CSE", fee: 380000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 380000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (Data Science)", fee: 380000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "ECE", fee: 330000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "EEE", fee: 300000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Mechanical", fee: 300000, duration: 4, level: "UG" },
-    { program: "BBA", fee: 200000, duration: 3, level: "UG" },
-    { program: "B.Sc", fee: 60000, duration: 3, level: "UG" },
+  "GITH": [ // GITAM — Hyderabad (gitam.edu/fee-scholarship/fee-structure — 2026-27, sem fee × 2)
+    { program: "B.Tech", specialization: "CSE", fee: 405000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 405000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (Data Science)", fee: 405000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (Cyber Security)", fee: 405000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE", fee: 306000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Electronics (VLSI)", fee: 306000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Aerospace", fee: 306000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Electrical & Computer", fee: 198000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Mechanical", fee: 198000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Civil", fee: 198000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Robotics & AI", fee: 306000, duration: 4, level: "UG" },
+    { program: "B.Pharm", fee: 188000, duration: 4, level: "UG" },
+    { program: "BBA", fee: 291000, duration: 3, level: "UG" },
+    { program: "B.Sc", fee: 119000, duration: 3, level: "UG" },
+    { program: "B.Arch", fee: 238000, duration: 5, level: "UG" },
     { program: "MBA", fee: 564000, duration: 2, level: "PG" },
     { program: "M.Tech", fee: 131000, duration: 2, level: "PG" },
-    { program: "M.Sc", fee: 80000, duration: 2, level: "PG" },
-    { program: "Ph.D", fee: 100000, duration: 3, level: "Doctoral" },
+    { program: "M.Sc", fee: 119000, duration: 2, level: "PG" },
+    { program: "Ph.D", fee: 30000, duration: 3, level: "Doctoral" },
   ],
 
   "KLHD": [ // KL University — Hyderabad (kluniversity.in/sships3.aspx — 2025-26, Full Fee = Merit + ₹10K)
