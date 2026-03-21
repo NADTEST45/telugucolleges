@@ -132,6 +132,73 @@ function CollegeListSchema({
   );
 }
 
+function buildCityFaqs(colleges: any[], district: string, state: string, bestValue: any, bestPlacements: any, mostSelective: any) {
+  const faqs: { q: string; a: string }[] = [];
+  const govtCount = colleges.filter(c => c.type === "Government").length;
+  const pvtCount = colleges.filter(c => c.type === "Private").length;
+  const feeCols = colleges.filter(c => c.fee > 0);
+  const placementCols = colleges.filter(c => c.placements.avg > 0);
+
+  faqs.push({
+    q: `How many engineering colleges are in ${district}?`,
+    a: `There are ${colleges.length} engineering colleges in ${district}, ${state}${govtCount > 0 ? `, including ${govtCount} government college${govtCount > 1 ? "s" : ""}` : ""}${pvtCount > 0 ? ` and ${pvtCount} private college${pvtCount > 1 ? "s" : ""}` : ""}. These colleges offer B.Tech programs across branches like CSE, ECE, EEE, Mechanical, and Civil Engineering.`,
+  });
+
+  if (feeCols.length > 0) {
+    const sorted = feeCols.sort((a, b) => a.fee - b.fee);
+    faqs.push({
+      q: `What is the fee range for engineering colleges in ${district}?`,
+      a: `Annual tuition fees for engineering colleges in ${district} range from ₹${sorted[0].fee.toLocaleString("en-IN")} (${sorted[0].name}) to ₹${sorted[sorted.length - 1].fee.toLocaleString("en-IN")} (${sorted[sorted.length - 1].name}). Government college fees are regulated by the state fee structure committee.`,
+    });
+  }
+
+  if (bestPlacements && bestPlacements.placements.avg > 0) {
+    faqs.push({
+      q: `Which college in ${district} has the best placements?`,
+      a: `${bestPlacements.name} leads in placements with an average package of ₹${bestPlacements.placements.avg} LPA${bestPlacements.placements.highest > 0 ? ` and highest package of ₹${bestPlacements.placements.highest} LPA` : ""}${bestPlacements.placements.companies > 0 ? `. Over ${bestPlacements.placements.companies} companies recruit from the campus.` : "."}`,
+    });
+  }
+
+  if (mostSelective && mostSelective.cutoff.cse > 0) {
+    faqs.push({
+      q: `Which is the most selective engineering college in ${district}?`,
+      a: `${mostSelective.name} has the most competitive EAPCET CSE cutoff at rank ${mostSelective.cutoff.cse.toLocaleString()} in ${district}. A lower closing rank indicates higher demand among students.`,
+    });
+  }
+
+  if (bestValue && bestValue.fee > 0) {
+    faqs.push({
+      q: `Which is the most affordable engineering college in ${district}?`,
+      a: `${bestValue.name} offers the lowest annual fee at ₹${bestValue.fee.toLocaleString("en-IN")} per year in ${district}. Over 4 years, the total tuition cost would be approximately ₹${(bestValue.fee * 4).toLocaleString("en-IN")}.`,
+    });
+  }
+
+  const naacCols = colleges.filter(c => c.naac && c.naac !== "-");
+  if (naacCols.length > 0) {
+    faqs.push({
+      q: `Which engineering colleges in ${district} are NAAC accredited?`,
+      a: `${naacCols.length} college${naacCols.length > 1 ? "s" : ""} in ${district} ${naacCols.length > 1 ? "hold" : "holds"} NAAC accreditation: ${naacCols.slice(0, 5).map(c => `${c.name} (${c.naac})`).join(", ")}${naacCols.length > 5 ? ` and ${naacCols.length - 5} more` : ""}. NAAC grades range from A++ (highest) to C.`,
+    });
+  }
+
+  return faqs;
+}
+
+function CityFaqSchema({ faqs }: { faqs: { q: string; a: string }[] }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map(f => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+  return (
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+  );
+}
+
 export default async function BestCollegesCityPage({
   params,
 }: {
@@ -459,6 +526,32 @@ export default async function BestCollegesCityPage({
               )}
             </p>
           </div>
+
+          {/* FAQ Section */}
+          {(() => {
+            const faqs = buildCityFaqs(colleges, meta.district, meta.state, bestValue, bestPlacements, mostSelective);
+            return faqs.length > 0 ? (
+              <>
+                <CityFaqSchema faqs={faqs} />
+                <div className="bg-white rounded-lg border border-gray-200 p-6 sm:p-8 mb-10">
+                  <h2 className="text-xl font-bold text-gray-900 mb-5">
+                    Frequently Asked Questions — Engineering Colleges in {meta.district}
+                  </h2>
+                  <div className="space-y-4">
+                    {faqs.map((faq, i) => (
+                      <details key={i} className="group border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                        <summary className="cursor-pointer font-semibold text-sm text-gray-800 hover:text-[#2e86c1] transition-colors list-none flex items-center justify-between gap-2">
+                          {faq.q}
+                          <svg className="w-4 h-4 shrink-0 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                        </summary>
+                        <p className="mt-2 text-sm text-gray-600 leading-relaxed">{faq.a}</p>
+                      </details>
+                    ))}
+                  </div>
+                </div>
+              </>
+            ) : null;
+          })()}
 
           {/* Call to Action */}
           <div className="bg-gradient-to-r from-[#1a5276] to-[#2e86c1] text-white rounded-lg p-6 sm:p-8 text-center">
