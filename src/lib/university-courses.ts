@@ -41,7 +41,7 @@ export const UNIVERSITY_FEE_AY: Record<string, string> = {
   // AP — Deemed Universities
   KLUN: "2025-26", // kluniversity.in
   GITM: "2026-27", // gitam.edu/fee-scholarship/fee-structure — ₹2.03L/sem CSE
-  VIGF: "2025-26", // vignan.ac.in
+  VIGF: "2026-27", // vignan.ac.in/newvignan/fee_str.php — 2026 Cat-A fees
   VRSE: "2025-26", // vrsiddhartha.ac.in
   AMRT: "2025-26", // amrita.edu
   AUDI: "2025-26", // audisankara
@@ -136,17 +136,21 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "Ph.D", fee: 30000, duration: 3, level: "Doctoral" },
   ],
 
-  "VIGF": [ // Vignan's University (VFSTR) — Guntur (vignan.ac.in)
+  "VIGF": [ // Vignan's University (VFSTR) — Guntur (vignan.ac.in/newvignan/fee_str.php — 2026 Cat-A)
     { program: "B.Tech", specialization: "CSE", fee: 280000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 280000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (Data Science)", fee: 280000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (Cyber Security)", fee: 280000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (IoT)", fee: 280000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "IT", fee: 280000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "ECE", fee: 200000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "EEE", fee: 180000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Mechanical", fee: 180000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Civil", fee: 180000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "IT", fee: 200000, duration: 4, level: "UG" },
-    { program: "B.Pharm", fee: 130000, duration: 4, level: "UG" },
-    { program: "BBA", fee: 100000, duration: 3, level: "UG" },
+    { program: "B.Tech", specialization: "ECE (VLSI)", fee: 200000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "EEE", fee: 120000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Mechanical", fee: 120000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Civil", fee: 120000, duration: 4, level: "UG" },
+    { program: "B.Pharm", fee: 180000, duration: 4, level: "UG" },
+    { program: "Pharm.D", fee: 260000, duration: 6, level: "Integrated" },
+    { program: "BBA", fee: 120000, duration: 3, level: "UG" },
     { program: "B.Sc", fee: 80000, duration: 3, level: "UG" },
     { program: "MBA", fee: 180000, duration: 2, level: "PG" },
     { program: "MCA", fee: 100000, duration: 2, level: "PG" },
