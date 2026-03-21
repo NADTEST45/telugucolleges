@@ -238,7 +238,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
               <p>
                 {c.fee > 0 ? `The annual tuition fee for B.Tech is ${fmtFee(c.fee)}${c.type === "Government" ? ", making it one of the most affordable options in " + c.state : c.goFee > 0 && c.goFee !== c.fee ? ` (government order fee: ${fmtFee(c.goFee)})` : ""}. Over four years, the total tuition cost comes to approximately ${fmtFee(c.fee * 4)}. ` : ""}
                 {c.placements.avg > 0 ? `In recent placements, ${c.name.split(" ")[0]} reported an average package of ₹${c.placements.avg} LPA${c.placements.highest > 0 ? ` with the highest offer reaching ₹${c.placements.highest} LPA` : ""}${c.placements.companies > 0 ? `, attracting ${c.placements.companies}+ recruiting companies` : ""}. ` : ""}
-                {c.fee > 0 && c.placements.avg > 0 ? `This translates to a salary-to-fee ratio of ${((c.placements.avg * 100000) / (c.fee * 4)).toFixed(1)}x, meaning graduates earn back their entire tuition investment in approximately ${((c.fee * 4) / (c.placements.avg * 100000 / 12)).toFixed(0)} months of working. ` : ""}
+                {"" /* ROI sentence removed */}
                 {c.cutoff.cse > 0 ? `For ${c.state === "Telangana" ? "TS" : "AP"} EAPCET admissions, the CSE branch had a closing rank of ${c.cutoff.cse.toLocaleString("en-IN")} in the most recent counselling cycle.` : ""}
               </p>
             </div>
@@ -899,31 +899,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
               </div>
             </div>
 
-            {/* ROI Estimate */}
-            {c.placements.avg > 0 && (
-              <div className="bg-gray-50 rounded-xl p-4 sm:p-5">
-                <h3 className="text-sm font-bold mb-3">Return on Investment (ROI) Estimate</h3>
-                <div className="grid sm:grid-cols-2 gap-4 text-sm">
-                  <div className="flex justify-between py-2 border-b border-gray-200">
-                    <span className="text-gray-500">4-Year Tuition Cost</span>
-                    <span className="font-bold">{fmtFee(c.fee * 4)}</span>
-                  </div>
-                  <div className="flex justify-between py-2 border-b border-gray-200">
-                    <span className="text-gray-500">Expected 1st Year Salary</span>
-                    <span className="font-bold text-green-600">{fmtFee(c.placements.avg * 100000)}</span>
-                  </div>
-                  <div className="flex justify-between py-2 border-b border-gray-200">
-                    <span className="text-gray-500">Salary-to-Fee Ratio</span>
-                    <span className="font-bold text-[#2e86c1]">{((c.placements.avg * 100000) / (c.fee * 4)).toFixed(1)}x</span>
-                  </div>
-                  <div className="flex justify-between py-2 border-b border-gray-200">
-                    <span className="text-gray-500">Payback Period (approx)</span>
-                    <span className="font-bold">{((c.fee * 4) / (c.placements.avg * 100000 / 12)).toFixed(0)} months</span>
-                  </div>
-                </div>
-                <p className="text-[11px] text-gray-400 mt-3">Based on average package. Individual outcomes vary based on branch, skills, and market conditions.</p>
-              </div>
-            )}
+            {/* ROI section removed */}
           </section>
 
           {/* ── Branch-wise Placement Data (only if detailed data exists) ── */}
