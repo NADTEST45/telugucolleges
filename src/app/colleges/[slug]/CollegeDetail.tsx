@@ -112,6 +112,20 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
   const cutoffTableRef = useRef<HTMLDivElement>(null);
   const cutoffs = Object.entries(c.cutoff).filter(([, v]) => v > 0).sort((a, b) => a[1] - b[1]);
   const courses = getCourses(c.code) || getAffiliatedCourses(c);
+  // Use actual total from course data when available (handles variable yearly fees)
+  const btechCourse = courses?.find(co => (co.program === "B.Tech" || co.program === "B.E.") && co.fee === c.fee);
+  const btechTotalFee = btechCourse?.totalFee ?? c.fee * 4;
+
+  // Compute B.Tech fee range from course data
+  const fmtL = (n: number) => { const l = n / 100000; return l % 1 === 0 ? `${l}` : `${l.toFixed(1)}`; };
+  const btechFees = courses
+    ?.filter(co => co.program === "B.Tech" || co.program === "B.E.")
+    .map(co => co.fee) ?? [];
+  const btechFeeMin = btechFees.length > 0 ? Math.min(...btechFees) : c.fee;
+  const btechFeeMax = btechFees.length > 0 ? Math.max(...btechFees) : c.fee;
+  const btechFeeLabel = btechFeeMin !== btechFeeMax && btechFeeMin > 0
+    ? `₹${fmtL(btechFeeMin)} – ${fmtL(btechFeeMax)}L`
+    : fmtFee(c.fee);
 
   const scholarshipInfo = getScholarships(c.code);
   const admissionExam = getExamByCollegeCode(c.code);
@@ -164,14 +178,14 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
               <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
             </svg>
           </a>
-          <ShareButtons collegeName={c.name} district={c.district} state={c.state} />
+          {/* <ShareButtons collegeName={c.name} district={c.district} state={c.state} /> */}
         </div>
       </div>
 
       {/* Quick Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3 mb-6">
         {([
-          ["B.Tech Fee", fmtFee(c.fee), c.type === "Deemed University" || c.type === "Private University" ? `University fee${UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}` : c.state === "Telangana" ? "GO.Ms.06 · 2025-28" : "APHERMC · 2023-26", "text-[#1a5276]"],
+          ["B.Tech Fee", btechFeeLabel, c.type === "Deemed University" || c.type === "Private University" ? `University fee${UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}` : c.state === "Telangana" ? "GO.Ms.06 · 2025-28" : "APHERMC · 2023-26", "text-[#1a5276]"],
           ...(c.type !== "Deemed University" ? [["CSE Cutoff", c.cutoff.cse?.toLocaleString() || "—", "EAPCET final OC", "text-gray-900"]] : [["Admission", "Own Exam", "Not via EAPCET", "text-gray-900"]]),
           ["Avg Package", c.placements.avg > 0 ? `₹${c.placements.avg} LPA` : "—", "Placements", "text-green-600"],
           ["Highest Pkg", c.placements.highest > 0 ? `₹${c.placements.highest}L` : "—", "Top offer", "text-amber-600"],
@@ -236,7 +250,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                 {c.name} offers B.Tech programmes in {c.branches.length} {c.branches.length === 1 ? "branch" : "branches"} including {c.branches.slice(0, 5).join(", ")}{c.branches.length > 5 ? `, and ${c.branches.length - 5} more` : ""}.
               </p>
               <p>
-                {c.fee > 0 ? `The annual tuition fee for B.Tech is ${fmtFee(c.fee)}${c.type === "Government" ? ", making it one of the most affordable options in " + c.state : c.goFee > 0 && c.goFee !== c.fee ? ` (government order fee: ${fmtFee(c.goFee)})` : ""}. Over four years, the total tuition cost comes to approximately ${fmtFee(c.fee * 4)}. ` : ""}
+                {c.fee > 0 ? `The annual tuition fee for B.Tech is ${fmtFee(c.fee)}${c.type === "Government" ? ", making it one of the most affordable options in " + c.state : c.goFee > 0 && c.goFee !== c.fee ? ` (government order fee: ${fmtFee(c.goFee)})` : ""}. Over four years, the total tuition cost comes to approximately ${fmtFee(btechTotalFee)}. ` : ""}
                 {c.placements.avg > 0 ? `In recent placements, ${c.name.split(" ")[0]} reported an average package of ₹${c.placements.avg} LPA${c.placements.highest > 0 ? ` with the highest offer reaching ₹${c.placements.highest} LPA` : ""}${c.placements.companies > 0 ? `, attracting ${c.placements.companies}+ recruiting companies` : ""}. ` : ""}
                 {"" /* ROI sentence removed */}
                 {c.cutoff.cse > 0 ? `For ${c.state === "Telangana" ? "TS" : "AP"} EAPCET admissions, the CSE branch had a closing rank of ${c.cutoff.cse.toLocaleString("en-IN")} in the most recent counselling cycle.` : ""}
@@ -424,7 +438,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                         </td>
                         <td className="px-4 py-3 text-right font-bold text-[#1a5276]">{fmtCourseFee(co.fee)}</td>
                         <td className="px-4 py-3 text-right text-gray-500 hidden sm:table-cell">{co.duration} {co.duration === 1 ? "year" : "years"}</td>
-                        <td className="px-4 py-3 text-right font-semibold">{fmtCourseFee(co.fee * co.duration)}</td>
+                        <td className="px-4 py-3 text-right font-semibold">{fmtCourseFee(co.totalFee ?? co.fee * co.duration)}</td>
                       </tr>
                     ))}
                   </tbody>

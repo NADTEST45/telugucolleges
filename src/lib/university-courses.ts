@@ -27,6 +27,7 @@ export interface CourseInfo {
   program: string;
   specialization?: string;
   fee: number;
+  totalFee?: number; // Actual total for full duration — use when fee varies by year (e.g. annual hikes). If absent, total = fee × duration.
   mgmtFee?: number; // Management quota fee (Category-B) — only for affiliated colleges
   duration: number;
   level: "UG" | "PG" | "Doctoral" | "Diploma" | "Integrated";
@@ -53,21 +54,21 @@ export const UNIVERSITY_FEE_AY: Record<string, string> = {
   VTAP: "2025-26", // vitap.ac.in
   CENT: "2026-27", // cutmap.ac.in — Fees Matrix 2026-27
   AITS: "2025-26", // annamacharya
-  ADTP: "2025-26", // adityauniversity.in
+  ADTP: "2025-26", // adityauniversity.in — ₹2.75L/yr CSE
   MBUT: "2025-26", // mbu.asia — G.O.Ms.No.19 convener block 2024-27
   GGUR: "2025-26", // ggu.edu.in — G.O.Ms.No.19 convener block 2024-27
-  APOL: "2025-26", // apollouniversity.edu.in — G.O.RT.No.552
+  APOL: "2025-26", // apollouniversity.edu.in — ₹2.85L/yr CSE tuition
   BEST: "2025-26", // bestiu.edu.in
 
   // TS — Deemed Universities
   BITS: "2025-26", // bits-pilani.ac.in — official PDF
   IIIT: "2025-26", // iiit.ac.in
-  ICFA: "2025-26", // ifheindia.org
+  ICFA: "2026-27", // ifheindia.org — ₹1.4L/sem, batch 2026-30
   GITH: "2025-26", // gitam.edu
   KLHD: "2025-26", // kluniversity.in
 
   // TS — Private State Universities
-  MHND: "2025-26", // mahindrauniversity.edu.in
+  MHND: "2026-27", // mahindrauniversity.edu.in — ₹5L/yr
   WOXN: "2026-27", // woxsen.edu.in — Batch 2026-30 PDF
   CVSR: "2025-26", // anurag.edu.in
   MRDU: "2025-26", // mallareddyuniversity.ac.in
@@ -83,18 +84,16 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
   // AP — DEEMED UNIVERSITIES (official websites)
   // =============================================
 
-  "KLUN": [ // KL University — Vijayawada (kluniversity.in/sships3.aspx — 2025-26)
+  "KLUN": [ // KL University — Vijayawada (kluniversity.in/sships3.aspx — 2025-26, Full Fee = Merit + ₹10K)
     { program: "B.Tech", specialization: "CSE", fee: 300000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 300000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (Data Science)", fee: 300000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (Cyber Security)", fee: 300000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (IoT)", fee: 300000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "AI & Data Science", fee: 300000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "ECE", fee: 270000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "EEE", fee: 200000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Mechanical", fee: 200000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Civil", fee: 200000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "IT", fee: 270000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "AI & Data Science", fee: 285000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CS & IT", fee: 285000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE", fee: 265000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "IoT", fee: 265000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Biotechnology", fee: 265000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "EEE", fee: 245000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Mechanical", fee: 245000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Civil", fee: 240000, duration: 4, level: "UG" },
     { program: "B.Pharm", fee: 150000, duration: 4, level: "UG" },
     { program: "BBA", fee: 150000, duration: 3, level: "UG" },
     { program: "BCA", fee: 130000, duration: 3, level: "UG" },
@@ -165,12 +164,12 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "M.Tech", fee: 80000, duration: 2, level: "PG" },
   ],
 
-  "AMRT": [ // Amrita Vishwa Vidyapeetham — Amaravati (amrita.edu)
+  "AMRT": [ // Amrita Vishwa Vidyapeetham — Amaravati (amrita.edu — 2025-26 official PDF, Slab 4 Regular)
     { program: "B.Tech", specialization: "CSE", fee: 450000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (AI)", fee: 450000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "ECE", fee: 450000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "EEE", fee: 450000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Mechanical", fee: 450000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "EEE", fee: 350000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Mechanical", fee: 350000, duration: 4, level: "UG" },
     { program: "MBA", fee: 390000, duration: 2, level: "PG" },
     { program: "M.Tech", fee: 200000, duration: 2, level: "PG" },
     { program: "Ph.D", fee: 100000, duration: 3, level: "Doctoral" },
@@ -207,15 +206,15 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
   // TS — DEEMED UNIVERSITIES (official websites)
   // =============================================
 
-  "BITS": [ // BITS Pilani — Hyderabad (bits-pilani.ac.in)
-    { program: "B.E.", specialization: "CSE", fee: 550000, duration: 4, level: "UG" },
-    { program: "B.E.", specialization: "ECE", fee: 550000, duration: 4, level: "UG" },
-    { program: "B.E.", specialization: "EEE", fee: 550000, duration: 4, level: "UG" },
-    { program: "B.E.", specialization: "Mechanical", fee: 550000, duration: 4, level: "UG" },
-    { program: "B.E.", specialization: "Civil", fee: 550000, duration: 4, level: "UG" },
-    { program: "B.E.", specialization: "Chemical", fee: 550000, duration: 4, level: "UG" },
-    { program: "B.Pharm", fee: 550000, duration: 4, level: "UG" },
-    { program: "M.Sc (Hons)", specialization: "Biology / Chemistry / Economics / Maths / Physics", fee: 550000, duration: 4, level: "Integrated" },
+  "BITS": [ // BITS Pilani — Hyderabad (bits-pilani.ac.in — Y1 ₹5.5L, 5% annual hike, total ₹23.7L)
+    { program: "B.E.", specialization: "CSE", fee: 550000, totalFee: 2370000, duration: 4, level: "UG" },
+    { program: "B.E.", specialization: "ECE", fee: 550000, totalFee: 2370000, duration: 4, level: "UG" },
+    { program: "B.E.", specialization: "EEE", fee: 550000, totalFee: 2370000, duration: 4, level: "UG" },
+    { program: "B.E.", specialization: "Mechanical", fee: 550000, totalFee: 2370000, duration: 4, level: "UG" },
+    { program: "B.E.", specialization: "Civil", fee: 550000, totalFee: 2370000, duration: 4, level: "UG" },
+    { program: "B.E.", specialization: "Chemical", fee: 550000, totalFee: 2370000, duration: 4, level: "UG" },
+    { program: "B.Pharm", fee: 550000, totalFee: 2370000, duration: 4, level: "UG" },
+    { program: "M.Sc (Hons)", specialization: "Biology / Chemistry / Economics / Maths / Physics", fee: 550000, totalFee: 2370000, duration: 4, level: "Integrated" },
     { program: "M.E.", fee: 300000, duration: 2, level: "PG" },
     { program: "MBA", fee: 500000, duration: 2, level: "PG" },
     { program: "Ph.D", fee: 200000, duration: 4, level: "Doctoral" },
@@ -231,13 +230,13 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "Ph.D", fee: 100000, duration: 4, level: "Doctoral" },
   ],
 
-  "ICFA": [ // ICFAI (IFHE) — Hyderabad (ifheindia.org)
-    { program: "B.Tech", specialization: "CSE", fee: 250000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 250000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "ECE", fee: 250000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "EEE", fee: 250000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Mechanical", fee: 250000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Civil", fee: 250000, duration: 4, level: "UG" },
+  "ICFA": [ // ICFAI (IFHE) — Hyderabad (ifheindia.org — ₹1,40,000/sem × 2, same all 4 yrs, total ₹11.2L)
+    { program: "B.Tech", specialization: "CSE", fee: 280000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 280000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE", fee: 280000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "EEE", fee: 280000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Mechanical", fee: 280000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Civil", fee: 280000, duration: 4, level: "UG" },
     { program: "BBA", fee: 320000, duration: 3, level: "UG" },
     { program: "BCA", fee: 200000, duration: 3, level: "UG" },
     { program: "B.Com (Hons)", fee: 150000, duration: 3, level: "UG" },
@@ -263,15 +262,11 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "Ph.D", fee: 100000, duration: 3, level: "Doctoral" },
   ],
 
-  "KLHD": [ // KL University — Hyderabad (kluniversity.in/sships3.aspx — 2025-26)
-    { program: "B.Tech", specialization: "CSE", fee: 300000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 300000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (Data Science)", fee: 300000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "AI & Data Science", fee: 290000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CS & IT", fee: 285000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "ECE", fee: 270000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "EEE", fee: 250000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Mechanical", fee: 250000, duration: 4, level: "UG" },
+  "KLHD": [ // KL University — Hyderabad (kluniversity.in/sships3.aspx — 2025-26, Full Fee = Merit + ₹10K)
+    { program: "B.Tech", specialization: "CSE", fee: 310000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "AI & Data Science", fee: 310000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CS & IT", fee: 295000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE", fee: 280000, duration: 4, level: "UG" },
     { program: "BBA", fee: 184000, duration: 4, level: "UG" },
     { program: "BCA", fee: 162000, duration: 4, level: "UG" },
     { program: "MBA", fee: 230000, duration: 2, level: "PG" },
@@ -283,8 +278,8 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
   // TS — PRIVATE UNIVERSITIES (official websites)
   // =============================================
 
-  "MHND": [ // Mahindra University (mahindrauniversity.edu.in — 2025-26)
-    { program: "B.Tech", specialization: "All Specializations", fee: 450000, duration: 4, level: "UG" },
+  "MHND": [ // Mahindra University (mahindrauniversity.edu.in — ₹5L/yr same all 4 yrs, total ₹20L)
+    { program: "B.Tech", specialization: "All Specializations", fee: 500000, duration: 4, level: "UG" },
     { program: "B.Des", fee: 570000, duration: 4, level: "UG" },
     { program: "BBA", fee: 407000, duration: 3, level: "UG" },
     { program: "BA Journalism & Mass Communication", fee: 350000, duration: 4, level: "UG" },
@@ -295,9 +290,9 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "Ph.D", fee: 50000, duration: 3, level: "Doctoral" },
   ],
 
-  "WOXN": [ // Woxsen University (woxsen.edu.in — official PDF, tuition only excl hostel)
-    { program: "B.Tech", specialization: "CSE", fee: 315000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 315000, duration: 4, level: "UG" },
+  "WOXN": [ // Woxsen University (woxsen.edu.in — official PDF, Y1=₹3.15L, Y2-4=₹3.40L, total ₹13.35L)
+    { program: "B.Tech", specialization: "CSE", fee: 315000, totalFee: 1335000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 315000, totalFee: 1335000, duration: 4, level: "UG" },
     { program: "BBA", fee: 700000, duration: 3, level: "UG" },
     { program: "BCA", fee: 575000, duration: 3, level: "UG" },
     { program: "B.Des", fee: 705000, duration: 4, level: "UG" },
@@ -416,10 +411,10 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "M.Sc", fee: 45000, duration: 2, level: "PG" },
   ],
 
-  "ADTP": [ // Aditya University — Surampalem (formerly Aditya Engineering College; Private University since 2022)
-    { program: "B.Tech", specialization: "CSE", fee: 200000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 200000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (Data Science)", fee: 200000, duration: 4, level: "UG" },
+  "ADTP": [ // Aditya University — Surampalem (Private University since 2022; ₹2.75L/yr CSE, total ₹11L)
+    { program: "B.Tech", specialization: "CSE", fee: 275000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 275000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (Data Science)", fee: 275000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "ECE", fee: 150000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "EEE", fee: 130000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "Mechanical", fee: 130000, duration: 4, level: "UG" },
@@ -470,10 +465,13 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "M.Tech", fee: 120000, duration: 2, level: "PG" },
   ],
 
-  "APOL": [ // The Apollo University — Chittoor (G.O.RT.No.552, 2024-27 convener for para-medical)
-    { program: "B.Tech", specialization: "CSE / AI&ML", fee: 150000, duration: 4, level: "UG" },
+  "APOL": [ // The Apollo University — Chittoor (apollouniversity.edu.in — ₹2.85L/yr tuition, same all 4 yrs, total ₹11.4L)
+    { program: "B.Tech", specialization: "CSE (AI & Data Science)", fee: 285000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 285000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE", fee: 285000, duration: 4, level: "UG" },
     { program: "BPT", fee: 100000, duration: 4, level: "UG" },
     { program: "B.Sc (Health Sciences)", fee: 80000, duration: 4, level: "UG" },
+    { program: "B.Pharm", fee: 100000, duration: 4, level: "UG" },
     { program: "MPT", fee: 120000, duration: 2, level: "PG" },
   ],
 
