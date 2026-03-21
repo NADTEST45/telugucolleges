@@ -412,18 +412,23 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           {/* Course-wise fee breakdown */}
           {courses && grouped.length > 0 && (() => {
             const hasConvenerQuota = c.type === "Private University" && c.goFee > 0;
+            const hasDualCategory = isDeemedOrPrivateUni && courses.some(co => co.mgmtFee && co.mgmtFee < co.fee);
             return grouped.map(group => (
             <section key={group.level} className="bg-white rounded-xl p-6 shadow-sm">
               <h2 className="text-lg font-bold mb-1">{group.label}</h2>
               {hasConvenerQuota && group.level === "UG" && (
                 <p className="text-xs text-gray-400 mb-3">Fees shown are for <span className="font-semibold text-[#1a5276]">direct admission (university quota)</span>. For {c.state === "Telangana" ? "TS EAMCET" : "AP EAPCET"} convener quota, B.Tech fee is <span className="font-semibold text-green-700">{fmtCourseFee(c.goFee)}/yr</span> (all branches).</p>
               )}
+              {hasDualCategory && (
+                <p className="text-xs text-gray-400 mb-3">Fees shown are <span className="font-semibold text-[#1a5276]">Category-B (direct admission)</span>. Lower fees in <span className="font-semibold text-green-700">green</span> apply to students admitted through entrance exams (V-SAT / EAMCET / JEE).</p>
+              )}
               <div className="overflow-x-auto -mx-6 px-6">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="bg-[#1a5276] text-white">
                       <th className="px-4 py-2.5 text-left rounded-tl-lg">Program</th>
-                      <th className="px-4 py-2.5 text-right">{hasConvenerQuota ? "Direct Admission Fee" : "Annual Fee"}</th>
+                      <th className="px-4 py-2.5 text-right">{hasConvenerQuota ? "Direct Admission Fee" : hasDualCategory ? "Cat-B (Direct)" : "Annual Fee"}</th>
+                      {hasDualCategory && <th className="px-4 py-2.5 text-right hidden sm:table-cell">Cat-A (Entrance)</th>}
                       <th className="px-4 py-2.5 text-right hidden sm:table-cell">Duration</th>
                       <th className="px-4 py-2.5 text-right rounded-tr-lg">Total Cost</th>
                     </tr>
@@ -435,8 +440,16 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                           <div className="font-semibold">{co.program}</div>
                           {co.specialization && <div className="text-xs text-gray-400 mt-0.5">{co.specialization}</div>}
                           <div className="text-xs text-gray-400 mt-0.5 sm:hidden">{co.duration} {co.duration === 1 ? "yr" : "yrs"}</div>
+                          {hasDualCategory && co.mgmtFee && co.mgmtFee < co.fee && (
+                            <div className="text-[11px] text-green-600 mt-0.5 sm:hidden">With entrance: {fmtCourseFee(co.mgmtFee)}/yr</div>
+                          )}
                         </td>
                         <td className="px-4 py-3 text-right font-bold text-[#1a5276]">{fmtCourseFee(co.fee)}</td>
+                        {hasDualCategory && (
+                          <td className="px-4 py-3 text-right font-bold text-green-600 hidden sm:table-cell">
+                            {co.mgmtFee && co.mgmtFee < co.fee ? fmtCourseFee(co.mgmtFee) : "—"}
+                          </td>
+                        )}
                         <td className="px-4 py-3 text-right text-gray-500 hidden sm:table-cell">{co.duration} {co.duration === 1 ? "year" : "years"}</td>
                         <td className="px-4 py-3 text-right font-semibold">{fmtCourseFee(co.totalFee ?? co.fee * co.duration)}</td>
                       </tr>

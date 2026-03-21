@@ -180,13 +180,19 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
               </div>
               <div className="flex gap-6 items-center shrink-0">
                 <div className="text-center">
-                  <div className="text-[11px] text-gray-400">Convener Fee</div>
+                  <div className="text-[11px] text-gray-400">{cp.mgmtFee && cp.mgmtFee < cp.fee ? "Direct Admission" : "Convener Fee"}</div>
                   <div className="font-bold text-[#1a5276] text-lg">{fmtFee(cp.fee)}</div>
                 </div>
-                {cp.mgmtFee && (
+                {cp.mgmtFee && cp.mgmtFee > cp.fee && (
                   <div className="text-center">
                     <div className="text-[11px] text-orange-400">Mgmt Quota</div>
                     <div className="font-bold text-orange-500">{fmtFee(cp.mgmtFee)}</div>
+                  </div>
+                )}
+                {cp.mgmtFee && cp.mgmtFee < cp.fee && (
+                  <div className="text-center">
+                    <div className="text-[11px] text-green-500">With Entrance</div>
+                    <div className="font-bold text-green-600">{fmtFee(cp.mgmtFee)}</div>
                   </div>
                 )}
               </div>
