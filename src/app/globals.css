@@ -1,5 +1,111 @@
 @import "tailwindcss";
 
+/* ─── Dark Mode (class-based) ─── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Global dark overrides — saves adding dark: to every component */
+.dark {
+  color-scheme: dark;
+}
+.dark body {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+/* Card / surface backgrounds */
+.dark .bg-white {
+  background-color: #1e293b;
+}
+.dark .bg-gray-50 {
+  background-color: #0f172a;
+}
+.dark .bg-gray-100 {
+  background-color: #1e293b;
+}
+
+/* Text colors */
+.dark .text-gray-900 {
+  color: #f1f5f9;
+}
+.dark .text-gray-800 {
+  color: #e2e8f0;
+}
+.dark .text-gray-700 {
+  color: #cbd5e1;
+}
+.dark .text-gray-600 {
+  color: #94a3b8;
+}
+.dark .text-gray-500 {
+  color: #94a3b8;
+}
+.dark .text-gray-400 {
+  color: #64748b;
+}
+
+/* Borders */
+.dark .border-gray-200 {
+  border-color: #334155;
+}
+.dark .border-gray-200\/80 {
+  border-color: rgb(51 65 85 / 0.8);
+}
+.dark .border-gray-100 {
+  border-color: #1e293b;
+}
+.dark .divide-gray-100 > :not(:first-child) {
+  border-color: #334155;
+}
+.dark .divide-gray-200 > :not(:first-child) {
+  border-color: #334155;
+}
+
+/* Shadows — softer in dark mode */
+.dark .shadow-sm {
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+}
+.dark .shadow-lg {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+}
+
+/* Rings */
+.dark .ring-gray-200 {
+  --tw-ring-color: #334155;
+}
+
+/* Accent backgrounds (keep colored but muted) */
+.dark .bg-blue-50 { background-color: rgb(30 58 138 / 0.2); }
+.dark .bg-green-50 { background-color: rgb(20 83 45 / 0.2); }
+.dark .bg-amber-50 { background-color: rgb(120 53 15 / 0.2); }
+.dark .bg-rose-50 { background-color: rgb(136 19 55 / 0.2); }
+.dark .bg-purple-50 { background-color: rgb(88 28 135 / 0.2); }
+.dark .bg-violet-50 { background-color: rgb(76 29 149 / 0.2); }
+.dark .bg-red-50 { background-color: rgb(127 29 29 / 0.2); }
+.dark .bg-yellow-50 { background-color: rgb(113 63 18 / 0.2); }
+
+/* Table stripes */
+.dark .even\:bg-gray-50:nth-child(even) {
+  background-color: #1e293b;
+}
+.dark tr:hover .hover\:bg-gray-50,
+.dark .hover\:bg-gray-50:hover {
+  background-color: #1e293b;
+}
+
+/* Input / Select */
+.dark select, .dark input[type="text"], .dark input[type="number"], .dark input[type="search"], .dark textarea {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+/* Table scroll hint gradient — dark version */
+.dark .table-scroll-hint::after {
+  background: linear-gradient(to right, transparent, #0f172a);
+}
+
+/* Footer — already dark, handled via dark: class in layout.tsx */
+
 /* Safe area inset for notched iPhones — bottom nav */
 .safe-area-bottom {
   padding-bottom: env(safe-area-inset-bottom, 0px);

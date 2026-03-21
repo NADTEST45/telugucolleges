@@ -3,6 +3,7 @@ import "./globals.css";
 import Link from "next/link";
 import SearchBar from "@/components/SearchBar";
 import BottomNav from "@/components/BottomNav";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://telugucolleges.vercel.app"),
@@ -32,18 +33,22 @@ export const metadata: Metadata = {
   },
 };
 
+/* Inline script to apply dark class before paint — prevents white flash */
+const themeScript = `(function(){try{var t=localStorage.getItem("theme");if(t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme:dark)").matches))document.documentElement.classList.add("dark")}catch{}})()`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5" />
         <meta name="theme-color" content="#1a5276" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="bg-gray-50 text-gray-900 antialiased">
+      <body className="bg-gray-50 text-gray-900 antialiased transition-colors duration-200">
         {/* Nav */}
-        <nav className="bg-[#1a5276] text-white sticky top-0 z-50 shadow-lg">
+        <nav className="bg-[#1a5276] dark:bg-[#0c2d48] text-white sticky top-0 z-50 shadow-lg">
           <div className="max-w-7xl mx-auto px-3 sm:px-6 flex items-center justify-between h-12 sm:h-14">
             <Link href="/" className="flex items-center gap-2 shrink-0">
               <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#2e86c1] flex items-center justify-center font-extrabold text-xs sm:text-sm">TC</div>
@@ -64,6 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Link>
               ))}
             </div>
+            <ThemeToggle />
           </div>
         </nav>
 
@@ -76,7 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <BottomNav />
 
         {/* Footer */}
-        <footer className="bg-[#1b2631] text-gray-400 mt-16">
+        <footer className="bg-[#1b2631] dark:bg-[#020617] text-gray-400 mt-16">
           <div className="max-w-7xl mx-auto px-6 py-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
               <div>
