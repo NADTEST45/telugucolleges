@@ -224,6 +224,26 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
             </div>
           </section>
 
+          {/* About — SEO paragraph */}
+          <section className="bg-white rounded-xl p-6 shadow-sm">
+            <h2 className="text-lg font-bold mb-3">About {c.name}</h2>
+            <div className="text-sm text-gray-700 leading-relaxed space-y-3">
+              <p>
+                {c.name} ({c.code}) is {c.type === "Government" ? "a government" : c.type === "Deemed University" ? "a deemed" : c.type === "Private University" ? "a private" : "a private"} engineering {c.type.includes("University") ? "university" : "college"} located in {c.district}, {c.state}, India{c.year > 0 ? `, established in ${c.year}` : ""}.{" "}
+                {!c.type.includes("University") && `It is affiliated to ${c.affiliation} and `}
+                {c.naac && c.naac !== "-" ? `holds NAAC Grade ${c.naac} accreditation${c.nba ? " with NBA-accredited programmes" : ""}. ` : c.nba ? "has NBA-accredited programmes. " : ""}
+                {c.nirf > 0 ? `The institution is ranked in the ${nirfBand(c.nirf)} band under the NIRF 2025 Engineering category. ` : ""}
+                {c.name} offers B.Tech programmes in {c.branches.length} {c.branches.length === 1 ? "branch" : "branches"} including {c.branches.slice(0, 5).join(", ")}{c.branches.length > 5 ? `, and ${c.branches.length - 5} more` : ""}.
+              </p>
+              <p>
+                {c.fee > 0 ? `The annual tuition fee for B.Tech is ${fmtFee(c.fee)}${c.type === "Government" ? ", making it one of the most affordable options in " + c.state : c.goFee > 0 && c.goFee !== c.fee ? ` (government order fee: ${fmtFee(c.goFee)})` : ""}. Over four years, the total tuition cost comes to approximately ${fmtFee(c.fee * 4)}. ` : ""}
+                {c.placements.avg > 0 ? `In recent placements, ${c.name.split(" ")[0]} reported an average package of ₹${c.placements.avg} LPA${c.placements.highest > 0 ? ` with the highest offer reaching ₹${c.placements.highest} LPA` : ""}${c.placements.companies > 0 ? `, attracting ${c.placements.companies}+ recruiting companies` : ""}. ` : ""}
+                {c.fee > 0 && c.placements.avg > 0 ? `This translates to a salary-to-fee ratio of ${((c.placements.avg * 100000) / (c.fee * 4)).toFixed(1)}x, meaning graduates earn back their entire tuition investment in approximately ${((c.fee * 4) / (c.placements.avg * 100000 / 12)).toFixed(0)} months of working. ` : ""}
+                {c.cutoff.cse > 0 ? `For ${c.state === "Telangana" ? "TS" : "AP"} EAPCET admissions, the CSE branch had a closing rank of ${c.cutoff.cse.toLocaleString("en-IN")} in the most recent counselling cycle.` : ""}
+              </p>
+            </div>
+          </section>
+
           {/* Branches */}
           <section className="bg-white rounded-xl p-6 shadow-sm">
             <h2 className="text-lg font-bold mb-4">Branches Offered</h2>

@@ -5,6 +5,7 @@ import SearchBar from "@/components/SearchBar";
 import BottomNav from "@/components/BottomNav";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://telugucolleges.vercel.app"),
   title: "TeluguColleges.com — Professional Colleges in AP & Telangana",
   description: "Research professional colleges in Andhra Pradesh & Telangana. Official fees from government orders for B.Tech, MBA, MCA, M.Tech, Medical & more. Real EAPCET cutoffs and comparison tools.",
   keywords: "engineering colleges, Telangana, Andhra Pradesh, EAPCET, fees, cutoffs, JNTUH, JNTUK, MBA, MCA, M.Tech, B.Tech, medical, BBA, BCA",
@@ -12,6 +13,22 @@ export const metadata: Metadata = {
     title: "TeluguColleges.com — Professional Colleges in AP & Telangana",
     description: "Official fees from government orders, real cutoffs, and tools that actually help you pick the right college.",
     type: "website",
+    siteName: "TeluguColleges.com",
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
