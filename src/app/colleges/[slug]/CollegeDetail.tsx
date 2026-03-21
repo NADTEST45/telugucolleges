@@ -104,8 +104,8 @@ function nirfBand(rank: number): string {
 
 import type { FAQItem } from "./page";
 
-export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYears, phaseCutoffs, phases, faqs }: { c: College; similar: College[]; historicalCutoffs: CollegeCutoffs | null; cutoffYears: readonly string[]; phaseCutoffs?: Record<string, YearCutoffs> | null; phases?: { key: string; label: string }[] | null; faqs?: FAQItem[] }) {
-  const [tab, setTab] = useState("overview");
+export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYears, phaseCutoffs, phases, faqs, initialTab }: { c: College; similar: College[]; historicalCutoffs: CollegeCutoffs | null; cutoffYears: readonly string[]; phaseCutoffs?: Record<string, YearCutoffs> | null; phases?: { key: string; label: string }[] | null; faqs?: FAQItem[]; initialTab?: string }) {
+  const [tab, setTab] = useState(initialTab || "overview");
   const [category, setCategory] = useState<Category>("OC");
   const [gender, setGender] = useState<Gender>("boys");
   const [selectedPhase, setSelectedPhase] = useState<string | null>(null);
