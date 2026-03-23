@@ -109,6 +109,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
   const [category, setCategory] = useState<Category>("OC");
   const [gender, setGender] = useState<Gender>("boys");
   const [selectedPhase, setSelectedPhase] = useState<string | null>(null);
+  const [feeTab, setFeeTab] = useState(0); // 0 = primary tab, 1 = secondary tab
   const cutoffTableRef = useRef<HTMLDivElement>(null);
   const cutoffs = Object.entries(c.cutoff).filter(([, v]) => v > 0).sort((a, b) => a[1] - b[1]);
   const courses = getCourses(c.code) || getAffiliatedCourses(c);
@@ -347,88 +348,162 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
             )}
 
             {/* Fee Display — depends on institution type */}
-            {isDeemedOrPrivateUni && c.type === "Private University" && c.goFee > 0 ? (() => {
-              /* Private State University with convener + direct admission fees */
-              const brownfieldCodes = new Set(["MBUT", "AITS", "ADTP", "GGUR"]); // upgraded from existing colleges — 70% govt quota on original seats
+            {(() => {
+              const hasConvenerQuota = c.type === "Private University" && c.goFee > 0 && c.goFee !== c.fee;
+              const hasDualCategory = isDeemedOrPrivateUni && courses && courses.some(co => co.mgmtFee && co.mgmtFee < co.fee);
+              const showTabs = hasConvenerQuota || hasDualCategory;
+
+              const brownfieldCodes = new Set(["MBUT", "AITS", "ADTP", "GGUR"]);
               const isBrownfield = brownfieldCodes.has(c.code);
               const quotaPct = isBrownfield ? "70%" : "35%";
-              return <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {/* Convener / EAMCET / EAPCET Quota */}
-                  <div className="bg-green-50 rounded-lg px-5 py-4">
-                    <div className="text-sm text-green-700 font-semibold">
-                      {c.state === "Telangana" ? "TS EAMCET Convener Quota" : "AP EAPCET Convener Quota"}
-                    </div>
-                    <div className="text-xs text-gray-400 mt-0.5">{c.state === "Telangana" ? "TS EAMCET · TAFRC regulated" : `${quotaPct} of seats · AP EAPCET · G.O.Ms.No.19 (2024-27)`}</div>
-                    <div className="text-2xl font-extrabold text-green-700 mt-2">{fmtFee(c.goFee)}<span className="text-xs font-normal text-gray-400">/yr</span></div>
-                  </div>
-                  {/* Direct Admission / University Quota */}
-                  <div className="bg-blue-50 rounded-lg px-5 py-4">
-                    <div className="text-sm text-[#1a5276] font-semibold">Direct Admission (University Quota)</div>
-                    <div className="text-xs text-gray-400 mt-0.5">{c.state === "Andhra Pradesh" ? `${isBrownfield ? "30%" : "65%"} of seats · ` : ""}University entrance · Fee set by university</div>
-                    <div className="text-2xl font-extrabold text-[#1a5276] mt-2">{fmtFee(c.fee)}<span className="text-xs font-normal text-gray-400">/yr</span></div>
-                  </div>
-                </div>
-                <div className="mt-3 bg-amber-50 rounded-lg px-4 py-2.5 text-xs text-amber-700">
-                  {c.state === "Andhra Pradesh"
-                    ? `${isBrownfield ? "Brownfield university (upgraded from existing college) — 70% of original seats" : "Greenfield university — 35% of seats"} filled through AP EAPCET at APHERMC-regulated fees per G.O.Ms.No.19 (block period 2024-27). Remaining ${isBrownfield ? "30%" : "65%"} at university-determined fees${UNIVERSITY_FEE_AY[c.code] ? ` (AY ${UNIVERSITY_FEE_AY[c.code]})` : ""}. Does not apply to Deemed Universities.`
-                    : `Convener quota seats are filled through TS EAMCET state counseling at TAFRC-regulated fees. Remaining seats filled via university-level admission at university-determined fees${UNIVERSITY_FEE_AY[c.code] ? ` (AY ${UNIVERSITY_FEE_AY[c.code]})` : ""}. Contact admissions for exact details.`}
-                </div>
-              </>;
-            })() : (
-              /* Deemed University / Private Uni without convener / Govt / Affiliated */
-              <>
-                <div className="bg-gray-50 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <div>
-                    <div className="text-sm text-gray-500">
-                      {isDeemedOrPrivateUni ? "B.Tech Annual Tuition" : isGovt ? "B.Tech Annual Tuition" : "B.Tech Convener Quota (Category-A)"}
-                    </div>
-                    <div className="text-xs text-gray-400 mt-0.5">
-                      {isDeemedOrPrivateUni
-                        ? `${c.type} · Fee set by university${UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}`
-                        : isGovt
-                        ? "Government college — nominal fee per state norms"
-                        : "70% of seats · Government-regulated fee"}
-                    </div>
-                  </div>
-                  <div className="text-2xl font-extrabold text-[#1a5276]">{fmtFee(c.fee)}<span className="text-xs font-normal text-gray-400">/yr</span></div>
-                </div>
+              const examName = c.state === "Telangana" ? "TS EAMCET" : "AP EAPCET";
 
-                {/* Source note */}
-                {isDeemedOrPrivateUni && (
-                  <div className="mt-3 bg-amber-50 rounded-lg px-4 py-2.5 text-xs text-amber-700">
-                    {`${c.type} fees are set by the institution${UNIVERSITY_FEE_AY[c.code] ? ` (sourced from official website for AY ${UNIVERSITY_FEE_AY[c.code]})` : ""}. Contact admissions for exact, up-to-date fee details.`}
+              /* Tab labels */
+              const tab1Label = hasConvenerQuota
+                ? `${examName} Convener`
+                : hasDualCategory ? "Direct Admission" : "";
+              const tab2Label = hasConvenerQuota
+                ? "Direct Admission"
+                : hasDualCategory ? "With Entrance Exam" : "";
+
+              return showTabs ? (
+                <>
+                  {/* Tab buttons */}
+                  <div className="flex rounded-lg bg-gray-100 p-1 mb-4">
+                    <button
+                      onClick={() => setFeeTab(0)}
+                      className={`flex-1 px-4 py-2 rounded-md text-sm font-semibold transition-all ${
+                        feeTab === 0
+                          ? hasConvenerQuota ? "bg-green-600 text-white shadow-sm" : "bg-[#1a5276] text-white shadow-sm"
+                          : "text-gray-500 hover:text-gray-700"
+                      }`}
+                    >
+                      {tab1Label}
+                    </button>
+                    <button
+                      onClick={() => setFeeTab(1)}
+                      className={`flex-1 px-4 py-2 rounded-md text-sm font-semibold transition-all ${
+                        feeTab === 1
+                          ? "bg-[#1a5276] text-white shadow-sm"
+                          : "text-gray-500 hover:text-gray-700"
+                      }`}
+                    >
+                      {tab2Label}
+                    </button>
                   </div>
-                )}
-                {!isDeemedOrPrivateUni && !isGovt && (
-                  <div className="mt-3 bg-amber-50 rounded-lg px-4 py-2.5 text-xs text-amber-700">
-                    For management quota (Category-B, ~30% seats) fees, contact the college directly — these are approved per college by {c.state === "Telangana" ? "TS AFRC" : "APHERMC"}.
+
+                  {/* Tab content */}
+                  {hasConvenerQuota && feeTab === 0 && (
+                    <div className="bg-green-50 rounded-lg px-5 py-4">
+                      <div className="text-sm text-green-700 font-semibold">{examName} Convener Quota</div>
+                      <div className="text-xs text-gray-400 mt-0.5">{c.state === "Telangana" ? "TAFRC regulated · State counseling" : `${quotaPct} of seats · G.O.Ms.No.19 (2024-27)`}</div>
+                      <div className="text-2xl font-extrabold text-green-700 mt-2">{fmtFee(c.goFee)}<span className="text-xs font-normal text-gray-400">/yr (all B.Tech branches)</span></div>
+                      <div className="mt-3 text-xs text-green-700">
+                        {c.state === "Andhra Pradesh"
+                          ? `${isBrownfield ? "Brownfield university — 70% of original seats" : "Greenfield university — 35% of seats"} filled through AP EAPCET at APHERMC-regulated fees per G.O.Ms.No.19 (block period 2024-27).`
+                          : "Convener quota seats filled through TS EAMCET state counseling at TAFRC-regulated fees."}
+                      </div>
+                    </div>
+                  )}
+                  {hasConvenerQuota && feeTab === 1 && (
+                    <div className="bg-blue-50 rounded-lg px-5 py-4">
+                      <div className="text-sm text-[#1a5276] font-semibold">Direct Admission (University Quota)</div>
+                      <div className="text-xs text-gray-400 mt-0.5">{c.state === "Andhra Pradesh" ? `${isBrownfield ? "30%" : "65%"} of seats · ` : ""}University entrance · Fee set by university{UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}</div>
+                      <div className="text-2xl font-extrabold text-[#1a5276] mt-2">{fmtFee(c.fee)}<span className="text-xs font-normal text-gray-400">/yr (CSE — varies by branch)</span></div>
+                    </div>
+                  )}
+                  {hasDualCategory && feeTab === 0 && (
+                    <div className="bg-blue-50 rounded-lg px-5 py-4">
+                      <div className="text-sm text-[#1a5276] font-semibold">Category-B (Direct Admission)</div>
+                      <div className="text-xs text-gray-400 mt-0.5">For students admitted without entrance exam (60%+ in intermediate){UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}</div>
+                      <div className="text-2xl font-extrabold text-[#1a5276] mt-2">{fmtFee(c.fee)}<span className="text-xs font-normal text-gray-400">/yr (CSE — varies by branch)</span></div>
+                    </div>
+                  )}
+                  {hasDualCategory && feeTab === 1 && (
+                    <div className="bg-green-50 rounded-lg px-5 py-4">
+                      <div className="text-sm text-green-700 font-semibold">Category-A (With Entrance Exam)</div>
+                      <div className="text-xs text-gray-400 mt-0.5">For students admitted through V-SAT / EAMCET / JEE{UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}</div>
+                      <div className="text-2xl font-extrabold text-green-700 mt-2">
+                        {courses && courses.find(co => co.mgmtFee && co.mgmtFee < co.fee) ? fmtFee(courses.find(co => co.mgmtFee && co.mgmtFee < co.fee)!.mgmtFee!) : "—"}
+                        <span className="text-xs font-normal text-gray-400">/yr (CSE — varies by branch)</span>
+                      </div>
+                    </div>
+                  )}
+                </>
+              ) : (
+                /* No tabs — Deemed without dual / Private without convener / Govt / Affiliated */
+                <>
+                  <div className="bg-gray-50 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <div className="text-sm text-gray-500">
+                        {isDeemedOrPrivateUni ? "B.Tech Annual Tuition" : isGovt ? "B.Tech Annual Tuition" : "B.Tech Convener Quota (Category-A)"}
+                      </div>
+                      <div className="text-xs text-gray-400 mt-0.5">
+                        {isDeemedOrPrivateUni
+                          ? `${c.type} · Fee set by university${UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}`
+                          : isGovt
+                          ? "Government college — nominal fee per state norms"
+                          : "70% of seats · Government-regulated fee"}
+                      </div>
+                    </div>
+                    <div className="text-2xl font-extrabold text-[#1a5276]">{fmtFee(c.fee)}<span className="text-xs font-normal text-gray-400">/yr</span></div>
                   </div>
-                )}
-              </>
-            )}
+
+                  {/* Source note */}
+                  {isDeemedOrPrivateUni && (
+                    <div className="mt-3 bg-amber-50 rounded-lg px-4 py-2.5 text-xs text-amber-700">
+                      {`${c.type} fees are set by the institution${UNIVERSITY_FEE_AY[c.code] ? ` (sourced from official website for AY ${UNIVERSITY_FEE_AY[c.code]})` : ""}. Contact admissions for exact, up-to-date fee details.`}
+                    </div>
+                  )}
+                  {!isDeemedOrPrivateUni && !isGovt && (
+                    <div className="mt-3 bg-amber-50 rounded-lg px-4 py-2.5 text-xs text-amber-700">
+                      For management quota (Category-B, ~30% seats) fees, contact the college directly — these are approved per college by {c.state === "Telangana" ? "TS AFRC" : "APHERMC"}.
+                    </div>
+                  )}
+                </>
+              );
+            })()}
           </section>
 
           {/* Course-wise fee breakdown */}
           {courses && grouped.length > 0 && (() => {
-            const hasConvenerQuota = c.type === "Private University" && c.goFee > 0;
+            const hasConvenerQuota = c.type === "Private University" && c.goFee > 0 && c.goFee !== c.fee;
             const hasDualCategory = isDeemedOrPrivateUni && courses.some(co => co.mgmtFee && co.mgmtFee < co.fee);
+            /* For convener tab (feeTab=0): show uniform goFee for B.Tech, per-course otherwise
+               For direct tab (feeTab=1): show per-course fee as usual
+               For deemed Cat-B (feeTab=0): show fee
+               For deemed Cat-A (feeTab=1): show mgmtFee */
+            const getFee = (co: CourseInfo) => {
+              if (hasConvenerQuota && feeTab === 0 && co.program === "B.Tech") return c.goFee;
+              if (hasDualCategory && feeTab === 1 && co.mgmtFee && co.mgmtFee < co.fee) return co.mgmtFee;
+              return co.fee;
+            };
+            const getTotal = (co: CourseInfo) => {
+              const annualFee = getFee(co);
+              if (hasDualCategory && feeTab === 1 && co.mgmtFee && co.mgmtFee < co.fee) return annualFee * co.duration;
+              if (hasConvenerQuota && feeTab === 0 && co.program === "B.Tech") return annualFee * co.duration;
+              return co.totalFee ?? annualFee * co.duration;
+            };
+            const feeColor = (hasConvenerQuota && feeTab === 0) || (hasDualCategory && feeTab === 1) ? "text-green-700" : "text-[#1a5276]";
+            const headerBg = (hasConvenerQuota && feeTab === 0) || (hasDualCategory && feeTab === 1) ? "bg-green-700" : "bg-[#1a5276]";
+            const feeLabel = hasConvenerQuota
+              ? (feeTab === 0 ? "Convener Fee" : "Direct Admission Fee")
+              : hasDualCategory
+              ? (feeTab === 0 ? "Cat-B (Direct)" : "Cat-A (Entrance)")
+              : "Annual Fee";
+
             return grouped.map(group => (
             <section key={group.level} className="bg-white rounded-xl p-6 shadow-sm">
               <h2 className="text-lg font-bold mb-1">{group.label}</h2>
-              {hasConvenerQuota && group.level === "UG" && (
-                <p className="text-xs text-gray-400 mb-3">Fees shown are for <span className="font-semibold text-[#1a5276]">direct admission (university quota)</span>. For {c.state === "Telangana" ? "TS EAMCET" : "AP EAPCET"} convener quota, B.Tech fee is <span className="font-semibold text-green-700">{fmtCourseFee(c.goFee)}/yr</span> (all branches).</p>
-              )}
-              {hasDualCategory && (
-                <p className="text-xs text-gray-400 mb-3">Fees shown are <span className="font-semibold text-[#1a5276]">Category-B (direct admission)</span>. Lower fees in <span className="font-semibold text-green-700">green</span> apply to students admitted through entrance exams (V-SAT / EAMCET / JEE).</p>
+              {hasConvenerQuota && feeTab === 0 && group.level === "UG" && (
+                <p className="text-xs text-gray-400 mb-3">B.Tech branches have a <span className="font-semibold text-green-700">uniform convener fee of {fmtCourseFee(c.goFee)}/yr</span> through {c.state === "Telangana" ? "TS EAMCET" : "AP EAPCET"} counseling. Switch to &ldquo;Direct Admission&rdquo; tab for branch-wise university fees.</p>
               )}
               <div className="overflow-x-auto -mx-6 px-6">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-[#1a5276] text-white">
+                    <tr className={`${headerBg} text-white`}>
                       <th className="px-4 py-2.5 text-left rounded-tl-lg">Program</th>
-                      <th className="px-4 py-2.5 text-right">{hasConvenerQuota ? "Direct Admission Fee" : hasDualCategory ? "Cat-B (Direct)" : "Annual Fee"}</th>
-                      {hasDualCategory && <th className="px-4 py-2.5 text-right hidden sm:table-cell">Cat-A (Entrance)</th>}
+                      <th className="px-4 py-2.5 text-right">{feeLabel}</th>
                       <th className="px-4 py-2.5 text-right hidden sm:table-cell">Duration</th>
                       <th className="px-4 py-2.5 text-right rounded-tr-lg">Total Cost</th>
                     </tr>
@@ -440,18 +515,10 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                           <div className="font-semibold">{co.program}</div>
                           {co.specialization && <div className="text-xs text-gray-400 mt-0.5">{co.specialization}</div>}
                           <div className="text-xs text-gray-400 mt-0.5 sm:hidden">{co.duration} {co.duration === 1 ? "yr" : "yrs"}</div>
-                          {hasDualCategory && co.mgmtFee && co.mgmtFee < co.fee && (
-                            <div className="text-[11px] text-green-600 mt-0.5 sm:hidden">With entrance: {fmtCourseFee(co.mgmtFee)}/yr</div>
-                          )}
                         </td>
-                        <td className="px-4 py-3 text-right font-bold text-[#1a5276]">{fmtCourseFee(co.fee)}</td>
-                        {hasDualCategory && (
-                          <td className="px-4 py-3 text-right font-bold text-green-600 hidden sm:table-cell">
-                            {co.mgmtFee && co.mgmtFee < co.fee ? fmtCourseFee(co.mgmtFee) : "—"}
-                          </td>
-                        )}
+                        <td className={`px-4 py-3 text-right font-bold ${feeColor}`}>{fmtCourseFee(getFee(co))}</td>
                         <td className="px-4 py-3 text-right text-gray-500 hidden sm:table-cell">{co.duration} {co.duration === 1 ? "year" : "years"}</td>
-                        <td className="px-4 py-3 text-right font-semibold">{fmtCourseFee(co.totalFee ?? co.fee * co.duration)}</td>
+                        <td className="px-4 py-3 text-right font-semibold">{fmtCourseFee(getTotal(co))}</td>
                       </tr>
                     ))}
                   </tbody>
