@@ -39,7 +39,7 @@ export interface CourseInfo {
  */
 export const UNIVERSITY_FEE_AY: Record<string, string> = {
   // AP — Deemed Universities
-  KLUN: "2025-26", // kluniversity.in
+  KLUN: "2025-26", // kluniversity.in/sships3.aspx — ₹2.9L CSE merit, ₹3L full
   GITM: "2026-27", // gitam.edu/fee-scholarship/fee-structure — ₹2.03L/sem CSE
   VIGF: "2026-27", // vignan.ac.in/newvignan/fee_str.php — 2026 Cat-A fees
   VRSE: "2026-27", // siddhartha.edu.in/wp-content/uploads/2026/01/Fee-details.pdf
