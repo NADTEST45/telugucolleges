@@ -55,14 +55,14 @@ export const UNIVERSITY_FEE_AY: Record<string, string> = {
   CENT: "2026-27", // cutmap.ac.in — Fees Matrix 2026-27
   AITS: "2025-26", // annamacharya
   ADTP: "2025-26", // adityauniversity.in — ₹2.75L/yr CSE
-  MBUT: "2025-26", // mbu.asia — G.O.Ms.No.19 convener block 2024-27
+  MBUT: "2026-27", // mbu.asia — MBU_Fee_Structrure_2026_27_1.pdf — ₹2.5L/yr CSE
   GGUR: "2025-26", // ggu.edu.in — G.O.Ms.No.19 convener block 2024-27
   APOL: "2025-26", // apollouniversity.edu.in — ₹2.85L/yr CSE tuition
   BEST: "2025-26", // bestiu.edu.in
 
   // TS — Deemed Universities
   BITS: "2025-26", // bits-pilani.ac.in — official PDF
-  IIIT: "2025-26", // iiit.ac.in
+  IIIT: "2026-27", // ugadmissions.iiit.ac.in/fee-jee-spec/ — ₹5L/yr B.Tech
   ICFA: "2026-27", // ifheindia.org — ₹1.4L/sem, batch 2026-30
   GITH: "2026-27", // gitam.edu/fee-scholarship/fee-structure — same as Vizag
   KLHD: "2025-26", // kluniversity.in
@@ -230,11 +230,11 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "Ph.D", fee: 200000, duration: 4, level: "Doctoral" },
   ],
 
-  "IIIT": [ // IIIT Hyderabad (iiit.ac.in)
-    { program: "B.Tech", specialization: "CSE", fee: 450000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "ECE", fee: 450000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CLD (Computational Linguistics)", fee: 450000, duration: 4, level: "UG" },
-    { program: "Dual Degree (B.Tech + M.S.)", specialization: "CSE / ECE", fee: 450000, duration: 5, level: "Integrated" },
+  "IIIT": [ // IIIT Hyderabad (iiit.ac.in) — AY 2026-27 from ugadmissions.iiit.ac.in/fee-jee-spec/
+    { program: "B.Tech", specialization: "CSE", fee: 500000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE", fee: 500000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CLD (Computational Linguistics)", fee: 500000, duration: 4, level: "UG" },
+    { program: "Dual Degree (B.Tech + M.S.)", specialization: "CSE / ECE", fee: 500000, duration: 5, level: "Integrated" },
     { program: "M.Tech", specialization: "CSE / ECE / VLSI", fee: 250000, duration: 2, level: "PG" },
     { program: "M.S. by Research", fee: 200000, duration: 2, level: "PG" },
     { program: "Ph.D", fee: 100000, duration: 4, level: "Doctoral" },
@@ -460,18 +460,22 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "MD/MS", fee: 2000000, duration: 3, level: "PG" },
   ],
 
-  "MBUT": [ // Mohan Babu University — Tirupati (G.O.Ms.No.19, 2024-27 convener; university fee from mbu.asia)
-    { program: "B.Tech", specialization: "CSE / AI&ML / Data Science / Cyber Security", fee: 250000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "ECE / EEE / Mechanical / Civil", fee: 110000, duration: 4, level: "UG" },
-    { program: "B.Pharm", fee: 120000, duration: 4, level: "UG" },
-    { program: "Pharm.D", fee: 120000, duration: 6, level: "Integrated" },
-    { program: "BBA", fee: 95000, duration: 3, level: "UG" },
-    { program: "BCA", fee: 95000, duration: 3, level: "UG" },
-    { program: "B.Sc (Hons) Agriculture", fee: 103000, duration: 4, level: "UG" },
-    { program: "MBA", fee: 200000, duration: 2, level: "PG" },
-    { program: "MCA", fee: 150000, duration: 2, level: "PG" },
-    { program: "M.Tech", fee: 150000, duration: 2, level: "PG" },
-    { program: "M.Pharm", fee: 150000, duration: 2, level: "PG" },
+  "MBUT": [ // Mohan Babu University — Tirupati — AY 2026-27 from media.mbu.asia MBU_Fee_Structrure_2026_27_1.pdf
+    { program: "B.Tech", specialization: "CSE / AI&ML / Data Science / Cyber Security / DevOps / Cloud / IT", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE / Electronics & Computer Engg.", fee: 215000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "EEE", fee: 140000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Electronics & Instrumentation", fee: 120000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Mechanical", fee: 115000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Civil", fee: 110000, duration: 4, level: "UG" },
+    { program: "B.Pharm", fee: 125000, duration: 4, level: "UG" },
+    { program: "Pharm.D", fee: 250000, duration: 6, level: "Integrated" },
+    { program: "BBA", fee: 100000, duration: 3, level: "UG" },
+    { program: "BCA", fee: 70000, duration: 3, level: "UG" },
+    { program: "B.Sc (Hons) Agriculture", fee: 125000, duration: 4, level: "UG" },
+    { program: "MBA", fee: 125000, duration: 2, level: "PG" },
+    { program: "MCA", fee: 125000, duration: 2, level: "PG" },
+    { program: "M.Tech", fee: 85000, duration: 2, level: "PG" },
+    { program: "M.Pharm", fee: 125000, duration: 2, level: "PG" },
   ],
 
   "GGUR": [ // Godavari Global University — Rajahmundry (G.O.Ms.No.19, 2024-27 convener; university fee from ggu.edu.in)
