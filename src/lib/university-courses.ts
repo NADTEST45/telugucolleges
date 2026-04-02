@@ -46,7 +46,7 @@ export const UNIVERSITY_FEE_AY: Record<string, string> = {
   AMRT: "2025-26", // amrita.edu
   AUDI: "2025-26", // audisankara
   MITS: "2026-27", // mits.ac.in — Fee Details 2026-27 PDF
-  GMRI: "2025-26", // gmrit.ac.in
+  GMRI: "2026-27", // gmrit.edu.in/du/eligibility.php — ₹1.25L/sem CSE, ₹75K/sem EEE/Mech/Civil
   GIOM: "2025-26", // gitam.edu
 
   // AP — Private State Universities
@@ -442,16 +442,17 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "M.Tech", fee: 100000, duration: 2, level: "PG" },
   ],
 
-  "GMRI": [ // GMR University (formerly GMRIT) — Rajam, Srikakulam (Deemed University since 2026)
-    { program: "B.Tech", specialization: "CSE", fee: 105000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 105000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (AI & DS)", fee: 105000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "ECE", fee: 105000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "EEE", fee: 105000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Mechanical", fee: 105000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Civil", fee: 105000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "IT", fee: 105000, duration: 4, level: "UG" },
-    { program: "M.Tech", fee: 80000, duration: 2, level: "PG" },
+  "GMRI": [ // GMR University (formerly GMRIT) — Rajam, Srikakulam (Deemed University) — AY 2026-27 from gmrit.edu.in/du/eligibility.php
+    { program: "B.Tech", specialization: "CSE", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & DS)", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (Cyber Security)", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "EEE", fee: 150000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Mechanical", fee: 150000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Civil", fee: 150000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "IT", fee: 250000, duration: 4, level: "UG" },
+    { program: "M.Tech", fee: 60000, duration: 2, level: "PG" },
   ],
 
   "GIOM": [ // GITAM Institute of Medical Sciences — Visakhapatnam (gitam.edu)
