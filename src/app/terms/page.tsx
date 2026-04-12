@@ -118,7 +118,7 @@ export default function TermsPage() {
 
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-2">18. Governing Law & Jurisdiction</h2>
-          <p>These Terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law provisions. Any dispute arising from or relating to these Terms or your use of the Site shall be subject to the exclusive jurisdiction of the courts in Hyderabad, Telangana, India.</p>
+          <p>These Terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law provisions. Any dispute arising from or relating to these Terms or your use of the Site shall be subject to the exclusive jurisdiction of the courts in Bengaluru, Karnataka, India.</p>
         </section>
 
         <section>

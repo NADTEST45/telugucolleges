@@ -99,7 +99,7 @@ export default function PrivacyPage() {
 
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-2">14. Governing Law</h2>
-          <p>This Privacy Policy is governed by the laws of India, including the Information Technology Act, 2000 and its applicable rules. Any disputes shall be subject to the exclusive jurisdiction of the courts in Hyderabad, Telangana, India.</p>
+          <p>This Privacy Policy is governed by the laws of India, including the Information Technology Act, 2000 and its applicable rules. Any disputes shall be subject to the exclusive jurisdiction of the courts in Bengaluru, Karnataka, India.</p>
         </section>
 
         <section>
