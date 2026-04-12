@@ -558,6 +558,26 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
               : "Fees are from official government orders for the current block period. Hostel, transport, exam fees, and miscellaneous charges are extra. Actual costs may vary."}
           </div>
 
+          {/* Scholarship callout — only if college has scholarship data */}
+          {scholarshipInfo && (
+            <button
+              onClick={() => setTab("scholarships")}
+              className="w-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl px-5 py-3.5 text-left transition-colors group"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-sm font-semibold text-emerald-800">Merit Scholarships Available</div>
+                  <div className="text-xs text-emerald-600 mt-0.5">
+                    {scholarshipInfo.tables.length > 1
+                      ? `${scholarshipInfo.tables.length} scholarship schemes — up to 100% tuition waiver based on entrance exam scores`
+                      : "Tuition fee concessions available based on entrance exam scores"}
+                  </div>
+                </div>
+                <svg className="w-5 h-5 text-emerald-500 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+              </div>
+            </button>
+          )}
+
           {/* Ad: Below fees */}
           <AdSlot slot="detail_below_fees" slug={c.slug} state={c.state === "Andhra Pradesh" ? "AP" : "TS"} />
         </div>

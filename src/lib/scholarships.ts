@@ -567,6 +567,119 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     source: "https://www.mits.ac.in/",
     sourceLabel: "MITS Official — Fee Structure AY 2026-27",
   },
+
+  // ─── SRM University AP — Amaravati ──────────────────────────────────
+  "SRMA": {
+    collegeName: "SRM University AP — Amaravati",
+    tables: [
+      {
+        examName: "SRMJEEE Rank",
+        slabs: [
+          { percent: "100%", criteria: "Rank 1–100 (Founder's Scholarship)" },
+          { percent: "100%", criteria: "Rank 101–500" },
+          { percent: "75%", criteria: "Rank 501–1,000" },
+          { percent: "50%", criteria: "Rank 1,001–2,000" },
+          { percent: "25%", criteria: "Rank 2,001–3,000" },
+        ],
+      },
+      {
+        examName: "Board Toppers / JEE Main",
+        slabs: [
+          { percent: "100%", criteria: "CBSE/State Board district topper" },
+          { percent: "50%", criteria: "90%+ in Higher Secondary with family income ≤ ₹4.5L/yr (Merit-cum-Means)" },
+        ],
+      },
+    ],
+    maintenance: "CGPA 9.0, 75% attendance, clean disciplinary record — renewed annually",
+    notes: [
+      "Concession applies to tuition fee only (base ~₹4,00,000/yr); hostel, mess, and other charges extra",
+      "Founder's Scholarship: top 100 SRMJEEE + CBSE/State Board district toppers",
+      "SRM also offers President Scholarship, Socio-Economic Scholarship, Differently Abled, Arts & Culture, and Armed Forces Scholarships",
+      "EAPCET-admitted students pay the convener quota fee (~₹1,02,000/yr) — not eligible for SRMJEEE merit scholarships",
+    ],
+    source: "https://www.srmist.edu.in/policies/scholarship-policy/",
+    sourceLabel: "SRMIST Official — Scholarship Policy",
+  },
+
+  // ─── VIT-AP University — Amaravati ──────────────────────────────────
+  "VTAP": {
+    collegeName: "VIT-AP University — Amaravati",
+    tables: [
+      {
+        examName: "VITEEE Rank (Fee Category System)",
+        slabs: [
+          { percent: "75%", criteria: "Rank 1–50 (Category 1 — ₹1,95,000/yr)" },
+          { percent: "50%", criteria: "Rank 51–100" },
+          { percent: "25%", criteria: "Rank 101–1,000" },
+          { percent: "Cat 1", criteria: "Top ranks — ₹1,95,000/yr" },
+          { percent: "Cat 2", criteria: "₹3,04,000/yr" },
+          { percent: "Cat 3", criteria: "₹4,02,000/yr" },
+          { percent: "Cat 4", criteria: "₹4,45,000/yr" },
+          { percent: "Cat 5", criteria: "₹4,90,000/yr" },
+        ],
+      },
+      {
+        examName: "Board Toppers",
+        slabs: [
+          { percent: "100%", criteria: "GV Merit — National board topper (all 4 years)" },
+          { percent: "50%", criteria: "Tmt. Rajeswari Ammal — District topper (+ extra 25% for girls = 75% total)" },
+        ],
+      },
+    ],
+    maintenance: "Good academic standing — scholarship fixed for full 4-year duration, no annual hikes",
+    notes: [
+      "VIT-AP uses a category system (Cat 1–5) based on VITEEE rank — lower category = lower fee",
+      "Category assignment is based on VITEEE performance; exact rank cutoffs vary each year",
+      "EAPCET-admitted students pay ~₹70,000/yr (convener quota) — significantly lower than VITEEE categories",
+      "Fee is fixed for all 4 years at the time of admission — no annual increase",
+      "Concession applies to tuition only; hostel, caution deposit (₹3,000 refundable) are extra",
+    ],
+    source: "https://vitap.ac.in/fees-and-scholarships",
+    sourceLabel: "VIT-AP Official — Fees & Scholarships",
+  },
+
+  // ─── Anurag University — Hyderabad ──────────────────────────────────
+  "CVSR": {
+    collegeName: "Anurag University — Hyderabad",
+    tables: [
+      {
+        examName: "TS EAPCET / AP EAPCET Rank",
+        slabs: [
+          { percent: "100%", criteria: "Rank 1–2,000" },
+          { percent: "50%", criteria: "Rank 2,001–10,000" },
+          { percent: "25%", criteria: "Rank 10,001–15,000" },
+          { percent: "10%", criteria: "Rank 15,001–25,000" },
+        ],
+      },
+      {
+        examName: "JEE Main Rank",
+        slabs: [
+          { percent: "100%", criteria: "Rank 1–25,000" },
+          { percent: "50%", criteria: "Rank 25,001–50,000" },
+          { percent: "25%", criteria: "Rank 50,001–75,000" },
+          { percent: "10%", criteria: "Rank 75,001–1,00,000" },
+        ],
+      },
+      {
+        examName: "Anurag CET (Own Entrance)",
+        slabs: [
+          { percent: "100%", criteria: "Rank 1–10" },
+          { percent: "50%", criteria: "Rank 11–25" },
+          { percent: "25%", criteria: "Rank 26–100" },
+        ],
+      },
+    ],
+    maintenance: "CGPA 8.0, 75% attendance, no backlogs — renewed annually",
+    notes: [
+      "Concession applies to tuition fee only (base ~₹2,85,000/yr for direct admission); hostel, transport, exam fees extra",
+      "Government junior college students with EAPCET rank <20,000 get 50% tuition concession (special provision)",
+      "Top 1–500 admissions receive a free laptop",
+      "EAPCET convener quota students pay ~₹1,35,000/yr (GO-regulated) — separate from merit scholarship",
+      "Total 4-year scholarship value up to ₹11,40,000 for 100% waiver recipients",
+    ],
+    source: "https://anurag.edu.in/scholarships/",
+    sourceLabel: "Anurag University Official — Scholarships",
+  },
 };
 
 /** Get scholarship info for a college by code */
