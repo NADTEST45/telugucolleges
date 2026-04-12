@@ -117,7 +117,7 @@ export default function Home() {
             <div className="divide-y divide-gray-50">
               {latestNews.map(item => (
                 <Link key={item.id} href="/news" className="flex items-center gap-3 px-5 py-2.5 hover:bg-gray-50 transition-colors">
-                  <span className={`shrink-0 px-1.5 py-0.5 rounded text-[9px] font-bold ${item.state === "AP" ? "bg-green-50 text-green-700" : item.state === "TS" ? "bg-blue-50 text-[#2e86c1]" : "bg-violet-50 text-violet-700"}`}>
+                  <span className={`shrink-0 px-1.5 py-0.5 rounded text-[10px] sm:text-xs font-bold ${item.state === "AP" ? "bg-green-50 text-green-700" : item.state === "TS" ? "bg-blue-50 text-[#2e86c1]" : "bg-violet-50 text-violet-700"}`}>
                     {item.state}
                   </span>
                   <span className="text-sm text-gray-700 truncate">{item.title}</span>

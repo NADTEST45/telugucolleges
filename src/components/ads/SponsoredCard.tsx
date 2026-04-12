@@ -11,7 +11,7 @@ export default function SponsoredCard({ ad, variant = "horizontal", className = 
   if (variant === "vertical") {
     return (
       <div className={`bg-gradient-to-br from-indigo-50 to-white border border-indigo-100 rounded-xl p-5 shadow-sm relative ${className}`}>
-        <span className="absolute top-3 right-3 bg-indigo-100 text-indigo-600 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded">
+        <span className="absolute top-3 right-3 bg-indigo-100 text-indigo-600 text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded">
           {ad.label || "Sponsored"}
         </span>
 
@@ -55,7 +55,7 @@ export default function SponsoredCard({ ad, variant = "horizontal", className = 
   // Horizontal variant (for listing pages / inline)
   return (
     <div className={`bg-gradient-to-r from-indigo-50 to-white border border-indigo-100 rounded-xl px-4 sm:px-6 py-4 shadow-sm relative ${className}`}>
-      <span className="absolute top-2.5 right-3 bg-indigo-100 text-indigo-600 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded">
+      <span className="absolute top-2.5 right-3 bg-indigo-100 text-indigo-600 text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded">
         {ad.label || "Sponsored"}
       </span>
 

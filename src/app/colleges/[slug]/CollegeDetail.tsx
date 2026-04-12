@@ -621,7 +621,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                                 <td className="px-4 py-3">
                                   <span className={`inline-block px-2.5 py-1.5 rounded-lg text-xs font-bold leading-tight ${badgeColor}`}>{p}</span>
                                 </td>
-                                <td className="px-4 py-3 text-gray-700 text-sm">{slab.criteria}</td>
+                                <td className="px-4 py-3 text-gray-700 text-sm break-words">{slab.criteria}</td>
                               </tr>
                             );
                           })}
