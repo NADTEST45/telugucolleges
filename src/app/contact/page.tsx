@@ -23,28 +23,28 @@ export default function ContactPage() {
           <div className="text-2xl mb-3">&#x1f4e7;</div>
           <h2 className="font-bold text-base mb-1">General Inquiries</h2>
           <p className="text-sm text-gray-500 mb-3">Questions, feedback, or suggestions about the site.</p>
-          <a href="mailto:nadellasujeeth@hotmail.com" className="text-sm text-[#2e86c1] font-semibold hover:underline">nadellasujeeth@hotmail.com</a>
+          <a href="mailto:contact@telugucolleges.com" className="text-sm text-[#2e86c1] font-semibold hover:underline">contact@telugucolleges.com</a>
         </div>
 
         <div className="bg-white rounded-xl p-6 shadow-sm">
           <div className="text-2xl mb-3">&#x1f527;</div>
           <h2 className="font-bold text-base mb-1">Data Corrections</h2>
           <p className="text-sm text-gray-500 mb-3">Found incorrect fees, cutoffs, or college info? Let us know.</p>
-          <a href="mailto:nadellasujeeth@hotmail.com?subject=Data%20Correction%20-%20TeluguColleges" className="text-sm text-[#2e86c1] font-semibold hover:underline">Report a correction</a>
+          <a href="mailto:contact@telugucolleges.com?subject=Data%20Correction%20-%20TeluguColleges" className="text-sm text-[#2e86c1] font-semibold hover:underline">Report a correction</a>
         </div>
 
         <div className="bg-white rounded-xl p-6 shadow-sm">
           <div className="text-2xl mb-3">&#x1f91d;</div>
           <h2 className="font-bold text-base mb-1">College Partnerships</h2>
           <p className="text-sm text-gray-500 mb-3">Represent a college? Partner with us to update your profile.</p>
-          <a href="mailto:nadellasujeeth@hotmail.com?subject=College%20Partnership%20-%20TeluguColleges" className="text-sm text-[#2e86c1] font-semibold hover:underline">Get in touch</a>
+          <a href="mailto:contact@telugucolleges.com?subject=College%20Partnership%20-%20TeluguColleges" className="text-sm text-[#2e86c1] font-semibold hover:underline">Get in touch</a>
         </div>
 
         <div className="bg-white rounded-xl p-6 shadow-sm">
           <div className="text-2xl mb-3">&#x1f4e2;</div>
           <h2 className="font-bold text-base mb-1">Advertising</h2>
           <p className="text-sm text-gray-500 mb-3">Interested in reaching students and parents in AP & Telangana?</p>
-          <a href="mailto:nadellasujeeth@hotmail.com?subject=Advertising%20Inquiry%20-%20TeluguColleges" className="text-sm text-[#2e86c1] font-semibold hover:underline">Advertise with us</a>
+          <a href="mailto:contact@telugucolleges.com?subject=Advertising%20Inquiry%20-%20TeluguColleges" className="text-sm text-[#2e86c1] font-semibold hover:underline">Advertise with us</a>
         </div>
       </div>
 

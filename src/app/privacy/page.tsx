@@ -79,7 +79,7 @@ export default function PrivacyPage() {
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-2">10. Your Rights</h2>
           <p>Depending on your jurisdiction, you may have the right to: request access to the personal data we hold about you; request correction of inaccurate data; request deletion of your data (subject to legal and operational requirements); object to or restrict certain processing of your data; and withdraw consent where processing is based on consent.</p>
-          <p className="mt-2">To exercise any of these rights, please contact us at <a href="mailto:nadellasujeeth@hotmail.com" className="text-[#2e86c1] font-semibold hover:underline">nadellasujeeth@hotmail.com</a>. We will respond within a reasonable timeframe.</p>
+          <p className="mt-2">To exercise any of these rights, please contact us at <a href="mailto:contact@telugucolleges.com" className="text-[#2e86c1] font-semibold hover:underline">contact@telugucolleges.com</a>. We will respond within a reasonable timeframe.</p>
         </section>
 
         <section>
@@ -104,7 +104,7 @@ export default function PrivacyPage() {
 
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-2">15. Contact Us</h2>
-          <p>If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us via our <Link href="/contact" className="text-[#2e86c1] font-semibold hover:underline">contact page</Link> or email <a href="mailto:nadellasujeeth@hotmail.com" className="text-[#2e86c1] font-semibold hover:underline">nadellasujeeth@hotmail.com</a>.</p>
+          <p>If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us via our <Link href="/contact" className="text-[#2e86c1] font-semibold hover:underline">contact page</Link> or email <a href="mailto:contact@telugucolleges.com" className="text-[#2e86c1] font-semibold hover:underline">contact@telugucolleges.com</a>.</p>
         </section>
       </div>
     </main>

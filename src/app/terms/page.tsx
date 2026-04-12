@@ -103,7 +103,7 @@ export default function TermsPage() {
 
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-2">15. Copyright & Infringement Claims</h2>
-          <p>If you believe that any content on the Site infringes your copyright or other intellectual property rights, please contact us at <a href="mailto:nadellasujeeth@hotmail.com" className="text-[#2e86c1] font-semibold hover:underline">nadellasujeeth@hotmail.com</a> with: a description of the copyrighted work; the location (URL) of the infringing content on our Site; your contact information; and a statement that you have a good-faith belief that the use is not authorized. We will investigate and take appropriate action.</p>
+          <p>If you believe that any content on the Site infringes your copyright or other intellectual property rights, please contact us at <a href="mailto:contact@telugucolleges.com" className="text-[#2e86c1] font-semibold hover:underline">contact@telugucolleges.com</a> with: a description of the copyrighted work; the location (URL) of the infringing content on our Site; your contact information; and a statement that you have a good-faith belief that the use is not authorized. We will investigate and take appropriate action.</p>
         </section>
 
         <section>
@@ -133,7 +133,7 @@ export default function TermsPage() {
 
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-2">21. Contact</h2>
-          <p>If you have questions or concerns about these Terms of Use, please contact us via our <Link href="/contact" className="text-[#2e86c1] font-semibold hover:underline">contact page</Link> or email <a href="mailto:nadellasujeeth@hotmail.com" className="text-[#2e86c1] font-semibold hover:underline">nadellasujeeth@hotmail.com</a>.</p>
+          <p>If you have questions or concerns about these Terms of Use, please contact us via our <Link href="/contact" className="text-[#2e86c1] font-semibold hover:underline">contact page</Link> or email <a href="mailto:contact@telugucolleges.com" className="text-[#2e86c1] font-semibold hover:underline">contact@telugucolleges.com</a>.</p>
         </section>
       </div>
     </main>
