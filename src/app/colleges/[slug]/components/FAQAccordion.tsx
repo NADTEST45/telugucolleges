@@ -29,6 +29,7 @@ function FAQAccordionItem({ question, answer }: { question: string; answer: stri
           id={contentId}
           className="px-3 sm:px-5 pb-3 sm:pb-4 text-xs sm:text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-2 sm:pt-3"
           role="region"
+          aria-labelledby={itemId}
         >
           {answer}
         </div>

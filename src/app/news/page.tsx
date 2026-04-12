@@ -60,7 +60,7 @@ export default function NewsPage() {
       <p className="text-sm text-gray-500 mb-6">Latest updates on EAPCET 2026, fee notifications, counselling schedules, and more for AP & Telangana.</p>
 
       {/* EAPCET 2026 Quick Dates Banner */}
-      <section className="bg-gradient-to-r from-[#0f2b3d] via-[#1a5276] to-[#2e86c1] text-white rounded-2xl p-6 mb-8 relative overflow-hidden">
+      <section className="bg-gradient-to-r from-[#0f2b3d] via-[#1a5276] to-[#2e86c1] text-white rounded-2xl p-4 sm:p-6 mb-8 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.04]" style={{backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "24px 24px"}} />
         <div className="relative">
           <h2 className="text-lg font-bold mb-4">EAPCET 2026 — Key Dates at a Glance</h2>

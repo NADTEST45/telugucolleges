@@ -40,47 +40,47 @@ const CollegeCard = React.memo(function CollegeCard({ c, borderClass }: { c: Col
             {c.nirf > 0 && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-semibold bg-rose-50 text-rose-600">NIRF {nirfLabel(c.nirf)}</span>}
             {c.naac && c.naac !== "-" && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-semibold bg-amber-50 text-amber-600">NAAC {c.naac}</span>}
             {c.nba && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-semibold bg-purple-50 text-purple-600">NBA</span>}
-            {c.branches.includes("B.Pharm") && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[9px] sm:text-[11px] font-semibold bg-teal-50 text-teal-600">Pharmacy</span>}
-            {c.branches.includes("MBBS") && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[9px] sm:text-[11px] font-semibold bg-rose-50 text-rose-600">Medical</span>}
+            {c.branches.includes("B.Pharm") && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-xs font-semibold bg-teal-50 text-teal-600">Pharmacy</span>}
+            {c.branches.includes("MBBS") && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-xs font-semibold bg-rose-50 text-rose-600">Medical</span>}
           </div>
         </div>
         {/* Stats: 4-col on mobile (full-width row below), 4-col on desktop (fixed-width right side) */}
         <div className="grid grid-cols-4 gap-2 sm:gap-4 text-center pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-100 shrink-0 sm:w-[320px]">
           <div>
-            <div className="text-[9px] sm:text-[11px] text-gray-400">{feeLabel}</div>
+            <div className="text-[10px] sm:text-xs text-gray-400">{feeLabel}</div>
             <div className="font-bold text-[#1a5276] text-xs sm:text-sm">{fmtFee(c.fee)}</div>
           </div>
           <div>
             {c.cutoff.cse > 0 ? (
               <>
-                <div className="text-[9px] sm:text-[11px] text-gray-400">CSE Cutoff</div>
+                <div className="text-[10px] sm:text-xs text-gray-400">CSE Cutoff</div>
                 <div className="font-bold text-xs sm:text-sm">{c.cutoff.cse.toLocaleString()}</div>
               </>
             ) : c.branches.includes("B.Pharm") ? (
               <>
-                <div className="text-[9px] sm:text-[11px] text-gray-400">Type</div>
+                <div className="text-[10px] sm:text-xs text-gray-400">Type</div>
                 <div className="font-bold text-teal-600 text-xs sm:text-sm">Pharmacy</div>
               </>
             ) : c.branches.includes("MBBS") ? (
               <>
-                <div className="text-[9px] sm:text-[11px] text-gray-400">Type</div>
+                <div className="text-[10px] sm:text-xs text-gray-400">Type</div>
                 <div className="font-bold text-rose-600 text-xs sm:text-sm">Medical</div>
               </>
             ) : (
               <>
-                <div className="text-[9px] sm:text-[11px] text-gray-400">CSE Cutoff</div>
+                <div className="text-[10px] sm:text-xs text-gray-400">CSE Cutoff</div>
                 <div className="font-bold text-gray-300 text-xs sm:text-sm">—</div>
               </>
             )}
           </div>
           <div>
-            <div className="text-[9px] sm:text-[11px] text-gray-400">Avg Pkg</div>
+            <div className="text-[10px] sm:text-xs text-gray-400">Avg Pkg</div>
             <div className={`font-bold text-xs sm:text-sm ${c.placements.avg > 0 ? "text-green-600" : "text-gray-300"}`}>
               {c.placements.avg > 0 ? `₹${c.placements.avg}L` : "—"}
             </div>
           </div>
           <div>
-            <div className="text-[9px] sm:text-[11px] text-gray-400">Highest</div>
+            <div className="text-[10px] sm:text-xs text-gray-400">Highest</div>
             <div className={`font-bold text-xs sm:text-sm ${c.placements.highest > 0 ? "text-amber-600" : "text-gray-300"}`}>
               {c.placements.highest > 0 ? `₹${c.placements.highest}L` : "—"}
             </div>
@@ -260,7 +260,7 @@ function CollegesPageInner() {
       {/* Search + Sort row */}
       <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm mb-4">
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 sm:items-center">
-          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search name, district, or code..." className="w-full sm:flex-1 px-3 sm:px-4 py-2 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-blue-200" />
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search name, district, or code..." aria-label="Search colleges by name, district, or code" className="w-full sm:flex-1 px-3 sm:px-4 py-2 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-blue-200" />
           <div className="flex gap-2 sm:gap-3">
             <select value={sort} onChange={e => setSort(e.target.value)} className={`${sel} font-semibold flex-1 sm:flex-none text-xs sm:text-sm`}>
               <option value="name">Sort: Name</option>

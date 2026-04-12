@@ -67,7 +67,7 @@ export default function Home() {
             { label: "Compare", href: "/compare" },
           ].map(item => (
             <Link key={item.label} href={item.href}
-              className="px-2.5 sm:px-4 py-2.5 sm:py-3 text-[10px] sm:text-sm font-medium text-gray-600 hover:text-[#1a5276] hover:bg-blue-50 whitespace-nowrap transition-colors border-b-2 border-transparent hover:border-[#2e86c1] active:bg-blue-50">
+              className="px-2.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-medium text-gray-600 hover:text-[#1a5276] hover:bg-blue-50 whitespace-nowrap transition-colors border-b-2 border-transparent hover:border-[#2e86c1] active:bg-blue-50">
               {item.label}
             </Link>
           ))}
@@ -81,7 +81,7 @@ export default function Home() {
 
       {/* Browse by Category */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 -mt-4 sm:-mt-8 relative z-10 pt-8 sm:pt-12">
-        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3">
           {[
             { label: "B.Tech", count: stats.eng, href: "/programs/b-tech", icon: "⚙️", color: "text-indigo-600" },
             { label: "MBA", count: stats.mba, href: "/programs/mba", icon: "📊", color: "text-amber-600" },
@@ -96,10 +96,10 @@ export default function Home() {
             { label: "B.Arch", count: null, href: "/programs/b-arch", icon: "🏛️", color: "text-stone-600" },
             { label: "BA LLB", count: null, href: "/programs/ba-llb-hons", icon: "⚖️", color: "text-red-600" },
           ].map(item => (
-            <Link key={item.label} href={item.href} className="bg-white rounded-xl p-3 sm:p-4 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all text-center">
-              <div className="text-xl sm:text-2xl mb-1">{item.icon}</div>
+            <Link key={item.label} href={item.href} aria-label={item.label} className="bg-white rounded-xl p-3 sm:p-4 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all text-center">
+              <div className="text-xl sm:text-2xl mb-1" aria-hidden="true">{item.icon}</div>
               <div className={`font-bold text-xs sm:text-sm ${item.color}`}>{item.label}</div>
-              {item.count ? <div className="text-[9px] sm:text-xs text-gray-400 mt-0.5">{item.count} colleges</div> : null}
+              {item.count ? <div className="text-[10px] sm:text-xs text-gray-500 mt-0.5">{item.count} colleges</div> : null}
             </Link>
           ))}
         </div>
@@ -117,7 +117,7 @@ export default function Home() {
             <div className="divide-y divide-gray-50">
               {latestNews.map(item => (
                 <Link key={item.id} href="/news" className="flex items-center gap-3 px-5 py-2.5 hover:bg-gray-50 transition-colors">
-                  <span className={`shrink-0 px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-bold ${item.state === "AP" ? "bg-green-50 text-green-700" : item.state === "TS" ? "bg-blue-50 text-[#2e86c1]" : "bg-violet-50 text-violet-700"}`}>
+                  <span className={`shrink-0 px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] font-bold ${item.state === "AP" ? "bg-green-50 text-green-700" : item.state === "TS" ? "bg-blue-50 text-[#2e86c1]" : "bg-violet-50 text-violet-700"}`}>
                     {item.state}
                   </span>
                   <span className="text-sm text-gray-700 truncate">{item.title}</span>
@@ -144,12 +144,12 @@ export default function Home() {
               {list.map((c, i) => (
                 <Link key={c.id} href={`/colleges/${c.slug}`} className="flex items-center justify-between px-4 sm:px-5 py-3 border-b border-gray-100 hover:bg-gray-50 transition-colors gap-2">
                   <div className="min-w-0 flex-1">
-                    <span className="text-gray-400 font-semibold mr-1.5 sm:mr-2 text-xs sm:text-sm">#{i + 1}</span>
+                    <span className="text-gray-500 font-semibold mr-1.5 sm:mr-2 text-xs sm:text-sm">#{i + 1}</span>
                     <span className="font-semibold text-xs sm:text-sm">{c.name.length > 32 ? c.name.slice(0, 32) + "..." : c.name}</span>
                   </div>
                   <div className="text-right shrink-0">
                     <div className="font-bold text-[#1a5276] text-xs sm:text-sm">Rank {c.cutoff.cse.toLocaleString()}</div>
-                    <div className="text-[9px] sm:text-xs text-gray-400">{fmtFee(c.fee)}/yr</div>
+                    <div className="text-[10px] sm:text-xs text-gray-500">{fmtFee(c.fee)}/yr</div>
                   </div>
                 </Link>
               ))}
@@ -173,7 +173,7 @@ export default function Home() {
               </div>
               <div className="font-bold text-sm sm:text-base mb-2 leading-snug">{c.name}</div>
               <div className="flex items-center justify-between">
-                <div className="text-lg sm:text-xl font-extrabold text-[#1a5276]">{fmtFee(c.fee)}<span className="text-[9px] sm:text-xs font-normal text-gray-400">/yr</span></div>
+                <div className="text-lg sm:text-xl font-extrabold text-[#1a5276]">{fmtFee(c.fee)}<span className="text-[9px] sm:text-xs font-normal text-gray-500">/yr</span></div>
                 <span className="bg-blue-50 text-[#2e86c1] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md text-[11px] sm:text-xs font-semibold">{c.district}</span>
               </div>
             </Link>

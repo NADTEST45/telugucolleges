@@ -151,7 +151,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
       </nav>
 
       {/* Header */}
-      <div className="bg-white rounded-2xl p-6 sm:p-8 mb-6 shadow-sm">
+      <div className="bg-white rounded-2xl p-4 sm:p-8 mb-6 shadow-sm">
         <div className="flex gap-2 mb-3 flex-wrap">
           <span className={`px-2.5 py-1 rounded text-xs font-semibold ${c.type === "Government" ? "bg-green-50 text-green-600" : c.type === "Deemed University" ? "bg-amber-50 text-amber-700" : c.type === "Private University" ? "bg-violet-50 text-violet-700" : "bg-blue-50 text-blue-600"}`}>{c.type}</span>
           {c.naac && c.naac !== "-" && <span className="px-2.5 py-1 rounded text-xs font-semibold bg-amber-50 text-amber-600">NAAC {c.naac}</span>}
@@ -184,7 +184,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 mb-6">
         {([
           ["B.Tech Fee", btechFeeLabel, c.type === "Deemed University" || c.type === "Private University" ? `University fee${UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}` : c.state === "Telangana" ? "GO.Ms.06 · 2025-28" : "APHERMC · 2023-26", "text-[#1a5276]"],
           ...(c.type !== "Deemed University" ? [["CSE Cutoff", c.cutoff.cse?.toLocaleString() || "—", "EAPCET final OC", "text-gray-900"]] : [["Admission", "Own Exam", "Not via EAPCET", "text-gray-900"]]),
@@ -197,7 +197,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           <div key={label} className={`bg-white rounded-xl p-3 sm:p-4 shadow-sm text-center ${idx === arr.length - 1 && arr.length % 2 === 1 ? "col-span-2 sm:col-span-1" : ""}`}>
             <div className="text-xs text-gray-400 mb-1">{label}</div>
             <div className={`text-lg sm:text-2xl font-extrabold ${color} truncate`}>{value}</div>
-            <div className="text-[10px] sm:text-[11px] text-gray-400 mt-0.5">{sub}</div>
+            <div className="text-[11px] sm:text-xs text-gray-400 mt-0.5">{sub}</div>
           </div>
         ))}
       </div>

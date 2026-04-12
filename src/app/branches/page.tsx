@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { BRANCHES, getCollegesForBranch } from "@/lib/branch-data";
 import { getAllPrograms } from "@/lib/program-data";
 import { fmtFee } from "@/lib/colleges";
+
+export const metadata: Metadata = {
+  title: "Engineering Branches — CSE, ECE, EEE & More | TeluguColleges",
+  description: "Explore all B.Tech branches offered in AP & Telangana colleges — fees, scope, placements, and top colleges for each branch.",
+};
 
 const CATEGORY_META: Record<string, { label: string; subtitle: string; color: string; icon: string }> = {
   "cse-family": { label: "Computer Science & IT", subtitle: "Engineering", color: "border-l-blue-500", icon: "💻" },

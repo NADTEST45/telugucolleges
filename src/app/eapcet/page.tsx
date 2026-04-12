@@ -277,7 +277,7 @@ export default function EAPCETPage() {
             <div key={label} className="bg-gray-50 rounded-xl p-3 sm:p-4">
               <div className="text-[10px] sm:text-xs text-gray-400 mb-1">{label}</div>
               <div className="text-lg sm:text-xl font-extrabold text-gray-900">{value}</div>
-              <div className="text-[10px] sm:text-[11px] text-gray-400 mt-0.5">{sub}</div>
+              <div className="text-[11px] sm:text-xs text-gray-400 mt-0.5">{sub}</div>
             </div>
           ))}
         </div>

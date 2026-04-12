@@ -121,7 +121,7 @@ export default function ComparePage() {
         </div>
       ) : (
         <>
-        <div className="sm:hidden text-[8px] sm:text-[10px] text-gray-400 text-center mb-1.5">Swipe to see all columns →</div>
+        <div className="sm:hidden text-xs sm:text-[10px] text-gray-400 text-center mb-1.5">Swipe to see all columns →</div>
         <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
           <table className="w-full bg-white rounded-xl overflow-hidden shadow-sm text-sm min-w-[500px]">
             <thead>

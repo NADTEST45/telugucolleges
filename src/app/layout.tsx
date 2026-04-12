@@ -15,9 +15,11 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "TeluguColleges.com",
     locale: "en_IN",
+    images: [{ url: "https://telugucolleges.vercel.app/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["https://telugucolleges.vercel.app/og-image.png"],
   },
   robots: {
     index: true,
@@ -71,7 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </nav>
 
         {/* Bottom padding on mobile so content isn't hidden behind tab bar + safe area */}
-        <div id="main-content" className="pb-20 md:pb-0">
+        <div id="main-content" className="pb-[72px] md:pb-0">
           {children}
         </div>
 
