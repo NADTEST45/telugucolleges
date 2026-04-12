@@ -16,9 +16,4 @@ gh_*/
 *.json.bak
 *.mermaid
 check.ts
-.~lock.*comparison-*.html
-selenium_*
-daily-updates/
-ANALYSIS_COMPLETE.md
-CHANGELOG.md
-MISSING_COLLEGES*
+.~lock.*

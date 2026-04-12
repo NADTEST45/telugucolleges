@@ -54,19 +54,19 @@ export default function ProgramsPage() {
                           {p.level} · {p.duration} {p.duration === 1 ? "year" : "years"}
                         </div>
                       </div>
-                      <span className={`px-2 py-0.5 rounded text-[11px] font-semibold ${style.bg} ${style.text}`}>
+                      <span className={`px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-semibold ${style.bg} ${style.text}`}>
                         {p.collegeCount} colleges
                       </span>
                     </div>
                     <div className="flex items-end justify-between">
                       <div>
-                        <div className="text-[11px] text-gray-400 mb-0.5">Fee Range</div>
+                        <div className="text-[10px] sm:text-[11px] text-gray-400 mb-0.5">Fee Range</div>
                         <div className="text-sm font-semibold text-[#1a5276]">
                           {fmtFee(p.feeMin)} — {fmtFee(p.feeMax)}
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-[11px] text-gray-400 mb-0.5">Median</div>
+                        <div className="text-[10px] sm:text-[11px] text-gray-400 mb-0.5">Median</div>
                         <div className="text-sm font-bold text-green-600">{fmtFee(p.feeMedian)}</div>
                       </div>
                     </div>

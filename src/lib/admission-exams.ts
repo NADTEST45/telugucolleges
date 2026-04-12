@@ -453,6 +453,63 @@ export const ADMISSION_EXAMS: AdmissionExam[] = [
     alternateEntry: "Also accepts TS EAPCET, JEE Main scores",
     collegeCodes: ["MNRU"],
   },
+
+  // ── JEE Advanced (IITs) ──
+  {
+    examName: "JEE Advanced",
+    examFullName: "Joint Entrance Examination — Advanced",
+    officialUrl: "https://jeeadv.ac.in/",
+    applicationFee: "₹3,200 (General/OBC) / ₹1,600 (SC/ST/PwD/Female)",
+    mode: "Online CBT at designated centres across India",
+    duration: "3 hours per paper (Paper 1 + Paper 2)",
+    subjects: "Physics, Chemistry, Mathematics",
+    eligibility: "Must be in top 2,50,000 in JEE Main 2026 (BE/BTech); Class 12 passed in 2025 or 2026 with PCM; born on or after Oct 1, 2001 (5-year relaxation for SC/ST/PwD)",
+    phases: [
+      { phase: "Registration", examDates: "Apr 23 – May 2, 2026", lastDateToApply: "May 2, 2026" },
+      { phase: "Exam", examDates: "May 17, 2026 (Paper 1: 9 AM–12 PM, Paper 2: 2:30–5:30 PM)", lastDateToApply: "May 2, 2026" },
+      { phase: "JoSAA Counselling", examDates: "Jun–Jul 2026 (multiple rounds)", lastDateToApply: "Jun 2, 2026 (registration opens)" },
+    ],
+    counsellingNote: "Admission through JoSAA (Joint Seat Allocation Authority) centralised counselling. Seat allotment in 5+ rounds based on JEE Advanced rank, category, and preferences.",
+    collegeCodes: ["IITH", "IITP"],
+  },
+
+  // ── JEE Main / JoSAA (NITs, IIITs, GFTIs) ──
+  {
+    examName: "JEE Main",
+    examFullName: "Joint Entrance Examination — Main",
+    officialUrl: "https://jeemain.nta.nic.in/",
+    applicationFee: "₹1,000 (General) / ₹500 (SC/ST/PwD/Female) per session",
+    mode: "Online CBT at NTA-designated centres across India",
+    duration: "3 hours",
+    subjects: "Physics, Chemistry, Mathematics",
+    eligibility: "Class 12 passed (or appearing) with Physics, Mathematics, and one of Chemistry/Biology/Biotechnology/any Technical Vocational subject",
+    phases: [
+      { phase: "Session 1", examDates: "Jan 21–28, 2026", lastDateToApply: "Nov 2025", resultDate: "Feb 2026" },
+      { phase: "Session 2", examDates: "Apr 2–8, 2026", lastDateToApply: "Feb 25, 2026", resultDate: "Apr 2026" },
+      { phase: "JoSAA Counselling", examDates: "Jun–Jul 2026 (multiple rounds)", lastDateToApply: "Jun 2, 2026 (registration opens)" },
+    ],
+    counsellingNote: "Admission through JoSAA (Joint Seat Allocation Authority) centralised counselling. Best of Session 1 and Session 2 NTA scores is used. Seat allotment in 5+ rounds based on JEE Main All India Rank.",
+    collegeCodes: ["NITW"],
+  },
+
+  // ── University of Hyderabad (JEE Main + CUET) ──
+  {
+    examName: "JEE Main / CUET UG",
+    examFullName: "JEE Main (for BTech) / CUET UG (for Integrated Programmes)",
+    officialUrl: "https://acad.uohyd.ac.in/",
+    applicationFee: "JEE Main: ₹1,000 (General) / ₹500 (reserved); CUET UG: ₹750 (General) / ₹350 (reserved)",
+    mode: "Online CBT at NTA-designated centres",
+    duration: "JEE Main: 3 hours; CUET UG: varies by subjects chosen",
+    subjects: "JEE Main: Physics, Chemistry, Mathematics; CUET UG: domain subjects + general test",
+    eligibility: "10+2 passed with relevant subjects; JEE Main rank for engineering programmes; CUET UG score for integrated programmes",
+    phases: [
+      { phase: "JEE Main Session 2", examDates: "Apr 2–8, 2026", lastDateToApply: "Feb 25, 2026" },
+      { phase: "CUET UG 2026", examDates: "May 11–31, 2026", lastDateToApply: "Mar 2026" },
+      { phase: "UoH Counselling", examDates: "Jun–Jul 2026", lastDateToApply: "Post results" },
+    ],
+    counsellingNote: "BTech/MTech integrated programmes in CSE and Materials Engineering admit through JEE Main scores. Other integrated programmes use CUET UG scores. University conducts its own counselling after results.",
+    collegeCodes: ["UOHE"],
+  },
 ];
 
 /** Look up the admission exam for a given college code */

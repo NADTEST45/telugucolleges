@@ -19,6 +19,17 @@ export async function GET(req: NextRequest) {
     const offset = isNaN(parsedOffset) ? 0 : Math.max(0, parsedOffset);
     const action = req.nextUrl.searchParams.get("action"); // optional filter
 
+    // Whitelist valid audit actions
+    const ALLOWED_ACTIONS = [
+      "create_college_admin", "create_marketing",
+      "approve_edit", "reject_edit",
+      "submit_edit", "login", "logout",
+    ];
+
+    if (action && !ALLOWED_ACTIONS.includes(action)) {
+      return NextResponse.json({ error: "Invalid action filter" }, { status: 400 });
+    }
+
     let query = sb
       .from("audit_log")
       .select("*", { count: "exact" })

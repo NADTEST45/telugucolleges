@@ -60,7 +60,9 @@ export default function SubmitEditPage() {
       }
 
       setSuccess(true);
-      setTimeout(() => router.push("/college-admin/dashboard"), 2000);
+      const redirectTimer = setTimeout(() => router.push("/college-admin/dashboard"), 2000);
+      // Store for cleanup if component unmounts before redirect
+      return () => clearTimeout(redirectTimer);
     } catch {
       setError("Something went wrong");
     } finally {

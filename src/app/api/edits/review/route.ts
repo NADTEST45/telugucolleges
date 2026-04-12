@@ -21,6 +21,9 @@ export async function POST(req: NextRequest) {
     if (action === "reject" && !notes) {
       return NextResponse.json({ error: "Rejection reason is required" }, { status: 400 });
     }
+    if (notes && typeof notes === "string" && notes.length > 1000) {
+      return NextResponse.json({ error: "Notes must be 1000 characters or fewer" }, { status: 400 });
+    }
 
     const sb = getServiceClient();
 
@@ -68,7 +71,10 @@ export async function POST(req: NextRequest) {
 
       if (overrideError) {
         console.error("Override upsert error:", overrideError);
-        // Don't fail the review — just log the issue
+        return NextResponse.json(
+          { error: "Edit approved but failed to save override. Please retry." },
+          { status: 500 }
+        );
       }
     }
 

@@ -809,7 +809,9 @@
     "code": "NRIA",
     "name": "NRI Institute of Technology - Agiripally",
     "district": "NTR",
-    "fee": 55000
+    "fee": 55000,
+    "type": "Deemed University",
+    "note": "Granted Deemed University status effective 2026-27. Fees self-regulated; not covered by APHERMC. Verify current fee with institution."
   },
   {
     "sno": 117,

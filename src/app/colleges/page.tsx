@@ -40,47 +40,47 @@ const CollegeCard = React.memo(function CollegeCard({ c, borderClass }: { c: Col
             {c.nirf > 0 && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-semibold bg-rose-50 text-rose-600">NIRF {nirfLabel(c.nirf)}</span>}
             {c.naac && c.naac !== "-" && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-semibold bg-amber-50 text-amber-600">NAAC {c.naac}</span>}
             {c.nba && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-semibold bg-purple-50 text-purple-600">NBA</span>}
-            {c.branches.includes("B.Pharm") && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-semibold bg-teal-50 text-teal-600">Pharmacy</span>}
-            {c.branches.includes("MBBS") && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-semibold bg-rose-50 text-rose-600">Medical</span>}
+            {c.branches.includes("B.Pharm") && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[9px] sm:text-[11px] font-semibold bg-teal-50 text-teal-600">Pharmacy</span>}
+            {c.branches.includes("MBBS") && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[9px] sm:text-[11px] font-semibold bg-rose-50 text-rose-600">Medical</span>}
           </div>
         </div>
         {/* Stats: 4-col on mobile (full-width row below), 4-col on desktop (fixed-width right side) */}
         <div className="grid grid-cols-4 gap-2 sm:gap-4 text-center pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-100 shrink-0 sm:w-[320px]">
           <div>
-            <div className="text-[10px] sm:text-[11px] text-gray-400">{feeLabel}</div>
+            <div className="text-[9px] sm:text-[11px] text-gray-400">{feeLabel}</div>
             <div className="font-bold text-[#1a5276] text-xs sm:text-sm">{fmtFee(c.fee)}</div>
           </div>
           <div>
             {c.cutoff.cse > 0 ? (
               <>
-                <div className="text-[10px] sm:text-[11px] text-gray-400">CSE Cutoff</div>
+                <div className="text-[9px] sm:text-[11px] text-gray-400">CSE Cutoff</div>
                 <div className="font-bold text-xs sm:text-sm">{c.cutoff.cse.toLocaleString()}</div>
               </>
             ) : c.branches.includes("B.Pharm") ? (
               <>
-                <div className="text-[10px] sm:text-[11px] text-gray-400">Type</div>
+                <div className="text-[9px] sm:text-[11px] text-gray-400">Type</div>
                 <div className="font-bold text-teal-600 text-xs sm:text-sm">Pharmacy</div>
               </>
             ) : c.branches.includes("MBBS") ? (
               <>
-                <div className="text-[10px] sm:text-[11px] text-gray-400">Type</div>
+                <div className="text-[9px] sm:text-[11px] text-gray-400">Type</div>
                 <div className="font-bold text-rose-600 text-xs sm:text-sm">Medical</div>
               </>
             ) : (
               <>
-                <div className="text-[10px] sm:text-[11px] text-gray-400">CSE Cutoff</div>
+                <div className="text-[9px] sm:text-[11px] text-gray-400">CSE Cutoff</div>
                 <div className="font-bold text-gray-300 text-xs sm:text-sm">—</div>
               </>
             )}
           </div>
           <div>
-            <div className="text-[10px] sm:text-[11px] text-gray-400">Avg Pkg</div>
+            <div className="text-[9px] sm:text-[11px] text-gray-400">Avg Pkg</div>
             <div className={`font-bold text-xs sm:text-sm ${c.placements.avg > 0 ? "text-green-600" : "text-gray-300"}`}>
               {c.placements.avg > 0 ? `₹${c.placements.avg}L` : "—"}
             </div>
           </div>
           <div>
-            <div className="text-[10px] sm:text-[11px] text-gray-400">Highest</div>
+            <div className="text-[9px] sm:text-[11px] text-gray-400">Highest</div>
             <div className={`font-bold text-xs sm:text-sm ${c.placements.highest > 0 ? "text-amber-600" : "text-gray-300"}`}>
               {c.placements.highest > 0 ? `₹${c.placements.highest}L` : "—"}
             </div>
@@ -210,15 +210,15 @@ function CollegesPageInner() {
       {/* State Toggle */}
       <div className="flex gap-2 mb-4 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:overflow-visible scrollbar-hide">
         <button onClick={() => { setState(""); setDistrict(""); }}
-          className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${!state ? "bg-[#1a5276] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+          className={`px-3 sm:px-4 py-2 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${!state ? "bg-[#1a5276] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
           All States
         </button>
         <button onClick={() => { setState(state === "Andhra Pradesh" ? "" : "Andhra Pradesh"); setDistrict(""); }}
-          className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${state === "Andhra Pradesh" ? "bg-green-600 text-white" : "bg-green-50 text-green-700 hover:bg-green-100"}`}>
+          className={`px-3 sm:px-4 py-2 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${state === "Andhra Pradesh" ? "bg-green-600 text-white" : "bg-green-50 text-green-700 hover:bg-green-100"}`}>
           AP ({COLLEGES.filter(c => c.state === "Andhra Pradesh").length})
         </button>
         <button onClick={() => { setState(state === "Telangana" ? "" : "Telangana"); setDistrict(""); }}
-          className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${state === "Telangana" ? "bg-[#2e86c1] text-white" : "bg-blue-50 text-[#2e86c1] hover:bg-blue-100"}`}>
+          className={`px-3 sm:px-4 py-2 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${state === "Telangana" ? "bg-[#2e86c1] text-white" : "bg-blue-50 text-[#2e86c1] hover:bg-blue-100"}`}>
           Telangana ({COLLEGES.filter(c => c.state === "Telangana").length})
         </button>
       </div>
@@ -226,19 +226,19 @@ function CollegesPageInner() {
       {/* Category Buttons */}
       <div className="flex gap-2 mb-4 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:overflow-visible scrollbar-hide">
         <button onClick={() => setCategory("")}
-          className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${!category ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+          className={`px-3 sm:px-4 py-2 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${!category ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
           All
         </button>
         <button onClick={() => setCategory(category === "engineering" ? "" : "engineering")}
-          className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${category === "engineering" ? "bg-indigo-600 text-white" : "bg-indigo-50 text-indigo-700 hover:bg-indigo-100"}`}>
+          className={`px-3 sm:px-4 py-2 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${category === "engineering" ? "bg-indigo-600 text-white" : "bg-indigo-50 text-indigo-700 hover:bg-indigo-100"}`}>
           Engineering
         </button>
         <button onClick={() => setCategory(category === "pharmacy" ? "" : "pharmacy")}
-          className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${category === "pharmacy" ? "bg-teal-600 text-white" : "bg-teal-50 text-teal-700 hover:bg-teal-100"}`}>
+          className={`px-3 sm:px-4 py-2 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${category === "pharmacy" ? "bg-teal-600 text-white" : "bg-teal-50 text-teal-700 hover:bg-teal-100"}`}>
           Pharmacy
         </button>
         <button onClick={() => setCategory(category === "medical" ? "" : "medical")}
-          className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${category === "medical" ? "bg-rose-600 text-white" : "bg-rose-50 text-rose-700 hover:bg-rose-100"}`}>
+          className={`px-3 sm:px-4 py-2 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${category === "medical" ? "bg-rose-600 text-white" : "bg-rose-50 text-rose-700 hover:bg-rose-100"}`}>
           Medical
         </button>
       </div>
@@ -246,12 +246,12 @@ function CollegesPageInner() {
       {/* Section Tabs */}
       <div className="flex gap-2 mb-5 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:overflow-visible scrollbar-hide">
         <button onClick={() => setActiveSection("")}
-          className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${!activeSection ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+          className={`px-3 sm:px-4 py-2 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${!activeSection ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
           All ({state ? COLLEGES.filter(c => c.state === state).length : COLLEGES.length})
         </button>
         {SECTIONS.map(s => (
           <button key={s.key} onClick={() => setActiveSection(activeSection === s.key ? "" : s.key)}
-            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${activeSection === s.key ? "bg-gray-800 text-white" : `${s.bg} ${s.color} hover:opacity-80`}`}>
+            className={`px-3 sm:px-4 py-2 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${activeSection === s.key ? "bg-gray-800 text-white" : `${s.bg} ${s.color} hover:opacity-80`}`}>
             {s.label} ({counts[s.key] || 0})
           </button>
         ))}

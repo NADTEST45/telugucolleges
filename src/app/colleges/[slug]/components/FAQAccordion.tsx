@@ -2,12 +2,15 @@
 
 import { useState } from "react";
 
-function FAQAccordionItem({ question, answer, index }: { question: string; answer: string; index: number }) {
+function FAQAccordionItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false);
-  const contentId = `faq-content-${index}`;
+  const itemId = `faq-${Math.random().toString(36).substr(2, 9)}`;
+  const contentId = `${itemId}-content`;
+
   return (
     <div className="border border-gray-200 rounded-xl overflow-hidden">
       <button
+        id={itemId}
         onClick={() => setOpen(!open)}
         aria-expanded={open}
         aria-controls={contentId}
@@ -22,7 +25,11 @@ function FAQAccordionItem({ question, answer, index }: { question: string; answe
         </svg>
       </button>
       {open && (
-        <div id={contentId} role="region" className="px-3 sm:px-5 pb-3 sm:pb-4 text-xs sm:text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-2 sm:pt-3">
+        <div
+          id={contentId}
+          className="px-3 sm:px-5 pb-3 sm:pb-4 text-xs sm:text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-2 sm:pt-3"
+          role="region"
+        >
           {answer}
         </div>
       )}
@@ -41,7 +48,7 @@ export default function FAQAccordion({ faqs }: { faqs: FAQItem[] }) {
   return (
     <div className="space-y-2">
       {faqs.map((faq, i) => (
-        <FAQAccordionItem key={i} question={faq.question} answer={faq.answer} index={i} />
+        <FAQAccordionItem key={i} question={faq.question} answer={faq.answer} />
       ))}
     </div>
   );

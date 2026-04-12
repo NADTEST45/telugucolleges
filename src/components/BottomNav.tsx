@@ -82,7 +82,7 @@ export default function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav role="navigation" aria-label="Main navigation" className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-gray-200/80 dark:border-slate-700/80 safe-area-bottom">
+    <nav className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-t border-gray-200/80 safe-area-bottom" role="navigation" aria-label="Main navigation">
       <div className="flex items-stretch justify-around h-[52px] pb-[env(safe-area-inset-bottom)]">
         {TABS.map(tab => {
           const isActive = tab.href === "/"

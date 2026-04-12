@@ -5,6 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: ["/admin", "/college-admin", "/api/"],
     },
     sitemap: `${process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.vercel.app"}/sitemap.xml`,
   };

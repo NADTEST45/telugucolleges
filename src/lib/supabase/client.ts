@@ -13,10 +13,15 @@ export function getSupabase(): SupabaseClient {
   return _supabase;
 }
 
-/** Server-only Supabase client with service role (bypasses RLS) — new instance each call */
+let _serviceClient: SupabaseClient | null = null;
+
+/** Server-only Supabase client with service role (bypasses RLS) — cached singleton */
 export function getServiceClient(): SupabaseClient {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceKey) throw new Error("Supabase env vars not set");
-  return createClient(url, serviceKey);
+  if (!_serviceClient) {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!url || !serviceKey) throw new Error("Supabase env vars not set");
+    _serviceClient = createClient(url, serviceKey);
+  }
+  return _serviceClient;
 }

@@ -67,7 +67,7 @@ export default function Home() {
             { label: "Compare", href: "/compare" },
           ].map(item => (
             <Link key={item.label} href={item.href}
-              className="px-2.5 sm:px-4 py-2.5 sm:py-3 text-[11px] sm:text-sm font-medium text-gray-600 hover:text-[#1a5276] hover:bg-blue-50 whitespace-nowrap transition-colors border-b-2 border-transparent hover:border-[#2e86c1] active:bg-blue-50">
+              className="px-2.5 sm:px-4 py-2.5 sm:py-3 text-[10px] sm:text-sm font-medium text-gray-600 hover:text-[#1a5276] hover:bg-blue-50 whitespace-nowrap transition-colors border-b-2 border-transparent hover:border-[#2e86c1] active:bg-blue-50">
               {item.label}
             </Link>
           ))}
@@ -99,7 +99,7 @@ export default function Home() {
             <Link key={item.label} href={item.href} className="bg-white rounded-xl p-3 sm:p-4 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all text-center">
               <div className="text-xl sm:text-2xl mb-1">{item.icon}</div>
               <div className={`font-bold text-xs sm:text-sm ${item.color}`}>{item.label}</div>
-              {item.count ? <div className="text-[10px] sm:text-xs text-gray-400 mt-0.5">{item.count} colleges</div> : null}
+              {item.count ? <div className="text-[9px] sm:text-xs text-gray-400 mt-0.5">{item.count} colleges</div> : null}
             </Link>
           ))}
         </div>
@@ -117,11 +117,11 @@ export default function Home() {
             <div className="divide-y divide-gray-50">
               {latestNews.map(item => (
                 <Link key={item.id} href="/news" className="flex items-center gap-3 px-5 py-2.5 hover:bg-gray-50 transition-colors">
-                  <span className={`shrink-0 px-1.5 py-0.5 rounded text-[10px] sm:text-xs font-bold ${item.state === "AP" ? "bg-green-50 text-green-700" : item.state === "TS" ? "bg-blue-50 text-[#2e86c1]" : "bg-violet-50 text-violet-700"}`}>
+                  <span className={`shrink-0 px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-bold ${item.state === "AP" ? "bg-green-50 text-green-700" : item.state === "TS" ? "bg-blue-50 text-[#2e86c1]" : "bg-violet-50 text-violet-700"}`}>
                     {item.state}
                   </span>
                   <span className="text-sm text-gray-700 truncate">{item.title}</span>
-                  <span className="shrink-0 text-[10px] text-gray-400 ml-auto">{item.date.slice(5)}</span>
+                  <span className="shrink-0 text-[9px] sm:text-[10px] text-gray-400 ml-auto">{item.date.slice(5)}</span>
                 </Link>
               ))}
             </div>
@@ -149,7 +149,7 @@ export default function Home() {
                   </div>
                   <div className="text-right shrink-0">
                     <div className="font-bold text-[#1a5276] text-xs sm:text-sm">Rank {c.cutoff.cse.toLocaleString()}</div>
-                    <div className="text-[10px] sm:text-xs text-gray-400">{fmtFee(c.fee)}/yr</div>
+                    <div className="text-[9px] sm:text-xs text-gray-400">{fmtFee(c.fee)}/yr</div>
                   </div>
                 </Link>
               ))}
@@ -173,7 +173,7 @@ export default function Home() {
               </div>
               <div className="font-bold text-sm sm:text-base mb-2 leading-snug">{c.name}</div>
               <div className="flex items-center justify-between">
-                <div className="text-lg sm:text-xl font-extrabold text-[#1a5276]">{fmtFee(c.fee)}<span className="text-[10px] sm:text-xs font-normal text-gray-400">/yr</span></div>
+                <div className="text-lg sm:text-xl font-extrabold text-[#1a5276]">{fmtFee(c.fee)}<span className="text-[9px] sm:text-xs font-normal text-gray-400">/yr</span></div>
                 <span className="bg-blue-50 text-[#2e86c1] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md text-[11px] sm:text-xs font-semibold">{c.district}</span>
               </div>
             </Link>

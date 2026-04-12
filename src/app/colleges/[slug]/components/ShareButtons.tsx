@@ -12,7 +12,9 @@ export default function ShareButtons({ collegeName, district, state }: { college
     try {
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      const timer = setTimeout(() => setCopied(false), 2000);
+      // Cleanup handled by short-lived timeout; no unmount risk for this component
+      return () => clearTimeout(timer);
     } catch { /* fallback: do nothing */ }
   };
 

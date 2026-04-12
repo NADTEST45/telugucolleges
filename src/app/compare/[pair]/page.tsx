@@ -57,83 +57,6 @@ export async function generateMetadata({
 }
 
 /**
- * Build auto-generated FAQ items for comparison page
- */
-function buildComparisonFaqs(c1: any, c2: any) {
-  const faqs: { q: string; a: string }[] = [];
-
-  // Fee comparison
-  if (c1.fee > 0 && c2.fee > 0) {
-    const cheaper = c1.fee <= c2.fee ? c1 : c2;
-    const costlier = c1.fee <= c2.fee ? c2 : c1;
-    faqs.push({
-      q: `Which is more affordable — ${c1.code} or ${c2.code}?`,
-      a: `${cheaper.name} (${cheaper.code}) has a lower annual fee of ₹${cheaper.fee.toLocaleString("en-IN")} compared to ${costlier.name} at ₹${costlier.fee.toLocaleString("en-IN")}. Over 4 years, that's a difference of ₹${((costlier.fee - cheaper.fee) * 4).toLocaleString("en-IN")}.`,
-    });
-  }
-
-  // Cutoff comparison
-  if (c1.cutoff.cse > 0 && c2.cutoff.cse > 0) {
-    const better = c1.cutoff.cse <= c2.cutoff.cse ? c1 : c2;
-    const other = c1.cutoff.cse <= c2.cutoff.cse ? c2 : c1;
-    faqs.push({
-      q: `Which college has a better CSE cutoff — ${c1.code} or ${c2.code}?`,
-      a: `${better.name} (${better.code}) has a more competitive CSE EAPCET cutoff rank of ${better.cutoff.cse.toLocaleString()}, compared to ${other.code} at ${other.cutoff.cse.toLocaleString()}. A lower rank indicates higher demand and selectivity.`,
-    });
-  }
-
-  // Placement comparison
-  if (c1.placements.avg > 0 && c2.placements.avg > 0) {
-    const betterP = c1.placements.avg >= c2.placements.avg ? c1 : c2;
-    const otherP = c1.placements.avg >= c2.placements.avg ? c2 : c1;
-    faqs.push({
-      q: `Which college has better placements — ${c1.code} or ${c2.code}?`,
-      a: `${betterP.name} (${betterP.code}) reports a higher average placement package of ₹${betterP.placements.avg} LPA compared to ${otherP.code} at ₹${otherP.placements.avg} LPA.${betterP.placements.highest > 0 ? ` The highest package at ${betterP.code} is ₹${betterP.placements.highest} LPA.` : ""}`,
-    });
-  }
-
-  // NAAC comparison
-  if ((c1.naac && c1.naac !== "-") || (c2.naac && c2.naac !== "-")) {
-    const parts: string[] = [];
-    if (c1.naac && c1.naac !== "-") parts.push(`${c1.code} holds NAAC ${c1.naac} accreditation`);
-    if (c2.naac && c2.naac !== "-") parts.push(`${c2.code} holds NAAC ${c2.naac} accreditation`);
-    faqs.push({
-      q: `What are the NAAC grades of ${c1.code} and ${c2.code}?`,
-      a: parts.join(", while ") + ". NAAC accreditation reflects quality standards in teaching, research, and infrastructure.",
-    });
-  }
-
-  // Location
-  faqs.push({
-    q: `Where are ${c1.code} and ${c2.code} located?`,
-    a: `${c1.name} is located in ${c1.district}, ${c1.state}, while ${c2.name} is in ${c2.district}, ${c2.state}. Both are affiliated to ${c1.affiliation === c2.affiliation ? c1.affiliation : `${c1.affiliation} and ${c2.affiliation} respectively`}.`,
-  });
-
-  // Branches
-  const sharedBranches = c1.branches.filter((b: string) => c2.branches.includes(b));
-  if (sharedBranches.length > 0) {
-    faqs.push({
-      q: `What branches are common between ${c1.code} and ${c2.code}?`,
-      a: `Both colleges offer ${sharedBranches.slice(0, 6).join(", ")}${sharedBranches.length > 6 ? ` and ${sharedBranches.length - 6} more branches` : ""}. ${c1.code} offers ${c1.branches.length} branches total and ${c2.code} offers ${c2.branches.length}.`,
-    });
-  }
-
-  return faqs;
-}
-
-function buildFaqJsonLd(faqs: { q: string; a: string }[]) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map(f => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  };
-}
-
-/**
  * Build JSON-LD BreadcrumbList schema
  */
 function buildBreadcrumbJsonLd(college1Name: string, college2Name: string) {
@@ -453,35 +376,6 @@ export default async function ComparePairPage({
           Consider your priorities regarding fees, placements, and academic rankings when making your choice.
         </p>
       </div>
-
-      {/* FAQ Section */}
-      {(() => {
-        const faqs = buildComparisonFaqs(college1, college2);
-        return faqs.length > 0 ? (
-          <>
-            <div className="bg-white rounded-lg border border-gray-200 p-6 mb-8">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">
-                Frequently Asked Questions — {college1.code} vs {college2.code}
-              </h2>
-              <div className="space-y-4">
-                {faqs.map((faq, i) => (
-                  <details key={i} className="group border-b border-gray-100 pb-4 last:border-0 last:pb-0">
-                    <summary className="cursor-pointer font-semibold text-sm text-gray-800 hover:text-[#2e86c1] transition-colors list-none flex items-center justify-between gap-2">
-                      {faq.q}
-                      <svg className="w-4 h-4 shrink-0 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-                    </summary>
-                    <p className="mt-2 text-sm text-gray-600 leading-relaxed">{faq.a}</p>
-                  </details>
-                ))}
-              </div>
-            </div>
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqJsonLd(faqs)) }}
-            />
-          </>
-        ) : null;
-      })()}
 
       {/* College Links */}
       <div className="grid sm:grid-cols-2 gap-4 mb-8">

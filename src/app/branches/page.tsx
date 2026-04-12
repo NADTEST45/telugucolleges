@@ -93,20 +93,20 @@ export default function BranchesPage() {
                         <span className="text-lg sm:text-xl">{meta.icon}</span>
                         <h3 className="text-sm sm:text-base font-bold text-gray-700">{meta.label}</h3>
                       </div>
-                      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+                      <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
                         {branches.map(b => (
                           <Link key={b.slug} href={`/branches/${b.slug}`}
                             className={`block bg-white rounded-xl p-3 sm:p-4 shadow-sm border-l-4 ${meta.color} hover:shadow-md hover:bg-blue-50/30 transition-all active:bg-blue-50`}>
                             <div className="flex items-start justify-between gap-1 mb-1 sm:mb-2">
                               <div className="min-w-0">
                                 <div className="font-bold text-xs sm:text-sm text-gray-900 truncate">{b.shortName}</div>
-                                <div className="text-[10px] sm:text-[11px] text-gray-400 leading-tight line-clamp-2">{b.name}</div>
+                                <div className="text-[9px] sm:text-[11px] text-gray-400 leading-tight line-clamp-2">{b.name}</div>
                               </div>
                               <span className="text-[10px] sm:text-xs font-bold text-[#2e86c1] bg-blue-50 px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
                                 {b.count}
                               </span>
                             </div>
-                            <div className="flex flex-wrap items-center gap-x-1.5 text-[10px] sm:text-[11px] text-gray-400">
+                            <div className="flex flex-wrap items-center gap-x-1.5 text-[9px] sm:text-[11px] text-gray-400">
                               {b.minFee > 0 && <span>From {fmtFee(b.minFee)}</span>}
                               {b.withCutoff > 0 && <span>· {b.withCutoff} cutoffs</span>}
                             </div>
@@ -127,7 +127,7 @@ export default function BranchesPage() {
             <h2 className="text-lg sm:text-xl font-extrabold text-gray-900 mb-5 sm:mb-6 pb-2 border-b-2 border-gray-200">
               Postgraduate & Diploma (Engineering)
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
               {pgEngineering.map(p => (
                 <Link key={p.slug} href={`/programs/${p.slug}`}
                   className="block bg-white rounded-xl p-3 sm:p-4 shadow-sm border-l-4 border-l-indigo-500 hover:shadow-md hover:bg-blue-50/30 transition-all active:bg-blue-50">
@@ -160,7 +160,7 @@ export default function BranchesPage() {
               <span className="text-lg sm:text-xl">📊</span>
               <h3 className="text-sm sm:text-base font-bold text-gray-700">MBA, MCA, BBA & More</h3>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
               {managementPrograms.map(p => (
                 <Link key={p.slug} href={`/programs/${p.slug}`}
                   className="block bg-white rounded-xl p-3 sm:p-4 shadow-sm border-l-4 border-l-amber-500 hover:shadow-md hover:bg-blue-50/30 transition-all active:bg-blue-50">
@@ -193,7 +193,7 @@ export default function BranchesPage() {
               <span className="text-lg sm:text-xl">🔬</span>
               <h3 className="text-sm sm:text-base font-bold text-gray-700">B.Sc, B.Com, BA & More</h3>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
               {sciencePrograms.map(p => (
                 <Link key={p.slug} href={`/programs/${p.slug}`}
                   className="block bg-white rounded-xl p-3 sm:p-4 shadow-sm border-l-4 border-l-emerald-500 hover:shadow-md hover:bg-blue-50/30 transition-all active:bg-blue-50">
@@ -222,7 +222,7 @@ export default function BranchesPage() {
             <h2 className="text-lg sm:text-xl font-extrabold text-gray-900 mb-5 sm:mb-6 pb-2 border-b-2 border-gray-200">
               Other Programmes
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
               {otherPrograms.map(p => (
                 <Link key={p.slug} href={`/programs/${p.slug}`}
                   className="block bg-white rounded-xl p-3 sm:p-4 shadow-sm border-l-4 border-l-gray-400 hover:shadow-md hover:bg-blue-50/30 transition-all active:bg-blue-50">

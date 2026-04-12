@@ -1,5 +1,5 @@
-import type { BannerAd } from "@/lib/ads";
 import Image from "next/image";
+import type { BannerAd } from "@/lib/ads";
 
 interface AdBannerProps {
   ad: BannerAd;
@@ -18,13 +18,13 @@ export default function AdBanner({ ad, className = "" }: AdBannerProps) {
         <Image
           src={ad.imageUrl}
           alt={ad.altText}
-          width={728}
-          height={90}
+          width={300}
+          height={250}
           className="w-full h-auto object-cover"
           loading="lazy"
         />
       </a>
-      <span className="absolute top-2 right-2 bg-black/50 text-white text-[10px] sm:text-xs font-semibold uppercase tracking-wider px-2 py-0.5 rounded">
+      <span className="absolute top-2 right-2 bg-black/50 text-white text-[9px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded">
         {ad.label || "Sponsored"}
       </span>
     </div>

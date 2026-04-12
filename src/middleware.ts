@@ -35,8 +35,15 @@ export function middleware(request: NextRequest) {
     const origin = request.headers.get("origin");
     const host = request.headers.get("host");
 
-    // If Origin header is present, validate it matches the host
-    if (origin && host) {
+    // Require Origin header on all state-changing API requests
+    if (!origin) {
+      return NextResponse.json(
+        { error: "Origin header required" },
+        { status: 403 }
+      );
+    }
+
+    if (host) {
       try {
         const originHost = new URL(origin).host;
         if (originHost !== host) {
