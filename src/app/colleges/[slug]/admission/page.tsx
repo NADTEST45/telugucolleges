@@ -6,7 +6,7 @@ import { getExamByCollegeCode } from "@/lib/admission-exams";
 import { notFound } from "next/navigation";
 import CollegeDetail from "../CollegeDetail";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export type FAQItem = { question: string; answer: string };
 

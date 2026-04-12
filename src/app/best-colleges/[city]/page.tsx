@@ -9,7 +9,7 @@ import {
 } from "@/lib/city-data";
 import { fmtFee, type College } from "@/lib/colleges";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export const revalidate = 3600; // ISR: revalidate every hour
 export const dynamicParams = true; // Allow pages not in generateStaticParams

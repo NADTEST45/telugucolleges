@@ -5,7 +5,7 @@ import { getAllBranchSlugs } from "@/lib/branch-data";
 import { getAllPairSlugs } from "@/lib/comparison-pairs";
 import { getAllCitySlugs } from "@/lib/city-data";
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.vercel.app";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 const NOW = new Date().toISOString();
 
 /*

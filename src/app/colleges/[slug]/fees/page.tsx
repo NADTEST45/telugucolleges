@@ -5,7 +5,7 @@ import { TS_PHASES, getTSPhaseCutoffs, type PhaseKey } from "@/lib/ts-cutoffs-ph
 import { notFound } from "next/navigation";
 import CollegeDetail from "../CollegeDetail";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export type FAQItem = { question: string; answer: string };
 

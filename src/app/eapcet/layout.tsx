@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const url = `${process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.vercel.app"}/eapcet`;
+const url = `${process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com"}/eapcet`;
 
 export const metadata: Metadata = {
   title: "EAPCET Rank Predictor — College Cutoff Finder | TeluguColleges",
