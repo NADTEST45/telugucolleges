@@ -1,5 +1,5 @@
 /**
- * Merit-based scholarship data for Deemed Universities in AP & Telangana.
+ * Merit-based scholarship data for Deemed & Private Universities in AP & Telangana.
  * All data sourced from official university websites (2025-26 academic year).
  */
 
@@ -78,7 +78,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     notes: [
       "GITAM is a Deemed University — there is no EAPCET convener quota counselling. Admission is only through GAT/JEE/direct application",
       "EAPCET rank is accepted purely as a scholarship eligibility criterion for direct admission students",
-      "Candidates offered 60% or higher must attend a personal interview",
+      "Candidates offered 100% or 75% scholarship must attend a personal interview",
       "Scholarships apply to tuition fee only",
       "Need-based and sports scholarships also available",
       "Use the GITAM Scholarship Calculator at gitam.edu for personalised estimates",
@@ -139,7 +139,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     notes: [
       "Same scholarship structure as GITAM Vizag campus",
       "GITAM is a Deemed University — no EAPCET convener quota. EAPCET rank is used only as a scholarship criterion",
-      "Candidates offered 60% or higher must attend a personal interview",
+      "Candidates offered 100% or 75% scholarship must attend a personal interview",
     ],
     source: "https://www.gitam.edu/fee-scholarship/student-scholarships",
     sourceLabel: "GITAM Official — Fee & Scholarships",
@@ -216,11 +216,11 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
         ],
       },
     ],
-    maintenance: "CGPA 9.0 for CSE/AI&DS/Biotech group; CGPA 8.0 for other branches",
+    maintenance: "CGPA 9.0 for CSE/AI&DS/BT/ECE/CS&IT groups; CGPA 8.0 for ME/CE/EEE/IoT",
     notes: [
       "KL is a Deemed University — there is no EAPCET convener quota counselling. All admissions are through KLUEEE/JEE/direct application",
       "AP/TS EAPCET rank is also accepted as a scholarship eligibility criterion (similar to KLUEEE rank slabs) — contact admissions for exact EAPCET slab mapping",
-      "Board-based scholarships also available — TS/AP State Board ≥96% gets 50% concession; CBSE ≥9.2 CGPA",
+      "Board-based scholarships also available — concession varies by branch (e.g. CBSE ≥94% gets 50% for CSE group)",
       "SC/ST/PH: ₹10,000/yr concession; OBC: ₹5,000/yr concession",
       "Scholarship is on tuition fee only, applied semester-wise",
       "Concession continues from 2nd semester onward only if student maintains required CGPA",
@@ -277,7 +277,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
         ],
       },
     ],
-    maintenance: "CGPA 9.0 for CSE group; CGPA 8.0 for other branches",
+    maintenance: "CGPA 9.0 for CSE/AI&DS/BT/ECE/CS&IT groups; CGPA 8.0 for ME/CE/EEE/IoT",
     notes: [
       "Same scholarship structure as KL Vijayawada campus",
       "KL is a Deemed University — no EAPCET convener quota. EAPCET rank is accepted as a scholarship criterion",
@@ -390,7 +390,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     ],
     maintenance: "Good academic standing — no specific CGPA threshold published",
     notes: [
-      "Admission is via UGEE (own exam) — highly selective, no traditional merit slabs",
+      "Admission via UGEE, JEE Main, Olympiad, Board-based (≥85%), and other routes — highly selective, no traditional merit slabs",
       "Alumni-funded pay-it-forward scholarship model",
       "SBI education loan up to ₹40L without collateral available",
     ],
@@ -446,7 +446,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
       "Merit scholarships apply to Category-A fee component only",
       "VSAT (Vignan's own exam) is the primary admission and scholarship route",
       "25% of total seats reserved for scholarships: 5% at 75%, 10% at 50%, 10% at 25% concession",
-      "Students with 90% intermediate aggregate get 50% scholarship; 80% aggregate gets 25%",
+      "Intermediate marks may also be considered for scholarship — contact admissions for current year's criteria",
     ],
     source: "https://www.vignan.ac.in/curscholorships.php",
     sourceLabel: "Vignan's University Official — Scholarships",
@@ -492,7 +492,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     maintenance: "Good academic standing",
     notes: [
       "Detailed slab breakpoints not published — contact admissions",
-      "Base B.Tech fee: ~₹78,000/yr (affordable among deemed universities)",
+      "Base B.Tech fee: ~₹2,50,000/yr (as a Deemed University; formerly ~₹78,000/yr when GMRIT was affiliated)",
     ],
     source: "https://www.gmru.edu.in/admissions/",
     sourceLabel: "GMR University Official — Admissions",
@@ -610,8 +610,8 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
       "Founder's Scholarship: top 100 SRMJEEE + CBSE/State Board district toppers",
       "SRM also offers President Scholarship, Socio-Economic, Differently Abled, Arts & Culture, and Armed Forces Scholarships",
     ],
-    source: "https://www.srmist.edu.in/policies/scholarship-policy/",
-    sourceLabel: "SRMIST Official — Scholarship Policy",
+    source: "https://srmap.edu.in/admissions/",
+    sourceLabel: "SRM AP Official — Admissions & Scholarships",
   },
 
   // ─── VIT-AP University — Amaravati ──────────────────────────────────
