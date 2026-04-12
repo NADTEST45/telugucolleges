@@ -604,7 +604,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     ],
     maintenance: "CGPA 9.0, 75% attendance, clean disciplinary record — renewed annually",
     notes: [
-      "SRM AP is a Private University with two admission routes: (1) EAPCET convener quota (~70% seats, fee ~₹1,02,000/yr set by GO) and (2) Direct admission via SRMJEEE (~30% seats, fee ~₹4,00,000/yr)",
+      "SRM AP is a Private University in AP that participates in AP EAPCET convener counselling (~35% of seats, fee ~₹1,02,000/yr set by GO). Remaining ~65% seats are filled via SRMJEEE direct admission (fee ~₹4,00,000/yr). Note: not all private universities participate in state counselling",
       "These merit scholarships apply to the direct admission (SRMJEEE) fee only — convener quota students already pay the lower GO-regulated fee",
       "EAPCET rank may also be considered for scholarship on direct admission — contact admissions for details",
       "Founder's Scholarship: top 100 SRMJEEE + CBSE/State Board district toppers",
@@ -641,7 +641,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     ],
     maintenance: "Good academic standing — scholarship fixed for full 4-year duration, no annual hikes",
     notes: [
-      "VIT-AP is a Private University with two admission routes: (1) EAPCET convener quota (limited seats, fee ~₹70,000/yr set by GO) and (2) Direct admission via VITEEE (majority of seats, fee ₹1.95L–₹4.9L/yr by category)",
+      "VIT-AP is a Private University in AP that participates in AP EAPCET convener counselling (~35% of seats, fee ~₹70,000/yr set by GO). Remaining ~65% seats are filled via VITEEE direct admission (fee ₹1.95L–₹4.9L/yr by category). Note: not all private universities participate in state counselling",
       "These merit scholarships and fee categories apply to VITEEE direct admission only — convener quota students already pay the lower GO-regulated fee",
       "VIT-AP uses a category system (Cat 1–5) based on VITEEE rank — lower category = lower fee",
       "Category assignment is based on VITEEE performance; exact rank cutoffs vary each year",
@@ -685,7 +685,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     ],
     maintenance: "CGPA 8.0, 75% attendance, no backlogs — renewed annually",
     notes: [
-      "Anurag is a Private University with two admission routes: (1) TS EAPCET convener quota (~75% seats, fee ~₹1,35,000/yr set by GO) and (2) Direct admission via university/Anurag CET (~25% seats, fee ~₹2,85,000/yr)",
+      "Anurag is a Private University in Telangana that participates in TS EAPCET convener counselling (~70% Category A seats, fee ~₹1,35,000/yr set by GO). Remaining ~30% Category B seats are filled via management/Anurag CET (fee ~₹2,85,000/yr). Note: not all private universities participate in state counselling",
       "These merit scholarships apply to the direct admission fee — students joining via EAPCET convener already pay the lower GO-regulated fee",
       "However, EAPCET rank is also accepted as a scholarship criterion for direct admission students (see slabs above)",
       "Government junior college students with EAPCET rank <20,000 get 50% tuition concession (special provision)",
