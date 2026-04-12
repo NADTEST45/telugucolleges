@@ -44,9 +44,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#1a5276" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="manifest" href="/manifest.json" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="bg-gray-50 text-gray-900 antialiased transition-colors duration-200">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:rounded focus:shadow">Skip to content</a>
         {/* Nav */}
         <nav className="bg-[#1a5276] dark:bg-[#0c2d48] text-white sticky top-0 z-50 shadow-lg">
           <div className="max-w-7xl mx-auto px-3 sm:px-6 flex items-center justify-between h-12 sm:h-14">
@@ -74,7 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </nav>
 
         {/* Bottom padding on mobile so content isn't hidden behind tab bar + safe area */}
-        <div className="pb-20 md:pb-0">
+        <div id="main-content" className="pb-20 md:pb-0">
           {children}
         </div>
 

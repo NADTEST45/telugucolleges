@@ -214,3 +214,9 @@ body {
     transition: opacity 0.1s;
   }
 }
+
+/* Word break utility for table cells with long content */
+.break-anywhere {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}

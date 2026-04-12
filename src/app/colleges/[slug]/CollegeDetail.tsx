@@ -844,7 +844,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                         if (!hasAnyData) return null;
                         return (
                           <tr key={branch} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                            <td className="px-3 py-2.5 font-semibold text-sm whitespace-nowrap">{branchLabel(branch)}</td>
+                            <td className="px-3 py-2.5 font-semibold text-sm sm:whitespace-nowrap break-words">{branchLabel(branch)}</td>
                             {ranks.map((rank, ri) => {
                               // Color code: earlier phases (tighter) = red-ish, later (relaxed) = green-ish
                               const prevRank = ri > 0 ? ranks[ri - 1] : 0;
@@ -854,7 +854,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                                   {rank > 0 ? (
                                     <span>
                                       {rank.toLocaleString()}
-                                      {relaxed && <span className="ml-1 text-[10px] text-green-500">↓</span>}
+                                      {relaxed && <span className="ml-1 text-[11px] sm:text-xs text-green-500">↓</span>}
                                     </span>
                                   ) : (
                                     <span className="text-gray-300">—</span>
@@ -867,7 +867,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       })}
                     </tbody>
                   </table>
-                  <p className="text-[10px] text-gray-400 mt-2">↓ = cutoff relaxed from previous phase (higher rank = easier to get in). Source: TSCHE official Last Rank Statement PDFs</p>
+                  <p className="text-[11px] sm:text-xs text-gray-400 mt-2">↓ = cutoff relaxed from previous phase (higher rank = easier to get in). Source: TSCHE official Last Rank Statement PDFs</p>
                 </div>
               </section>
             )}
@@ -932,7 +932,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                         }
                         return (
                           <tr key={branch} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                            <td className="px-4 py-2.5 font-semibold text-sm">{branchLabel(branch)}</td>
+                            <td className="px-4 py-2.5 font-semibold text-sm break-words">{branchLabel(branch)}</td>
                             {yearCols.map((y, yi) => {
                               const rank = getRank(branch, y.key);
                               return (
@@ -941,7 +941,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                                     <span>
                                       {rank.toLocaleString()}
                                       {yi === 0 && trend && (
-                                        <span className={`ml-1 text-[10px] ${trend === "↑" ? "text-red-500" : "text-green-500"}`}>{trend}</span>
+                                        <span className={`ml-1 text-[11px] sm:text-xs ${trend === "↑" ? "text-red-500" : "text-green-500"}`}>{trend}</span>
                                       )}
                                     </span>
                                   ) : (
@@ -955,7 +955,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       })}
                     </tbody>
                   </table>
-                  <p className="text-[10px] text-gray-400 mt-2">↑ = getting harder · ↓ = getting easier · Source: APSCHE official last rank details PDFs</p>
+                  <p className="text-[11px] sm:text-xs text-gray-400 mt-2">↑ = getting harder · ↓ = getting easier · Source: APSCHE official last rank details PDFs</p>
                 </div>
               ) : (
                 <div className="text-center py-8 text-gray-400">
@@ -1002,7 +1002,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
               <h2 className="text-lg font-bold mb-1">Branch-wise Placement Data</h2>
               <p className="text-xs text-gray-400 mb-4">Detailed placements by department · {latestYear.year}</p>
               <div className="overflow-x-auto -mx-4 sm:mx-0">
-                <table className="w-full text-sm min-w-[500px]">
+                <table className="w-full text-sm min-w-[280px] sm:min-w-[500px]">
                   <thead>
                     <tr className="border-b border-gray-200 text-left">
                       <th className="py-2 px-3 text-gray-500 font-medium text-xs sticky left-0 bg-white">Branch</th>
@@ -1022,7 +1022,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                         const pct = data.intake > 0 && data.placed > 0 ? Math.round((data.placed / data.intake) * 100) : 0;
                         return (
                           <tr key={branch} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                            <td className="py-2.5 px-3 font-semibold sticky left-0 bg-white">{branchDisplayName(branch)}</td>
+                            <td className="py-2.5 px-3 font-semibold sticky left-0 bg-white break-words">{branchDisplayName(branch)}</td>
                             <td className="py-2.5 px-3 text-right text-gray-600">{data.intake || "—"}</td>
                             <td className="py-2.5 px-3 text-right font-semibold">{data.placed || "—"}</td>
                             <td className="py-2.5 px-3 text-right">
@@ -1043,7 +1043,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                 </table>
               </div>
               {pd?.sourceUrl && (
-                <p className="text-[10px] text-gray-400 mt-3">Source: <a href={pd.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#2e86c1]">AICTE Mandatory Disclosure</a></p>
+                <p className="text-[11px] sm:text-xs text-gray-400 mt-3">Source: <a href={pd.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#2e86c1]">AICTE Mandatory Disclosure</a></p>
               )}
             </section>
           )}
@@ -1075,7 +1075,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
               <h2 className="text-lg font-bold mb-1">Placement Trends</h2>
               <p className="text-xs text-gray-400 mb-4">Year-over-year placement performance</p>
               <div className="overflow-x-auto -mx-4 sm:mx-0">
-                <table className="w-full text-sm min-w-[400px]">
+                <table className="w-full text-sm min-w-[280px] sm:min-w-[400px]">
                   <thead>
                     <tr className="border-b border-gray-200 text-left">
                       <th className="py-2 px-3 text-gray-500 font-medium text-xs">Year</th>
@@ -1087,8 +1087,8 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       <th className="py-1 px-3"></th>
                       {Object.keys(pd.years[0].branches).map(br => (
                         <>{/* eslint-disable-next-line react/jsx-key */}
-                          <th key={`${br}-p`} className="py-1 px-2 text-[10px] text-gray-400 font-medium text-right">Placed</th>
-                          <th key={`${br}-a`} className="py-1 px-2 text-[10px] text-gray-400 font-medium text-right">Avg ₹</th>
+                          <th key={`${br}-p`} className="py-1 px-2 text-[11px] sm:text-xs text-gray-400 font-medium text-right">Placed</th>
+                          <th key={`${br}-a`} className="py-1 px-2 text-[11px] sm:text-xs text-gray-400 font-medium text-right">Avg ₹</th>
                         </>
                       ))}
                     </tr>
@@ -1240,7 +1240,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                         return (
                           <div key={star} className="flex items-center gap-2 text-xs mb-1">
                             <span className="w-3 text-right text-gray-500">{star}</span>
-                            <span className="text-amber-500 text-[10px]">★</span>
+                            <span className="text-amber-500 text-[11px] sm:text-xs">★</span>
                             <div className="flex-1 bg-gray-200 rounded-full h-2 overflow-hidden">
                               <div className="bg-amber-400 h-full rounded-full transition-all" style={{ width: `${pct}%` }} />
                             </div>
@@ -1266,7 +1266,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                         <p className="text-sm text-gray-600 leading-relaxed mb-3">{review.body}</p>
                         {review.pros.length > 0 && (
                           <div className="mb-2">
-                            <span className="text-[10px] font-bold text-green-600 uppercase tracking-wide">Pros</span>
+                            <span className="text-[11px] sm:text-xs font-bold text-green-600 uppercase tracking-wide">Pros</span>
                             <div className="flex flex-wrap gap-1.5 mt-1">
                               {review.pros.map((p, i) => <span key={i} className="bg-green-50 text-green-700 px-2 py-0.5 rounded text-xs">{p}</span>)}
                             </div>
@@ -1274,7 +1274,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                         )}
                         {review.cons.length > 0 && (
                           <div>
-                            <span className="text-[10px] font-bold text-red-500 uppercase tracking-wide">Cons</span>
+                            <span className="text-[11px] sm:text-xs font-bold text-red-500 uppercase tracking-wide">Cons</span>
                             <div className="flex flex-wrap gap-1.5 mt-1">
                               {review.cons.map((p, i) => <span key={i} className="bg-red-50 text-red-600 px-2 py-0.5 rounded text-xs">{p}</span>)}
                             </div>

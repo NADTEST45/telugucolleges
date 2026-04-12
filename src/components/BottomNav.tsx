@@ -82,8 +82,8 @@ export default function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-gray-200/80 dark:border-slate-700/80 safe-area-bottom">
-      <div className="flex items-stretch justify-around h-[52px]">
+    <nav role="navigation" aria-label="Main navigation" className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-gray-200/80 dark:border-slate-700/80 safe-area-bottom">
+      <div className="flex items-stretch justify-around h-[52px] pb-[env(safe-area-inset-bottom)]">
         {TABS.map(tab => {
           const isActive = tab.href === "/"
             ? pathname === "/"
@@ -93,6 +93,7 @@ export default function BottomNav() {
             <Link
               key={tab.href}
               href={tab.href}
+              aria-label={tab.label}
               className={`flex flex-col items-center justify-center flex-1 gap-0.5 transition-colors active:scale-95 ${
                 isActive ? "text-[#2e86c1]" : "text-gray-400"
               }`}

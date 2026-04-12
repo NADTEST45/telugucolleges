@@ -1,0 +1,10 @@
+{
+  "name": "TeluguColleges",
+  "short_name": "TeluguColleges",
+  "description": "Compare engineering college fees, cutoffs & placements in AP & Telangana",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2e86c1",
+  "icons": []
+}

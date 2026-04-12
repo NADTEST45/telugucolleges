@@ -1,4 +1,5 @@
 import type { SponsoredCard as SponsoredCardType } from "@/lib/ads";
+import Image from "next/image";
 
 interface SponsoredCardProps {
   ad: SponsoredCardType;
@@ -15,7 +16,7 @@ export default function SponsoredCard({ ad, variant = "horizontal", className = 
         </span>
 
         {ad.logoUrl && (
-          <img src={ad.logoUrl} alt={ad.collegeName} className="w-12 h-12 rounded-lg object-cover mb-3" loading="lazy" />
+          <Image src={ad.logoUrl} alt={ad.collegeName} width={48} height={48} className="w-12 h-12 rounded-lg object-cover mb-3" loading="lazy" />
         )}
 
         <div className="text-xs text-indigo-600 font-semibold mb-1">{ad.tagline}</div>
@@ -61,7 +62,7 @@ export default function SponsoredCard({ ad, variant = "horizontal", className = 
       <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
         <div className="flex items-start gap-3 flex-1 min-w-0">
           {ad.logoUrl && (
-            <img src={ad.logoUrl} alt={ad.collegeName} className="w-12 h-12 rounded-lg object-cover shrink-0" loading="lazy" />
+            <Image src={ad.logoUrl} alt={ad.collegeName} width={48} height={48} className="w-12 h-12 rounded-lg object-cover shrink-0" loading="lazy" />
           )}
           <div className="min-w-0">
             <div className="text-[10px] text-indigo-600 font-semibold uppercase tracking-wide">{ad.tagline}</div>
