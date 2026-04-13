@@ -9,6 +9,7 @@ import { getScholarships } from "@/lib/scholarships";
 import { getExamByCollegeCode } from "@/lib/admission-exams";
 import { getPlacementData, branchDisplayName } from "@/lib/placement-data";
 import AdSlot from "@/components/ads/AdSlot";
+import ShortlistButton from "@/components/ShortlistButton";
 import ShareButtons from "./components/ShareButtons";
 import FAQAccordion from "./components/FAQAccordion";
 
@@ -180,6 +181,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
             </svg>
           </a>
           {/* <ShareButtons collegeName={c.name} district={c.district} state={c.state} /> */}
+          <ShortlistButton collegeSlug={c.slug} variant="full" />
         </div>
       </div>
 

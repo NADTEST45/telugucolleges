@@ -3,6 +3,9 @@ import "./globals.css";
 import Link from "next/link";
 import SearchBar from "@/components/SearchBar";
 import BottomNav from "@/components/BottomNav";
+import AuthProvider from "@/components/AuthProvider";
+import ShortlistProvider from "@/components/ShortlistProvider";
+import UserNavMenu from "@/components/UserNavMenu";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com"),
@@ -46,6 +49,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="bg-gray-50 text-gray-900 antialiased">
+        <AuthProvider>
+        <ShortlistProvider>
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:rounded focus:shadow">Skip to content</a>
         {/* Nav */}
         <nav className="bg-[#1a5276] text-white sticky top-0 z-50 shadow-lg">
@@ -55,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <span className="font-bold text-base sm:text-lg hidden sm:inline">TeluguColleges<span className="text-blue-300">.com</span></span>
             </Link>
             <SearchBar />
-            <div className="hidden md:flex gap-0.5 shrink-0">
+            <div className="hidden md:flex gap-0.5 items-center shrink-0">
               {[
                 ["Universities", "/universities"],
                 ["Colleges", "/colleges"],
@@ -68,6 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   {label}
                 </Link>
               ))}
+              <UserNavMenu />
             </div>
           </div>
         </nav>
@@ -80,7 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Mobile bottom tab bar */}
         <BottomNav />
 
-        {/* Footer */}
+        {/* Footer — outside AuthProvider is fine, it's static */}
         <footer className="bg-[#1b2631] text-gray-400 mt-16">
           <div className="max-w-7xl mx-auto px-6 py-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
@@ -116,6 +122,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </footer>
+        </ShortlistProvider>
+        </AuthProvider>
       </body>
     </html>
   );

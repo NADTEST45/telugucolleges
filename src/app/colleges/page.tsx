@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { COLLEGES, fmtFee, College } from "@/lib/colleges";
 import AdSlot from "@/components/ads/AdSlot";
+import ShortlistButton from "@/components/ShortlistButton";
 import { isEngineeringCollege, isPharmacyCollege, isMedicalCollege } from "@/lib/branch-constants";
 
 function nirfLabel(rank: number): string {
@@ -28,12 +29,17 @@ const ALL_AFFILIATIONS = [...new Set(COLLEGES.map(c => c.affiliation))].sort();
 const CollegeCard = React.memo(function CollegeCard({ c, borderClass }: { c: College; borderClass: string }) {
   const feeLabel = (c.type === "Deemed University" || c.type === "Private University" || c.type === "Government") ? "Tuition/yr" : "Convener Fee";
   return (
-    <Link href={`/colleges/${c.slug}`}
-      className={`block bg-white rounded-xl px-3 sm:px-5 py-3 sm:py-4 shadow-sm hover:shadow-md transition-all border-l-4 ${borderClass}`}>
+    <div className={`relative bg-white rounded-xl px-3 sm:px-5 py-3 sm:py-4 shadow-sm hover:shadow-md transition-all border-l-4 ${borderClass}`}>
+      {/* Full-card link — covers entire card for navigation */}
+      <Link href={`/colleges/${c.slug}`} className="absolute inset-0 z-0 rounded-xl" aria-label={c.name} />
+      {/* Shortlist button — positioned outside the Link DOM to avoid iOS Safari tap conflicts */}
+      <div className="absolute top-2 right-2 z-10">
+        <ShortlistButton collegeSlug={c.slug} />
+      </div>
       {/* Desktop: side-by-side | Mobile: stacked */}
-      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
+      <div className="relative z-[1] pointer-events-none flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
         <div className="flex-1 min-w-0">
-          <div className="font-bold text-sm sm:text-[15px] leading-tight">{c.name}</div>
+          <div className="font-bold text-sm sm:text-[15px] leading-tight pr-10">{c.name}</div>
           <div className="text-[11px] sm:text-xs text-gray-400 mt-0.5 truncate">{c.district}, {c.state} · {c.affiliation} · Est. {c.year}</div>
           <div className="flex gap-1 sm:gap-1.5 mt-1.5 sm:mt-2 flex-wrap">
             <span className={`px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-semibold ${c.type === "Government" ? "bg-green-50 text-green-600" : c.type === "Deemed University" ? "bg-amber-50 text-amber-700" : c.type === "Private University" ? "bg-violet-50 text-violet-700" : "bg-blue-50 text-blue-600"}`}>{c.type}</span>
@@ -87,7 +93,7 @@ const CollegeCard = React.memo(function CollegeCard({ c, borderClass }: { c: Col
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 });
 
@@ -370,7 +376,7 @@ function CollegesPageInner() {
         /* Flat View (when a section filter is active) */
         <div className="space-y-3">
           {filtered.map(c => {
-            const s = SECTIONS.find(s => s.key === c.type)!;
+            const s = SECTIONS.find(s => s.key === c.type);
             return <CollegeCard key={c.id} c={c} borderClass={s?.border || "border-l-gray-300"} />;
           })}
         </div>

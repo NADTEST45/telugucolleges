@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/components/AuthProvider";
 
 const TABS = [
   {
@@ -65,14 +66,12 @@ const TABS = [
     ),
   },
   {
-    label: "Compare",
-    href: "/compare",
+    label: "Shortlist",
+    href: "/account/shortlist",
+    authHref: "/login",
     icon: (active: boolean) => (
       <svg className="w-5 h-5" fill={active ? "currentColor" : "none"} viewBox="0 0 24 24" stroke="currentColor" strokeWidth={active ? 0 : 1.5} aria-hidden="true">
-        {active
-          ? <path fillRule="evenodd" d="M3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Zm4.5 1.5a.75.75 0 0 0-.75.75v7.5a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75Zm4.5 0a.75.75 0 0 0-.75.75v7.5a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75Zm3.75.75a.75.75 0 0 1 1.5 0v7.5a.75.75 0 0 1-1.5 0v-7.5Z" clipRule="evenodd" />
-          : <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
-        }
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
       </svg>
     ),
   },
@@ -80,11 +79,16 @@ const TABS = [
 
 export default function BottomNav() {
   const pathname = usePathname();
+  const { user, loading } = useAuth();
 
   return (
     <nav className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-t border-gray-200/80 safe-area-bottom" role="navigation" aria-label="Main navigation">
       <div className="flex items-stretch justify-around h-[52px] pb-[env(safe-area-inset-bottom)]">
         {TABS.map(tab => {
+          // Don't flip label to "Login" while auth is still loading (prevents CLS)
+          const isAuthTab = "authHref" in tab;
+          const href = (isAuthTab && !user && !loading) ? (tab as { authHref: string }).authHref : tab.href;
+          const label = (isAuthTab && !user && !loading) ? "Login" : tab.label;
           const isActive = tab.href === "/"
             ? pathname === "/"
             : pathname.startsWith(tab.href);
@@ -92,15 +96,15 @@ export default function BottomNav() {
           return (
             <Link
               key={tab.href}
-              href={tab.href}
+              href={href}
               aria-label={tab.label}
               className={`flex flex-col items-center justify-center flex-1 gap-0.5 transition-colors active:scale-95 ${
                 isActive ? "text-[#2e86c1]" : "text-gray-400"
               }`}
             >
               {tab.icon(isActive)}
-              <span className={`text-[10px] leading-none ${isActive ? "font-bold" : "font-medium"}`}>
-                {tab.label}
+              <span className={`text-[11px] leading-none ${isActive ? "font-bold" : "font-medium"}`}>
+                {label}
               </span>
             </Link>
           );
