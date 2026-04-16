@@ -72,7 +72,7 @@ function DownloadCutoffPDF({ collegeName, tableRef, category, gender }: { colleg
       const safeName = collegeName.replace(/[^a-zA-Z0-9]/g, "_").substring(0, 40);
       pdf.save(`${safeName}_Cutoffs.pdf`);
     } catch (err) {
-      console.error("PDF generation failed:", err);
+      // PDF generation failed — error details omitted for security
     } finally {
       setDownloading(false);
     }

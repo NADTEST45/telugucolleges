@@ -105,7 +105,7 @@ export async function getCollegesMerged(): Promise<College[]> {
       return collegeOverrides ? applyOverrides(c, collegeOverrides) : c;
     });
   } catch (err) {
-    console.error("Failed to fetch overrides:", err);
+    // Failed to fetch overrides — returning static data
     return COLLEGES;
   }
 }

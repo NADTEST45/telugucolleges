@@ -110,7 +110,6 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (error) {
-      console.error("Submit error:", error);
       return NextResponse.json({ error: "Failed to submit edit" }, { status: 500 });
     }
 
@@ -126,7 +125,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ edit: data });
   } catch (err) {
-    console.error("Submit error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

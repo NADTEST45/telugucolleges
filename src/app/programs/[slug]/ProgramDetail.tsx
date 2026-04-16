@@ -115,6 +115,7 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
       <div className="bg-white rounded-xl p-4 shadow-sm mb-4">
         <div className="flex flex-wrap gap-3 items-center">
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search college name, district, or code..."
+            aria-label="Search colleges by name, district, or code"
             className="flex-1 min-w-[200px] px-4 py-2 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-blue-200" />
           <select value={sort} onChange={e => setSort(e.target.value)} className={`${sel} font-semibold`}>
             <option value="fee_low">Fee: Low → High</option>

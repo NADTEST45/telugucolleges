@@ -36,13 +36,11 @@ export async function GET() {
       .limit(MAX_SHORTLISTS);
 
     if (error) {
-      console.error("Shortlist fetch error:", error);
       return NextResponse.json({ error: "Failed to fetch shortlist" }, { status: 500 });
     }
 
     return NextResponse.json({ shortlists: data });
   } catch (err) {
-    console.error("Shortlist GET error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
@@ -96,13 +94,11 @@ export async function POST(req: NextRequest) {
       if (error.code === "23505") {
         return NextResponse.json({ shortlist: { college_slug, program: program || null } }, { status: 201 });
       }
-      console.error("Shortlist insert error:", error);
       return NextResponse.json({ error: "Failed to add to shortlist" }, { status: 500 });
     }
 
     return NextResponse.json({ shortlist: data }, { status: 201 });
   } catch (err) {
-    console.error("Shortlist POST error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
@@ -143,13 +139,11 @@ export async function DELETE(req: NextRequest) {
     const { error } = await query;
 
     if (error) {
-      console.error("Shortlist delete error:", error);
       return NextResponse.json({ error: "Failed to remove from shortlist" }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error("Shortlist DELETE error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

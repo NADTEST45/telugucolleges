@@ -4,12 +4,17 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Privacy Policy | TeluguColleges",
   description: "Privacy policy for TeluguColleges.com — how we collect, use, store, and protect your data.",
+  openGraph: {
+    title: "Privacy Policy | TeluguColleges",
+    description: "Privacy policy for TeluguColleges.com — how we collect, use, store, and protect your data.",
+    images: [{ url: "https://telugucolleges.com/og-image.png", width: 1200, height: 630 }],
+  },
 };
 
 export default function PrivacyPage() {
   return (
     <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
-      <nav className="text-sm text-gray-400 mb-6 flex items-center gap-1.5">
+      <nav className="text-sm text-gray-500 mb-6 flex items-center gap-1.5">
         <Link href="/" className="hover:text-[#2e86c1]">Home</Link>
         <span>/</span>
         <span className="text-gray-600 font-medium">Privacy Policy</span>

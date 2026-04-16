@@ -50,14 +50,14 @@ export default function NewsPage() {
   return (
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
       {/* Breadcrumb */}
-      <nav className="text-sm text-gray-400 mb-4 flex items-center gap-1.5">
+      <nav className="text-sm text-gray-600 mb-4 flex items-center gap-1.5">
         <Link href="/" className="hover:text-[#2e86c1]">Home</Link>
         <span>/</span>
         <span className="text-gray-600 font-medium">News & Alerts</span>
       </nav>
 
       <h1 className="text-2xl sm:text-3xl font-bold mb-2">Admission News & Alerts</h1>
-      <p className="text-sm text-gray-500 mb-6">Latest updates on EAPCET 2026, fee notifications, counselling schedules, and more for AP & Telangana.</p>
+      <p className="text-sm text-gray-600 mb-6">Latest updates on EAPCET 2026, fee notifications, counselling schedules, and more for AP & Telangana.</p>
 
       {/* EAPCET 2026 Quick Dates Banner */}
       <section className="bg-gradient-to-r from-[#0f2b3d] via-[#1a5276] to-[#2e86c1] text-white rounded-2xl p-4 sm:p-6 mb-8 relative overflow-hidden">
@@ -72,12 +72,12 @@ export default function NewsPage() {
                 <span className="font-semibold text-sm">AP EAPCET 2026</span>
               </div>
               <div className="space-y-1.5 text-sm">
-                <div className="flex justify-between"><span className="opacity-70">Registration</span><span className="font-semibold">Feb 4 — Mar 17</span></div>
-                <div className="flex justify-between"><span className="opacity-70">Late fee deadline</span><span className="font-semibold">Apr 3</span></div>
-                <div className="flex justify-between"><span className="opacity-70">Engineering Exam</span><span className="font-bold text-green-300">May 12–15, 18</span></div>
-                <div className="flex justify-between"><span className="opacity-70">Agri/Pharmacy</span><span className="font-semibold">May 19–20</span></div>
-                <div className="flex justify-between"><span className="opacity-70">Results (Expected)</span><span className="font-semibold">June 2026</span></div>
-                <div className="flex justify-between"><span className="opacity-70">Counselling</span><span className="font-semibold">July 2026</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Registration</span><span className="font-semibold">Feb 4 — Mar 17</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Late fee deadline</span><span className="font-semibold">Apr 3</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Engineering Exam</span><span className="font-bold text-green-300">May 12–15, 18</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Agri/Pharmacy</span><span className="font-semibold">May 19–20</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Results (Expected)</span><span className="font-semibold">June 2026</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Counselling</span><span className="font-semibold">July 2026</span></div>
               </div>
               <a href="https://cets.apsche.ap.gov.in/EAPCET/" target="_blank" rel="noopener noreferrer" className="inline-block mt-3 text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-colors">
                 Apply Now →
@@ -90,12 +90,12 @@ export default function NewsPage() {
                 <span className="font-semibold text-sm">TG EAPCET 2026</span>
               </div>
               <div className="space-y-1.5 text-sm">
-                <div className="flex justify-between"><span className="opacity-70">Registration</span><span className="font-semibold">Feb 19 — Apr 4</span></div>
-                <div className="flex justify-between"><span className="opacity-70">Late fee deadline</span><span className="font-semibold">May 2</span></div>
-                <div className="flex justify-between"><span className="opacity-70">Agri/Pharmacy</span><span className="font-semibold">May 4–5</span></div>
-                <div className="flex justify-between"><span className="opacity-70">Engineering Exam</span><span className="font-bold text-blue-300">May 9–11</span></div>
-                <div className="flex justify-between"><span className="opacity-70">Results (Expected)</span><span className="font-semibold">June 2026</span></div>
-                <div className="flex justify-between"><span className="opacity-70">Counselling</span><span className="font-semibold">Jul–Aug 2026</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Registration</span><span className="font-semibold">Feb 19 — Apr 4</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Late fee deadline</span><span className="font-semibold">May 2</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Agri/Pharmacy</span><span className="font-semibold">May 4–5</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Engineering Exam</span><span className="font-bold text-blue-300">May 9–11</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Results (Expected)</span><span className="font-semibold">June 2026</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Counselling</span><span className="font-semibold">Jul–Aug 2026</span></div>
               </div>
               <a href="https://eapcet.tgche.ac.in/" target="_blank" rel="noopener noreferrer" className="inline-block mt-3 text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-colors">
                 Apply Now →
@@ -148,7 +148,7 @@ export default function NewsPage() {
       {/* All News */}
       <div className="space-y-3">
         {rest.length === 0 && (
-          <div className="text-center py-12 text-gray-400">
+          <div className="text-center py-12 text-gray-600">
             <div className="text-3xl mb-2">📰</div>
             <p className="font-semibold">No news found for this filter</p>
             <p className="text-xs mt-1">Try removing filters to see all updates</p>
@@ -191,13 +191,13 @@ function NewsCard({ item, expanded, onToggle, highlight }: { item: NewsItem; exp
                   {pBadge.label}
                 </span>
               )}
-              <span className="text-[11px] text-gray-400 ml-auto shrink-0">{daysAgo(item.date)}</span>
+              <span className="text-[11px] text-gray-600 ml-auto shrink-0">{daysAgo(item.date)}</span>
             </div>
             <h3 className="font-bold text-sm sm:text-base leading-snug mb-1">{item.title}</h3>
             <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">{item.summary}</p>
           </div>
           <div className="shrink-0 mt-1">
-            <svg className={`w-5 h-5 text-gray-400 transition-transform ${expanded ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+            <svg className={`w-5 h-5 text-gray-600 transition-transform ${expanded ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
           </div>
         </div>
       </button>
@@ -206,7 +206,7 @@ function NewsCard({ item, expanded, onToggle, highlight }: { item: NewsItem; exp
         <div className="px-5 pb-5 border-t border-gray-100">
           <div className="pt-4 text-sm text-gray-600 leading-relaxed whitespace-pre-line">{item.body}</div>
           {item.source && (
-            <div className="mt-4 flex items-center gap-2 text-xs text-gray-400">
+            <div className="mt-4 flex items-center gap-2 text-xs text-gray-600">
               <span>Source: {item.source}</span>
               {item.sourceUrl && (
                 <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-[#2e86c1] hover:underline">
@@ -218,7 +218,7 @@ function NewsCard({ item, expanded, onToggle, highlight }: { item: NewsItem; exp
           {item.tags.length > 0 && (
             <div className="mt-3 flex gap-1.5 flex-wrap">
               {item.tags.map(tag => (
-                <span key={tag} className="bg-gray-100 text-gray-500 px-2 py-0.5 rounded text-[10px]">{tag}</span>
+                <span key={tag} className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded text-[10px]">{tag}</span>
               ))}
             </div>
           )}

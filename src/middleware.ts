@@ -83,7 +83,7 @@ export async function middleware(request: NextRequest) {
         authenticatedUser = { id: user.id };
       }
     } catch (err) {
-      console.warn("Middleware session refresh failed:", err);
+      // Session refresh failed — error details omitted for security
     }
   }
 

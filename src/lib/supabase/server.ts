@@ -25,9 +25,7 @@ export async function createSupabaseServer() {
           } catch (err) {
             // setAll can fail in Server Components (read-only context).
             // The middleware handles session refresh, so this is recoverable.
-            if (process.env.NODE_ENV === "development") {
-              console.warn("Supabase cookie refresh failed (expected in Server Components):", err);
-            }
+            // Error details omitted for security.
           }
         },
       },

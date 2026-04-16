@@ -24,7 +24,6 @@ export async function GET() {
 
     return NextResponse.json({ users: data });
   } catch (err) {
-    console.error("Get users error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
@@ -68,7 +67,6 @@ export async function POST(req: NextRequest) {
     });
 
     if (authError || !authData.user) {
-      console.error("Auth create error:", authError);
       return NextResponse.json({ error: authError?.message || "Failed to create auth user" }, { status: 500 });
     }
 
@@ -86,7 +84,6 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (userError) {
-      console.error("Admin user create error:", userError);
       await sb.auth.admin.deleteUser(authData.user.id);
       return NextResponse.json({ error: "Failed to create admin record" }, { status: 500 });
     }
@@ -103,7 +100,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ user: adminUser });
   } catch (err) {
-    console.error("Create user error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

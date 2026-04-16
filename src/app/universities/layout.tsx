@@ -9,8 +9,9 @@ export const metadata: Metadata = {
     description:
       "Compare deemed and private universities in AP & Telangana — fees, placements, rankings, and accreditations.",
     type: "website",
+    images: [{ url: "https://telugucolleges.com/og-image.png", width: 1200, height: 630 }],
   },
-  twitter: { card: "summary_large_image" },
+  twitter: { card: "summary_large_image", images: ["https://telugucolleges.com/og-image.png"] },
   alternates: { canonical: "https://telugucolleges.com/universities" },
 };
 

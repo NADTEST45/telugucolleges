@@ -282,6 +282,7 @@ export default function UniversitiesPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search universities by name, district, or code..."
+            aria-label="Search universities by name, district, or code"
             className="w-full sm:flex-1 px-3 sm:px-4 py-2 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-blue-200"
           />
           <div className="flex gap-2 sm:gap-3">

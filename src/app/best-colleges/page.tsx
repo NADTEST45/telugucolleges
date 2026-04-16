@@ -15,6 +15,7 @@ export const metadata = {
     siteName: "TeluguColleges.com",
     type: "website",
     locale: "en_IN",
+    images: [{ url: "https://telugucolleges.com/og-image.png", width: 1200, height: 630 }],
   },
   alternates: {
     canonical: `${SITE_URL}/best-colleges`,

@@ -31,13 +31,11 @@ export async function GET(req: NextRequest) {
     const { data, error } = await query;
 
     if (error) {
-      console.error("Get edits error:", error);
       return NextResponse.json({ error: "Failed to fetch edits" }, { status: 500 });
     }
 
     return NextResponse.json({ edits: data });
   } catch (err) {
-    console.error("Get edits error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

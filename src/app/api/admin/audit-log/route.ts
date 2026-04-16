@@ -43,13 +43,11 @@ export async function GET(req: NextRequest) {
     const { data, error, count } = await query;
 
     if (error) {
-      console.error("Audit log fetch error:", error);
       return NextResponse.json({ error: "Failed to fetch audit logs" }, { status: 500 });
     }
 
     return NextResponse.json({ logs: data, total: count, limit, offset });
   } catch (err) {
-    console.error("Audit log error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

@@ -15,9 +15,10 @@ export const metadata: Metadata = {
     siteName: "TeluguColleges.com",
     type: "website",
     locale: "en_IN",
+    images: [{ url: "https://telugucolleges.com/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Engineering Admission News | TeluguColleges",
     description:
       "Latest engineering entrance exam news — AP EAPCET, TS EAPCET, JEE, BITSAT & more.",

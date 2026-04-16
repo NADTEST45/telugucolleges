@@ -15,9 +15,10 @@ export const metadata: Metadata = {
     siteName: "TeluguColleges.com",
     type: "website",
     locale: "en_IN",
+    images: [{ url: "https://telugucolleges.com/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "EAPCET Rank Predictor — College Cutoff Finder | TeluguColleges",
     description:
       "Enter your AP or TS EAPCET rank to find matching B.Tech colleges with official cutoff data.",

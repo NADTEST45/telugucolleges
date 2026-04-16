@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 
@@ -75,12 +76,14 @@ export default function UserNavMenu() {
         aria-label="Account menu"
       >
         {isSafeImageUrl(avatarUrl) ? (
-          <img
+          <Image
             src={avatarUrl}
             alt=""
+            width={36}
+            height={36}
             className="w-9 h-9 rounded-full object-cover"
             referrerPolicy="no-referrer"
-            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+            unoptimized
           />
         ) : (
           initial

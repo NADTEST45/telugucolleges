@@ -7,6 +7,11 @@ import { fmtFee } from "@/lib/colleges";
 export const metadata: Metadata = {
   title: "Engineering Branches — CSE, ECE, EEE & More | TeluguColleges",
   description: "Explore all B.Tech branches offered in AP & Telangana colleges — fees, scope, placements, and top colleges for each branch.",
+  openGraph: {
+    title: "Engineering Branches — CSE, ECE, EEE & More | TeluguColleges",
+    description: "Explore all B.Tech branches offered in AP & Telangana colleges — fees, scope, placements, and top colleges for each branch.",
+    images: [{ url: "https://telugucolleges.com/og-image.png", width: 1200, height: 630 }],
+  },
 };
 
 const CATEGORY_META: Record<string, { label: string; subtitle: string; color: string; icon: string }> = {

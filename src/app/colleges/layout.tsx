@@ -15,9 +15,10 @@ export const metadata: Metadata = {
     siteName: "TeluguColleges.com",
     type: "website",
     locale: "en_IN",
+    images: [{ url: "https://telugucolleges.com/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "All Engineering Colleges in AP & Telangana | TeluguColleges",
     description:
       "Browse 837+ B.Tech colleges in AP & TS with fees, cutoffs, NAAC & NIRF data.",

@@ -42,6 +42,7 @@ function CollegeSearchSelect({ selected, onSelect, stateFilter }: {
           onChange={e => { setQ(e.target.value); setOpen(true); }}
           onFocus={() => setOpen(true)}
           placeholder="Type to search colleges / universities..."
+          aria-label="Search colleges and universities to compare"
           className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-gray-200 text-sm outline-none focus:border-[#2e86c1] focus:ring-1 focus:ring-[#2e86c1]/30 transition-all"
         />
       </div>

@@ -52,7 +52,6 @@ export async function POST(req: NextRequest) {
       .eq("id", edit_id);
 
     if (updateError) {
-      console.error("Review update error:", updateError);
       return NextResponse.json({ error: "Failed to update edit" }, { status: 500 });
     }
 
@@ -70,7 +69,6 @@ export async function POST(req: NextRequest) {
         }, { onConflict: "college_code,field_name" });
 
       if (overrideError) {
-        console.error("Override upsert error:", overrideError);
         return NextResponse.json(
           { error: "Edit approved but failed to save override. Please retry." },
           { status: 500 }
@@ -96,7 +94,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ status: newStatus, edit_id });
   } catch (err) {
-    console.error("Review error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
