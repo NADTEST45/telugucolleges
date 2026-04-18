@@ -1,6 +1,7 @@
 "use client";
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
+import { Target } from "lucide-react";
 import { COLLEGES, fmtFee, College } from "@/lib/colleges";
 import { AP_CUTOFFS, AP_CUTOFF_YEARS, CATEGORIES, catKey, type Category, type Gender } from "@/lib/ap-cutoffs";
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
@@ -383,7 +384,7 @@ export default function EAPCETPage() {
 
         {rank && predictions.length === 0 && parseInt(rank) > 0 && (
           <div className="text-center py-8 text-gray-400">
-            <div className="text-4xl mb-2">🎯</div>
+            <Target className="w-12 h-12 mx-auto mb-2 text-gray-400" aria-hidden="true" />
             <p className="font-semibold">No colleges found for this rank</p>
             <p className="text-xs mt-1">Try a different branch, category, or remove the state filter</p>
           </div>

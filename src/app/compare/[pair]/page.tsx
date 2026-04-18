@@ -2,6 +2,7 @@ import { getComparisonPair, getAllPairSlugs } from "@/lib/comparison-pairs";
 import { fmtFee } from "@/lib/colleges";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { Check } from "lucide-react";
 import type { Metadata } from "next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
@@ -279,31 +280,31 @@ export default async function ComparePairPage({
           <ul className="text-sm text-gray-700 space-y-2">
             {college1.fee > 0 && college1.fee < college2.fee && (
               <li className="flex items-start gap-2">
-                <span className="text-green-600 font-bold mt-0.5">✓</span>
+                <Check className="w-4 h-4 text-green-600 mt-0.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
                 <span>Lower annual fee ({fmtFee(college1.fee)})</span>
               </li>
             )}
             {college1.cutoff.cse > 0 && college1.cutoff.cse < college2.cutoff.cse && (
               <li className="flex items-start gap-2">
-                <span className="text-green-600 font-bold mt-0.5">✓</span>
+                <Check className="w-4 h-4 text-green-600 mt-0.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
                 <span>Better CSE cutoff rank ({college1.cutoff.cse.toLocaleString()})</span>
               </li>
             )}
             {college1.placements.avg > 0 && college1.placements.avg > college2.placements.avg && (
               <li className="flex items-start gap-2">
-                <span className="text-green-600 font-bold mt-0.5">✓</span>
+                <Check className="w-4 h-4 text-green-600 mt-0.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
                 <span>Higher average placement (₹{college1.placements.avg} LPA)</span>
               </li>
             )}
             {college1.naac !== "-" && college1.naac && (
               <li className="flex items-start gap-2">
-                <span className="text-green-600 font-bold mt-0.5">✓</span>
+                <Check className="w-4 h-4 text-green-600 mt-0.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
                 <span>NAAC Grade {college1.naac}</span>
               </li>
             )}
             {college1.nba && (
               <li className="flex items-start gap-2">
-                <span className="text-green-600 font-bold mt-0.5">✓</span>
+                <Check className="w-4 h-4 text-green-600 mt-0.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
                 <span>NBA accredited programs</span>
               </li>
             )}
@@ -319,31 +320,31 @@ export default async function ComparePairPage({
           <ul className="text-sm text-gray-700 space-y-2">
             {college2.fee > 0 && college2.fee < college1.fee && (
               <li className="flex items-start gap-2">
-                <span className="text-green-600 font-bold mt-0.5">✓</span>
+                <Check className="w-4 h-4 text-green-600 mt-0.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
                 <span>Lower annual fee ({fmtFee(college2.fee)})</span>
               </li>
             )}
             {college2.cutoff.cse > 0 && college2.cutoff.cse < college1.cutoff.cse && (
               <li className="flex items-start gap-2">
-                <span className="text-green-600 font-bold mt-0.5">✓</span>
+                <Check className="w-4 h-4 text-green-600 mt-0.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
                 <span>Better CSE cutoff rank ({college2.cutoff.cse.toLocaleString()})</span>
               </li>
             )}
             {college2.placements.avg > 0 && college2.placements.avg > college1.placements.avg && (
               <li className="flex items-start gap-2">
-                <span className="text-green-600 font-bold mt-0.5">✓</span>
+                <Check className="w-4 h-4 text-green-600 mt-0.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
                 <span>Higher average placement (₹{college2.placements.avg} LPA)</span>
               </li>
             )}
             {college2.naac !== "-" && college2.naac && (
               <li className="flex items-start gap-2">
-                <span className="text-green-600 font-bold mt-0.5">✓</span>
+                <Check className="w-4 h-4 text-green-600 mt-0.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
                 <span>NAAC Grade {college2.naac}</span>
               </li>
             )}
             {college2.nba && (
               <li className="flex items-start gap-2">
-                <span className="text-green-600 font-bold mt-0.5">✓</span>
+                <Check className="w-4 h-4 text-green-600 mt-0.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
                 <span>NBA accredited programs</span>
               </li>
             )}
