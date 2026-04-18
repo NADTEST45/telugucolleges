@@ -1,6 +1,7 @@
 "use client";
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { Landmark, SearchX } from "lucide-react";
 import { COLLEGES, fmtFee, College } from "@/lib/colleges";
 import AdSlot from "@/components/ads/AdSlot";
 
@@ -191,7 +192,7 @@ export default function UniversitiesPage() {
       {/* Fee Regulation Info */}
       <div className="mb-6 rounded-xl border border-amber-100 bg-gradient-to-r from-amber-50 to-orange-50 p-3 sm:p-4">
         <div className="flex items-start gap-2">
-          <span className="text-base mt-0.5">🏛️</span>
+          <Landmark className="w-4 h-4 mt-0.5 text-amber-700 shrink-0" aria-hidden="true" />
           <div className="flex-1 min-w-0">
             <div className="font-semibold text-sm text-gray-700 mb-1">Fee Regulation & Admissions</div>
             <div className="space-y-1">
@@ -359,7 +360,7 @@ export default function UniversitiesPage() {
 
       {filtered.length === 0 && (
         <div className="text-center py-16 text-gray-400">
-          <div className="text-5xl mb-3">🔍</div>
+          <SearchX className="w-14 h-14 mx-auto mb-3 text-gray-400" aria-hidden="true" />
           <div className="text-lg font-semibold">No universities match your filters</div>
           <button
             onClick={clearAll}

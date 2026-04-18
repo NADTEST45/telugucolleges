@@ -1,6 +1,7 @@
 "use client";
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { Newspaper } from "lucide-react";
 import { NEWS_ITEMS, NEWS_CATEGORIES, type NewsItem } from "@/lib/news";
 
 function formatDate(dateStr: string): string {
@@ -149,7 +150,7 @@ export default function NewsPage() {
       <div className="space-y-3">
         {rest.length === 0 && (
           <div className="text-center py-12 text-gray-600">
-            <div className="text-3xl mb-2">📰</div>
+            <Newspaper className="w-10 h-10 mx-auto mb-2 text-gray-400" aria-hidden="true" />
             <p className="font-semibold">No news found for this filter</p>
             <p className="text-xs mt-1">Try removing filters to see all updates</p>
           </div>

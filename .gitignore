@@ -17,3 +17,4 @@ gh_*/
 *.mermaid
 check.ts
 .~lock.*
+_reference/
