@@ -35,8 +35,12 @@ export async function generateSitemaps() {
   ];
 }
 
-export default async function sitemap({ id }: { id: number }): Promise<MetadataRoute.Sitemap> {
-  switch (id) {
+export default async function sitemap({ id }: { id: number | string }): Promise<MetadataRoute.Sitemap> {
+  // Next.js 16 passes `id` as a string from the URL (e.g. "0", "1"), so a
+  // strict numeric switch never matches and every sub-sitemap returns empty.
+  // Coerce to a number so the cases below work for both runtime shapes.
+  const sectionId = Number(id);
+  switch (sectionId) {
     // ── Static pages + branches + programs ──
     case 0:
       return [
