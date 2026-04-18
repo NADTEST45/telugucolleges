@@ -2,6 +2,9 @@ import Link from "next/link";
 import { COLLEGES, fmtFee } from "@/lib/colleges";
 import { getLatestNews } from "@/lib/news";
 import AdSlot from "@/components/ads/AdSlot";
+import JsonLd from "@/components/JsonLd";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export default function Home() {
   const stats = {
@@ -23,8 +26,50 @@ export default function Home() {
   const topAP = COLLEGES.filter(c => c.state === "Andhra Pradesh" && c.cutoff.cse > 0).sort((a, b) => a.cutoff.cse - b.cutoff.cse).slice(0, 5);
   const cheapest = [...COLLEGES].filter(c => c.fee > 0 && c.branches.some(b => ["CSE","ECE","EEE","MECH","CIVIL"].includes(b))).sort((a, b) => a.fee - b.fee).slice(0, 6);
 
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: "TeluguColleges.com",
+      url: SITE_URL,
+      description:
+        "Research professional colleges in Andhra Pradesh & Telangana. Official fees, real EAPCET cutoffs, placements and comparison tools.",
+      inLanguage: "en-IN",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${SITE_URL}/colleges?q={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "TeluguColleges.com",
+      url: SITE_URL,
+      logo: `${SITE_URL}/og-image.png`,
+      description:
+        "Directory of engineering, pharmacy, medical and management colleges in Andhra Pradesh and Telangana with official fees and cutoffs.",
+      areaServed: [
+        { "@type": "State", name: "Andhra Pradesh" },
+        { "@type": "State", name: "Telangana" },
+      ],
+      contactPoint: {
+        "@type": "ContactPoint",
+        email: "contact@telugucolleges.com",
+        contactType: "customer support",
+        availableLanguage: ["en", "te"],
+      },
+    },
+  ];
+
   return (
     <main>
+      <JsonLd data={jsonLd} />
       {/* Hero */}
       <section className="bg-gradient-to-br from-[#0f2b3d] via-[#1a5276] to-[#2e86c1] text-white px-4 sm:px-6 pt-10 sm:pt-16 pb-14 sm:pb-20 text-center relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.04]" style={{backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "32px 32px"}} />

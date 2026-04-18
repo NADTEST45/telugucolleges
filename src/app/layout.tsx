@@ -35,6 +35,16 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  // Google Search Console ownership verification.
+  // Token below is the content value from GSC HTML-tag method — it's public
+  // (it ships in HTML) so hardcoding is safe. Override via env if rotating.
+  // Do not remove after verification — Google re-checks periodically.
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION || "dHaLUgeUIggBIhl75GPQUWBB4X5b5psEuEfWZzMC-wk",
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
