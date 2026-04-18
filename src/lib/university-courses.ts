@@ -197,7 +197,10 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "M.Tech", fee: 90000, duration: 2, level: "PG" },
   ],
 
-  "MITS": [ // MITS Madanapalle — Chittoor (mits.ac.in/admisson — Fee Details 2026-27 PDF)
+  "MITS": [ // MITS Madanapalle — Chittoor (mits.ac.in/assets/pdf/admin/Fee Details 2026-27.pdf)
+    // Fees below are annual BASE (sticker) fees per year (2× per-sem from PDF).
+    // MITS offers tiered scholarships reducing these based on 10+2, CBSE/ICSE,
+    // State CET and JEE performance — see scholarships.ts for detail.
     { program: "B.Tech", specialization: "CSE", fee: 250000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 250000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (AI & Data Science)", fee: 250000, duration: 4, level: "UG" },
@@ -207,8 +210,11 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "B.Tech", specialization: "Civil", fee: 130000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "EEE", fee: 130000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "Mechanical", fee: 130000, duration: 4, level: "UG" },
+    { program: "BBA", fee: 90000, duration: 3, level: "UG" },
+    { program: "BCA", fee: 90000, duration: 3, level: "UG" },
     { program: "MBA", fee: 120000, duration: 2, level: "PG" },
-    { program: "M.Tech", fee: 100000, duration: 2, level: "PG" },
+    { program: "MCA", fee: 120000, duration: 2, level: "PG" },
+    { program: "M.Tech", fee: 70000, duration: 2, level: "PG" },
     { program: "Ph.D", fee: 80000, duration: 3, level: "Doctoral" },
   ],
 
