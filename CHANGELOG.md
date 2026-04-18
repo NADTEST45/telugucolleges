@@ -2,7 +2,6 @@
 
 > Last updated: March 12, 2026
 > Production URL: https://telugucolleges.vercel.app
-> Vercel account: nadtest45
 
 ---
 
@@ -21,7 +20,7 @@
 4. `npm install lightningcss` (peer dep that sometimes needs manual install)
 5. `npm run dev` → runs at http://localhost:3000
 6. `npm run build` → should generate ~839 static pages
-7. To deploy: `npx vercel --yes --prod` (log in to nadtest45 account first via `npx vercel login`)
+7. To deploy: `npx vercel --yes --prod` (log in to your Vercel account first via `npx vercel login`)
 
 ### Tech Stack
 - **Framework**: Next.js 16.1.6 (App Router, Static Site Generation)

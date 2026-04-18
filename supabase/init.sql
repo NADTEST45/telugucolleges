@@ -119,8 +119,8 @@ CREATE POLICY "No direct access to audit log"
   USING (false);
 
 -- ============================================================
--- Seed super admin (Sujeeth)
+-- Seed super admin
 -- NOTE: Run this AFTER creating the auth user via Supabase Auth
 -- ============================================================
 -- INSERT INTO admin_users (auth_id, email, role)
--- VALUES ('<auth-user-uuid>', 'nadellasujeeth@hotmail.com', 'super_admin');
+-- VALUES ('<auth-user-uuid>', '<your-email>', 'super_admin');
