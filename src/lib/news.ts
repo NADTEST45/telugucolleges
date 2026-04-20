@@ -13,6 +13,59 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  // ── New: April 21, 2026 ───────────────────────────────────────
+  {
+    id: "jee-main-2026-session-2-results-out-april-20",
+    date: "2026-04-21",
+    title: "JEE Main 2026 Session 2 Results Declared — 5 Toppers from AP & Telangana, AIR 2 Jonnala Roshan (AP)",
+    summary: "NTA declared JEE Main 2026 Session 2 results on April 20. 26 students scored a perfect 100 percentile — 5 are from Andhra Pradesh and Telangana. Top 2,50,182 qualify for JEE Advanced.",
+    body: "The National Testing Agency (NTA) released JEE Main 2026 Session 2 results and final answer key on April 20, 2026 at jeemain.nta.nic.in.\n\nKey highlights:\n• 26 candidates scored a perfect 100 NTA percentile in Paper 1 (B.E./B.Tech)\n• Telugu states (AP + Telangana) contributed 5 of the 26 100-percentilers — the joint-highest tally\n• AIR 1: Aarush Singhal (Chandigarh)\n• AIR 2: Jonnala Roshan Mandeep Reddy (Andhra Pradesh)\n• AIR 3: Shreyas Mishra (Delhi)\n• Top female performer (All India): Mallavarapu Aasna (Telangana) with 99.9982287 percentile — no female candidate hit 100 percentile this year\n• 12 of the Session 2 toppers had also topped Session 1\n\nJEE Advanced eligibility:\n• The top 2,50,182 candidates — based on best of Session 1 + Session 2 scores — are eligible for JEE Advanced 2026\n• JEE Advanced registration opens April 23 and closes May 2, 2026\n• JEE Advanced exam: May 17, 2026 (organised by IIT Roorkee)\n\nCandidates should download their scorecards from jeemain.nta.nic.in and retain them for counselling at JoSAA/CSAB as well as for AP/TS private-university admissions (GITAM, KL University, SRM AP, VIT-AP and Vignan's accept JEE Main scores).",
+    category: "general",
+    state: "Both",
+    priority: "high",
+    source: "NTA (JEE Main 2026 Session 2 Result Notification, 20.04.2026)",
+    sourceUrl: "https://jeemain.nta.nic.in/",
+    tags: ["JEE Main", "Session 2", "Results", "NTA", "Toppers", "2026"],
+  },
+  {
+    id: "tg-engineering-fee-2025-28-go-ms-06",
+    date: "2026-04-21",
+    title: "Telangana Fixes 2025–28 B.Tech Fee Block — ₹45,000 Floor, ₹1.83 Lakh Cap (CBIT)",
+    summary: "G.O. Ms. No. 06 dated 04.03.2026 fixes B.E./B.Tech tuition fees for 160 private unaided engineering colleges in Telangana for the 2025–26 to 2027–28 block. Minimum ₹45,000/yr; CBIT tops the list at ₹1,83,000/yr.",
+    body: "The Telangana Higher Education (Technical Education) Department issued G.O. Ms. No. 06 on March 4, 2026 finalising the tuition fee structure for B.E./B.Tech programmes in private unaided engineering colleges for the three-year block 2025–26 to 2027–28. The order follows recommendations of the Telangana Admission and Fee Regulatory Committee (TAFRC).\n\nFee range:\n• Minimum annual tuition fee: ₹45,000\n• Maximum annual tuition fee: ₹1,83,000 (Chaitanya Bharathi Institute of Technology — CBIT, Hyderabad)\n• 160 private unaided engineering colleges covered\n• 63 colleges saw a fee hike relative to the 2022–25 block; some institutions saw reductions\n\nScope:\n• The fee fixed is the annual tuition fee only — it does NOT include special fee or admission fee\n• Institutions must collect fees for the applicable academic year (lump sum or in instalments)\n• Applies to both convenor quota (TGCHE counselling) and management quota seats, subject to category-wise rules\n\nWhat this means for students:\n• Convenor quota fees payable during TGCHE counselling (expected July–August 2026) are now locked for the three-year block\n• The government fee-reimbursement scheme will cover the convenor-quota tuition fee for eligible candidates as per current policy\n• Management-quota and NRI fees remain college-specific but are capped by the block ceiling\n\nTeluguColleges will update the per-college fee pages (/colleges/[slug]/fees) to reflect the 2025–28 block figures over the coming weeks as the TAFRC list is tabulated.",
+    category: "fees",
+    state: "TS",
+    priority: "high",
+    source: "Government of Telangana — Higher Education (TE) Dept., G.O. Ms. No. 06 dated 04.03.2026 / TAFRC",
+    sourceUrl: "https://tafrc.telangana.gov.in/",
+    tags: ["Telangana", "Engineering Fees", "TAFRC", "B.Tech", "2025-28", "CBIT", "Fee Block"],
+  },
+  {
+    id: "neet-ug-2026-exam-may-3-admit-card-expected",
+    date: "2026-04-21",
+    title: "NEET UG 2026 — Exam on May 3, City Slip Out, Admit Card Expected Late April",
+    summary: "NEET UG 2026 is scheduled for May 3 (2:00–5:00 PM). NTA released the exam city intimation slip on April 12; the full admit card is expected by the last week of April at neet.nta.nic.in.",
+    body: "The National Testing Agency (NTA) has confirmed key details for NEET UG 2026, the single medical/dental/AYUSH entrance exam for MBBS, BDS, BAMS, BHMS, B.V.Sc and allied courses.\n\n• Exam date: May 3, 2026 (Sunday)\n• Timing: 2:00 PM – 5:00 PM (pen-and-paper mode)\n• Exam city intimation slip: Released April 12, 2026\n• Admit card: Expected in the last week of April 2026 (around April 29)\n• Download portal: neet.nta.nic.in\n\nWhat AP/TS aspirants should do now:\n• Check the city intimation slip on neet.nta.nic.in and plan travel/accommodation early\n• Carry the printed admit card + one valid photo ID (Aadhaar preferred) to the exam centre\n• Reach the centre at least 1.5 hours before the exam; centres close gate 30 minutes before start\n• NEET UG 2026 scores are required for all MBBS/BDS admissions in AP (Dr. NTR UHS counselling) and Telangana (KNRUHS counselling), as well as central quota (MCC) and deemed universities\n\nAP/TS medical counselling is expected to start after NEET UG results, typically in July 2026.",
+    category: "general",
+    state: "Both",
+    priority: "high",
+    source: "NTA (NEET UG 2026 Schedule)",
+    sourceUrl: "https://neet.nta.nic.in/",
+    tags: ["NEET UG", "Medical", "MBBS", "NTA", "Admit Card", "2026"],
+  },
+  {
+    id: "jee-advanced-2026-registration-update-april-21",
+    date: "2026-04-21",
+    title: "Correction — JEE Advanced 2026 Organised by IIT Roorkee (Not IIT Dhanbad), Result June 1",
+    summary: "Clarifying earlier reports: JEE Advanced 2026 is organised by IIT Roorkee. Registration runs April 23 – May 2; admit card May 11; exam May 17; result June 1, 2026.",
+    body: "Confirmed schedule from the official JEE Advanced 2026 notification (jeeadv.ac.in):\n\n• Organising institute: IIT Roorkee (rotating zonal coordinator for 2026)\n• Registration opens (Indian nationals): April 23, 2026 at 10:00 IST\n• Registration closes: May 2, 2026 at 23:59 IST\n• Last date for fee payment: May 4, 2026\n• Admit card download: May 11–17, 2026\n• Exam: May 17, 2026 — Paper 1 (09:00–12:00), Paper 2 (14:30–17:30)\n• Result: June 1, 2026\n• Foreign/OCI/PIO registration opens: April 6, 2026\n\nEligibility: top 2,50,182 candidates from JEE Main 2026 (combined Session 1 + Session 2 best scores), subject to category and age rules. Architecture Aptitude Test (AAT) registration opens after the JEE Advanced result.\n\nThis notice corrects earlier coverage that referenced IIT Dhanbad and a June 8 result date — the authoritative source is the JEE (Advanced) 2026 portal.",
+    category: "general",
+    state: "Both",
+    priority: "medium",
+    source: "JEE (Advanced) 2026 — IIT Roorkee",
+    sourceUrl: "https://jeeadv.ac.in/",
+    tags: ["JEE Advanced", "IIT Roorkee", "Registration", "Correction", "2026"],
+  },
   // ── New: April 12, 2026 ───────────────────────────────────────
   {
     id: "jee-main-2026-session-2-results-expected",
@@ -31,8 +84,8 @@ export const NEWS_ITEMS: NewsItem[] = [
     id: "jee-advanced-2026-registration-april-23",
     date: "2026-04-12",
     title: "JEE Advanced 2026 — Registration Opens April 23, Exam on May 17",
-    summary: "JEE Advanced 2026 registration opens April 23. Exam scheduled for May 17 at IIT Dhanbad. Top 2.5 lakh JEE Main qualifiers eligible.",
-    body: "JEE Advanced 2026, the gateway to all 23 IITs, has confirmed its schedule.\n\n• Registration opens: April 23, 2026\n• Registration closes: April 30, 2026\n• Admit card download: May 11, 2026\n• Exam date: May 17, 2026 (Paper 1: 9 AM–12 PM, Paper 2: 2 PM–5 PM)\n• Organizing institute: IIT (ISM) Dhanbad\n• Result: June 8, 2026\n\nEligibility: Top 2,50,000 candidates from JEE Main 2026 (across all categories). Candidates must have been born on or after October 1, 2001 (relaxation for reserved categories).\n\nIIT Hyderabad remains a top choice for AP/TS students. Architecture Aptitude Test (AAT) registration opens after JEE Advanced results.",
+    summary: "JEE Advanced 2026 registration opens April 23 and closes May 2. Exam scheduled for May 17, organised by IIT Roorkee. Top 2.5 lakh JEE Main qualifiers eligible.",
+    body: "JEE Advanced 2026, the gateway to all 23 IITs, has confirmed its schedule.\n\n• Registration opens: April 23, 2026 (10:00 IST)\n• Registration closes: May 2, 2026 (23:59 IST)\n• Last date for fee payment: May 4, 2026\n• Admit card download: May 11, 2026\n• Exam date: May 17, 2026 (Paper 1: 9 AM–12 PM, Paper 2: 2:30 PM–5:30 PM)\n• Organising institute: IIT Roorkee\n• Result: June 1, 2026\n\nEligibility: Top 2,50,000 candidates from JEE Main 2026 (across all categories). Candidates must have been born on or after October 1, 2001 (relaxation for reserved categories).\n\nIIT Hyderabad remains a top choice for AP/TS students. Architecture Aptitude Test (AAT) registration opens after JEE Advanced results.",
     category: "general",
     state: "Both",
     priority: "high",
@@ -357,6 +410,7 @@ export function getNewsByCategory(category: NewsItem["category"]): NewsItem[] {
 // Category metadata
 export const NEWS_CATEGORIES: { key: NewsItem["category"]; label: string; color: string; bgColor: string }[] = [
   { key: "eapcet", label: "EAPCET 2026", color: "text-blue-700", bgColor: "bg-blue-50" },
+  { key: "fees", label: "Fees", color: "text-emerald-700", bgColor: "bg-emerald-50" },
   { key: "counselling", label: "Counselling", color: "text-purple-700", bgColor: "bg-purple-50" },
   { key: "naac-nirf", label: "NAAC / NIRF", color: "text-amber-700", bgColor: "bg-amber-50" },
   { key: "general", label: "General", color: "text-gray-700", bgColor: "bg-gray-100" },
