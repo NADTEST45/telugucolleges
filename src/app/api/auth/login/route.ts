@@ -44,6 +44,16 @@ export async function POST(req: NextRequest) {
     // Set cookies
     await setAuthCookies(authData.session.access_token, adminUser);
 
+    // Audit log
+    await sb.from("audit_log").insert({
+      action: "login",
+      actor_id: adminUser.id,
+      actor_email: adminUser.email,
+      target_type: "admin_user",
+      target_id: adminUser.id,
+      details: { role: adminUser.role, college_code: adminUser.college_code },
+    });
+
     return NextResponse.json({
       user: {
         id: adminUser.id,

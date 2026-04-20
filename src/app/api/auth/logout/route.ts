@@ -11,11 +11,25 @@ export async function POST() {
   }
 
   // Invalidate session server-side before clearing cookies
+  const sb = getServiceClient();
   try {
-    const sb = getServiceClient();
     await sb.auth.admin.signOut(user.id);
   } catch {
     // Continue with cookie cleanup even if server-side signout fails
+  }
+
+  // Audit log — write before cookie clear so session is still valid
+  try {
+    await sb.from("audit_log").insert({
+      action: "logout",
+      actor_id: user.id,
+      actor_email: user.email,
+      target_type: "admin_user",
+      target_id: user.id,
+      details: { role: user.role },
+    });
+  } catch {
+    // Non-fatal — continue
   }
 
   await clearAuthCookies();

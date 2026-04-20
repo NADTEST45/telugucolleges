@@ -49,9 +49,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 });
     }
 
-    // Enforce minimum password strength
-    if (password.length < 8) {
-      return NextResponse.json({ error: "Password must be at least 8 characters" }, { status: 400 });
+    // Enforce minimum password strength — public-facing admin accounts need real passwords.
+    // Require 12 chars and at least 3 of: lowercase / uppercase / digit / symbol.
+    if (typeof password !== "string" || password.length < 12) {
+      return NextResponse.json({ error: "Password must be at least 12 characters" }, { status: 400 });
+    }
+    const classes = [
+      /[a-z]/.test(password),
+      /[A-Z]/.test(password),
+      /[0-9]/.test(password),
+      /[^a-zA-Z0-9]/.test(password),
+    ].filter(Boolean).length;
+    if (classes < 3) {
+      return NextResponse.json({ error: "Password must include at least 3 of: lowercase, uppercase, digit, symbol" }, { status: 400 });
     }
     if (userRole === "college_admin" && (!college_code || !college_name)) {
       return NextResponse.json({ error: "college_code and college_name required for college admins" }, { status: 400 });

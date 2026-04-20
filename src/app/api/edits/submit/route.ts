@@ -39,7 +39,20 @@ export async function POST(req: NextRequest) {
     const user = await getAuthUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const { college_code, category, field_name, new_value, change_reason } = await req.json();
+    const body = await req.json();
+    const { category, field_name, new_value, change_reason } = body;
+
+    // For college_admins, derive college_code from session — body value is ignored (defense in depth).
+    // Super_admins may specify college_code in the body (e.g. submitting on behalf of a college).
+    let college_code: string | undefined;
+    if (user.role === "college_admin") {
+      if (!user.college_code) {
+        return NextResponse.json({ error: "Your account is not linked to a college" }, { status: 403 });
+      }
+      college_code = user.college_code;
+    } else {
+      college_code = body.college_code;
+    }
 
     // --- Input validation (S4) ---
     if (!college_code || !category || !field_name || new_value === undefined || !change_reason) {

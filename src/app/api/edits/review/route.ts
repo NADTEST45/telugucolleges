@@ -41,18 +41,24 @@ export async function POST(req: NextRequest) {
 
     const newStatus = action === "approve" ? "approved" : "rejected";
 
-    // Update edit request status
-    const { error: updateError } = await sb
+    // Update edit request status — .eq("status","pending") prevents double-approve race
+    const { data: updated, error: updateError } = await sb
       .from("edit_requests")
       .update({
         status: newStatus,
         reviewer_id: user.id,
         reviewer_notes: notes || null,
       })
-      .eq("id", edit_id);
+      .eq("id", edit_id)
+      .eq("status", "pending")
+      .select();
 
     if (updateError) {
       return NextResponse.json({ error: "Failed to update edit" }, { status: 500 });
+    }
+    // If another reviewer beat us to it, the row count will be 0
+    if (!updated || updated.length === 0) {
+      return NextResponse.json({ error: "Edit already reviewed by another admin" }, { status: 409 });
     }
 
     // If approved, upsert into college_overrides

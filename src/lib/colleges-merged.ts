@@ -109,3 +109,12 @@ export async function getCollegesMerged(): Promise<College[]> {
     return COLLEGES;
   }
 }
+
+/**
+ * Look up a single college by slug, with approved overrides applied.
+ * Server-side only (uses service key). Cached for 60s via ISR.
+ */
+export async function getCollegeBySlugMerged(slug: string): Promise<College | undefined> {
+  const merged = await getCollegesMerged();
+  return merged.find(c => c.slug === slug);
+}

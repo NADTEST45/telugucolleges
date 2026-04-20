@@ -158,6 +158,17 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  /* ── Rate limiting: edit reviews (60 per hour per IP) ── */
+  if (pathname === "/api/edits/review" && request.method === "POST") {
+    const ip = getClientIp(request);
+    if (isRateLimited(`edit_review:${ip}`, 60, 60 * 60 * 1000)) {
+      return NextResponse.json(
+        { error: "Too many review actions. Please try again later." },
+        { status: 429 }
+      );
+    }
+  }
+
   /* ── Rate limiting: audit-log reads (30 per min per IP) ── */
   if (pathname === "/api/admin/audit-log" && request.method === "GET") {
     const ip = getClientIp(request);

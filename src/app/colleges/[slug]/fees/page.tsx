@@ -1,4 +1,5 @@
 import { COLLEGES, getCollegeBySlug, fmtFee } from "@/lib/colleges";
+import { getCollegeBySlugMerged, getCollegesMerged } from "@/lib/colleges-merged";
 import { AP_CUTOFFS, AP_CUTOFF_YEARS, CollegeCutoffs, YearCutoffs } from "@/lib/ap-cutoffs";
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
 import { TS_PHASES, getTSPhaseCutoffs, type PhaseKey } from "@/lib/ts-cutoffs-phases";
@@ -18,7 +19,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const c = getCollegeBySlug(slug);
+  const c = await getCollegeBySlugMerged(slug);
   if (!c) return {};
 
   const feeInfo = c.fee > 0 ? `${fmtFee(c.fee)}/yr` : "Variable";
@@ -184,10 +185,11 @@ function buildFaqJsonLd(faqs: FAQItem[]) {
 
 export default async function FeesPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const c = getCollegeBySlug(slug);
+  const mergedColleges = await getCollegesMerged();
+  const c = mergedColleges.find(col => col.slug === slug);
   if (!c) notFound();
 
-  const similar = COLLEGES.filter(s => s.id !== c.id && s.state === c.state && s.cutoff.cse > 0 && c.cutoff.cse > 0 && Math.abs(s.cutoff.cse - c.cutoff.cse) < 5000).slice(0, 4);
+  const similar = mergedColleges.filter(s => s.id !== c.id && s.state === c.state && s.cutoff.cse > 0 && c.cutoff.cse > 0 && Math.abs(s.cutoff.cse - c.cutoff.cse) < 5000).slice(0, 4);
   const historicalCutoffs = (c.state === "Telangana" ? TS_CUTOFFS[c.code] : AP_CUTOFFS[c.code]) || null;
   const cutoffYears = c.state === "Telangana" ? TS_CUTOFF_YEARS : AP_CUTOFF_YEARS;
 
