@@ -11,7 +11,10 @@ import { LogoMark } from "@/components/Logo";
 // Build-time constant. Evaluated when this module is bundled, so it
 // reflects the last production deploy (which is when static data was
 // last rolled up; approved edits still refresh every 60s via ISR).
-const BUILD_DATE = new Date().toISOString().slice(0, 10);
+// Vercel builds run in UTC, but our audience is in IST — render the
+// date in IST so a build that finishes at, say, 22:30 UTC (04:00 IST
+// next day) doesn't show as "yesterday" to users in India.
+const BUILD_DATE = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com"),
