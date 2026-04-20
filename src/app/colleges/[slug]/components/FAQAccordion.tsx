@@ -18,7 +18,7 @@ function FAQAccordionItem({ question, answer }: { question: string; answer: stri
       >
         <span className="font-semibold text-xs sm:text-sm text-gray-800">{question}</span>
         <svg
-          className={`shrink-0 w-4 h-4 sm:w-5 sm:h-5 text-gray-400 transition-transform ${open ? "rotate-180" : ""}`}
+          className={`shrink-0 w-4 h-4 sm:w-5 sm:h-5 text-gray-500 transition-transform ${open ? "rotate-180" : ""}`}
           fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />

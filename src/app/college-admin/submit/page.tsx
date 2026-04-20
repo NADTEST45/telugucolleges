@@ -73,7 +73,7 @@ export default function SubmitEditPage() {
   const currentField = EDITABLE_FIELDS[category]?.find(f => f.field === fieldName);
 
   if (!user) {
-    return <div className="min-h-screen flex items-center justify-center"><div className="text-gray-400">Loading...</div></div>;
+    return <div className="min-h-screen flex items-center justify-center"><div className="text-gray-500">Loading...</div></div>;
   }
 
   if (success) {
@@ -93,11 +93,11 @@ export default function SubmitEditPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-[#1a5276] text-white">
+      <header className="bg-brand text-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link href="/college-admin/dashboard" className="text-white/60 hover:text-white transition-colors">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+            <Link href="/college-admin/dashboard" aria-label="Back to college admin dashboard" className="text-white/60 hover:text-white transition-colors">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
             </Link>
             <span className="font-bold">Submit Edit</span>
           </div>
@@ -109,7 +109,7 @@ export default function SubmitEditPage() {
           <div className="mb-6">
             <h1 className="text-lg font-bold text-gray-900">Propose a Change</h1>
             <p className="text-sm text-gray-500 mt-1">
-              Editing data for <span className="font-medium text-[#1a5276]">{user.college_name}</span> ({user.college_code})
+              Editing data for <span className="font-medium text-brand">{user.college_name}</span> ({user.college_code})
             </p>
           </div>
 
@@ -129,7 +129,7 @@ export default function SubmitEditPage() {
                     onClick={() => setCategory(cat)}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                       category === cat
-                        ? "bg-[#1a5276] text-white"
+                        ? "bg-brand text-white"
                         : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                   >
@@ -196,7 +196,7 @@ export default function SubmitEditPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 bg-[#1a5276] text-white font-bold py-3 rounded-xl hover:bg-[#154360] transition-colors disabled:opacity-50"
+                className="flex-1 bg-brand text-white font-bold py-3 rounded-xl hover:bg-brand-dark transition-colors disabled:opacity-50"
               >
                 {loading ? "Submitting..." : "Submit for Review"}
               </button>

@@ -42,7 +42,7 @@ export default function CollegeAdminLogin() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#1a5276] to-[#2e86c1] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-b from-brand to-accent flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="text-white text-2xl font-extrabold">
@@ -69,7 +69,7 @@ export default function CollegeAdminLogin() {
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
-              className="mt-1 w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-blue-200 focus:border-[#2e86c1]"
+              className="mt-1 w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-blue-200 focus:border-accent"
               placeholder="admin@college.edu"
             />
           </label>
@@ -81,7 +81,7 @@ export default function CollegeAdminLogin() {
               value={password}
               onChange={e => setPassword(e.target.value)}
               required
-              className="mt-1 w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-blue-200 focus:border-[#2e86c1]"
+              className="mt-1 w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-blue-200 focus:border-accent"
               placeholder="••••••••"
             />
           </label>
@@ -89,12 +89,12 @@ export default function CollegeAdminLogin() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#1a5276] text-white font-bold py-3 rounded-xl hover:bg-[#154360] transition-colors disabled:opacity-50"
+            className="w-full bg-brand text-white font-bold py-3 rounded-xl hover:bg-brand-dark transition-colors disabled:opacity-50"
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>
 
-          <p className="text-xs text-gray-400 mt-4 text-center">
+          <p className="text-xs text-gray-500 mt-4 text-center">
             Don&apos;t have an account? Contact TeluguColleges admin to get access.
           </p>
         </form>

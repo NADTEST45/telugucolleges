@@ -182,7 +182,7 @@ export default async function BestCollegesCityPage({
       <CollegeListSchema colleges={colleges} district={meta.district} />
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#1a5276] to-[#2e86c1] text-white py-8 sm:py-12">
+        <div className="bg-gradient-to-r from-brand to-accent text-white py-8 sm:py-12">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <nav className="text-sm mb-4 opacity-90">
               <Link href="/" className="hover:underline">
@@ -199,8 +199,8 @@ export default async function BestCollegesCityPage({
               Top Engineering Colleges in {meta.district}
             </h1>
             <p className="text-blue-100 text-sm sm:text-base">
-              {meta.state} · {colleges.length} colleges ranked by placement,
-              NAAC rating & EAPCET cutoff
+              {meta.state} · {colleges.length} colleges ranked by NIRF 2025,
+              then EAPCET cutoff, then placement average
             </p>
           </div>
         </div>
@@ -213,7 +213,7 @@ export default async function BestCollegesCityPage({
               <div className="text-sm text-gray-500 font-semibold">
                 Total Colleges
               </div>
-              <div className="text-3xl font-bold text-[#1a5276] mt-2">
+              <div className="text-3xl font-bold text-brand mt-2">
                 {colleges.length}
               </div>
               <p className="text-xs text-gray-500 mt-1">Engineering colleges</p>
@@ -222,9 +222,9 @@ export default async function BestCollegesCityPage({
               <div className="text-sm text-gray-500 font-semibold">
                 Tuition Fee/Year
               </div>
-              <div className="text-2xl font-bold text-[#1a5276] mt-2">
+              <div className="text-2xl font-bold text-brand mt-2">
                 {minFee > 0 ? fmtFee(minFee) : "—"}
-                <span className="text-gray-400 mx-2">to</span>
+                <span className="text-gray-500 mx-2">to</span>
                 {maxFee > 0 ? fmtFee(maxFee) : "—"}
               </div>
               <p className="text-xs text-gray-500 mt-1">Fee range</p>
@@ -233,9 +233,9 @@ export default async function BestCollegesCityPage({
               <div className="text-sm text-gray-500 font-semibold">
                 Avg Placement
               </div>
-              <div className="text-2xl font-bold text-[#1a5276] mt-2">
+              <div className="text-2xl font-bold text-brand mt-2">
                 {minPlacement > 0 ? `₹${Math.round(minPlacement)}` : "—"}
-                <span className="text-gray-400 mx-2">–</span>
+                <span className="text-gray-500 mx-2">–</span>
                 {maxPlacement > 0 ? `₹${Math.round(maxPlacement)}` : "—"}
               </div>
               <p className="text-xs text-gray-500 mt-1">LPA range</p>
@@ -244,7 +244,7 @@ export default async function BestCollegesCityPage({
               <div className="text-sm text-gray-500 font-semibold">
                 Top Types
               </div>
-              <div className="text-sm font-bold text-[#1a5276] mt-2">
+              <div className="text-sm font-bold text-brand mt-2">
                 {Array.from(new Set(colleges.map((c) => c.type)))
                   .slice(0, 2)
                   .join(", ")}
@@ -355,14 +355,14 @@ export default async function BestCollegesCityPage({
                       className="border-b border-gray-200 hover:bg-blue-50 transition-colors"
                     >
                       <td className="px-4 sm:px-6 py-4">
-                        <span className="font-bold text-[#1a5276]">
+                        <span className="font-bold text-brand">
                           #{idx + 1}
                         </span>
                       </td>
                       <td className="px-4 sm:px-6 py-4">
                         <Link
                           href={`/colleges/${college.slug}`}
-                          className="font-bold text-[#2e86c1] hover:underline text-sm sm:text-base"
+                          className="font-bold text-accent hover:underline text-sm sm:text-base"
                         >
                           {college.name}
                         </Link>
@@ -387,9 +387,19 @@ export default async function BestCollegesCityPage({
                         </span>
                       </td>
                       <td className="hidden md:table-cell px-4 sm:px-6 py-4 text-sm font-bold">
-                        {college.naac && college.naac !== "-"
-                          ? `NAAC ${college.naac}`
-                          : "—"}
+                        {college.naac && college.naac !== "-" ? (
+                          <a
+                            href={`https://www.naac.gov.in/index.php/en/accreditation-status`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={`Verify NAAC ${college.naac} grade on naac.gov.in`}
+                            className="text-brand hover:underline"
+                          >
+                            NAAC {college.naac}
+                          </a>
+                        ) : (
+                          "—"
+                        )}
                       </td>
                       <td className="hidden lg:table-cell px-4 sm:px-6 py-4 text-sm font-bold">
                         {college.fee > 0 ? fmtFee(college.fee) : "—"}
@@ -400,7 +410,7 @@ export default async function BestCollegesCityPage({
                           : "—"}
                       </td>
                       <td className="px-4 sm:px-6 py-4">
-                        <span className="font-bold text-[#1a5276] text-sm sm:text-base">
+                        <span className="font-bold text-brand text-sm sm:text-base">
                           {college.placements.avg > 0
                             ? `₹${college.placements.avg} L`
                             : "—"}
@@ -416,6 +426,9 @@ export default async function BestCollegesCityPage({
                 </tbody>
               </table>
             </div>
+            <p className="mt-3 text-xs text-gray-500">
+              Ordered by NIRF 2025 Engineering rank first, then CSE EAPCET closing rank, then placement average. Colleges without NIRF ranks appear below NIRF-ranked ones. Use the compare tool to apply your own weighting.
+            </p>
           </div>
 
           {/* SEO Paragraph */}
@@ -446,7 +459,7 @@ export default async function BestCollegesCityPage({
                   <strong>
                     <Link
                       href={`/colleges/${bestPlacements.slug}`}
-                      className="text-[#2e86c1] hover:underline"
+                      className="text-accent hover:underline"
                     >
                       {bestPlacements.name}
                     </Link>
@@ -461,7 +474,7 @@ export default async function BestCollegesCityPage({
           </div>
 
           {/* Call to Action */}
-          <div className="bg-gradient-to-r from-[#1a5276] to-[#2e86c1] text-white rounded-lg p-6 sm:p-8 text-center">
+          <div className="bg-gradient-to-r from-brand to-accent text-white rounded-lg p-6 sm:p-8 text-center">
             <h3 className="text-xl sm:text-2xl font-bold mb-3">
               Ready to choose your college?
             </h3>
@@ -471,7 +484,7 @@ export default async function BestCollegesCityPage({
             </p>
             <Link
               href="/best-colleges"
-              className="inline-block px-6 py-2 bg-white text-[#1a5276] font-bold rounded-lg hover:bg-blue-50 transition-colors"
+              className="inline-block px-6 py-2 bg-white text-brand font-bold rounded-lg hover:bg-blue-50 transition-colors"
             >
               Explore Other Cities
             </Link>

@@ -48,10 +48,10 @@ export default function BranchDetail({ branch, colleges }: { branch: BranchInfo;
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
       {/* Breadcrumb */}
-      <nav className="text-xs sm:text-sm text-gray-400 mb-3 sm:mb-4 flex items-center gap-1.5 overflow-x-auto whitespace-nowrap">
-        <Link href="/" className="hover:text-[#2e86c1]">Home</Link>
+      <nav className="text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4 flex items-center gap-1.5 overflow-x-auto whitespace-nowrap">
+        <Link href="/" className="hover:text-accent">Home</Link>
         <span>/</span>
-        <Link href="/branches" className="hover:text-[#2e86c1]">Branches</Link>
+        <Link href="/branches" className="hover:text-accent">Branches</Link>
         <span>/</span>
         <span className="text-gray-600 font-medium">{branch.shortName}</span>
       </nav>
@@ -63,7 +63,7 @@ export default function BranchDetail({ branch, colleges }: { branch: BranchInfo;
           <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${CATEGORY_COLORS[branch.category] || CATEGORY_COLORS.other}`}>
             {branch.category === "cse-family" ? "Engineering — CSE" : branch.category === "core" ? "Engineering — Core" : branch.category === "interdisciplinary" ? "Engineering" : branch.category === "pharma" ? "Pharmacy" : branch.category === "medical" ? "Medical" : branch.category === "agriculture" ? "Agriculture" : "Other"}
           </span>
-          <span className="text-xs text-gray-400">{colleges.length} colleges</span>
+          <span className="text-xs text-gray-500">{colleges.length} colleges</span>
         </div>
         <p className="text-sm text-gray-500 leading-relaxed mt-2 max-w-3xl">{branch.description}</p>
       </div>
@@ -78,8 +78,8 @@ export default function BranchDetail({ branch, colleges }: { branch: BranchInfo;
           [maxFee > 0 ? fmtFee(maxFee) : "—", "Highest Fee"],
         ].map(([value, label]) => (
           <div key={label} className="bg-white rounded-xl p-3 sm:p-4 text-center shadow-sm">
-            <div className="text-base sm:text-xl font-extrabold text-[#1a5276]">{value}</div>
-            <div className="text-[10px] sm:text-[11px] text-gray-400 mt-0.5">{label}</div>
+            <div className="text-base sm:text-xl font-extrabold text-brand">{value}</div>
+            <div className="text-[10px] sm:text-[11px] text-gray-500 mt-0.5">{label}</div>
           </div>
         ))}
       </div>
@@ -90,7 +90,7 @@ export default function BranchDetail({ branch, colleges }: { branch: BranchInfo;
         <div className="flex gap-1 bg-gray-100 p-1 rounded-lg w-full sm:w-auto">
           {(["all", "Telangana", "Andhra Pradesh"] as const).map(s => (
             <button key={s} onClick={() => setStateFilter(s)}
-              className={`flex-1 sm:flex-none px-3 py-2 sm:py-1.5 rounded-md text-xs font-semibold transition-all ${stateFilter === s ? "bg-white text-[#1a5276] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
+              className={`flex-1 sm:flex-none px-3 py-2 sm:py-1.5 rounded-md text-xs font-semibold transition-all ${stateFilter === s ? "bg-white text-brand shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
               {s === "all" ? `All (${colleges.length})` : s === "Telangana" ? `TS (${tsCount})` : `AP (${apCount})`}
             </button>
           ))}
@@ -130,7 +130,7 @@ export default function BranchDetail({ branch, colleges }: { branch: BranchInfo;
             {/* Top row: name */}
             <div className="font-semibold text-[13px] sm:text-sm text-gray-900 leading-snug">{col.name}</div>
             {/* Meta row */}
-            <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-[11px] text-gray-400 mt-1">
+            <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-[11px] text-gray-500 mt-1">
               <span>{col.district}, {col.state === "Telangana" ? "TS" : "AP"}</span>
               <span>·</span>
               <span>{col.type === "Private University" ? "Pvt Uni" : col.type === "Deemed University" ? "Deemed" : col.type}</span>
@@ -149,8 +149,8 @@ export default function BranchDetail({ branch, colleges }: { branch: BranchInfo;
             </div>
             {/* Bottom row: fee + cutoff as inline chips */}
             <div className="flex items-center gap-2 mt-2">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-50 text-[11px] font-semibold text-[#1a5276]">
-                {col.fee > 0 ? fmtFee(col.fee) : "—"}<span className="text-[10px] font-normal text-gray-400">/yr</span>
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-50 text-[11px] font-semibold text-brand">
+                {col.fee > 0 ? fmtFee(col.fee) : "—"}<span className="text-[10px] font-normal text-gray-500">/yr</span>
               </span>
               {hasCutoff && (
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gray-50 text-[11px] font-semibold text-gray-600">
@@ -163,7 +163,7 @@ export default function BranchDetail({ branch, colleges }: { branch: BranchInfo;
       </div>
 
       {filtered.length === 0 && (
-        <div className="text-center py-12 text-gray-400">
+        <div className="text-center py-12 text-gray-500">
           <p className="font-semibold">No colleges found</p>
           <p className="text-xs mt-1">Try adjusting your filters</p>
         </div>

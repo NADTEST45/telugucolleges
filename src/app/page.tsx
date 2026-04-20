@@ -3,6 +3,10 @@ import { COLLEGES, fmtFee } from "@/lib/colleges";
 import { getLatestNews } from "@/lib/news";
 import AdSlot from "@/components/ads/AdSlot";
 import JsonLd from "@/components/JsonLd";
+import ts_mba from "@/lib/mba_data.json";
+import ap_mba from "@/lib/ap_mba_data.json";
+import ts_mca from "@/lib/mca_data.json";
+import ap_mca from "@/lib/ap_mca_data.json";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
@@ -17,8 +21,11 @@ export default function Home() {
     mpharm: COLLEGES.filter(c => c.branches.includes("M.Pharm")).length,
     pharmd: COLLEGES.filter(c => c.branches.includes("Pharm.D")).length,
     med: COLLEGES.filter(c => c.branches.includes("MBBS")).length,
-    mba: 567,
-    mca: 152,
+    // Derived from program datasets (ts_*_data + ap_*_data) rather than the main
+    // COLLEGES list, because MBA/MCA have dedicated listings that are broader
+    // than the engineering directory.
+    mba: (ts_mba as unknown[]).length + (ap_mba as unknown[]).length,
+    mca: (ts_mca as unknown[]).length + (ap_mca as unknown[]).length,
   };
 
   const latestNews = getLatestNews(3);
@@ -71,18 +78,18 @@ export default function Home() {
     <main>
       <JsonLd data={jsonLd} />
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[#0f2b3d] via-[#1a5276] to-[#2e86c1] text-white px-4 sm:px-6 pt-10 sm:pt-16 pb-14 sm:pb-20 text-center relative overflow-hidden">
+      <section className="bg-gradient-to-br from-brand-dark via-brand to-accent text-white px-4 sm:px-6 pt-10 sm:pt-16 pb-14 sm:pb-20 text-center relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.04]" style={{backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "32px 32px"}} />
         <div className="relative max-w-3xl mx-auto">
           <p className="text-xs sm:text-sm uppercase tracking-widest text-blue-200 mb-2 sm:mb-3 font-medium">Andhra Pradesh & Telangana</p>
-          <h1 className="text-2xl sm:text-5xl font-extrabold mb-3 sm:mb-5 leading-tight">
+          <h1 className="text-3xl sm:text-5xl font-extrabold mb-3 sm:mb-5 leading-tight">
             Find the Right College<br className="hidden sm:block" /><span className="sm:hidden"> </span>for Your Future
           </h1>
           <p className="text-sm sm:text-lg opacity-80 mb-6 sm:mb-10 font-light max-w-xl mx-auto leading-relaxed">
             Compare fees, cutoffs, placements and rankings for {stats.total}+ engineering, pharmacy & medical colleges across both states.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-2 sm:px-0">
-            <Link href="/colleges" className="inline-block bg-white text-[#1a5276] font-bold px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl text-base sm:text-lg shadow-xl active:scale-[0.98] transition-all">
+            <Link href="/colleges" className="inline-block bg-white text-brand font-bold px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl text-base sm:text-lg shadow-xl active:scale-[0.98] transition-all">
               Explore Colleges
             </Link>
             <Link href="/eapcet" className="inline-block bg-white/15 text-white font-bold px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl text-base sm:text-lg border border-white/30 active:scale-[0.98] transition-all">
@@ -112,7 +119,7 @@ export default function Home() {
             { label: "Compare", href: "/compare" },
           ].map(item => (
             <Link key={item.label} href={item.href}
-              className="px-2.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-medium text-gray-600 hover:text-[#1a5276] hover:bg-blue-50 whitespace-nowrap transition-colors border-b-2 border-transparent hover:border-[#2e86c1] active:bg-blue-50">
+              className="px-2.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-medium text-gray-600 hover:text-brand hover:bg-blue-50 whitespace-nowrap transition-colors border-b-2 border-transparent hover:border-accent active:bg-blue-50">
               {item.label}
             </Link>
           ))}
@@ -155,18 +162,18 @@ export default function Home() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 mt-4 sm:mt-6">
           <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-100">
-              <span className="bg-red-100 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded animate-pulse">LIVE</span>
+              <span className="bg-red-100 text-red-700 text-[11px] font-bold px-2 py-0.5 rounded uppercase tracking-wide">Updates</span>
               <span className="font-bold text-sm text-gray-800">Latest Admission Updates</span>
-              <Link href="/news" className="ml-auto text-xs text-[#2e86c1] font-semibold hover:underline">View All →</Link>
+              <Link href="/news" className="ml-auto text-xs text-accent font-semibold hover:underline">View All →</Link>
             </div>
             <div className="divide-y divide-gray-50">
               {latestNews.map(item => (
                 <Link key={item.id} href="/news" className="flex items-center gap-3 px-5 py-2.5 hover:bg-gray-50 transition-colors">
-                  <span className={`shrink-0 px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] font-bold ${item.state === "AP" ? "bg-green-50 text-green-700" : item.state === "TS" ? "bg-blue-50 text-[#2e86c1]" : "bg-violet-50 text-violet-700"}`}>
+                  <span className={`shrink-0 px-1.5 py-0.5 rounded text-[11px] font-bold ${item.state === "AP" ? "bg-green-50 text-green-700" : item.state === "TS" ? "bg-blue-50 text-accent" : "bg-violet-50 text-violet-700"}`}>
                     {item.state}
                   </span>
                   <span className="text-sm text-gray-700 truncate">{item.title}</span>
-                  <span className="shrink-0 text-[9px] sm:text-[10px] text-gray-400 ml-auto">{item.date.slice(5)}</span>
+                  <span className="shrink-0 text-[11px] text-gray-500 ml-auto">{item.date.slice(5)}</span>
                 </Link>
               ))}
             </div>
@@ -181,19 +188,19 @@ export default function Home() {
         <p className="text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6">Final-phase OC closing ranks from official TSCHE/APSCHE data. Lower rank = harder to get in.</p>
         <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mb-10 sm:mb-14">
           {[
-            { title: "Telangana — Top 5", color: "bg-[#2e86c1]", list: topTS },
+            { title: "Telangana — Top 5", color: "bg-accent", list: topTS },
             { title: "Andhra Pradesh — Top 5", color: "bg-green-600", list: topAP },
           ].map(({ title, color, list }) => (
             <div key={title} className="bg-white rounded-xl overflow-hidden shadow-sm">
               <div className={`${color} text-white px-4 sm:px-5 py-3 sm:py-3.5 font-bold text-sm sm:text-base`}>{title}</div>
               {list.map((c, i) => (
                 <Link key={c.id} href={`/colleges/${c.slug}`} className="flex items-center justify-between px-4 sm:px-5 py-3 border-b border-gray-100 hover:bg-gray-50 transition-colors gap-2">
-                  <div className="min-w-0 flex-1">
-                    <span className="text-gray-500 font-semibold mr-1.5 sm:mr-2 text-xs sm:text-sm">#{i + 1}</span>
-                    <span className="font-semibold text-xs sm:text-sm">{c.name.length > 32 ? c.name.slice(0, 32) + "..." : c.name}</span>
+                  <div className="min-w-0 flex-1 flex items-baseline gap-1.5 sm:gap-2">
+                    <span className="text-gray-500 font-semibold shrink-0 text-xs sm:text-sm">#{i + 1}</span>
+                    <span className="font-semibold text-xs sm:text-sm truncate" title={c.name}>{c.name}</span>
                   </div>
                   <div className="text-right shrink-0">
-                    <div className="font-bold text-[#1a5276] text-xs sm:text-sm">Rank {c.cutoff.cse.toLocaleString()}</div>
+                    <div className="font-bold text-brand text-xs sm:text-sm">Rank {c.cutoff.cse.toLocaleString()}</div>
                     <div className="text-[10px] sm:text-xs text-gray-500">{fmtFee(c.fee)}/yr</div>
                   </div>
                 </Link>
@@ -213,13 +220,13 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-10 sm:mb-14">
           {cheapest.map(c => (
             <Link key={c.id} href={`/colleges/${c.slug}`} className="bg-white rounded-xl p-4 sm:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all active:scale-[0.98]">
-              <div className={`text-[11px] sm:text-xs font-semibold mb-1 ${c.type === "Government" ? "text-green-600" : "text-[#2e86c1]"}`}>
+              <div className={`text-[11px] sm:text-xs font-semibold mb-1 ${c.type === "Government" ? "text-green-600" : "text-accent"}`}>
                 {c.type} · {c.state}
               </div>
               <div className="font-bold text-sm sm:text-base mb-2 leading-snug">{c.name}</div>
               <div className="flex items-center justify-between">
-                <div className="text-lg sm:text-xl font-extrabold text-[#1a5276]">{fmtFee(c.fee)}<span className="text-[9px] sm:text-xs font-normal text-gray-500">/yr</span></div>
-                <span className="bg-blue-50 text-[#2e86c1] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md text-[11px] sm:text-xs font-semibold">{c.district}</span>
+                <div className="text-lg sm:text-xl font-extrabold text-brand">{fmtFee(c.fee)}<span className="text-[10px] sm:text-xs font-normal text-gray-500">/yr</span></div>
+                <span className="bg-blue-50 text-accent px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md text-[11px] sm:text-xs font-semibold">{c.district}</span>
               </div>
             </Link>
           ))}
@@ -228,7 +235,7 @@ export default function Home() {
         {/* Quick Links */}
         <div className="grid sm:grid-cols-3 gap-3 sm:gap-5 mb-10 sm:mb-14">
           {[
-            ["Telangana Colleges", `${stats.ts} colleges with fees, cutoffs & placements`, "border-l-[#2e86c1]", "/colleges?state=Telangana"],
+            ["Telangana Colleges", `${stats.ts} colleges with fees, cutoffs & placements`, "border-l-accent", "/colleges?state=Telangana"],
             ["Andhra Pradesh Colleges", `${stats.ap} colleges with fees, cutoffs & placements`, "border-l-green-600", "/colleges?state=Andhra+Pradesh"],
             ["Compare Colleges", "Pick 2–4 colleges and compare side by side", "border-l-amber-500", "/compare"],
           ].map(([title, desc, border, href]) => (
@@ -251,10 +258,10 @@ export default function Home() {
             {[
               ["Official Fees", "All fee data comes from government orders, not estimates."],
               ["Real Cutoffs", "EAPCET closing ranks from official TSCHE & APSCHE counselling data."],
-              ["900+ Colleges", "The most comprehensive directory of AP & Telangana professional colleges."],
+              [`${stats.total}+ Colleges`, "The most comprehensive directory of AP & Telangana professional colleges."],
             ].map(([t, d]) => (
               <div key={t} className="text-center">
-                <div className="font-bold text-[#1a5276] mb-2">{t}</div>
+                <div className="font-bold text-brand mb-2">{t}</div>
                 <div className="text-sm text-gray-500 leading-relaxed">{d}</div>
               </div>
             ))}

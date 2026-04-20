@@ -32,7 +32,7 @@ function UniCard({ c, borderClass }: { c: College; borderClass: string }) {
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
         <div className="flex-1 min-w-0">
           <div className="font-bold text-sm sm:text-[15px] leading-tight">{c.name}</div>
-          <div className="text-[11px] sm:text-xs text-gray-400 mt-0.5 truncate">
+          <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5 truncate">
             {c.district}, {c.state} · Est. {c.year}
           </div>
           <div className="flex gap-1 sm:gap-1.5 mt-1.5 sm:mt-2 flex-wrap">
@@ -74,15 +74,15 @@ function UniCard({ c, borderClass }: { c: College; borderClass: string }) {
         </div>
         <div className="grid grid-cols-4 gap-2 sm:gap-4 text-center pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-100 shrink-0 sm:w-[320px]">
           <div>
-            <div className="text-[10px] sm:text-[11px] text-gray-400">Tuition/yr</div>
-            <div className="font-bold text-[#1a5276] text-xs sm:text-sm">{fmtFee(c.fee)}</div>
+            <div className="text-[10px] sm:text-[11px] text-gray-500">Tuition/yr</div>
+            <div className="font-bold text-brand text-xs sm:text-sm">{fmtFee(c.fee)}</div>
           </div>
           <div>
-            <div className="text-[10px] sm:text-[11px] text-gray-400">Branches</div>
+            <div className="text-[10px] sm:text-[11px] text-gray-500">Branches</div>
             <div className="font-bold text-xs sm:text-sm">{c.branches.length}</div>
           </div>
           <div>
-            <div className="text-[10px] sm:text-[11px] text-gray-400">Avg Pkg</div>
+            <div className="text-[10px] sm:text-[11px] text-gray-500">Avg Pkg</div>
             <div
               className={`font-bold text-xs sm:text-sm ${
                 c.placements.avg > 0 ? "text-green-600" : "text-gray-300"
@@ -92,7 +92,7 @@ function UniCard({ c, borderClass }: { c: College; borderClass: string }) {
             </div>
           </div>
           <div>
-            <div className="text-[10px] sm:text-[11px] text-gray-400">Highest</div>
+            <div className="text-[10px] sm:text-[11px] text-gray-500">Highest</div>
             <div
               className={`font-bold text-xs sm:text-sm ${
                 c.placements.highest > 0 ? "text-amber-600" : "text-gray-300"
@@ -178,7 +178,7 @@ export default function UniversitiesPage() {
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-      <nav className="text-sm text-gray-400 mb-4 flex items-center gap-1.5">
+      <nav className="text-sm text-gray-500 mb-4 flex items-center gap-1.5">
         <Link href="/">Home</Link>
         <span>/</span>
         <span className="text-gray-600 font-medium">Universities</span>
@@ -204,7 +204,7 @@ export default function UniversitiesPage() {
                 A portion of seats are filled through state counseling via <span className="font-semibold">TS EAMCET</span> (Telangana) or <span className="font-semibold">AP EAPCET</span> (Andhra Pradesh). Fees for these seats may be regulated by the respective state. Remaining seats are filled through university-level admission with university-determined fees.
               </div>
             </div>
-            <div className="text-[10px] text-gray-400 mt-1.5">Fees shown are from official university websites for AY 2025-26. Contact admissions for exact, up-to-date figures.</div>
+            <div className="text-[10px] text-gray-500 mt-1.5">Fees shown are from official university websites for AY 2025-26. Contact admissions for exact, up-to-date figures.</div>
           </div>
         </div>
       </div>
@@ -217,7 +217,7 @@ export default function UniversitiesPage() {
             setDistrict("");
           }}
           className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
-            !state ? "bg-[#1a5276] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+            !state ? "bg-brand text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
           }`}
         >
           All States
@@ -242,8 +242,8 @@ export default function UniversitiesPage() {
           }}
           className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
             state === "Telangana"
-              ? "bg-[#2e86c1] text-white"
-              : "bg-blue-50 text-[#2e86c1] hover:bg-blue-100"
+              ? "bg-accent text-white"
+              : "bg-blue-50 text-accent hover:bg-blue-100"
           }`}
         >
           Telangana ({UNIVERSITIES.filter((c) => c.state === "Telangana").length})
@@ -328,11 +328,11 @@ export default function UniversitiesPage() {
               <section key={s.key}>
                 <div className="flex items-center gap-3 mb-3">
                   <h2 className={`text-lg font-bold ${s.color}`}>{s.label}</h2>
-                  <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
+                  <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
                     {items.length}
                   </span>
                 </div>
-                <p className="text-xs text-gray-400 mb-3">{s.desc}</p>
+                <p className="text-xs text-gray-500 mb-3">{s.desc}</p>
                 <div className="space-y-3">
                   {items.map((c) => (
                     <UniCard key={c.id} c={c} borderClass={s.border} />
@@ -358,12 +358,12 @@ export default function UniversitiesPage() {
       )}
 
       {filtered.length === 0 && (
-        <div className="text-center py-16 text-gray-400">
+        <div className="text-center py-16 text-gray-500">
           <div className="text-5xl mb-3">🔍</div>
           <div className="text-lg font-semibold">No universities match your filters</div>
           <button
             onClick={clearAll}
-            className="mt-2 text-sm text-[#2e86c1] font-semibold hover:underline"
+            className="mt-2 text-sm text-accent font-semibold hover:underline"
           >
             Clear all filters
           </button>

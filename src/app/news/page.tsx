@@ -27,7 +27,7 @@ const priorityBadge: Record<string, { label: string; cls: string }> = {
 
 const stateBadge: Record<string, { label: string; cls: string }> = {
   AP: { label: "Andhra Pradesh", cls: "bg-green-50 text-green-700 border-green-200" },
-  TS: { label: "Telangana", cls: "bg-blue-50 text-[#2e86c1] border-blue-200" },
+  TS: { label: "Telangana", cls: "bg-blue-50 text-accent border-blue-200" },
   Both: { label: "AP & TS", cls: "bg-violet-50 text-violet-700 border-violet-200" },
 };
 
@@ -51,7 +51,7 @@ export default function NewsPage() {
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
       {/* Breadcrumb */}
       <nav className="text-sm text-gray-600 mb-4 flex items-center gap-1.5">
-        <Link href="/" className="hover:text-[#2e86c1]">Home</Link>
+        <Link href="/" className="hover:text-accent">Home</Link>
         <span>/</span>
         <span className="text-gray-600 font-medium">News & Alerts</span>
       </nav>
@@ -60,7 +60,7 @@ export default function NewsPage() {
       <p className="text-sm text-gray-600 mb-6">Latest updates on EAPCET 2026, fee notifications, counselling schedules, and more for AP & Telangana.</p>
 
       {/* EAPCET 2026 Quick Dates Banner */}
-      <section className="bg-gradient-to-r from-[#0f2b3d] via-[#1a5276] to-[#2e86c1] text-white rounded-2xl p-4 sm:p-6 mb-8 relative overflow-hidden">
+      <section className="bg-gradient-to-r from-brand-dark via-brand to-accent text-white rounded-2xl p-4 sm:p-6 mb-8 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.04]" style={{backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "24px 24px"}} />
         <div className="relative">
           <h2 className="text-lg font-bold mb-4">EAPCET 2026 — Key Dates at a Glance</h2>
@@ -86,7 +86,7 @@ export default function NewsPage() {
             {/* TS */}
             <div className="bg-white/10 backdrop-blur rounded-xl p-4">
               <div className="flex items-center gap-2 mb-3">
-                <span className="bg-[#2e86c1] text-white text-[10px] font-bold px-2 py-0.5 rounded">TS</span>
+                <span className="bg-accent text-white text-[10px] font-bold px-2 py-0.5 rounded">TS</span>
                 <span className="font-semibold text-sm">TG EAPCET 2026</span>
               </div>
               <div className="space-y-1.5 text-sm">
@@ -209,7 +209,7 @@ function NewsCard({ item, expanded, onToggle, highlight }: { item: NewsItem; exp
             <div className="mt-4 flex items-center gap-2 text-xs text-gray-600">
               <span>Source: {item.source}</span>
               {item.sourceUrl && (
-                <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-[#2e86c1] hover:underline">
+                <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
                   Visit →
                 </a>
               )}

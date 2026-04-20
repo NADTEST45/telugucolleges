@@ -37,16 +37,16 @@ export default function SearchBar() {
   const go = (slug: string) => { setOpen(false); setMobileOpen(false); setQ(""); router.push(`/colleges/${slug}`); };
 
   const dropdown = open && results.length > 0 && (
-    <div className="absolute top-full mt-1 left-0 right-0 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50" role="listbox">
+    <div className="absolute top-full mt-1 left-0 right-0 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50">
       {results.map(c => (
-        <button key={c.id} onClick={() => go(c.slug)} role="option"
+        <button key={c.id} onClick={() => go(c.slug)}
           className="w-full text-left px-4 py-2.5 hover:bg-blue-50 transition-colors border-b border-gray-50 last:border-0">
           <div className="font-semibold text-sm text-gray-900">{c.name}</div>
-          <div className="text-xs text-gray-400">{c.code} · {c.district}, {c.state} · {c.type}</div>
+          <div className="text-xs text-gray-500">{c.code} · {c.district}, {c.state} · {c.type}</div>
         </button>
       ))}
       <Link href="/colleges" onClick={() => { setOpen(false); setMobileOpen(false); setQ(""); }}
-        className="block w-full text-center px-4 py-2 text-xs text-[#2e86c1] font-semibold hover:bg-blue-50">
+        className="block w-full text-center px-4 py-2 text-xs text-accent font-semibold hover:bg-blue-50">
         View all {COLLEGES.length} colleges →
       </Link>
     </div>
@@ -62,7 +62,7 @@ export default function SearchBar() {
           onFocus={() => { setFocused(true); setOpen(true); }}
           placeholder="Search colleges / universities..."
           aria-label="Search colleges"
-          className={`w-full px-4 py-1.5 rounded-lg text-sm outline-none transition-all ${focused ? "bg-white text-gray-900 shadow-lg" : "bg-white/15 text-white placeholder-white/60"}`}
+          className={`w-full px-4 py-1.5 rounded-lg text-sm outline-none transition-all ${focused ? "bg-white text-gray-900 shadow-lg" : "bg-white/20 text-white placeholder-white/80"}`}
         />
         {dropdown}
       </div>
@@ -75,7 +75,7 @@ export default function SearchBar() {
           </button>
         ) : (
           <div className="fixed inset-x-0 top-0 z-[60]">
-            <div className="flex items-center gap-2 bg-[#1a5276] px-3 h-14 shadow-lg">
+            <div className="flex items-center gap-2 bg-brand px-3 h-14 shadow-lg">
               <svg className="w-5 h-5 text-white/60 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
               <input
                 ref={mobileInputRef}
@@ -91,16 +91,16 @@ export default function SearchBar() {
               </button>
             </div>
             {open && results.length > 0 && (
-              <div className="mx-3 bg-white rounded-b-xl shadow-xl border border-gray-100 overflow-hidden max-h-[60vh] overflow-y-auto" role="listbox">
+              <div className="mx-3 bg-white rounded-b-xl shadow-xl border border-gray-100 overflow-hidden max-h-[60vh] overflow-y-auto">
                 {results.map(c => (
-                  <button key={c.id} onClick={() => go(c.slug)} role="option"
+                  <button key={c.id} onClick={() => go(c.slug)}
                     className="w-full text-left px-4 py-3 hover:bg-blue-50 transition-colors border-b border-gray-50 last:border-0">
                     <div className="font-semibold text-sm text-gray-900">{c.name}</div>
-                    <div className="text-xs text-gray-400">{c.code} · {c.district}, {c.state} · {c.type}</div>
+                    <div className="text-xs text-gray-500">{c.code} · {c.district}, {c.state} · {c.type}</div>
                   </button>
                 ))}
                 <Link href="/colleges" onClick={() => { setOpen(false); setMobileOpen(false); setQ(""); }}
-                  className="block w-full text-center px-4 py-2.5 text-xs text-[#2e86c1] font-semibold hover:bg-blue-50">
+                  className="block w-full text-center px-4 py-2.5 text-xs text-accent font-semibold hover:bg-blue-50">
                   View all {COLLEGES.length} colleges →
                 </Link>
               </div>

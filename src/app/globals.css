@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+/* ─── Design tokens ───
+   Defined once; consumed across the app as `bg-brand`, `text-accent`,
+   `hover:bg-brand-dark`, etc. Previously these colors were inlined
+   ~209 times across src/ as arbitrary values. */
+@theme {
+  --color-brand: #1a5276;        /* primary brand */
+  --color-brand-dark: #154360;   /* brand hover / darker rest */
+  --color-accent: #2e86c1;       /* secondary / links / focus ring */
+  --color-surface-dark: #1b2631; /* footer / deep backgrounds */
+}
+
 /* Safe area inset for notched iPhones — bottom nav */
 .safe-area-bottom {
   padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -99,7 +110,7 @@ body {
 
 /* Better focus styles for mobile accessibility */
 :focus-visible {
-  outline: 2px solid #2e86c1;
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -133,6 +144,6 @@ button:focus-visible,
 a:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  outline: 2px solid #2e86c1;
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }

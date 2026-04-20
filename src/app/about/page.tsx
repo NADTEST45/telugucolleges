@@ -15,7 +15,7 @@ export default function AboutPage() {
             ["AICTE / NAAC / NBA", "Accreditation data from official records of the national bodies."],
             ["NIRF Rankings", "Placement statistics reference NIRF submissions where available."],
           ].map(([t, d]) => (
-            <div key={t} className="border-l-[3px] border-[#2e86c1] pl-4">
+            <div key={t} className="border-l-[3px] border-accent pl-4">
               <div className="font-bold mb-1">{t}</div>
               <div className="text-sm text-gray-500 leading-relaxed">{d}</div>
             </div>

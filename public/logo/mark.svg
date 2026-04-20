@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="TeluguColleges">
+  <defs>
+    <linearGradient id="tc-mark-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#154360"/>
+      <stop offset="55%" stop-color="#1a5276"/>
+      <stop offset="100%" stop-color="#2e86c1"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#tc-mark-grad)"/>
+  <!-- T: horizontal bar + vertical stem -->
+  <rect x="8" y="17" width="24" height="7" rx="2" fill="#ffffff"/>
+  <rect x="16.5" y="17" width="7" height="30" rx="2" fill="#ffffff"/>
+  <!-- C: open arc, mouth facing right -->
+  <path d="M 52 25 A 10 10 0 1 0 52 39" stroke="#ffffff" stroke-width="7" stroke-linecap="round" fill="none"/>
+</svg>

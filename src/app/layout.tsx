@@ -6,6 +6,12 @@ import BottomNav from "@/components/BottomNav";
 import AuthProvider from "@/components/AuthProvider";
 import ShortlistProvider from "@/components/ShortlistProvider";
 import UserNavMenu from "@/components/UserNavMenu";
+import { LogoMark } from "@/components/Logo";
+
+// Build-time constant. Evaluated when this module is bundled, so it
+// reflects the last production deploy (which is when static data was
+// last rolled up; approved edits still refresh every 60s via ISR).
+const BUILD_DATE = new Date().toISOString().slice(0, 10);
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com"),
@@ -49,25 +55,26 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en-IN">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5" />
         <meta name="theme-color" content="#1a5276" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/logo/mark.svg" />
       </head>
       <body className="bg-gray-50 text-gray-900 antialiased">
         <AuthProvider>
         <ShortlistProvider>
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:rounded focus:shadow">Skip to content</a>
         {/* Nav */}
-        <nav className="bg-[#1a5276] text-white sticky top-0 z-50 shadow-lg">
+        <nav className="bg-brand text-white sticky top-0 z-50 shadow-lg">
           <div className="max-w-7xl mx-auto px-3 sm:px-6 flex items-center justify-between h-12 sm:h-14">
-            <Link href="/" className="flex items-center gap-2 shrink-0">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#2e86c1] flex items-center justify-center font-extrabold text-xs sm:text-sm">TC</div>
-              <span className="font-bold text-base sm:text-lg hidden sm:inline">TeluguColleges<span className="text-blue-300">.com</span></span>
+            <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="TeluguColleges.com — Home">
+              <LogoMark className="w-7 h-7 sm:w-8 sm:h-8 shrink-0" decorative />
+              <span className="font-bold text-base sm:text-lg hidden sm:inline" aria-hidden="true">TeluguColleges<span className="text-blue-300">.com</span></span>
             </Link>
             <SearchBar />
             <div className="hidden md:flex gap-0.5 items-center shrink-0">
@@ -97,7 +104,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <BottomNav />
 
         {/* Footer — outside AuthProvider is fine, it's static */}
-        <footer className="bg-[#1b2631] text-gray-400 mt-16">
+        <footer className="bg-surface-dark text-gray-500 mt-16">
           <div className="max-w-7xl mx-auto px-6 py-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
               <div>
@@ -129,6 +136,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="border-t border-white/10 pt-4 text-center text-xs">
               All fee data sourced from official government orders. Cutoff ranks are approximate and vary by category.
               <br />© 2026 TeluguColleges.com — Not affiliated with any government body.
+              <br />Site last updated: <time dateTime={BUILD_DATE}>{BUILD_DATE}</time>
             </div>
           </div>
         </footer>

@@ -60,7 +60,7 @@ export default function MarketingDashboard() {
   }
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center"><div className="text-gray-400">Loading...</div></div>;
+    return <div className="min-h-screen flex items-center justify-center"><div className="text-gray-500">Loading...</div></div>;
   }
 
   return (
@@ -130,12 +130,12 @@ export default function MarketingDashboard() {
                 <tbody className="divide-y divide-gray-50">
                   {TOP_BY_PLACEMENTS.map((c, i) => (
                     <tr key={c.id} className="hover:bg-gray-50">
-                      <td className="px-4 py-2.5 text-gray-400">{i + 1}</td>
+                      <td className="px-4 py-2.5 text-gray-500">{i + 1}</td>
                       <td className="px-4 py-2.5">
                         <Link href={`/colleges/${c.slug}`} className="font-medium text-gray-900 hover:text-purple-700">
                           {c.name}
                         </Link>
-                        <div className="text-[11px] text-gray-400">{c.district}, {c.state}</div>
+                        <div className="text-[11px] text-gray-500">{c.district}, {c.state}</div>
                       </td>
                       <td className="px-4 py-2.5 text-right font-bold text-green-600">₹{c.placements.avg}L</td>
                     </tr>
@@ -161,12 +161,12 @@ export default function MarketingDashboard() {
                 <tbody className="divide-y divide-gray-50">
                   {TOP_BY_HIGHEST.map((c, i) => (
                     <tr key={c.id} className="hover:bg-gray-50">
-                      <td className="px-4 py-2.5 text-gray-400">{i + 1}</td>
+                      <td className="px-4 py-2.5 text-gray-500">{i + 1}</td>
                       <td className="px-4 py-2.5">
                         <Link href={`/colleges/${c.slug}`} className="font-medium text-gray-900 hover:text-purple-700">
                           {c.name}
                         </Link>
-                        <div className="text-[11px] text-gray-400">{c.district}, {c.state}</div>
+                        <div className="text-[11px] text-gray-500">{c.district}, {c.state}</div>
                       </td>
                       <td className="px-4 py-2.5 text-right font-bold text-amber-600">₹{c.placements.highest}L</td>
                     </tr>
@@ -213,7 +213,7 @@ function StatCard({ label, value, color, sub }: { label: string; value: number; 
     <div className={`bg-white rounded-xl p-4 shadow-sm border-l-4 ${c.border}`}>
       <div className={`text-2xl font-bold ${c.text}`}>
         {value.toLocaleString()}
-        {sub && <span className="text-xs font-medium text-gray-400 ml-1.5">{sub}</span>}
+        {sub && <span className="text-xs font-medium text-gray-500 ml-1.5">{sub}</span>}
       </div>
       <div className="text-xs text-gray-500 mt-1">{label}</div>
     </div>

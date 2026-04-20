@@ -113,7 +113,7 @@ export default async function ComparePairPage({
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
       {/* Breadcrumb */}
-      <nav className="text-sm text-gray-400 mb-6 flex items-center gap-1.5 flex-wrap">
+      <nav className="text-sm text-gray-500 mb-6 flex items-center gap-1.5 flex-wrap">
         <Link href="/" className="hover:text-gray-600">Home</Link>
         <span>/</span>
         <Link href="/compare" className="hover:text-gray-600">Compare</Link>
@@ -134,14 +134,14 @@ export default async function ComparePairPage({
         <table className="w-full bg-white rounded-xl overflow-hidden shadow-sm text-sm min-w-[500px] border border-gray-100">
           <thead>
             <tr>
-              <th className="px-4 py-3 bg-[#1a5276] text-white text-left text-xs min-w-[140px] font-semibold">
+              <th className="px-4 py-3 bg-brand text-white text-left text-xs min-w-[140px] font-semibold">
                 Feature
               </th>
-              <th className="px-4 py-3 bg-[#1a5276] text-white text-center min-w-[160px] font-semibold">
+              <th className="px-4 py-3 bg-brand text-white text-center min-w-[160px] font-semibold">
                 <div className="font-bold text-sm">{college1.code}</div>
                 <div className="text-xs opacity-90 font-normal mt-1">{college1.name.length > 30 ? college1.name.slice(0, 30) + "..." : college1.name}</div>
               </th>
-              <th className="px-4 py-3 bg-[#1a5276] text-white text-center min-w-[160px] font-semibold">
+              <th className="px-4 py-3 bg-brand text-white text-center min-w-[160px] font-semibold">
                 <div className="font-bold text-sm">{college2.code}</div>
                 <div className="text-xs opacity-90 font-normal mt-1">{college2.name.length > 30 ? college2.name.slice(0, 30) + "..." : college2.name}</div>
               </th>
@@ -150,7 +150,7 @@ export default async function ComparePairPage({
           <tbody>
             {/* Basic Info Section */}
             <tr>
-              <td colSpan={3} className="px-4 py-2 bg-blue-50 font-bold text-[#1a5276] text-xs">
+              <td colSpan={3} className="px-4 py-2 bg-blue-50 font-bold text-brand text-xs">
                 BASIC INFORMATION
               </td>
             </tr>
@@ -178,7 +178,7 @@ export default async function ComparePairPage({
 
             {/* Fee Structure Section */}
             <tr>
-              <td colSpan={3} className="px-4 py-2 bg-blue-50 font-bold text-[#1a5276] text-xs">
+              <td colSpan={3} className="px-4 py-2 bg-blue-50 font-bold text-brand text-xs">
                 FEE STRUCTURE (ANNUAL)
               </td>
             </tr>
@@ -219,7 +219,7 @@ export default async function ComparePairPage({
 
             {/* Cutoffs Section */}
             <tr>
-              <td colSpan={3} className="px-4 py-2 bg-blue-50 font-bold text-[#1a5276] text-xs">
+              <td colSpan={3} className="px-4 py-2 bg-blue-50 font-bold text-brand text-xs">
                 EAPCET CUTOFFS (2024-25) — Lower Rank is Better
               </td>
             </tr>
@@ -243,7 +243,7 @@ export default async function ComparePairPage({
 
             {/* Placements Section */}
             <tr>
-              <td colSpan={3} className="px-4 py-2 bg-blue-50 font-bold text-[#1a5276] text-xs">
+              <td colSpan={3} className="px-4 py-2 bg-blue-50 font-bold text-brand text-xs">
                 PLACEMENTS
               </td>
             </tr>
@@ -381,13 +381,13 @@ export default async function ComparePairPage({
       <div className="grid sm:grid-cols-2 gap-4 mb-8">
         <Link
           href={`/colleges/${college1.slug}`}
-          className="block bg-[#1a5276] text-white font-semibold py-3 px-4 rounded-lg text-center hover:bg-[#2e86c1] transition-colors"
+          className="block bg-brand text-white font-semibold py-3 px-4 rounded-lg text-center hover:bg-accent transition-colors"
         >
           View {college1.code} Full Profile →
         </Link>
         <Link
           href={`/colleges/${college2.slug}`}
-          className="block bg-[#1a5276] text-white font-semibold py-3 px-4 rounded-lg text-center hover:bg-[#2e86c1] transition-colors"
+          className="block bg-brand text-white font-semibold py-3 px-4 rounded-lg text-center hover:bg-accent transition-colors"
         >
           View {college2.code} Full Profile →
         </Link>
@@ -397,7 +397,7 @@ export default async function ComparePairPage({
       <div className="text-center mb-4">
         <Link
           href="/compare"
-          className="text-[#2e86c1] font-semibold hover:text-[#1a5276] transition-colors"
+          className="text-accent font-semibold hover:text-brand transition-colors"
         >
           ← Compare Different Colleges
         </Link>

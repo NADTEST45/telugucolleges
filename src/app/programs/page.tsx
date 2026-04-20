@@ -22,7 +22,7 @@ export default function ProgramsPage() {
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-      <nav className="text-sm text-gray-400 mb-4 flex items-center gap-1.5">
+      <nav className="text-sm text-gray-500 mb-4 flex items-center gap-1.5">
         <Link href="/">Home</Link><span>/</span><span className="text-gray-600 font-medium">Programs</span>
       </nav>
 
@@ -40,7 +40,7 @@ export default function ProgramsPage() {
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-2xl">{style.icon}</span>
                 <h2 className={`text-xl font-bold ${style.text}`}>{category}</h2>
-                <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{progs.length} programs</span>
+                <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">{progs.length} programs</span>
               </div>
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -50,7 +50,7 @@ export default function ProgramsPage() {
                     <div className="flex items-start justify-between mb-3">
                       <div>
                         <div className="font-bold text-lg leading-tight">{p.name}</div>
-                        <div className="text-xs text-gray-400 mt-0.5">
+                        <div className="text-xs text-gray-500 mt-0.5">
                           {p.level} · {p.duration} {p.duration === 1 ? "year" : "years"}
                         </div>
                       </div>
@@ -60,13 +60,13 @@ export default function ProgramsPage() {
                     </div>
                     <div className="flex items-end justify-between">
                       <div>
-                        <div className="text-[10px] sm:text-[11px] text-gray-400 mb-0.5">Fee Range</div>
-                        <div className="text-sm font-semibold text-[#1a5276]">
+                        <div className="text-[10px] sm:text-[11px] text-gray-500 mb-0.5">Fee Range</div>
+                        <div className="text-sm font-semibold text-brand">
                           {fmtFee(p.feeMin)} — {fmtFee(p.feeMax)}
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-[10px] sm:text-[11px] text-gray-400 mb-0.5">Median</div>
+                        <div className="text-[10px] sm:text-[11px] text-gray-500 mb-0.5">Median</div>
                         <div className="text-sm font-bold text-green-600">{fmtFee(p.feeMedian)}</div>
                       </div>
                     </div>

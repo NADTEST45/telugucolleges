@@ -57,7 +57,7 @@ export default function BestCollegesIndexPage() {
       <BreadcrumbSchema />
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#1a5276] to-[#2e86c1] text-white py-8 sm:py-12">
+        <div className="bg-gradient-to-r from-brand to-accent text-white py-8 sm:py-12">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <nav className="text-sm mb-4 opacity-90">
               <Link href="/" className="hover:underline">
@@ -90,12 +90,12 @@ export default function BestCollegesIndexPage() {
                   <Link
                     key={city.slug}
                     href={`/best-colleges/${city.slug}`}
-                    className="group block bg-white rounded-lg shadow-sm hover:shadow-lg transition-all border border-gray-100 hover:border-[#2e86c1] overflow-hidden"
+                    className="group block bg-white rounded-lg shadow-sm hover:shadow-lg transition-all border border-gray-100 hover:border-accent overflow-hidden"
                   >
                     <div className="p-5 sm:p-6">
                       <div className="flex items-start justify-between gap-3 mb-3">
                         <div>
-                          <h3 className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-[#1a5276] transition-colors">
+                          <h3 className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-brand transition-colors">
                             {city.district}
                           </h3>
                           <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
@@ -103,7 +103,7 @@ export default function BestCollegesIndexPage() {
                           </p>
                         </div>
                         <div className="shrink-0">
-                          <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-[#1a5276] text-sm font-semibold">
+                          <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-brand text-sm font-semibold">
                             {city.collegeCount}
                           </span>
                         </div>
@@ -114,7 +114,7 @@ export default function BestCollegesIndexPage() {
                         programs
                       </p>
 
-                      <div className="inline-flex items-center gap-1 text-[#2e86c1] font-semibold text-sm group-hover:gap-2 transition-all">
+                      <div className="inline-flex items-center gap-1 text-accent font-semibold text-sm group-hover:gap-2 transition-all">
                         <span>Explore colleges</span>
                         <span className="text-lg">→</span>
                       </div>

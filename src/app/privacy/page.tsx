@@ -15,13 +15,13 @@ export default function PrivacyPage() {
   return (
     <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
       <nav className="text-sm text-gray-500 mb-6 flex items-center gap-1.5">
-        <Link href="/" className="hover:text-[#2e86c1]">Home</Link>
+        <Link href="/" className="hover:text-accent">Home</Link>
         <span>/</span>
         <span className="text-gray-600 font-medium">Privacy Policy</span>
       </nav>
 
       <h1 className="text-2xl sm:text-3xl font-extrabold mb-2">Privacy Policy</h1>
-      <p className="text-sm text-gray-400 mb-8">Last updated: March 20, 2026</p>
+      <p className="text-sm text-gray-500 mb-8">Last updated: March 20, 2026</p>
 
       <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm space-y-6 text-sm text-gray-600 leading-relaxed">
 
@@ -47,7 +47,7 @@ export default function PrivacyPage() {
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-2">4. Advertising & Third-Party Partners</h2>
           <p>We display advertisements to support the free operation of this Site. Our third-party advertising partners may use cookies, web beacons, and similar technologies to collect information about your browsing activity across websites in order to serve ads that are more relevant to your interests (interest-based advertising).</p>
-          <p className="mt-2">These third-party ad networks operate independently and have their own privacy policies. We do not provide personally identifiable information to advertisers. You can opt out of personalised advertising by: adjusting your browser cookie settings, visiting the Network Advertising Initiative opt-out page at <a href="https://optout.networkadvertising.org" target="_blank" rel="noopener noreferrer" className="text-[#2e86c1] hover:underline">optout.networkadvertising.org</a>, or using the Digital Advertising Alliance opt-out at <a href="https://optout.aboutads.info" target="_blank" rel="noopener noreferrer" className="text-[#2e86c1] hover:underline">optout.aboutads.info</a>.</p>
+          <p className="mt-2">These third-party ad networks operate independently and have their own privacy policies. We do not provide personally identifiable information to advertisers. You can opt out of personalised advertising by: adjusting your browser cookie settings, visiting the Network Advertising Initiative opt-out page at <a href="https://optout.networkadvertising.org" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">optout.networkadvertising.org</a>, or using the Digital Advertising Alliance opt-out at <a href="https://optout.aboutads.info" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">optout.aboutads.info</a>.</p>
         </section>
 
         <section>
@@ -84,7 +84,7 @@ export default function PrivacyPage() {
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-2">10. Your Rights</h2>
           <p>Depending on your jurisdiction, you may have the right to: request access to the personal data we hold about you; request correction of inaccurate data; request deletion of your data (subject to legal and operational requirements); object to or restrict certain processing of your data; and withdraw consent where processing is based on consent.</p>
-          <p className="mt-2">To exercise any of these rights, please contact us at <a href="mailto:contact@telugucolleges.com" className="text-[#2e86c1] font-semibold hover:underline">contact@telugucolleges.com</a>. We will respond within a reasonable timeframe.</p>
+          <p className="mt-2">To exercise any of these rights, please contact us at <a href="mailto:contact@telugucolleges.com" className="text-accent font-semibold hover:underline">contact@telugucolleges.com</a>. We will respond within a reasonable timeframe.</p>
         </section>
 
         <section>
@@ -109,7 +109,7 @@ export default function PrivacyPage() {
 
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-2">15. Contact Us</h2>
-          <p>If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us via our <Link href="/contact" className="text-[#2e86c1] font-semibold hover:underline">contact page</Link> or email <a href="mailto:contact@telugucolleges.com" className="text-[#2e86c1] font-semibold hover:underline">contact@telugucolleges.com</a>.</p>
+          <p>If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us via our <Link href="/contact" className="text-accent font-semibold hover:underline">contact page</Link> or email <a href="mailto:contact@telugucolleges.com" className="text-accent font-semibold hover:underline">contact@telugucolleges.com</a>.</p>
         </section>
       </div>
     </main>

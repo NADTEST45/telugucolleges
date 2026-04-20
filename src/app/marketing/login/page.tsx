@@ -96,7 +96,7 @@ export default function MarketingLogin() {
             {loading ? "Signing in..." : "Sign In"}
           </button>
 
-          <p className="text-xs text-gray-400 mt-4 text-center">
+          <p className="text-xs text-gray-500 mt-4 text-center">
             Don&apos;t have an account? Contact TeluguColleges admin to get access.
           </p>
         </form>

@@ -158,8 +158,8 @@ export default function EAPCETPage() {
 
   return (
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
-      <nav className="text-sm text-gray-400 mb-4 flex items-center gap-1.5">
-        <Link href="/" className="hover:text-[#2e86c1]">Home</Link>
+      <nav className="text-sm text-gray-500 mb-4 flex items-center gap-1.5">
+        <Link href="/" className="hover:text-accent">Home</Link>
         <span>/</span>
         <span className="text-gray-600 font-medium">EAPCET</span>
       </nav>
@@ -170,7 +170,7 @@ export default function EAPCETPage() {
       {/* State Toggle */}
       <div className="flex gap-2 mb-6 sm:mb-8">
         <button onClick={() => setState("Telangana")}
-          className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all active:scale-95 ${state === "Telangana" ? "bg-[#2e86c1] text-white" : "bg-blue-50 text-[#2e86c1] hover:bg-blue-100"}`}>
+          className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all active:scale-95 ${state === "Telangana" ? "bg-accent text-white" : "bg-blue-50 text-accent hover:bg-blue-100"}`}>
           TS EAPCET
         </button>
         <button onClick={() => setState("Andhra Pradesh")}
@@ -208,7 +208,7 @@ export default function EAPCETPage() {
           {/* TG EAPCET */}
           <div className="rounded-xl p-4 sm:p-5" style={{ background: "rgba(255,255,255,0.07)", backdropFilter: "blur(8px)" }}>
             <div className="flex items-center gap-2 mb-4">
-              <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-[#2e86c1] text-white">TS</span>
+              <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-accent text-white">TS</span>
               <span className="text-white font-bold text-sm">{EAPCET_DATES.tg.label}</span>
             </div>
             <div className="space-y-2.5">
@@ -236,14 +236,14 @@ export default function EAPCETPage() {
         <div className="gap-6">
           {(state === "Telangana") && (
             <div>
-              <h3 className="font-semibold text-sm text-[#2e86c1] mb-3">TS EAPCET (Telangana)</h3>
+              <h3 className="font-semibold text-sm text-accent mb-3">TS EAPCET (Telangana)</h3>
               <p className="text-sm text-gray-600 leading-relaxed">Conducted by JNTU Hyderabad on behalf of TSCHE. Required for B.E./B.Tech admissions into all engineering colleges in Telangana through convener quota counselling.</p>
               <div className="mt-3 space-y-1 text-xs text-gray-500">
                 <div>Convener Quota: 70% of seats filled via TSCHE web counselling</div>
                 <div>Fee regulation: TS AFRC (block period system, currently 2025-28)</div>
                 <div>Conducting body: JNTUH for TSCHE</div>
               </div>
-              <div className="mt-3 text-xs text-gray-400">Official website: eapcet.tsche.ac.in</div>
+              <div className="mt-3 text-xs text-gray-500">Official website: eapcet.tsche.ac.in</div>
             </div>
           )}
           {(state === "Andhra Pradesh") && (
@@ -255,7 +255,7 @@ export default function EAPCETPage() {
                 <div>Category-B (Management Quota): 30% — fees regulated by APHERMC</div>
                 <div>Conducting body: JNTUK (on rotation) for APSCHE</div>
               </div>
-              <div className="mt-3 text-xs text-gray-400">Official website: cets.apsche.ap.gov.in</div>
+              <div className="mt-3 text-xs text-gray-500">Official website: cets.apsche.ap.gov.in</div>
             </div>
           )}
         </div>
@@ -275,28 +275,28 @@ export default function EAPCETPage() {
             ["Subjects", "M / P / C", "80 + 40 + 40"],
           ].map(([label, value, sub]) => (
             <div key={label} className="bg-gray-50 rounded-xl p-3 sm:p-4">
-              <div className="text-[10px] sm:text-xs text-gray-400 mb-1">{label}</div>
+              <div className="text-[10px] sm:text-xs text-gray-500 mb-1">{label}</div>
               <div className="text-lg sm:text-xl font-extrabold text-gray-900">{value}</div>
-              <div className="text-[11px] sm:text-xs text-gray-400 mt-0.5">{sub}</div>
+              <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5">{sub}</div>
             </div>
           ))}
         </div>
-        <p className="text-[11px] text-gray-400 mt-3">Mathematics: 80 marks, Physics: 40 marks, Chemistry: 40 marks. Based on Intermediate (11th & 12th) syllabus.</p>
+        <p className="text-[11px] text-gray-500 mt-3">Mathematics: 80 marks, Physics: 40 marks, Chemistry: 40 marks. Based on Intermediate (11th & 12th) syllabus.</p>
       </section>
 
       {/* College Predictor */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
         <h2 className="text-base sm:text-lg font-bold mb-1">College Predictor</h2>
-        <p className="text-[10px] sm:text-xs text-gray-400 mb-4 sm:mb-5">Weighted prediction using official TSCHE closing ranks (2023-24 & 2024-25) and APSCHE closing ranks (2022-23 & 2023-24) — 70% latest year, 30% previous year. Category & gender-wise.</p>
+        <p className="text-[10px] sm:text-xs text-gray-500 mb-4 sm:mb-5">Weighted prediction using official TSCHE closing ranks (2023-24 & 2024-25) and APSCHE closing ranks (2022-23 & 2023-24) — 70% latest year, 30% previous year. Category & gender-wise.</p>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3 mb-4 sm:mb-6">
           <div>
-            <label className="text-[11px] text-gray-400 font-semibold mb-1 block">Your EAPCET Rank</label>
+            <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Your EAPCET Rank</label>
             <input type="number" value={rank} onChange={e => handleRankChange(e.target.value)}
               placeholder="e.g. 15000" className="w-full px-3 sm:px-4 py-2.5 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-blue-200 font-semibold" />
           </div>
           <div>
-            <label className="text-[11px] text-gray-400 font-semibold mb-1 block">Category / Caste</label>
+            <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Category / Caste</label>
             <select value={category} onChange={e => setCategory(e.target.value as Category)}
               className="w-full px-3 sm:px-4 py-2.5 rounded-lg border border-gray-200 text-sm cursor-pointer font-semibold">
               {CATEGORIES.map(ct => (
@@ -305,10 +305,10 @@ export default function EAPCETPage() {
             </select>
           </div>
           <div>
-            <label className="text-[11px] text-gray-400 font-semibold mb-1 block">Gender</label>
+            <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Gender</label>
             <div className="flex gap-1 bg-gray-100 p-1 rounded-lg h-[42px]">
               <button onClick={() => setGender("boys")}
-                className={`flex-1 rounded-md text-xs font-semibold transition-all ${gender === "boys" ? "bg-white text-[#1a5276] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
+                className={`flex-1 rounded-md text-xs font-semibold transition-all ${gender === "boys" ? "bg-white text-brand shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
                 Boys
               </button>
               <button onClick={() => setGender("girls")}
@@ -318,14 +318,14 @@ export default function EAPCETPage() {
             </div>
           </div>
           <div>
-            <label className="text-[11px] text-gray-400 font-semibold mb-1 block">Branch</label>
+            <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Branch</label>
             <select value={branch} onChange={e => setBranch(e.target.value)}
               className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm cursor-pointer uppercase">
               {allBranches.map(b => <option key={b} value={b}>{branchLabels[b] || b.toUpperCase()}</option>)}
             </select>
           </div>
           <div>
-            <label className="text-[11px] text-gray-400 font-semibold mb-1 block">State</label>
+            <label className="text-[11px] text-gray-500 font-semibold mb-1 block">State</label>
             <select value={state} onChange={e => setState(e.target.value as typeof state)}
               className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm cursor-pointer">
               <option value="Telangana">Telangana</option>
@@ -346,7 +346,7 @@ export default function EAPCETPage() {
               <div className="text-sm font-semibold text-gray-600">
                 {predictions.length} college{predictions.length !== 1 ? "s" : ""} for rank {parseInt(rank).toLocaleString()}
               </div>
-              <div className="text-[11px] text-gray-400">{catLabel} · {gender === "girls" ? "Girls" : "Boys"} · {branch.toUpperCase()}</div>
+              <div className="text-[11px] text-gray-500">{catLabel} · {gender === "girls" ? "Girls" : "Boys"} · {branch.toUpperCase()}</div>
             </div>
             <div className="space-y-2 max-h-[500px] overflow-y-auto -mx-1 px-1">
               {predictions.map(({ college: col, cutoff, chance, isHistorical, dataYears }) => (
@@ -354,7 +354,7 @@ export default function EAPCETPage() {
                   className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center justify-between gap-2 sm:gap-3 px-3 sm:px-4 py-3 rounded-lg bg-gray-50 hover:bg-blue-50 transition-all active:scale-[0.99]">
                   <div className="flex-1 min-w-0">
                     <div className="font-semibold text-xs sm:text-sm leading-tight">{col.name}</div>
-                    <div className="text-[11px] sm:text-xs text-gray-400 mt-0.5 truncate">
+                    <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5 truncate">
                       {col.district}, {col.state} · {fmtFee(col.fee)}/yr
                       {isHistorical && (
                         <span className="ml-1.5 text-blue-500">· {catLabel.split(" ")[0]} weighted ({dataYears.join(", ")})</span>
@@ -363,7 +363,7 @@ export default function EAPCETPage() {
                   </div>
                   <div className="flex items-center gap-3 sm:gap-4 text-sm">
                     <div className="text-center">
-                      <div className="text-[10px] text-gray-400">{isHistorical ? `${catLabel.split(" ")[0]} Cutoff` : "Cutoff"}</div>
+                      <div className="text-[10px] text-gray-500">{isHistorical ? `${catLabel.split(" ")[0]} Cutoff` : "Cutoff"}</div>
                       <div className="font-bold text-xs sm:text-sm">{cutoff.toLocaleString()}</div>
                     </div>
                     <span className={`px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold ${
@@ -382,7 +382,7 @@ export default function EAPCETPage() {
         )}
 
         {rank && predictions.length === 0 && parseInt(rank) > 0 && (
-          <div className="text-center py-8 text-gray-400">
+          <div className="text-center py-8 text-gray-500">
             <div className="text-4xl mb-2">🎯</div>
             <p className="font-semibold">No colleges found for this rank</p>
             <p className="text-xs mt-1">Try a different branch, category, or remove the state filter</p>
@@ -406,8 +406,8 @@ export default function EAPCETPage() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 text-center">
               {stats.map(([value, label]) => (
                 <div key={label} className="bg-gray-50 rounded-xl p-3 sm:p-4">
-                  <div className="text-lg sm:text-xl font-extrabold text-[#1a5276]">{value}</div>
-                  <div className="text-[10px] sm:text-xs text-gray-400 mt-1">{label}</div>
+                  <div className="text-lg sm:text-xl font-extrabold text-brand">{value}</div>
+                  <div className="text-[10px] sm:text-xs text-gray-500 mt-1">{label}</div>
                 </div>
               ))}
             </div>

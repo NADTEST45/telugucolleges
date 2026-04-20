@@ -43,7 +43,7 @@ export default function CollegeAdminDashboard() {
   }
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center"><div className="text-gray-400">Loading...</div></div>;
+    return <div className="min-h-screen flex items-center justify-center"><div className="text-gray-500">Loading...</div></div>;
   }
 
   const pending = edits.filter(e => e.status === "pending").length;
@@ -53,7 +53,7 @@ export default function CollegeAdminDashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-[#1a5276] text-white">
+      <header className="bg-brand text-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <div>
             <Link href="/" className="text-lg font-bold">TC</Link>
@@ -96,7 +96,7 @@ export default function CollegeAdminDashboard() {
         <div className="mb-6">
           <Link
             href="/college-admin/submit"
-            className="inline-flex items-center gap-2 bg-[#1a5276] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#154360] transition-colors"
+            className="inline-flex items-center gap-2 bg-brand text-white font-semibold px-6 py-3 rounded-xl hover:bg-brand-dark transition-colors"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Submit New Edit
@@ -109,7 +109,7 @@ export default function CollegeAdminDashboard() {
             <h2 className="font-bold text-gray-900">Your Submissions</h2>
           </div>
           {edits.length === 0 ? (
-            <div className="px-6 py-12 text-center text-gray-400">
+            <div className="px-6 py-12 text-center text-gray-500">
               No submissions yet. Click &quot;Submit New Edit&quot; to propose changes.
             </div>
           ) : (
@@ -129,7 +129,7 @@ export default function CollegeAdminDashboard() {
                     <tr key={edit.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4">
                         <div className="font-medium text-gray-900">{edit.field_name}</div>
-                        <div className="text-xs text-gray-400">{edit.category}</div>
+                        <div className="text-xs text-gray-500">{edit.category}</div>
                       </td>
                       <td className="px-6 py-4 text-gray-500">{edit.old_value}</td>
                       <td className="px-6 py-4 font-medium text-gray-900">{edit.new_value}</td>
@@ -141,7 +141,7 @@ export default function CollegeAdminDashboard() {
                           <div className="text-xs text-red-500 mt-1">{edit.reviewer_notes}</div>
                         )}
                       </td>
-                      <td className="px-6 py-4 text-xs text-gray-400">
+                      <td className="px-6 py-4 text-xs text-gray-500">
                         {new Date(edit.created_at).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
                       </td>
                     </tr>

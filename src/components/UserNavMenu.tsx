@@ -72,7 +72,7 @@ export default function UserNavMenu() {
         onClick={() => setOpen(!open)}
         aria-expanded={open}
         aria-haspopup="true"
-        className="w-9 h-9 rounded-full bg-[#2e86c1] flex items-center justify-center text-sm font-bold hover:ring-2 hover:ring-white/50 transition-all"
+        className="w-9 h-9 rounded-full bg-accent flex items-center justify-center text-sm font-bold hover:ring-2 hover:ring-white/50 transition-all"
         aria-label="Account menu"
       >
         {isSafeImageUrl(avatarUrl) ? (
@@ -99,7 +99,7 @@ export default function UserNavMenu() {
             <div className="text-sm font-semibold truncate">
               {user.user_metadata?.full_name || "Student"}
             </div>
-            <div className="text-xs text-gray-400 truncate">{user.email}</div>
+            <div className="text-xs text-gray-500 truncate">{user.email}</div>
           </div>
 
           <Link

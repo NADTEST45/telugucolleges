@@ -73,7 +73,7 @@ export default function AdminDashboard() {
   }
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center"><div className="text-gray-400">Loading...</div></div>;
+    return <div className="min-h-screen flex items-center justify-center"><div className="text-gray-500">Loading...</div></div>;
   }
 
   const pendingCount = edits.length; // when filter is "pending" this is the count
@@ -120,7 +120,7 @@ export default function AdminDashboard() {
 
         {/* Edits list */}
         {edits.length === 0 ? (
-          <div className="bg-white rounded-xl p-12 text-center text-gray-400 shadow-sm">
+          <div className="bg-white rounded-xl p-12 text-center text-gray-500 shadow-sm">
             {filter === "pending" ? "No pending edits. All clear!" : `No ${filter} edits.`}
           </div>
         ) : (
@@ -132,7 +132,7 @@ export default function AdminDashboard() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="font-bold text-gray-900">{edit.college_name}</span>
-                      <span className="text-xs text-gray-400">({edit.college_code})</span>
+                      <span className="text-xs text-gray-500">({edit.college_code})</span>
                       <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${STATUS_COLORS[edit.status]}`}>
                         {edit.status}
                       </span>
@@ -153,7 +153,7 @@ export default function AdminDashboard() {
                     </div>
 
                     {edit.change_reason && (
-                      <div className="text-xs text-gray-400 mt-2 italic">&quot;{edit.change_reason}&quot;</div>
+                      <div className="text-xs text-gray-500 mt-2 italic">&quot;{edit.change_reason}&quot;</div>
                     )}
 
                     {edit.reviewer_notes && (
@@ -199,7 +199,7 @@ export default function AdminDashboard() {
                       ) : (
                         <button
                           onClick={() => setReviewingId(edit.id)}
-                          className="bg-[#1a5276] text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-[#154360] transition-colors"
+                          className="bg-brand text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-brand-dark transition-colors"
                         >
                           Review
                         </button>
@@ -208,7 +208,7 @@ export default function AdminDashboard() {
                   )}
                 </div>
 
-                <div className="px-6 py-2 bg-gray-50 text-xs text-gray-400">
+                <div className="px-6 py-2 bg-gray-50 text-xs text-gray-500">
                   Submitted {new Date(edit.created_at).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" })}
                 </div>
               </div>

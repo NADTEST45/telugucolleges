@@ -58,7 +58,7 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-      <nav className="text-sm text-gray-400 mb-4 flex items-center gap-1.5">
+      <nav className="text-sm text-gray-500 mb-4 flex items-center gap-1.5">
         <Link href="/">Home</Link><span>/</span>
         <Link href="/programs">Programs</Link><span>/</span>
         <span className="text-gray-600 font-medium">{program.name}</span>
@@ -78,19 +78,19 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
       {/* Stats Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
         <div className="bg-white rounded-xl p-4 shadow-sm text-center">
-          <div className="text-xs text-gray-400 mb-1">Lowest Fee</div>
+          <div className="text-xs text-gray-500 mb-1">Lowest Fee</div>
           <div className="font-bold text-lg text-green-600">{fmtFee(program.feeMin)}</div>
         </div>
         <div className="bg-white rounded-xl p-4 shadow-sm text-center">
-          <div className="text-xs text-gray-400 mb-1">Median Fee</div>
-          <div className="font-bold text-lg text-[#1a5276]">{fmtFee(program.feeMedian)}</div>
+          <div className="text-xs text-gray-500 mb-1">Median Fee</div>
+          <div className="font-bold text-lg text-brand">{fmtFee(program.feeMedian)}</div>
         </div>
         <div className="bg-white rounded-xl p-4 shadow-sm text-center">
-          <div className="text-xs text-gray-400 mb-1">Highest Fee</div>
+          <div className="text-xs text-gray-500 mb-1">Highest Fee</div>
           <div className="font-bold text-lg text-rose-600">{fmtFee(program.feeMax)}</div>
         </div>
         <div className="bg-white rounded-xl p-4 shadow-sm text-center">
-          <div className="text-xs text-gray-400 mb-1">Total Colleges</div>
+          <div className="text-xs text-gray-500 mb-1">Total Colleges</div>
           <div className="font-bold text-lg">{program.collegeCount}</div>
         </div>
       </div>
@@ -98,7 +98,7 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
       {/* State Toggle */}
       <div className="flex gap-2 mb-4">
         <button onClick={() => { setState(""); setDistrict(""); }}
-          className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${!state ? "bg-[#1a5276] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+          className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${!state ? "bg-brand text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
           All ({colleges.length})
         </button>
         <button onClick={() => { setState(state === "Andhra Pradesh" ? "" : "Andhra Pradesh"); setDistrict(""); }}
@@ -106,7 +106,7 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
           AP ({apCount})
         </button>
         <button onClick={() => { setState(state === "Telangana" ? "" : "Telangana"); setDistrict(""); }}
-          className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${state === "Telangana" ? "bg-[#2e86c1] text-white" : "bg-blue-50 text-[#2e86c1] hover:bg-blue-100"}`}>
+          className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${state === "Telangana" ? "bg-accent text-white" : "bg-blue-50 text-accent hover:bg-blue-100"}`}>
           TS ({tsCount})
         </button>
       </div>
@@ -124,7 +124,7 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
             <option value="district">District</option>
           </select>
           <button onClick={() => setShowFilters(!showFilters)}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${showFilters || hasFilters ? "bg-[#2e86c1] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${showFilters || hasFilters ? "bg-accent text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
             Filters {hasFilters ? `(${[state, district, collegeType].filter(Boolean).length})` : ""}
           </button>
         </div>
@@ -133,14 +133,14 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
           <div className="mt-4 pt-4 border-t border-gray-100">
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               <div>
-                <label className="text-[11px] text-gray-400 font-semibold mb-1 block">District</label>
+                <label className="text-[11px] text-gray-500 font-semibold mb-1 block">District</label>
                 <select value={district} onChange={e => setDistrict(e.target.value)} className={`${sel} w-full`}>
                   <option value="">All Districts</option>
                   {districts.map(d => <option key={d}>{d}</option>)}
                 </select>
               </div>
               <div>
-                <label className="text-[11px] text-gray-400 font-semibold mb-1 block">College Type</label>
+                <label className="text-[11px] text-gray-500 font-semibold mb-1 block">College Type</label>
                 <select value={collegeType} onChange={e => setCollegeType(e.target.value)} className={`${sel} w-full`}>
                   <option value="">All Types</option>
                   {types.map(t => <option key={t}>{t}</option>)}
@@ -170,7 +170,7 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
               className="flex flex-wrap gap-4 items-center justify-between bg-white rounded-xl px-5 py-4 shadow-sm hover:shadow-md transition-all">
               <div className="flex-1 min-w-[240px]">
                 <div className="font-bold text-[15px] leading-tight">{c.name}</div>
-                <div className="text-xs text-gray-400 mt-0.5">
+                <div className="text-xs text-gray-500 mt-0.5">
                   {c.district}, {c.state} · {c.affiliation}
                 </div>
                 <div className="flex gap-1.5 mt-1.5 flex-wrap">
@@ -181,8 +181,8 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
               </div>
               <div className="flex gap-6 items-center shrink-0">
                 <div className="text-center">
-                  <div className="text-[11px] text-gray-400">{cp.mgmtFee && cp.mgmtFee < cp.fee ? "Direct Admission" : "Convener Fee"}</div>
-                  <div className="font-bold text-[#1a5276] text-lg">{fmtFee(cp.fee)}</div>
+                  <div className="text-[11px] text-gray-500">{cp.mgmtFee && cp.mgmtFee < cp.fee ? "Direct Admission" : "Convener Fee"}</div>
+                  <div className="font-bold text-brand text-lg">{fmtFee(cp.fee)}</div>
                 </div>
                 {cp.mgmtFee && cp.mgmtFee > cp.fee && (
                   <div className="text-center">
@@ -203,10 +203,10 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
       </div>
 
       {filtered.length === 0 && (
-        <div className="text-center py-16 text-gray-400">
+        <div className="text-center py-16 text-gray-500">
           <div className="text-5xl mb-3">🔍</div>
           <div className="text-lg font-semibold">No colleges match your filters</div>
-          <button onClick={clearAll} className="mt-2 text-sm text-[#2e86c1] font-semibold hover:underline">Clear all filters</button>
+          <button onClick={clearAll} className="mt-2 text-sm text-accent font-semibold hover:underline">Clear all filters</button>
         </div>
       )}
     </main>

@@ -56,7 +56,7 @@ export default function ShortlistPage() {
         </div>
         <button
           onClick={async () => { await signOut(); window.location.href = "/"; }}
-          className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+          className="text-sm text-gray-500 hover:text-gray-600 transition-colors"
         >
           Sign out
         </button>
@@ -76,7 +76,7 @@ export default function ShortlistPage() {
           </p>
           <Link
             href="/colleges"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#1a5276] text-white text-sm font-semibold hover:bg-[#1a5276]/90 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand text-white text-sm font-semibold hover:bg-brand/90 transition-colors"
           >
             Browse Colleges
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -101,13 +101,13 @@ export default function ShortlistPage() {
                     {c ? (
                       <>
                         <Link href={`/colleges/${c.slug}`} className="group">
-                          <div className="font-bold text-[15px] group-hover:text-[#2e86c1] transition-colors">{c.name}</div>
+                          <div className="font-bold text-[15px] group-hover:text-accent transition-colors">{c.name}</div>
                         </Link>
-                        <div className="text-xs text-gray-400 mt-0.5">{c.district}, {c.state} · {c.affiliation}</div>
+                        <div className="text-xs text-gray-500 mt-0.5">{c.district}, {c.state} · {c.affiliation}</div>
                       </>
                     ) : (
                       <>
-                        <div className="font-bold text-[15px] text-gray-400">{college_slug}</div>
+                        <div className="font-bold text-[15px] text-gray-500">{college_slug}</div>
                         <div className="text-xs text-amber-500 mt-0.5">College data no longer available</div>
                       </>
                     )}
@@ -122,18 +122,18 @@ export default function ShortlistPage() {
                     {c && (
                       <div className="flex gap-4 mt-3 text-xs">
                         <div>
-                          <span className="text-gray-400">Fee: </span>
-                          <span className="font-semibold text-[#1a5276]">{fmtFee(c.fee)}/yr</span>
+                          <span className="text-gray-500">Fee: </span>
+                          <span className="font-semibold text-brand">{fmtFee(c.fee)}/yr</span>
                         </div>
                         {c.cutoff.cse > 0 && (
                           <div>
-                            <span className="text-gray-400">CSE Cutoff: </span>
+                            <span className="text-gray-500">CSE Cutoff: </span>
                             <span className="font-semibold">{c.cutoff.cse.toLocaleString()}</span>
                           </div>
                         )}
                         {c.placements.avg > 0 && (
                           <div>
-                            <span className="text-gray-400">Avg Pkg: </span>
+                            <span className="text-gray-500">Avg Pkg: </span>
                             <span className="font-semibold text-green-600">₹{c.placements.avg}L</span>
                           </div>
                         )}
@@ -164,13 +164,13 @@ export default function ShortlistPage() {
         const validColleges = shortlistedColleges.filter(x => x.college);
         if (validColleges.length < 2) return null;
         return (
-          <div className="mt-8 bg-[#1a5276]/5 rounded-2xl p-6 text-center">
+          <div className="mt-8 bg-brand/5 rounded-2xl p-6 text-center">
             <p className="text-sm text-gray-600 mb-3">
               Ready to compare your shortlisted colleges?
             </p>
             <Link
               href={`/compare/${validColleges[0].college!.slug}-vs-${validColleges[1].college!.slug}`}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1a5276] text-white text-sm font-semibold hover:bg-[#1a5276]/90 transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand text-white text-sm font-semibold hover:bg-brand/90 transition-colors"
           >
             Compare Top 2
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

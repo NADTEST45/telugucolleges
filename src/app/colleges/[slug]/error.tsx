@@ -15,7 +15,7 @@ export default function CollegeError({
       </p>
       <button
         onClick={reset}
-        className="px-6 py-2.5 bg-[#2e86c1] text-white rounded-lg font-semibold hover:bg-[#1a5276] transition-colors"
+        className="px-6 py-2.5 bg-accent text-white rounded-lg font-semibold hover:bg-brand transition-colors"
       >
         Try again
       </button>

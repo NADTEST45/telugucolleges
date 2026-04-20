@@ -15,19 +15,19 @@ export default function TermsPage() {
   return (
     <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
       <nav className="text-sm text-gray-500 mb-6 flex items-center gap-1.5">
-        <Link href="/" className="hover:text-[#2e86c1]">Home</Link>
+        <Link href="/" className="hover:text-accent">Home</Link>
         <span>/</span>
         <span className="text-gray-600 font-medium">Terms of Use</span>
       </nav>
 
       <h1 className="text-2xl sm:text-3xl font-extrabold mb-2">Terms of Use</h1>
-      <p className="text-sm text-gray-400 mb-8">Last updated: March 20, 2026</p>
+      <p className="text-sm text-gray-500 mb-8">Last updated: March 20, 2026</p>
 
       <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm space-y-6 text-sm text-gray-600 leading-relaxed">
 
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-2">1. Acceptance of Terms</h2>
-          <p>By accessing, browsing, or using TeluguColleges.com (&ldquo;the Site&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;), you acknowledge that you have read, understood, and agree to be bound by these Terms of Use, our <Link href="/privacy" className="text-[#2e86c1] font-semibold hover:underline">Privacy Policy</Link>, and all applicable laws. If you do not agree with any part of these terms, you must discontinue use of the Site immediately.</p>
+          <p>By accessing, browsing, or using TeluguColleges.com (&ldquo;the Site&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;), you acknowledge that you have read, understood, and agree to be bound by these Terms of Use, our <Link href="/privacy" className="text-accent font-semibold hover:underline">Privacy Policy</Link>, and all applicable laws. If you do not agree with any part of these terms, you must discontinue use of the Site immediately.</p>
           <p className="mt-2">We reserve the right to update or modify these Terms at any time without prior notice. Changes take effect immediately upon posting. Your continued use of the Site following any changes constitutes acceptance of the revised Terms. We recommend reviewing this page periodically.</p>
         </section>
 
@@ -108,7 +108,7 @@ export default function TermsPage() {
 
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-2">15. Copyright & Infringement Claims</h2>
-          <p>If you believe that any content on the Site infringes your copyright or other intellectual property rights, please contact us at <a href="mailto:contact@telugucolleges.com" className="text-[#2e86c1] font-semibold hover:underline">contact@telugucolleges.com</a> with: a description of the copyrighted work; the location (URL) of the infringing content on our Site; your contact information; and a statement that you have a good-faith belief that the use is not authorized. We will investigate and take appropriate action.</p>
+          <p>If you believe that any content on the Site infringes your copyright or other intellectual property rights, please contact us at <a href="mailto:contact@telugucolleges.com" className="text-accent font-semibold hover:underline">contact@telugucolleges.com</a> with: a description of the copyrighted work; the location (URL) of the infringing content on our Site; your contact information; and a statement that you have a good-faith belief that the use is not authorized. We will investigate and take appropriate action.</p>
         </section>
 
         <section>
@@ -133,12 +133,12 @@ export default function TermsPage() {
 
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-2">20. Entire Agreement</h2>
-          <p>These Terms, together with the <Link href="/privacy" className="text-[#2e86c1] font-semibold hover:underline">Privacy Policy</Link>, constitute the entire agreement between you and TeluguColleges.com regarding your use of the Site, and supersede all prior agreements and understandings.</p>
+          <p>These Terms, together with the <Link href="/privacy" className="text-accent font-semibold hover:underline">Privacy Policy</Link>, constitute the entire agreement between you and TeluguColleges.com regarding your use of the Site, and supersede all prior agreements and understandings.</p>
         </section>
 
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-2">21. Contact</h2>
-          <p>If you have questions or concerns about these Terms of Use, please contact us via our <Link href="/contact" className="text-[#2e86c1] font-semibold hover:underline">contact page</Link> or email <a href="mailto:contact@telugucolleges.com" className="text-[#2e86c1] font-semibold hover:underline">contact@telugucolleges.com</a>.</p>
+          <p>If you have questions or concerns about these Terms of Use, please contact us via our <Link href="/contact" className="text-accent font-semibold hover:underline">contact page</Link> or email <a href="mailto:contact@telugucolleges.com" className="text-accent font-semibold hover:underline">contact@telugucolleges.com</a>.</p>
         </section>
       </div>
     </main>

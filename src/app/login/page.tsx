@@ -16,7 +16,7 @@ export default function LoginPage() {
   return (
     <Suspense fallback={
       <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#1a5276] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-brand border-t-transparent rounded-full animate-spin" />
       </div>
     }>
       <LoginForm />
@@ -110,7 +110,7 @@ function LoginForm() {
           </p>
           <button
             onClick={() => { setEmailSent(false); setMode("login"); }}
-            className="text-sm text-[#2e86c1] hover:underline"
+            className="text-sm text-accent hover:underline"
           >
             Back to login
           </button>
@@ -124,7 +124,7 @@ function LoginForm() {
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-[#1a5276] flex items-center justify-center font-extrabold text-white text-sm">TC</div>
+            <div className="w-10 h-10 rounded-xl bg-brand flex items-center justify-center font-extrabold text-white text-sm">TC</div>
           </Link>
           <h1 className="text-2xl font-bold text-gray-900">
             {mode === "login" ? "Welcome back" : "Create your account"}
@@ -153,7 +153,7 @@ function LoginForm() {
 
           <div className="flex items-center gap-3 my-6">
             <div className="flex-1 h-px bg-gray-200" />
-            <span className="text-xs text-gray-400">or</span>
+            <span className="text-xs text-gray-500">or</span>
             <div className="flex-1 h-px bg-gray-200" />
           </div>
 
@@ -170,7 +170,7 @@ function LoginForm() {
                   autoComplete="name"
                   value={name}
                   onChange={e => setName(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#2e86c1] focus:ring-1 focus:ring-[#2e86c1] outline-none text-sm transition-colors min-h-[44px]"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-accent focus:ring-1 focus:ring-accent outline-none text-sm transition-colors min-h-[44px]"
                   placeholder="Your name"
                   required
                 />
@@ -188,7 +188,7 @@ function LoginForm() {
                 inputMode="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#2e86c1] focus:ring-1 focus:ring-[#2e86c1] outline-none text-sm transition-colors min-h-[44px]"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-accent focus:ring-1 focus:ring-accent outline-none text-sm transition-colors min-h-[44px]"
                 placeholder="you@example.com"
                 required
               />
@@ -205,7 +205,7 @@ function LoginForm() {
                 autoCapitalize="off"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#2e86c1] focus:ring-1 focus:ring-[#2e86c1] outline-none text-sm transition-colors min-h-[44px]"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-accent focus:ring-1 focus:ring-accent outline-none text-sm transition-colors min-h-[44px]"
                 placeholder={mode === "signup" ? "Create a password (min 6 chars)" : "Your password"}
                 minLength={6}
                 required
@@ -221,7 +221,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-[#1a5276] text-white text-sm font-semibold hover:bg-[#1a5276]/90 transition-colors disabled:opacity-50 min-h-[48px]"
+              className="w-full py-3 rounded-xl bg-brand text-white text-sm font-semibold hover:bg-brand/90 transition-colors disabled:opacity-50 min-h-[48px]"
             >
               {loading
                 ? "Please wait..."
@@ -236,14 +236,14 @@ function LoginForm() {
             {mode === "login" ? (
               <>
                 Don&apos;t have an account?{" "}
-                <button onClick={() => { setMode("signup"); setError(""); }} className="text-[#2e86c1] font-semibold hover:underline">
+                <button onClick={() => { setMode("signup"); setError(""); }} className="text-accent font-semibold hover:underline">
                   Sign up
                 </button>
               </>
             ) : (
               <>
                 Already have an account?{" "}
-                <button onClick={() => { setMode("login"); setError(""); }} className="text-[#2e86c1] font-semibold hover:underline">
+                <button onClick={() => { setMode("login"); setError(""); }} className="text-accent font-semibold hover:underline">
                   Log in
                 </button>
               </>
@@ -251,7 +251,7 @@ function LoginForm() {
           </div>
         </div>
 
-        <p className="text-center text-xs text-gray-400 mt-6">
+        <p className="text-center text-xs text-gray-500 mt-6">
           By continuing, you agree to our{" "}
           <Link href="/terms" className="underline">Terms</Link> and{" "}
           <Link href="/privacy" className="underline">Privacy Policy</Link>.

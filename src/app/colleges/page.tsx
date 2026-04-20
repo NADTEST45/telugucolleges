@@ -19,7 +19,7 @@ const SECTIONS: { key: College["type"]; label: string; color: string; border: st
   { key: "Deemed University", label: "Deemed Universities", color: "text-amber-700", border: "border-l-amber-500", bg: "bg-amber-50", desc: "UGC-recognised deemed-to-be universities with full autonomy over admissions, curriculum, and fees" },
   { key: "Private University", label: "Private State Universities", color: "text-violet-700", border: "border-l-violet-500", bg: "bg-violet-50", desc: "Established by state legislation with authority to grant their own degrees" },
   { key: "Government", label: "Government Colleges", color: "text-green-700", border: "border-l-green-500", bg: "bg-green-50", desc: "State-funded university colleges with the lowest fee structures" },
-  { key: "Private", label: "Private Affiliated Colleges", color: "text-blue-700", border: "border-l-[#2e86c1]", bg: "bg-blue-50", desc: "Private unaided colleges affiliated to state universities, with fees regulated by government orders" },
+  { key: "Private", label: "Private Affiliated Colleges", color: "text-blue-700", border: "border-l-accent", bg: "bg-blue-50", desc: "Private unaided colleges affiliated to state universities, with fees regulated by government orders" },
 ];
 
 /* Unique districts & affiliations for filter dropdowns */
@@ -40,7 +40,7 @@ const CollegeCard = React.memo(function CollegeCard({ c, borderClass }: { c: Col
       <div className="relative z-[1] pointer-events-none flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
         <div className="flex-1 min-w-0">
           <div className="font-bold text-sm sm:text-[15px] leading-tight pr-10">{c.name}</div>
-          <div className="text-[11px] sm:text-xs text-gray-400 mt-0.5 truncate">{c.district}, {c.state} · {c.affiliation} · Est. {c.year}</div>
+          <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5 truncate">{c.district}, {c.state} · {c.affiliation} · Est. {c.year}</div>
           <div className="flex gap-1 sm:gap-1.5 mt-1.5 sm:mt-2 flex-wrap">
             <span className={`px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-semibold ${c.type === "Government" ? "bg-green-50 text-green-600" : c.type === "Deemed University" ? "bg-amber-50 text-amber-700" : c.type === "Private University" ? "bg-violet-50 text-violet-700" : "bg-blue-50 text-blue-600"}`}>{c.type}</span>
             {c.nirf > 0 && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-semibold bg-rose-50 text-rose-600">NIRF {nirfLabel(c.nirf)}</span>}
@@ -53,40 +53,40 @@ const CollegeCard = React.memo(function CollegeCard({ c, borderClass }: { c: Col
         {/* Stats: 4-col on mobile (full-width row below), 4-col on desktop (fixed-width right side) */}
         <div className="grid grid-cols-4 gap-2 sm:gap-4 text-center pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-100 shrink-0 sm:w-[320px]">
           <div>
-            <div className="text-[10px] sm:text-xs text-gray-400">{feeLabel}</div>
-            <div className="font-bold text-[#1a5276] text-xs sm:text-sm">{fmtFee(c.fee)}</div>
+            <div className="text-[10px] sm:text-xs text-gray-500">{feeLabel}</div>
+            <div className="font-bold text-brand text-xs sm:text-sm">{fmtFee(c.fee)}</div>
           </div>
           <div>
             {c.cutoff.cse > 0 ? (
               <>
-                <div className="text-[10px] sm:text-xs text-gray-400">CSE Cutoff</div>
+                <div className="text-[10px] sm:text-xs text-gray-500">CSE Cutoff</div>
                 <div className="font-bold text-xs sm:text-sm">{c.cutoff.cse.toLocaleString()}</div>
               </>
             ) : c.branches.includes("B.Pharm") ? (
               <>
-                <div className="text-[10px] sm:text-xs text-gray-400">Type</div>
+                <div className="text-[10px] sm:text-xs text-gray-500">Type</div>
                 <div className="font-bold text-teal-600 text-xs sm:text-sm">Pharmacy</div>
               </>
             ) : c.branches.includes("MBBS") ? (
               <>
-                <div className="text-[10px] sm:text-xs text-gray-400">Type</div>
+                <div className="text-[10px] sm:text-xs text-gray-500">Type</div>
                 <div className="font-bold text-rose-600 text-xs sm:text-sm">Medical</div>
               </>
             ) : (
               <>
-                <div className="text-[10px] sm:text-xs text-gray-400">CSE Cutoff</div>
+                <div className="text-[10px] sm:text-xs text-gray-500">CSE Cutoff</div>
                 <div className="font-bold text-gray-300 text-xs sm:text-sm">—</div>
               </>
             )}
           </div>
           <div>
-            <div className="text-[10px] sm:text-xs text-gray-400">Avg Pkg</div>
+            <div className="text-[10px] sm:text-xs text-gray-500">Avg Pkg</div>
             <div className={`font-bold text-xs sm:text-sm ${c.placements.avg > 0 ? "text-green-600" : "text-gray-300"}`}>
               {c.placements.avg > 0 ? `₹${c.placements.avg}L` : "—"}
             </div>
           </div>
           <div>
-            <div className="text-[10px] sm:text-xs text-gray-400">Highest</div>
+            <div className="text-[10px] sm:text-xs text-gray-500">Highest</div>
             <div className={`font-bold text-xs sm:text-sm ${c.placements.highest > 0 ? "text-amber-600" : "text-gray-300"}`}>
               {c.placements.highest > 0 ? `₹${c.placements.highest}L` : "—"}
             </div>
@@ -180,7 +180,7 @@ function CollegesPageInner() {
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-      <nav className="text-sm text-gray-400 mb-4 flex items-center gap-1.5">
+      <nav className="text-sm text-gray-500 mb-4 flex items-center gap-1.5">
         <Link href="/">Home</Link><span>/</span><span className="text-gray-600 font-medium">Colleges</span>
       </nav>
       <h1 className="text-2xl sm:text-3xl font-bold mb-1">College Directory</h1>
@@ -196,7 +196,7 @@ function CollegesPageInner() {
               <div className="space-y-1">
                 {(!state || state === "Telangana") && (
                   <div className="text-xs text-gray-600">
-                    <span className="font-semibold text-[#2e86c1]">Telangana:</span>{" "}
+                    <span className="font-semibold text-accent">Telangana:</span>{" "}
                     G.O.Ms.No.06 block period <span className="font-semibold">2025–2028</span> — TSCHE-approved tuition fees fixed for 3 years for all private unaided colleges affiliated to JNTUH, OU, and KU.
                   </div>
                 )}
@@ -207,7 +207,7 @@ function CollegesPageInner() {
                   </div>
                 )}
               </div>
-              <div className="text-[10px] text-gray-400 mt-1.5">Fees shown for private affiliated colleges are convener-quota (category-A) rates as per the applicable block period GO.</div>
+              <div className="text-[10px] text-gray-500 mt-1.5">Fees shown for private affiliated colleges are convener-quota (category-A) rates as per the applicable block period GO.</div>
             </div>
           </div>
         </div>
@@ -216,7 +216,7 @@ function CollegesPageInner() {
       {/* State Toggle */}
       <div className="flex gap-2 mb-4 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:overflow-visible scrollbar-hide">
         <button onClick={() => { setState(""); setDistrict(""); }}
-          className={`px-3 sm:px-4 py-2 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${!state ? "bg-[#1a5276] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+          className={`px-3 sm:px-4 py-2 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${!state ? "bg-brand text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
           All States
         </button>
         <button onClick={() => { setState(state === "Andhra Pradesh" ? "" : "Andhra Pradesh"); setDistrict(""); }}
@@ -224,7 +224,7 @@ function CollegesPageInner() {
           AP ({COLLEGES.filter(c => c.state === "Andhra Pradesh").length})
         </button>
         <button onClick={() => { setState(state === "Telangana" ? "" : "Telangana"); setDistrict(""); }}
-          className={`px-3 sm:px-4 py-2 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${state === "Telangana" ? "bg-[#2e86c1] text-white" : "bg-blue-50 text-[#2e86c1] hover:bg-blue-100"}`}>
+          className={`px-3 sm:px-4 py-2 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${state === "Telangana" ? "bg-accent text-white" : "bg-blue-50 text-accent hover:bg-blue-100"}`}>
           Telangana ({COLLEGES.filter(c => c.state === "Telangana").length})
         </button>
       </div>
@@ -277,7 +277,7 @@ function CollegesPageInner() {
               <option value="nirf">NIRF Rank</option>
             </select>
             <button onClick={() => setShowFilters(!showFilters)}
-              className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${showFilters || hasActiveFilters ? "bg-[#2e86c1] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+              className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${showFilters || hasActiveFilters ? "bg-accent text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
               Filters {hasActiveFilters ? `(${[state, district, affiliation, maxFee, naac, category].filter(Boolean).length})` : ""}
             </button>
           </div>
@@ -288,7 +288,7 @@ function CollegesPageInner() {
           <div className="mt-4 pt-4 border-t border-gray-100">
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
               <div>
-                <label className="text-[11px] text-gray-400 font-semibold mb-1 block">State</label>
+                <label className="text-[11px] text-gray-500 font-semibold mb-1 block">State</label>
                 <select value={state} onChange={e => { setState(e.target.value); setDistrict(""); }} className={`${sel} w-full`}>
                   <option value="">All States</option>
                   <option>Telangana</option>
@@ -296,21 +296,21 @@ function CollegesPageInner() {
                 </select>
               </div>
               <div>
-                <label className="text-[11px] text-gray-400 font-semibold mb-1 block">District</label>
+                <label className="text-[11px] text-gray-500 font-semibold mb-1 block">District</label>
                 <select value={district} onChange={e => setDistrict(e.target.value)} className={`${sel} w-full`}>
                   <option value="">All Districts</option>
                   {districtOptions.map(d => <option key={d}>{d}</option>)}
                 </select>
               </div>
               <div>
-                <label className="text-[11px] text-gray-400 font-semibold mb-1 block">University</label>
+                <label className="text-[11px] text-gray-500 font-semibold mb-1 block">University</label>
                 <select value={affiliation} onChange={e => setAffiliation(e.target.value)} className={`${sel} w-full`}>
                   <option value="">All Universities</option>
                   {ALL_AFFILIATIONS.map(a => <option key={a}>{a}</option>)}
                 </select>
               </div>
               <div>
-                <label className="text-[11px] text-gray-400 font-semibold mb-1 block">Max Fee</label>
+                <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Max Fee</label>
                 <select value={maxFee} onChange={e => setMaxFee(e.target.value)} className={`${sel} w-full`}>
                   <option value="">Any Fee</option>
                   <option value="50000">Under ₹50K</option>
@@ -323,7 +323,7 @@ function CollegesPageInner() {
                 </select>
               </div>
               <div>
-                <label className="text-[11px] text-gray-400 font-semibold mb-1 block">NAAC</label>
+                <label className="text-[11px] text-gray-500 font-semibold mb-1 block">NAAC</label>
                 <select value={naac} onChange={e => setNaac(e.target.value)} className={`${sel} w-full`}>
                   <option value="">Any</option>
                   <option value="rated">NAAC Rated</option>
@@ -356,9 +356,9 @@ function CollegesPageInner() {
               <section key={s.key}>
                 <div className="flex items-center gap-3 mb-3">
                   <h2 className={`text-lg font-bold ${s.color}`}>{s.label}</h2>
-                  <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{items.length}</span>
+                  <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">{items.length}</span>
                 </div>
-                <p className="text-xs text-gray-400 mb-3">{s.desc}</p>
+                <p className="text-xs text-gray-500 mb-3">{s.desc}</p>
                 <div className="space-y-3">
                   {items.map(c => <CollegeCard key={c.id} c={c} borderClass={s.border} />)}
                 </div>
@@ -383,10 +383,10 @@ function CollegesPageInner() {
       )}
 
       {filtered.length === 0 && (
-        <div className="text-center py-16 text-gray-400">
+        <div className="text-center py-16 text-gray-500">
           <div className="text-5xl mb-3">🔍</div>
           <div className="text-lg font-semibold">No colleges match your filters</div>
-          <button onClick={clearAll} className="mt-2 text-sm text-[#2e86c1] font-semibold hover:underline">Clear all filters</button>
+          <button onClick={clearAll} className="mt-2 text-sm text-accent font-semibold hover:underline">Clear all filters</button>
         </div>
       )}
     </main>

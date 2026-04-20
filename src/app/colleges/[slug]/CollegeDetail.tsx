@@ -80,7 +80,7 @@ function DownloadCutoffPDF({ collegeName, tableRef, category, gender }: { colleg
 
   return (
     <button onClick={handleDownload} disabled={downloading}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1a5276]/10 text-[#1a5276] text-xs font-semibold hover:bg-[#1a5276]/20 transition-colors disabled:opacity-50">
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand/10 text-brand text-xs font-semibold hover:bg-brand/20 transition-colors disabled:opacity-50">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       {downloading ? "Generating..." : "Download PDF"}
     </button>
@@ -143,12 +143,12 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
   return (
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
       {/* Breadcrumb */}
-      <nav className="text-xs sm:text-sm text-gray-400 mb-4 flex items-center gap-1.5 min-w-0">
-        <Link href="/" className="hover:text-[#2e86c1] shrink-0">Home</Link>
+      <nav className="text-xs sm:text-sm text-gray-500 mb-4 flex items-center gap-1.5 min-w-0">
+        <Link href="/" className="hover:text-accent shrink-0">Home</Link>
         <span className="shrink-0">/</span>
-        <Link href="/colleges" className="hover:text-[#2e86c1] shrink-0">Colleges</Link>
+        <Link href="/colleges" className="hover:text-accent shrink-0">Colleges</Link>
         <span className="shrink-0">/</span>
-        <span className="text-gray-600 font-medium truncate">{c.name}</span>
+        <span className="text-gray-600 font-medium truncate" title={c.name}>{c.name}</span>
       </nav>
 
       {/* Header */}
@@ -167,7 +167,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
             href={`https://www.google.com/search?q=${encodeURIComponent(c.name + " " + c.district + " reviews")}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-gray-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all text-sm font-semibold text-gray-700 hover:text-[#1a5276]"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-gray-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all text-sm font-semibold text-gray-700 hover:text-brand"
           >
             <svg width="16" height="16" viewBox="0 0 48 48" className="shrink-0">
               <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -188,18 +188,18 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
       {/* Quick Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 mb-6">
         {([
-          ["B.Tech Fee", btechFeeLabel, c.type === "Deemed University" || c.type === "Private University" ? `University fee${UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}` : c.state === "Telangana" ? "GO.Ms.06 · 2025-28" : "APHERMC · 2023-26", "text-[#1a5276]"],
+          ["B.Tech Fee", btechFeeLabel, c.type === "Deemed University" || c.type === "Private University" ? `University fee${UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}` : c.state === "Telangana" ? "GO.Ms.06 · 2025-28" : "APHERMC · 2023-26", "text-brand"],
           ...(c.type !== "Deemed University" ? [["CSE Cutoff", c.cutoff.cse?.toLocaleString() || "—", "EAPCET final OC", "text-gray-900"]] : [["Admission", "Own Exam", "Not via EAPCET", "text-gray-900"]]),
           ["Avg Package", c.placements.avg > 0 ? `₹${c.placements.avg} LPA` : "—", "Placements", "text-green-600"],
           ["Highest Pkg", c.placements.highest > 0 ? `₹${c.placements.highest}L` : "—", "Top offer", "text-amber-600"],
           ...(c.nirf > 0
             ? [["NIRF 2025", nirfBand(c.nirf), "Engineering", "text-rose-600"]]
-            : [["Companies", c.placements.companies > 0 ? `${c.placements.companies}+` : "—", "Recruiting", "text-[#2e86c1]"]]),
+            : [["Companies", c.placements.companies > 0 ? `${c.placements.companies}+` : "—", "Recruiting", "text-accent"]]),
         ] as [string, string, string, string][]).map(([label, value, sub, color], idx, arr) => (
           <div key={label} className={`bg-white rounded-xl p-3 sm:p-4 shadow-sm text-center ${idx === arr.length - 1 && arr.length % 2 === 1 ? "col-span-2 sm:col-span-1" : ""}`}>
-            <div className="text-xs text-gray-400 mb-1">{label}</div>
+            <div className="text-xs text-gray-500 mb-1">{label}</div>
             <div className={`text-lg sm:text-2xl font-extrabold ${color} truncate`}>{value}</div>
-            <div className="text-[11px] sm:text-xs text-gray-400 mt-0.5">{sub}</div>
+            <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5">{sub}</div>
           </div>
         ))}
       </div>
@@ -266,7 +266,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
             <h2 className="text-lg font-bold mb-4">Branches Offered</h2>
             <div className="flex gap-2 flex-wrap">
               {c.branches.map(b => (
-                <span key={b} className="bg-blue-50 text-[#1a5276] px-3 py-1.5 rounded-lg text-sm font-semibold">{b}</span>
+                <span key={b} className="bg-blue-50 text-brand px-3 py-1.5 rounded-lg text-sm font-semibold">{b}</span>
               ))}
             </div>
           </section>
@@ -277,18 +277,40 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           {/* Similar Colleges */}
           {similar.length > 0 && (
             <section className="bg-white rounded-xl p-6 shadow-sm">
-              <h2 className="text-lg font-bold mb-4">Similar Colleges</h2>
+              <div className="flex items-baseline justify-between mb-4 gap-4">
+                <h2 className="text-lg font-bold">Similar Colleges</h2>
+                <Link href="/compare" className="text-xs font-semibold text-accent hover:underline whitespace-nowrap">
+                  Compare all →
+                </Link>
+              </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {similar.map(s => (
-                  <Link key={s.id} href={`/colleges/${s.slug}`} className="rounded-xl border border-gray-100 p-4 hover:shadow-md transition-all">
-                    <div className="font-bold text-sm mb-1">{s.name}</div>
-                    <div className="text-xs text-gray-400 mb-2">{s.district} · {s.type}</div>
-                    <div className="flex justify-between text-xs">
-                      <span>Fee: {fmtFee(s.fee)}</span>
-                      {s.cutoff.cse > 0 && <span className="font-semibold">Rank {s.cutoff.cse.toLocaleString()}</span>}
-                    </div>
-                  </Link>
+                  <div key={s.id} className="rounded-xl border border-gray-100 p-4 hover:shadow-md transition-all flex flex-col">
+                    <Link href={`/colleges/${s.slug}`} className="flex-1">
+                      <div className="font-bold text-sm mb-1">{s.name}</div>
+                      <div className="text-xs text-gray-500 mb-2">{s.district} · {s.type}</div>
+                      <div className="flex justify-between text-xs mb-3">
+                        <span>Fee: {fmtFee(s.fee)}</span>
+                        {s.cutoff.cse > 0 && <span className="font-semibold">Rank {s.cutoff.cse.toLocaleString()}</span>}
+                      </div>
+                    </Link>
+                    <Link
+                      href={`/compare/${c.code.toLowerCase()}-vs-${s.code.toLowerCase()}`}
+                      className="mt-auto block text-center text-xs font-semibold text-brand bg-blue-50 hover:bg-blue-100 rounded-md py-1.5 transition-colors"
+                    >
+                      Compare vs {c.code}
+                    </Link>
+                  </div>
                 ))}
+              </div>
+              <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-between gap-3">
+                <p className="text-xs text-gray-500">Not seeing the right match? Pick any 2–4 colleges to compare.</p>
+                <Link
+                  href="/compare"
+                  className="shrink-0 inline-flex items-center gap-1 bg-brand text-white text-xs font-semibold px-3 py-1.5 rounded-md hover:bg-brand-dark transition-colors"
+                >
+                  Open Compare Tool
+                </Link>
               </div>
             </section>
           )}
@@ -315,12 +337,12 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
             <div className="flex items-center justify-between mb-1">
               <h2 className="text-lg font-bold">Fee Structure</h2>
               {isDeemedOrPrivateUni && UNIVERSITY_FEE_AY[c.code] && (
-                <span className="px-2.5 py-1 rounded-full bg-blue-50 text-[#1a5276] text-xs font-bold">
+                <span className="px-2.5 py-1 rounded-full bg-blue-50 text-brand text-xs font-bold">
                   AY {UNIVERSITY_FEE_AY[c.code]}
                 </span>
               )}
             </div>
-            <p className="text-xs text-gray-400 mb-4">
+            <p className="text-xs text-gray-500 mb-4">
               {isDeemedOrPrivateUni
                 ? `Annual tuition fee as declared by the university${UNIVERSITY_FEE_AY[c.code] ? ` for AY ${UNIVERSITY_FEE_AY[c.code]}` : ""} — not regulated by state fee fixation committee`
                 : isGovt
@@ -331,11 +353,11 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
             {/* Block Period Banner — only for affiliated private/govt colleges */}
             {!isDeemedOrPrivateUni && (
               <div className="flex items-center gap-3 bg-blue-50 border border-blue-200 rounded-lg px-4 py-3">
-                <div className="shrink-0 w-10 h-10 rounded-full bg-[#1a5276] flex items-center justify-center">
+                <div className="shrink-0 w-10 h-10 rounded-full bg-brand flex items-center justify-center">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                 </div>
                 <div>
-                  <div className="text-sm font-bold text-[#1a5276]">
+                  <div className="text-sm font-bold text-brand">
                     {c.state === "Telangana"
                       ? "G.O.Ms.No.06 — Block Period 2025–2028"
                       : "APHERMC — Block Period 2023–2026"}
@@ -376,7 +398,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       onClick={() => setFeeTab(0)}
                       className={`flex-1 px-4 py-2 rounded-md text-sm font-semibold transition-all ${
                         feeTab === 0
-                          ? hasConvenerQuota ? "bg-green-600 text-white shadow-sm" : "bg-[#1a5276] text-white shadow-sm"
+                          ? hasConvenerQuota ? "bg-green-600 text-white shadow-sm" : "bg-brand text-white shadow-sm"
                           : "text-gray-500 hover:text-gray-700"
                       }`}
                     >
@@ -386,7 +408,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       onClick={() => setFeeTab(1)}
                       className={`flex-1 px-4 py-2 rounded-md text-sm font-semibold transition-all ${
                         feeTab === 1
-                          ? "bg-[#1a5276] text-white shadow-sm"
+                          ? "bg-brand text-white shadow-sm"
                           : "text-gray-500 hover:text-gray-700"
                       }`}
                     >
@@ -398,8 +420,8 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                   {hasConvenerQuota && feeTab === 0 && (
                     <div className="bg-green-50 rounded-lg px-5 py-4">
                       <div className="text-sm text-green-700 font-semibold">{examName} Convener Quota</div>
-                      <div className="text-xs text-gray-400 mt-0.5">{c.state === "Telangana" ? "TAFRC regulated · State counseling" : `${quotaPct} of seats · G.O.Ms.No.19 (2024-27)`}</div>
-                      <div className="text-2xl font-extrabold text-green-700 mt-2">{fmtFee(c.goFee)}<span className="text-xs font-normal text-gray-400">/yr (all B.Tech branches)</span></div>
+                      <div className="text-xs text-gray-500 mt-0.5">{c.state === "Telangana" ? "TAFRC regulated · State counseling" : `${quotaPct} of seats · G.O.Ms.No.19 (2024-27)`}</div>
+                      <div className="text-2xl font-extrabold text-green-700 mt-2">{fmtFee(c.goFee)}<span className="text-xs font-normal text-gray-500">/yr (all B.Tech branches)</span></div>
                       <div className="mt-3 text-xs text-green-700">
                         {c.state === "Andhra Pradesh"
                           ? `${isBrownfield ? "Brownfield university — 70% of original seats" : "Greenfield university — 35% of seats"} filled through AP EAPCET at APHERMC-regulated fees per G.O.Ms.No.19 (block period 2024-27).`
@@ -409,25 +431,25 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                   )}
                   {hasConvenerQuota && feeTab === 1 && (
                     <div className="bg-blue-50 rounded-lg px-5 py-4">
-                      <div className="text-sm text-[#1a5276] font-semibold">Direct Admission (University Quota)</div>
-                      <div className="text-xs text-gray-400 mt-0.5">{c.state === "Andhra Pradesh" ? `${isBrownfield ? "30%" : "65%"} of seats · ` : ""}University entrance · Fee set by university{UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}</div>
-                      <div className="text-2xl font-extrabold text-[#1a5276] mt-2">{fmtFee(c.fee)}<span className="text-xs font-normal text-gray-400">/yr (CSE — varies by branch)</span></div>
+                      <div className="text-sm text-brand font-semibold">Direct Admission (University Quota)</div>
+                      <div className="text-xs text-gray-500 mt-0.5">{c.state === "Andhra Pradesh" ? `${isBrownfield ? "30%" : "65%"} of seats · ` : ""}University entrance · Fee set by university{UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}</div>
+                      <div className="text-2xl font-extrabold text-brand mt-2">{fmtFee(c.fee)}<span className="text-xs font-normal text-gray-500">/yr (CSE — varies by branch)</span></div>
                     </div>
                   )}
                   {hasDualCategory && feeTab === 0 && (
                     <div className="bg-blue-50 rounded-lg px-5 py-4">
-                      <div className="text-sm text-[#1a5276] font-semibold">Category-B (Direct Admission)</div>
-                      <div className="text-xs text-gray-400 mt-0.5">For students admitted without entrance exam (60%+ in intermediate){UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}</div>
-                      <div className="text-2xl font-extrabold text-[#1a5276] mt-2">{fmtFee(c.fee)}<span className="text-xs font-normal text-gray-400">/yr (CSE — varies by branch)</span></div>
+                      <div className="text-sm text-brand font-semibold">Category-B (Direct Admission)</div>
+                      <div className="text-xs text-gray-500 mt-0.5">For students admitted without entrance exam (60%+ in intermediate){UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}</div>
+                      <div className="text-2xl font-extrabold text-brand mt-2">{fmtFee(c.fee)}<span className="text-xs font-normal text-gray-500">/yr (CSE — varies by branch)</span></div>
                     </div>
                   )}
                   {hasDualCategory && feeTab === 1 && (
                     <div className="bg-green-50 rounded-lg px-5 py-4">
                       <div className="text-sm text-green-700 font-semibold">Category-A (With Entrance Exam)</div>
-                      <div className="text-xs text-gray-400 mt-0.5">For students admitted through V-SAT / EAMCET / JEE{UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}</div>
+                      <div className="text-xs text-gray-500 mt-0.5">For students admitted through V-SAT / EAMCET / JEE{UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}</div>
                       <div className="text-2xl font-extrabold text-green-700 mt-2">
                         {courses && courses.find(co => co.mgmtFee && co.mgmtFee < co.fee) ? fmtFee(courses.find(co => co.mgmtFee && co.mgmtFee < co.fee)!.mgmtFee!) : "—"}
-                        <span className="text-xs font-normal text-gray-400">/yr (CSE — varies by branch)</span>
+                        <span className="text-xs font-normal text-gray-500">/yr (CSE — varies by branch)</span>
                       </div>
                     </div>
                   )}
@@ -440,7 +462,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       <div className="text-sm text-gray-500">
                         {isDeemedOrPrivateUni ? "B.Tech Annual Tuition" : isGovt ? "B.Tech Annual Tuition" : "B.Tech Convener Quota (Category-A)"}
                       </div>
-                      <div className="text-xs text-gray-400 mt-0.5">
+                      <div className="text-xs text-gray-500 mt-0.5">
                         {isDeemedOrPrivateUni
                           ? `${c.type} · Fee set by university${UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}`
                           : isGovt
@@ -448,7 +470,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                           : "70% of seats · Government-regulated fee"}
                       </div>
                     </div>
-                    <div className="text-2xl font-extrabold text-[#1a5276]">{fmtFee(c.fee)}<span className="text-xs font-normal text-gray-400">/yr</span></div>
+                    <div className="text-2xl font-extrabold text-brand">{fmtFee(c.fee)}<span className="text-xs font-normal text-gray-500">/yr</span></div>
                   </div>
 
                   {/* Source note */}
@@ -486,8 +508,8 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
               if (hasConvenerQuota && feeTab === 0 && co.program === "B.Tech") return annualFee * co.duration;
               return co.totalFee ?? annualFee * co.duration;
             };
-            const feeColor = (hasConvenerQuota && feeTab === 0) || (hasDualCategory && feeTab === 1) ? "text-green-700" : "text-[#1a5276]";
-            const headerBg = (hasConvenerQuota && feeTab === 0) || (hasDualCategory && feeTab === 1) ? "bg-green-700" : "bg-[#1a5276]";
+            const feeColor = (hasConvenerQuota && feeTab === 0) || (hasDualCategory && feeTab === 1) ? "text-green-700" : "text-brand";
+            const headerBg = (hasConvenerQuota && feeTab === 0) || (hasDualCategory && feeTab === 1) ? "bg-green-700" : "bg-brand";
             const feeLabel = hasConvenerQuota
               ? (feeTab === 0 ? "Convener Fee" : "Direct Admission Fee")
               : hasDualCategory
@@ -498,7 +520,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
             <section key={group.level} className="bg-white rounded-xl p-6 shadow-sm">
               <h2 className="text-lg font-bold mb-1">{group.label}</h2>
               {hasConvenerQuota && feeTab === 0 && group.level === "UG" && (
-                <p className="text-xs text-gray-400 mb-3">B.Tech branches have a <span className="font-semibold text-green-700">uniform convener fee of {fmtCourseFee(c.goFee)}/yr</span> through {c.state === "Telangana" ? "TS EAMCET" : "AP EAPCET"} counseling. Switch to &ldquo;Direct Admission&rdquo; tab for branch-wise university fees.</p>
+                <p className="text-xs text-gray-500 mb-3">B.Tech branches have a <span className="font-semibold text-green-700">uniform convener fee of {fmtCourseFee(c.goFee)}/yr</span> through {c.state === "Telangana" ? "TS EAMCET" : "AP EAPCET"} counseling. Switch to &ldquo;Direct Admission&rdquo; tab for branch-wise university fees.</p>
               )}
               <div className="overflow-x-auto -mx-6 px-6">
                 <table className="w-full text-sm">
@@ -515,8 +537,8 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       <tr key={`${co.program}-${co.specialization || ""}-${i}`} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
                         <td className="px-4 py-3">
                           <div className="font-semibold">{co.program}</div>
-                          {co.specialization && <div className="text-xs text-gray-400 mt-0.5">{co.specialization}</div>}
-                          <div className="text-xs text-gray-400 mt-0.5 sm:hidden">{co.duration} {co.duration === 1 ? "yr" : "yrs"}</div>
+                          {co.specialization && <div className="text-xs text-gray-500 mt-0.5">{co.specialization}</div>}
+                          <div className="text-xs text-gray-500 mt-0.5 sm:hidden">{co.duration} {co.duration === 1 ? "yr" : "yrs"}</div>
                         </td>
                         <td className={`px-4 py-3 text-right font-bold ${feeColor}`}>{fmtCourseFee(getFee(co))}</td>
                         <td className="px-4 py-3 text-right text-gray-500 hidden sm:table-cell">{co.duration} {co.duration === 1 ? "year" : "years"}</td>
@@ -534,11 +556,11 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           {!courses && (
             <section className="bg-white rounded-xl p-6 shadow-sm">
               <h2 className="text-lg font-bold mb-4">B.Tech 4-Year Cost Estimate</h2>
-              <p className="text-xs text-gray-400 mb-3">{isDeemedOrPrivateUni || isGovt ? "Based on current tuition fee" : "Based on convener quota fee"}</p>
+              <p className="text-xs text-gray-500 mb-3">{isDeemedOrPrivateUni || isGovt ? "Based on current tuition fee" : "Based on convener quota fee"}</p>
               <div className="grid grid-cols-3 gap-3 sm:gap-4">
                 <div className="bg-blue-50 rounded-xl p-4 sm:p-5 text-center">
                   <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Tuition (4 yrs)</div>
-                  <div className="text-lg sm:text-2xl font-extrabold text-[#1a5276]">{fmtFee(c.fee * 4)}</div>
+                  <div className="text-lg sm:text-2xl font-extrabold text-brand">{fmtFee(c.fee * 4)}</div>
                 </div>
                 <div className="bg-green-50 rounded-xl p-4 sm:p-5 text-center">
                   <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Per Semester</div>
@@ -549,7 +571,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                   <div className="text-lg sm:text-2xl font-extrabold text-amber-700">{fmtFee(Math.round(c.fee / 12))}</div>
                 </div>
               </div>
-              <p className="text-[11px] text-gray-400 mt-3">Excludes hostel, transport, exam fees, and miscellaneous charges.</p>
+              <p className="text-[11px] text-gray-500 mt-3">Excludes hostel, transport, exam fees, and miscellaneous charges.</p>
             </section>
           )}
 
@@ -601,19 +623,19 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
             return [...grouped.entries()].map(([examName, tables]) => (
               <section key={examName} className="bg-white rounded-xl p-6 shadow-sm">
                 <h2 className="text-lg font-bold mb-1">{examName}</h2>
-                <p className="text-xs text-gray-400 mb-4">Merit-based tuition fee waiver</p>
+                <p className="text-xs text-gray-500 mb-4">Merit-based tuition fee waiver</p>
 
                 {tables.map((table, ti) => (
                   <div key={ti} className={ti > 0 ? "mt-5" : ""}>
                     {table.branchGroup && (
                       <div className="mb-2">
-                        <span className="text-xs font-bold text-[#1a5276] bg-blue-50 px-2.5 py-1 rounded-lg">{table.branchGroup}</span>
+                        <span className="text-xs font-bold text-brand bg-blue-50 px-2.5 py-1 rounded-lg">{table.branchGroup}</span>
                       </div>
                     )}
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
                         <thead>
-                          <tr className="bg-[#1a5276] text-white">
+                          <tr className="bg-brand text-white">
                             <th className="px-4 py-2.5 text-left rounded-tl-lg">Fee Concession</th>
                             <th className="px-4 py-2.5 text-left rounded-tr-lg">Eligibility Criteria</th>
                           </tr>
@@ -671,7 +693,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
               <div className="space-y-2">
                 {scholarshipInfo.notes.map((note, i) => (
                   <div key={i} className="flex gap-2 text-sm text-gray-600">
-                    <span className="text-[#2e86c1] mt-0.5 shrink-0">•</span>
+                    <span className="text-accent mt-0.5 shrink-0">•</span>
                     <span>{note}</span>
                   </div>
                 ))}
@@ -685,7 +707,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
               <span className="font-semibold">Data source:</span> {scholarshipInfo.sourceLabel}
             </div>
             <a href={scholarshipInfo.source} target="_blank" rel="noopener noreferrer"
-              className="text-xs font-semibold text-[#2e86c1] hover:underline shrink-0 ml-3">
+              className="text-xs font-semibold text-accent hover:underline shrink-0 ml-3">
               Verify on official site →
             </a>
           </div>
@@ -818,16 +840,16 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                 <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
                   <div>
                     <h2 className="text-lg font-bold mb-1">Phase-wise Cutoff Comparison</h2>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-gray-500">
                       See how cutoffs relax across counselling phases ({selectedCatLabel}, {gender === "girls" ? "Girls" : "Boys"})
                     </p>
                   </div>
                   <div className="flex items-end gap-2">
                     <div>
-                      <label className="text-[11px] text-gray-400 font-semibold mb-1 block">Gender</label>
+                      <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Gender</label>
                       <div className="flex gap-0.5 bg-gray-100 p-0.5 rounded-lg h-[38px]">
                         <button onClick={() => setGender("boys")}
-                          className={`px-3 rounded-md text-xs font-semibold transition-all ${gender === "boys" ? "bg-white text-[#1a5276] shadow-sm" : "text-gray-500"}`}>
+                          className={`px-3 rounded-md text-xs font-semibold transition-all ${gender === "boys" ? "bg-white text-brand shadow-sm" : "text-gray-500"}`}>
                           Boys
                         </button>
                         <button onClick={() => setGender("girls")}
@@ -837,7 +859,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       </div>
                     </div>
                     <div>
-                      <label className="text-[11px] text-gray-400 font-semibold mb-1 block">Category</label>
+                      <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Category</label>
                       <select value={category} onChange={e => setCategory(e.target.value as Category)}
                         className="px-3 py-2 rounded-lg border border-gray-200 text-sm cursor-pointer font-semibold">
                         {CATEGORIES.map(ct => (
@@ -850,7 +872,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-[#1a5276] text-white">
+                      <tr className="bg-brand text-white">
                         <th className="px-3 py-2.5 text-left rounded-tl-lg">Branch</th>
                         {phases!.map((p, i) => (
                           <th key={p.key} className={`px-3 py-2.5 text-right whitespace-nowrap ${i === phases!.length - 1 ? "rounded-tr-lg" : ""}`}>
@@ -889,7 +911,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       })}
                     </tbody>
                   </table>
-                  <p className="text-[11px] sm:text-xs text-gray-400 mt-2">↓ = cutoff relaxed from previous phase (higher rank = easier to get in). Source: TSCHE official Last Rank Statement PDFs</p>
+                  <p className="text-[11px] sm:text-xs text-gray-500 mt-2">↓ = cutoff relaxed from previous phase (higher rank = easier to get in). Source: TSCHE official Last Rank Statement PDFs</p>
                 </div>
               </section>
             )}
@@ -899,17 +921,17 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
               <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
                 <div>
                   <h2 className="text-lg font-bold mb-1">{hasPhases ? "Year-wise Final Phase Cutoffs" : "EAPCET Cutoff Ranks — Branch-wise"}</h2>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-gray-500">
                     Closing ranks ({selectedCatLabel}, {gender === "girls" ? "Girls" : "Boys"}). {hasHistorical ? `${yearCols.length} year${yearCols.length > 1 ? "s" : ""} of official ${c.state === "Telangana" ? "TSCHE" : "APSCHE"} data.` : "Based on latest counselling data."}
                   </p>
                 </div>
                 {hasHistorical && !hasPhases && (
                   <div className="flex items-end gap-2">
                     <div>
-                      <label className="text-[11px] text-gray-400 font-semibold mb-1 block">Gender</label>
+                      <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Gender</label>
                       <div className="flex gap-0.5 bg-gray-100 p-0.5 rounded-lg h-[38px]">
                         <button onClick={() => setGender("boys")}
-                          className={`px-3 rounded-md text-xs font-semibold transition-all ${gender === "boys" ? "bg-white text-[#1a5276] shadow-sm" : "text-gray-500"}`}>
+                          className={`px-3 rounded-md text-xs font-semibold transition-all ${gender === "boys" ? "bg-white text-brand shadow-sm" : "text-gray-500"}`}>
                           Boys
                         </button>
                         <button onClick={() => setGender("girls")}
@@ -919,7 +941,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       </div>
                     </div>
                     <div>
-                      <label className="text-[11px] text-gray-400 font-semibold mb-1 block">Category / Caste</label>
+                      <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Category / Caste</label>
                       <select value={category} onChange={e => setCategory(e.target.value as Category)}
                         className="px-3 py-2 rounded-lg border border-gray-200 text-sm cursor-pointer font-semibold">
                         {CATEGORIES.map(ct => (
@@ -934,7 +956,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-[#1a5276] text-white">
+                      <tr className="bg-brand text-white">
                         <th className="px-4 py-2.5 text-left rounded-tl-lg">Branch</th>
                         {yearCols.map((y, i) => (
                           <th key={y.key} className={`px-4 py-2.5 text-right ${i === yearCols.length - 1 ? "rounded-tr-lg" : ""}`}>{y.label}</th>
@@ -977,10 +999,10 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       })}
                     </tbody>
                   </table>
-                  <p className="text-[11px] sm:text-xs text-gray-400 mt-2">↑ = getting harder · ↓ = getting easier · Source: APSCHE official last rank details PDFs</p>
+                  <p className="text-[11px] sm:text-xs text-gray-500 mt-2">↑ = getting harder · ↓ = getting easier · Source: APSCHE official last rank details PDFs</p>
                 </div>
               ) : (
-                <div className="text-center py-8 text-gray-400">
+                <div className="text-center py-8 text-gray-500">
                   <p className="font-semibold">Cutoff data not available</p>
                   <p className="text-xs mt-1">This college may not participate in EAPCET counselling or data has not been published</p>
                 </div>
@@ -999,7 +1021,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           {/* ── Placement Highlights (always shown) ── */}
           <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
             <h2 className="text-lg font-bold mb-1">Placement Highlights</h2>
-            <p className="text-xs text-gray-400 mb-4">{c.placements.avg > 0 ? "Based on NIRF 2025 submission data (median salary, AY 2023-24)" : "Placement data not available — college did not participate in NIRF or data not published"}</p>
+            <p className="text-xs text-gray-500 mb-4">{c.placements.avg > 0 ? "Based on NIRF 2025 submission data (median salary, AY 2023-24)" : "Placement data not available — college did not participate in NIRF or data not published"}</p>
             <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6">
               <div className="bg-green-50 rounded-xl p-3 sm:p-5 text-center">
                 <div className="text-[10px] sm:text-xs text-gray-500 mb-1">Average Package</div>
@@ -1011,7 +1033,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
               </div>
               <div className="bg-blue-50 rounded-xl p-3 sm:p-5 text-center">
                 <div className="text-[10px] sm:text-xs text-gray-500 mb-1">Recruiting Companies</div>
-                <div className="text-lg sm:text-2xl font-extrabold text-[#2e86c1]">{c.placements.companies > 0 ? `${c.placements.companies}+` : "—"}</div>
+                <div className="text-lg sm:text-2xl font-extrabold text-accent">{c.placements.companies > 0 ? `${c.placements.companies}+` : "—"}</div>
               </div>
             </div>
 
@@ -1022,7 +1044,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           {latestYear && Object.keys(latestYear.branches).length > 0 && (
             <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
               <h2 className="text-lg font-bold mb-1">Branch-wise Placement Data</h2>
-              <p className="text-xs text-gray-400 mb-4">Detailed placements by department · {latestYear.year}</p>
+              <p className="text-xs text-gray-500 mb-4">Detailed placements by department · {latestYear.year}</p>
               <div className="overflow-x-auto -mx-4 sm:mx-0">
                 <table className="w-full text-sm min-w-[280px] sm:min-w-[500px]">
                   <thead>
@@ -1065,7 +1087,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                 </table>
               </div>
               {pd?.sourceUrl && (
-                <p className="text-[11px] sm:text-xs text-gray-400 mt-3">Source: <a href={pd.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#2e86c1]">AICTE Mandatory Disclosure</a></p>
+                <p className="text-[11px] sm:text-xs text-gray-500 mt-3">Source: <a href={pd.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-accent">AICTE Mandatory Disclosure</a></p>
               )}
             </section>
           )}
@@ -1074,14 +1096,14 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           {latestYear?.topRecruiters && latestYear.topRecruiters.length > 0 && (
             <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
               <h2 className="text-lg font-bold mb-1">Top Recruiters</h2>
-              <p className="text-xs text-gray-400 mb-4">Companies that recruited from this college · {latestYear.year}</p>
+              <p className="text-xs text-gray-500 mb-4">Companies that recruited from this college · {latestYear.year}</p>
               <div className="grid gap-2">
                 {latestYear.topRecruiters
                   .sort((a, b) => b.offers - a.offers)
                   .slice(0, 15)
                   .map((r, i) => (
                     <div key={r.name} className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors">
-                      <span className="w-6 h-6 rounded-full bg-[#1a5276] text-white text-xs font-bold flex items-center justify-center shrink-0">{i + 1}</span>
+                      <span className="w-6 h-6 rounded-full bg-brand text-white text-xs font-bold flex items-center justify-center shrink-0">{i + 1}</span>
                       <span className="font-semibold text-sm flex-1 min-w-0 truncate">{r.name}</span>
                       <span className="text-xs text-gray-500 shrink-0">{r.offers} offers</span>
                       <span className="text-xs font-bold text-green-700 shrink-0 w-16 text-right">₹{r.avgPackage}L</span>
@@ -1095,7 +1117,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           {pd && pd.years.length > 1 && (
             <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
               <h2 className="text-lg font-bold mb-1">Placement Trends</h2>
-              <p className="text-xs text-gray-400 mb-4">Year-over-year placement performance</p>
+              <p className="text-xs text-gray-500 mb-4">Year-over-year placement performance</p>
               <div className="overflow-x-auto -mx-4 sm:mx-0">
                 <table className="w-full text-sm min-w-[280px] sm:min-w-[400px]">
                   <thead>
@@ -1109,8 +1131,8 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       <th className="py-1 px-3"></th>
                       {Object.keys(pd.years[0].branches).map(br => (
                         <>{/* eslint-disable-next-line react/jsx-key */}
-                          <th key={`${br}-p`} className="py-1 px-2 text-[11px] sm:text-xs text-gray-400 font-medium text-right">Placed</th>
-                          <th key={`${br}-a`} className="py-1 px-2 text-[11px] sm:text-xs text-gray-400 font-medium text-right">Avg ₹</th>
+                          <th key={`${br}-p`} className="py-1 px-2 text-[11px] sm:text-xs text-gray-500 font-medium text-right">Placed</th>
+                          <th key={`${br}-a`} className="py-1 px-2 text-[11px] sm:text-xs text-gray-500 font-medium text-right">Avg ₹</th>
                         </>
                       ))}
                     </tr>
@@ -1118,7 +1140,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                   <tbody>
                     {pd.years.map(yr => (
                       <tr key={yr.year} className="border-b border-gray-50 hover:bg-gray-50">
-                        <td className="py-2.5 px-3 font-semibold text-[#1a5276]">{yr.year}</td>
+                        <td className="py-2.5 px-3 font-semibold text-brand">{yr.year}</td>
                         {Object.keys(pd.years[0].branches).map(br => {
                           const d = yr.branches[br];
                           return (
@@ -1139,9 +1161,9 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           {/* ── Data source note ── */}
           <section className="bg-blue-50 rounded-xl p-4 sm:p-5">
             <div className="flex gap-3 items-start">
-              <svg className="w-5 h-5 text-[#2e86c1] shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              <svg className="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
               <div>
-                <p className="text-sm font-semibold text-[#1a5276] mb-1">About this data</p>
+                <p className="text-sm font-semibold text-brand mb-1">About this data</p>
                 <p className="text-xs text-gray-600 leading-relaxed">
                   {pd
                     ? "This placement data is sourced from the college's AICTE Mandatory Disclosure document. All AICTE-approved colleges are required to publish this data annually. Figures represent actual placements reported by the institution."
@@ -1165,7 +1187,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                 <p className="text-sm text-gray-500 mt-1">Entrance exam for {c.name}</p>
               </div>
               <a href={admissionExam.officialUrl} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1a5276] text-white text-xs font-semibold hover:bg-[#154360] transition-colors shrink-0">
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand text-white text-xs font-semibold hover:bg-brand-dark transition-colors shrink-0">
                 Official Website
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
               </a>
@@ -1205,7 +1227,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                   {admissionExam.phases.map((phase, i) => (
                     <tr key={i} className="border-b border-gray-50">
                       <td className="py-3 px-3 font-semibold">{phase.phase}</td>
-                      <td className="py-3 px-3 text-[#1a5276] font-semibold">{phase.examDates}</td>
+                      <td className="py-3 px-3 text-brand font-semibold">{phase.examDates}</td>
                       <td className="py-3 px-3">{phase.lastDateToApply}</td>
                       {admissionExam.phases.some(p => p.resultDate) && (
                         <td className="py-3 px-3">{phase.resultDate || "—"}</td>
@@ -1231,7 +1253,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                 <p className="text-sm text-gray-600 bg-blue-50 rounded-lg px-4 py-2.5">{admissionExam.counsellingNote}</p>
               </div>
             )}
-            <p className="text-xs text-gray-400">Dates and details are sourced from official notifications and may change. Always verify on the official website before applying.</p>
+            <p className="text-xs text-gray-500">Dates and details are sourced from official notifications and may change. Always verify on the official website before applying.</p>
           </section>
         </div>
       )}
@@ -1244,16 +1266,16 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           <div className="space-y-6">
             <section className="bg-white rounded-xl p-6 shadow-sm">
               <h2 className="text-lg font-bold mb-1">Student Reviews</h2>
-              <p className="text-xs text-gray-400 mb-4">Verified reviews from students and alumni of {c.name}</p>
+              <p className="text-xs text-gray-500 mb-4">Verified reviews from students and alumni of {c.name}</p>
 
               {count > 0 ? (
                 <>
                   {/* Rating Summary */}
                   <div className="bg-gray-50 rounded-xl p-5 mb-6 flex items-center gap-6">
                     <div className="text-center">
-                      <div className="text-4xl font-extrabold text-[#1a5276]">{avg}</div>
+                      <div className="text-4xl font-extrabold text-brand">{avg}</div>
                       <div className="text-amber-500 text-lg mt-0.5">{"★".repeat(Math.round(avg))}{"☆".repeat(5 - Math.round(avg))}</div>
-                      <div className="text-xs text-gray-400 mt-1">{count} review{count !== 1 ? "s" : ""}</div>
+                      <div className="text-xs text-gray-500 mt-1">{count} review{count !== 1 ? "s" : ""}</div>
                     </div>
                     <div className="flex-1">
                       {[5, 4, 3, 2, 1].map(star => {
@@ -1266,7 +1288,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                             <div className="flex-1 bg-gray-200 rounded-full h-2 overflow-hidden">
                               <div className="bg-amber-400 h-full rounded-full transition-all" style={{ width: `${pct}%` }} />
                             </div>
-                            <span className="w-6 text-gray-400 text-right">{starCount}</span>
+                            <span className="w-6 text-gray-500 text-right">{starCount}</span>
                           </div>
                         );
                       })}
@@ -1280,7 +1302,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                         <div className="flex items-start justify-between mb-2">
                           <div>
                             <div className="font-semibold text-sm">{review.author}</div>
-                            <div className="text-xs text-gray-400">{review.branch ? `${review.branch} · ` : ""}Class of {review.year}</div>
+                            <div className="text-xs text-gray-500">{review.branch ? `${review.branch} · ` : ""}Class of {review.year}</div>
                           </div>
                           <div className="text-amber-500 text-sm">{"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}</div>
                         </div>
@@ -1314,9 +1336,9 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                     Be the first to share your experience at {c.name}. Your review helps thousands of students make better decisions.
                   </p>
                   <div className="bg-blue-50 rounded-xl p-5 max-w-sm mx-auto text-left">
-                    <p className="text-sm font-semibold text-[#1a5276] mb-2">How to submit a review:</p>
+                    <p className="text-sm font-semibold text-brand mb-2">How to submit a review:</p>
                     <p className="text-xs text-gray-600 leading-relaxed">
-                      Email your review to <span className="font-semibold text-[#2e86c1]">reviews@telugucolleges.com</span> with your college name, branch, graduation year, and your honest experience. We verify and publish all genuine reviews.
+                      Email your review to <span className="font-semibold text-accent">reviews@telugucolleges.com</span> with your college name, branch, graduation year, and your honest experience. We verify and publish all genuine reviews.
                     </p>
                   </div>
                 </div>
@@ -1336,7 +1358,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
         <section className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-gray-200">
           <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 sm:mb-6">Frequently Asked Questions</h2>
           <FAQAccordion faqs={faqs} />
-          <p className="mt-3 sm:mt-4 text-[10px] sm:text-xs text-gray-400">Information is based on official data and may change. Please verify with the college directly.</p>
+          <p className="mt-3 sm:mt-4 text-[10px] sm:text-xs text-gray-500">Information is based on official data and may change. Please verify with the college directly.</p>
         </section>
       )}
     </main>
