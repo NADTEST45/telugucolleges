@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   // (it ships in HTML) so hardcoding is safe. Override via env if rotating.
   // Do not remove after verification — Google re-checks periodically.
   verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION || "dHaLUgeUIggBIhl75GPQUWBB4X5b5psEuEfWZzMC-wk",
+    google: process.env.GOOGLE_SITE_VERIFICATION || "MWdRc-SU5_3OG1p0oDuzC9a544o9kBjzLqIsMuU9wUA",
   },
   alternates: {
     canonical: "/",
