@@ -12,7 +12,9 @@ import { fmtFee, type College } from "@/lib/colleges";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export const revalidate = 3600; // ISR: revalidate every hour
-export const dynamicParams = true; // Allow pages not in generateStaticParams
+// dynamicParams=false → unknown city slugs return a real HTTP 404 instead
+// of a 200-status soft-404. CITY_META is the only source of valid slugs.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return getAllCitySlugs().map((slug) => ({ city: slug }));

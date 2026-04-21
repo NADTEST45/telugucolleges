@@ -11,7 +11,12 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com
 export type FAQItem = { question: string; answer: string };
 
 export const revalidate = 3600; // ISR: revalidate every hour
-export const dynamicParams = true; // Allow pages not in generateStaticParams
+// dynamicParams=false → any slug not in generateStaticParams() returns a
+// real HTTP 404 (framework-level), not a soft-404 (200 with a 404 UI).
+// Safe because COLLEGES is the sole source of valid slugs: colleges-merged
+// only *modifies* existing entries, never adds new ones. If that ever
+// changes, expand generateStaticParams() to include the new source.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return COLLEGES.map(c => ({ slug: c.slug }));
