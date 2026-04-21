@@ -1,4 +1,10 @@
+import { COLLEGES } from "@/lib/colleges";
+
 export default function AboutPage() {
+  // Render the actual count — not a marketing-rounded number. This is a
+  // public-facing page and the claim needs to match reality at all times.
+  const totalColleges = COLLEGES.length;
+
   return (
     <main className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       <h1 className="text-3xl font-extrabold mb-3">About TeluguColleges.com</h1>
@@ -27,7 +33,7 @@ export default function AboutPage() {
         <h2 className="text-xl font-bold mb-4">What We Offer</h2>
         <div className="space-y-4">
           {[
-            ["900+ Colleges", "The most comprehensive directory of professional colleges across AP & Telangana."],
+            [`${totalColleges} Colleges`, "The most comprehensive directory of professional colleges across AP & Telangana."],
             ["Verified Data", "Every fee and cutoff links to an official source. If we can't verify, we don't publish."],
             ["Comparison Tools", "Side-by-side fee comparison, branch-wise cutoffs, and placement data to help you decide."],
             ["College Admin Portal", "Colleges can log in and update their own data, keeping information current."],
