@@ -425,7 +425,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       <div className="mt-3 text-xs text-green-700">
                         {c.state === "Andhra Pradesh"
                           ? `${isBrownfield ? "Brownfield university — 70% of original seats" : "Greenfield university — 35% of seats"} filled through AP EAPCET at APHERMC-regulated fees per G.O.Ms.No.19 (block period 2024-27).`
-                          : "Convener quota seats filled through TS EAMCET state counseling at TAFRC-regulated fees."}
+                          : "Convener quota seats filled through TS EAMCET state counseling at TAFRC-regulated fees per G.O. Ms. No. 06 dated 04.03.2026 (block period 2025–26 to 2027–28)."}
                       </div>
                     </div>
                   )}
@@ -480,9 +480,16 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                     </div>
                   )}
                   {!isDeemedOrPrivateUni && !isGovt && (
-                    <div className="mt-3 bg-amber-50 rounded-lg px-4 py-2.5 text-xs text-amber-700">
-                      For management quota (Category-B, ~30% seats) fees, contact the college directly — these are approved per college by {c.state === "Telangana" ? "TS AFRC" : "APHERMC"}.
-                    </div>
+                    <>
+                      {c.state === "Telangana" && (
+                        <div className="mt-3 bg-emerald-50 rounded-lg px-4 py-2.5 text-xs text-emerald-800">
+                          Tuition fee fixed under <strong>G.O. Ms. No. 06 dt. 04.03.2026</strong> (TAFRC block 2025–26 to 2027–28). <Link href="/news#tg-engineering-fee-2025-28-go-ms-06" className="underline hover:text-emerald-900">Read the notification &rarr;</Link>
+                        </div>
+                      )}
+                      <div className="mt-3 bg-amber-50 rounded-lg px-4 py-2.5 text-xs text-amber-700">
+                        For management quota (Category-B, ~30% seats) fees, contact the college directly — these are approved per college by {c.state === "Telangana" ? "TS AFRC" : "APHERMC"}.
+                      </div>
+                    </>
                   )}
                 </>
               );

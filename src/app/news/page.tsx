@@ -72,15 +72,15 @@ export default function NewsPage() {
                 <span className="font-semibold text-sm">AP EAPCET 2026</span>
               </div>
               <div className="space-y-1.5 text-sm">
-                <div className="flex justify-between"><span className="text-white/90">Registration</span><span className="font-semibold">Feb 4 — Mar 17</span></div>
-                <div className="flex justify-between"><span className="text-white/90">Late fee deadline</span><span className="font-semibold">Apr 3</span></div>
-                <div className="flex justify-between"><span className="text-white/90">Engineering Exam</span><span className="font-bold text-green-300">May 12–15, 18</span></div>
+                <div className="flex justify-between"><span className="text-white/70 line-through">Registration</span><span className="text-white/70 line-through">Feb 4 — Mar 24</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Admit Card</span><span className="font-bold text-green-300">Apr 28</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Engineering Exam</span><span className="font-semibold">May 12–15, 18</span></div>
                 <div className="flex justify-between"><span className="text-white/90">Agri/Pharmacy</span><span className="font-semibold">May 19–20</span></div>
-                <div className="flex justify-between"><span className="text-white/90">Results (Expected)</span><span className="font-semibold">June 2026</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Results</span><span className="font-semibold">June 1, 2026</span></div>
                 <div className="flex justify-between"><span className="text-white/90">Counselling</span><span className="font-semibold">July 2026</span></div>
               </div>
               <a href="https://cets.apsche.ap.gov.in/EAPCET/" target="_blank" rel="noopener noreferrer" className="inline-block mt-3 text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-colors">
-                Apply Now →
+                Download Admit Card →
               </a>
             </div>
             {/* TS */}
@@ -90,15 +90,15 @@ export default function NewsPage() {
                 <span className="font-semibold text-sm">TG EAPCET 2026</span>
               </div>
               <div className="space-y-1.5 text-sm">
-                <div className="flex justify-between"><span className="text-white/90">Registration</span><span className="font-semibold">Feb 19 — Apr 4</span></div>
-                <div className="flex justify-between"><span className="text-white/90">Late fee deadline</span><span className="font-semibold">May 2</span></div>
-                <div className="flex justify-between"><span className="text-white/90">Agri/Pharmacy</span><span className="font-semibold">May 4–5</span></div>
-                <div className="flex justify-between"><span className="text-white/90">Engineering Exam</span><span className="font-bold text-blue-300">May 9–11</span></div>
-                <div className="flex justify-between"><span className="text-white/90">Results (Expected)</span><span className="font-semibold">June 2026</span></div>
+                <div className="flex justify-between"><span className="text-white/70 line-through">Registration</span><span className="text-white/70 line-through">Feb 19 — Apr 4</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Admit Card (Agri/Pharm)</span><span className="font-bold text-blue-300">Apr 23</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Admit Card (Engg)</span><span className="font-bold text-blue-300">Apr 27</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Agri/Pharmacy Exam</span><span className="font-semibold">May 4–5</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Engineering Exam</span><span className="font-semibold">May 9–11</span></div>
                 <div className="flex justify-between"><span className="text-white/90">Counselling</span><span className="font-semibold">Jul–Aug 2026</span></div>
               </div>
               <a href="https://eapcet.tgche.ac.in/" target="_blank" rel="noopener noreferrer" className="inline-block mt-3 text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-colors">
-                Apply Now →
+                Download Admit Card →
               </a>
             </div>
           </div>
