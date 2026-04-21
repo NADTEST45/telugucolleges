@@ -184,7 +184,7 @@ function CollegesPageInner() {
         <Link href="/">Home</Link><span>/</span><span className="text-gray-600 font-medium">Colleges</span>
       </nav>
       <h1 className="text-2xl sm:text-3xl font-bold mb-1">College Directory</h1>
-      <p className="text-sm text-gray-500 mb-4">{COLLEGES.length} engineering, pharmacy & medical colleges across Andhra Pradesh & Telangana</p>
+      <p className="text-sm text-gray-500 mb-4">{COLLEGES.length} professional colleges across Andhra Pradesh & Telangana</p>
 
       {/* Block Period Info */}
       {(!state || state === "Telangana" || state === "Andhra Pradesh") && (

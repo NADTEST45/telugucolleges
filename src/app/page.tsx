@@ -86,7 +86,7 @@ export default function Home() {
             Find the Right College<br className="hidden sm:block" /><span className="sm:hidden"> </span>for Your Future
           </h1>
           <p className="text-sm sm:text-lg opacity-80 mb-6 sm:mb-10 font-light max-w-xl mx-auto leading-relaxed">
-            Compare fees, cutoffs, placements and rankings for {stats.total}+ engineering, pharmacy & medical colleges across both states.
+            Compare fees, cutoffs, placements and rankings for {stats.total} professional colleges across both states.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-2 sm:px-0">
             <Link href="/colleges" className="inline-block bg-white text-brand font-bold px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl text-base sm:text-lg shadow-xl active:scale-[0.98] transition-all">
@@ -258,7 +258,7 @@ export default function Home() {
             {[
               ["Official Fees", "All fee data comes from government orders, not estimates."],
               ["Real Cutoffs", "EAPCET closing ranks from official TSCHE & APSCHE counselling data."],
-              [`${stats.total}+ Colleges`, "The most comprehensive directory of AP & Telangana professional colleges."],
+              [`${stats.total} Colleges`, "The most comprehensive directory of AP & Telangana professional colleges."],
             ].map(([t, d]) => (
               <div key={t} className="text-center">
                 <div className="font-bold text-brand mb-2">{t}</div>
