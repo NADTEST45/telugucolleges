@@ -15,6 +15,19 @@ export interface NewsItem {
 export const NEWS_ITEMS: NewsItem[] = [
   // ── New: April 21, 2026 ───────────────────────────────────────
   {
+    id: "ts-ecet-2026-deadline-extended-april-23",
+    date: "2026-04-21",
+    title: "TS ECET 2026 — Registration Deadline Extended to April 23 (Without Late Fee)",
+    summary: "Osmania University has extended the TS ECET 2026 registration deadline. Candidates can apply without late fee until April 23, 2026. Late-fee window remains open until May 12. Exam: May 15, 2026.",
+    body: "Supersedes the earlier April 18 deadline: the TS (TG) ECET 2026 regular registration window has been extended to April 23, 2026.\n\n• Last date without late fee: April 23, 2026\n• Late fee applications accepted: until May 12, 2026\n• Exam date: May 15, 2026\n• Application fee: ₹900 (General), ₹500 (SC/ST/PwD)\n• Official portal: ecet.tgche.ac.in\n• Conducting body: Osmania University on behalf of TGCHE\n\nTS ECET is the lateral-entry test for diploma holders and B.Sc graduates seeking direct admission into the second year of B.Tech / B.Pharm programmes in Telangana. Payment options include debit card, credit card, and net banking. Candidates should finalise their application before April 23 to avoid late fees; documents (SSC, diploma/B.Sc marks memos, caste certificate, Aadhaar) must match the application exactly for counselling verification (expected July–August 2026).",
+    category: "general",
+    state: "TS",
+    priority: "medium",
+    source: "TGCHE / Osmania University — TS ECET 2026 Notification",
+    sourceUrl: "https://ecet.tgche.ac.in/",
+    tags: ["TS ECET", "TG ECET", "Lateral Entry", "Deadline Extended", "2026"],
+  },
+  {
     id: "jee-main-2026-session-2-results-out-april-20",
     date: "2026-04-21",
     title: "JEE Main 2026 Session 2 Results Declared — 5 Toppers from AP & Telangana, AIR 2 Jonnala Roshan (AP)",
@@ -109,15 +122,15 @@ export const NEWS_ITEMS: NewsItem[] = [
   {
     id: "ts-ecet-2026-last-date-april-18",
     date: "2026-04-12",
-    title: "TS ECET 2026 — Last Date to Apply April 18, Lateral Entry Exam May 15",
-    summary: "TS ECET 2026 for lateral entry into B.Tech/B.Pharm has a registration deadline of April 18. Exam scheduled for May 15.",
-    body: "Telangana State Engineering Common Entrance Test (TS ECET) 2026 for lateral entry admissions is approaching its deadline.\n\n• Last date to apply (without late fee): April 18, 2026\n• Exam date: May 15, 2026\n• Eligibility: Diploma holders and B.Sc graduates seeking lateral entry into B.Tech/B.Pharm second year\n• Official website: ecet.tsche.ac.in\n\nTS ECET is conducted by Kakatiya University on behalf of TSCHE. This is the primary pathway for diploma holders in Telangana to enter engineering degree programs directly in the second year.\n\nCandidates should ensure all documents are ready for verification during counselling (expected July–August 2026).",
+    title: "TS ECET 2026 — Earlier Deadline Was April 18 (Superseded)",
+    summary: "As originally notified, TS ECET 2026 had a regular registration deadline of April 18. This window was later extended — see the April 21 update.",
+    body: "This item is retained as a historical reference. As originally notified in early April:\n\n• Regular deadline (no late fee): April 18, 2026\n• Exam date: May 15, 2026\n• Eligibility: Diploma holders and B.Sc graduates seeking lateral entry into B.Tech/B.Pharm second year\n• Official website: ecet.tgche.ac.in\n\nUpdate (April 21, 2026): Osmania University — which is conducting TS ECET 2026 on behalf of TGCHE — extended the registration deadline to April 23, 2026 without late fee. A subsequent late-fee window remains open until May 12, 2026. See the April 21 news item for the current timeline.\n\nCandidates should verify all timelines on the official portal before applying.",
     category: "general",
     state: "TS",
-    priority: "medium",
-    source: "TSCHE",
-    sourceUrl: "https://ecet.tsche.ac.in/",
-    tags: ["TS ECET", "Lateral Entry", "2026", "Diploma"],
+    priority: "low",
+    source: "TGCHE / Osmania University",
+    sourceUrl: "https://ecet.tgche.ac.in/",
+    tags: ["TS ECET", "Lateral Entry", "2026", "Diploma", "Superseded"],
   },
   {
     id: "ap-icet-2026-admit-card-released",
