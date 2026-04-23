@@ -18,3 +18,5 @@ gh_*/
 check.ts
 .~lock.*
 .next.stale*/
+_reference/
+*.plugin
