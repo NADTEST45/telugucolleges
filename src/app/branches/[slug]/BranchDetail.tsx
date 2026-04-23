@@ -79,7 +79,7 @@ export default function BranchDetail({ branch, colleges }: { branch: BranchInfo;
         ].map(([value, label]) => (
           <div key={label} className="bg-white rounded-xl p-3 sm:p-4 text-center shadow-sm">
             <div className="text-base sm:text-xl font-extrabold text-brand">{value}</div>
-            <div className="text-[10px] sm:text-[11px] text-gray-500 mt-0.5">{label}</div>
+            <div className="text-[11px] text-gray-500 mt-0.5">{label}</div>
           </div>
         ))}
       </div>
@@ -150,7 +150,7 @@ export default function BranchDetail({ branch, colleges }: { branch: BranchInfo;
             {/* Bottom row: fee + cutoff as inline chips */}
             <div className="flex items-center gap-2 mt-2">
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-50 text-[11px] font-semibold text-brand">
-                {col.fee > 0 ? fmtFee(col.fee) : "—"}<span className="text-[10px] font-normal text-gray-500">/yr</span>
+                {col.fee > 0 ? fmtFee(col.fee) : "—"}<span className="text-[11px] font-normal text-gray-500">/yr</span>
               </span>
               {hasCutoff && (
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gray-50 text-[11px] font-semibold text-gray-600">

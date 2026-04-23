@@ -111,13 +111,13 @@ export default function BranchesPage() {
                             <div className="flex items-start justify-between gap-1 mb-1 sm:mb-2">
                               <div className="min-w-0">
                                 <div className="font-bold text-xs sm:text-sm text-gray-900 truncate">{b.shortName}</div>
-                                <div className="text-[10px] sm:text-[11px] text-gray-500 leading-tight line-clamp-2">{b.name}</div>
+                                <div className="text-[11px] text-gray-500 leading-tight line-clamp-2">{b.name}</div>
                               </div>
-                              <span className="text-[10px] sm:text-xs font-bold text-accent bg-blue-50 px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
+                              <span className="text-[11px] sm:text-xs font-bold text-accent bg-blue-50 px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
                                 {b.count}
                               </span>
                             </div>
-                            <div className="flex flex-wrap items-center gap-x-1.5 text-[10px] sm:text-[11px] text-gray-500">
+                            <div className="flex flex-wrap items-center gap-x-1.5 text-[11px] text-gray-500">
                               {b.minFee > 0 && <span>From {fmtFee(b.minFee)}</span>}
                               {b.withCutoff > 0 && <span>· {b.withCutoff} cutoffs</span>}
                             </div>
@@ -145,13 +145,13 @@ export default function BranchesPage() {
                   <div className="flex items-start justify-between gap-1 mb-1 sm:mb-2">
                     <div className="min-w-0">
                       <div className="font-bold text-xs sm:text-sm text-gray-900 truncate">{p.name}</div>
-                      <div className="text-[10px] sm:text-[11px] text-gray-500 leading-tight">{p.level} · {p.duration} {p.duration === 1 ? "yr" : "yrs"}</div>
+                      <div className="text-[11px] text-gray-500 leading-tight">{p.level} · {p.duration} {p.duration === 1 ? "yr" : "yrs"}</div>
                     </div>
-                    <span className="text-[10px] sm:text-xs font-bold text-accent bg-blue-50 px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
+                    <span className="text-[11px] sm:text-xs font-bold text-accent bg-blue-50 px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
                       {p.collegeCount}
                     </span>
                   </div>
-                  <div className="flex flex-wrap items-center gap-x-1.5 text-[10px] sm:text-[11px] text-gray-500">
+                  <div className="flex flex-wrap items-center gap-x-1.5 text-[11px] text-gray-500">
                     <span>From {fmtFee(p.feeMin)}</span>
                     <span>· Median {fmtFee(p.feeMedian)}</span>
                   </div>
@@ -178,13 +178,13 @@ export default function BranchesPage() {
                   <div className="flex items-start justify-between gap-1 mb-1 sm:mb-2">
                     <div className="min-w-0">
                       <div className="font-bold text-xs sm:text-sm text-gray-900 truncate">{p.name}</div>
-                      <div className="text-[10px] sm:text-[11px] text-gray-500 leading-tight">{p.level} · {p.duration} {p.duration === 1 ? "yr" : "yrs"}</div>
+                      <div className="text-[11px] text-gray-500 leading-tight">{p.level} · {p.duration} {p.duration === 1 ? "yr" : "yrs"}</div>
                     </div>
-                    <span className="text-[10px] sm:text-xs font-bold text-accent bg-blue-50 px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
+                    <span className="text-[11px] sm:text-xs font-bold text-accent bg-blue-50 px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
                       {p.collegeCount}
                     </span>
                   </div>
-                  <div className="flex flex-wrap items-center gap-x-1.5 text-[10px] sm:text-[11px] text-gray-500">
+                  <div className="flex flex-wrap items-center gap-x-1.5 text-[11px] text-gray-500">
                     <span>From {fmtFee(p.feeMin)}</span>
                     <span>· Median {fmtFee(p.feeMedian)}</span>
                   </div>
@@ -211,13 +211,13 @@ export default function BranchesPage() {
                   <div className="flex items-start justify-between gap-1 mb-1 sm:mb-2">
                     <div className="min-w-0">
                       <div className="font-bold text-xs sm:text-sm text-gray-900 truncate">{p.name}</div>
-                      <div className="text-[10px] sm:text-[11px] text-gray-500 leading-tight">{p.level} · {p.duration} {p.duration === 1 ? "yr" : "yrs"}</div>
+                      <div className="text-[11px] text-gray-500 leading-tight">{p.level} · {p.duration} {p.duration === 1 ? "yr" : "yrs"}</div>
                     </div>
-                    <span className="text-[10px] sm:text-xs font-bold text-accent bg-blue-50 px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
+                    <span className="text-[11px] sm:text-xs font-bold text-accent bg-blue-50 px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
                       {p.collegeCount}
                     </span>
                   </div>
-                  <div className="flex flex-wrap items-center gap-x-1.5 text-[10px] sm:text-[11px] text-gray-500">
+                  <div className="flex flex-wrap items-center gap-x-1.5 text-[11px] text-gray-500">
                     <span>From {fmtFee(p.feeMin)}</span>
                     <span>· Median {fmtFee(p.feeMedian)}</span>
                   </div>
@@ -240,13 +240,13 @@ export default function BranchesPage() {
                   <div className="flex items-start justify-between gap-1 mb-1 sm:mb-2">
                     <div className="min-w-0">
                       <div className="font-bold text-xs sm:text-sm text-gray-900 truncate">{p.name}</div>
-                      <div className="text-[10px] sm:text-[11px] text-gray-500 leading-tight">{p.level} · {p.duration} {p.duration === 1 ? "yr" : "yrs"}</div>
+                      <div className="text-[11px] text-gray-500 leading-tight">{p.level} · {p.duration} {p.duration === 1 ? "yr" : "yrs"}</div>
                     </div>
-                    <span className="text-[10px] sm:text-xs font-bold text-accent bg-blue-50 px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
+                    <span className="text-[11px] sm:text-xs font-bold text-accent bg-blue-50 px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
                       {p.collegeCount}
                     </span>
                   </div>
-                  <div className="flex flex-wrap items-center gap-x-1.5 text-[10px] sm:text-[11px] text-gray-500">
+                  <div className="flex flex-wrap items-center gap-x-1.5 text-[11px] text-gray-500">
                     <span>From {fmtFee(p.feeMin)}</span>
                     <span>· Median {fmtFee(p.feeMedian)}</span>
                   </div>

@@ -68,7 +68,7 @@ export default function NewsPage() {
             {/* AP */}
             <div className="bg-white/10 backdrop-blur rounded-xl p-4">
               <div className="flex items-center gap-2 mb-3">
-                <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded">AP</span>
+                <span className="bg-green-500 text-white text-[11px] font-bold px-2 py-0.5 rounded">AP</span>
                 <span className="font-semibold text-sm">AP EAPCET 2026</span>
               </div>
               <div className="space-y-1.5 text-sm">
@@ -86,7 +86,7 @@ export default function NewsPage() {
             {/* TS */}
             <div className="bg-white/10 backdrop-blur rounded-xl p-4">
               <div className="flex items-center gap-2 mb-3">
-                <span className="bg-accent text-white text-[10px] font-bold px-2 py-0.5 rounded">TS</span>
+                <span className="bg-accent text-white text-[11px] font-bold px-2 py-0.5 rounded">TS</span>
                 <span className="font-semibold text-sm">TG EAPCET 2026</span>
               </div>
               <div className="space-y-1.5 text-sm">
@@ -179,15 +179,15 @@ function NewsCard({ item, expanded, onToggle, highlight }: { item: NewsItem; exp
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1.5 flex-wrap">
               {catMeta && (
-                <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${catMeta.bgColor} ${catMeta.color}`}>
+                <span className={`px-2 py-0.5 rounded text-[11px] font-bold ${catMeta.bgColor} ${catMeta.color}`}>
                   {catMeta.label}
                 </span>
               )}
-              <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${sBadge.cls}`}>
+              <span className={`px-2 py-0.5 rounded text-[11px] font-bold border ${sBadge.cls}`}>
                 {sBadge.label}
               </span>
               {item.priority === "high" && (
-                <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${pBadge.cls}`}>
+                <span className={`px-2 py-0.5 rounded text-[11px] font-bold ${pBadge.cls}`}>
                   {pBadge.label}
                 </span>
               )}
@@ -218,7 +218,7 @@ function NewsCard({ item, expanded, onToggle, highlight }: { item: NewsItem; exp
           {item.tags.length > 0 && (
             <div className="mt-3 flex gap-1.5 flex-wrap">
               {item.tags.map(tag => (
-                <span key={tag} className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded text-[10px]">{tag}</span>
+                <span key={tag} className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded text-[11px]">{tag}</span>
               ))}
             </div>
           )}

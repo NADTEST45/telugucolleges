@@ -225,7 +225,7 @@ export default function EAPCETPage() {
             </a>
           </div>
         </div>
-        <div className="px-4 sm:px-6 pb-3 sm:pb-4 text-[10px] text-blue-200/50">
+        <div className="px-4 sm:px-6 pb-3 sm:pb-4 text-[11px] text-blue-200/50">
           * Dates based on official notifications as of March 2026. Check APSCHE / TSCHE websites for latest updates.
         </div>
       </section>
@@ -275,7 +275,7 @@ export default function EAPCETPage() {
             ["Subjects", "M / P / C", "80 + 40 + 40"],
           ].map(([label, value, sub]) => (
             <div key={label} className="bg-gray-50 rounded-xl p-3 sm:p-4">
-              <div className="text-[10px] sm:text-xs text-gray-500 mb-1">{label}</div>
+              <div className="text-[11px] sm:text-xs text-gray-500 mb-1">{label}</div>
               <div className="text-lg sm:text-xl font-extrabold text-gray-900">{value}</div>
               <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5">{sub}</div>
             </div>
@@ -287,7 +287,7 @@ export default function EAPCETPage() {
       {/* College Predictor */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
         <h2 className="text-base sm:text-lg font-bold mb-1">College Predictor</h2>
-        <p className="text-[10px] sm:text-xs text-gray-500 mb-4 sm:mb-5">Weighted prediction using official TSCHE closing ranks (2023-24 & 2024-25) and APSCHE closing ranks (2022-23 & 2023-24) — 70% latest year, 30% previous year. Category & gender-wise.</p>
+        <p className="text-[11px] sm:text-xs text-gray-500 mb-4 sm:mb-5">Weighted prediction using official TSCHE closing ranks (2023-24 & 2024-25) and APSCHE closing ranks (2022-23 & 2023-24) — 70% latest year, 30% previous year. Category & gender-wise.</p>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3 mb-4 sm:mb-6">
           <div>
@@ -363,7 +363,7 @@ export default function EAPCETPage() {
                   </div>
                   <div className="flex items-center gap-3 sm:gap-4 text-sm">
                     <div className="text-center">
-                      <div className="text-[10px] text-gray-500">{isHistorical ? `${catLabel.split(" ")[0]} Cutoff` : "Cutoff"}</div>
+                      <div className="text-[11px] text-gray-500">{isHistorical ? `${catLabel.split(" ")[0]} Cutoff` : "Cutoff"}</div>
                       <div className="font-bold text-xs sm:text-sm">{cutoff.toLocaleString()}</div>
                     </div>
                     <span className={`px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold ${
@@ -407,7 +407,7 @@ export default function EAPCETPage() {
               {stats.map(([value, label]) => (
                 <div key={label} className="bg-gray-50 rounded-xl p-3 sm:p-4">
                   <div className="text-lg sm:text-xl font-extrabold text-brand">{value}</div>
-                  <div className="text-[10px] sm:text-xs text-gray-500 mt-1">{label}</div>
+                  <div className="text-[11px] sm:text-xs text-gray-500 mt-1">{label}</div>
                 </div>
               ))}
             </div>

@@ -151,7 +151,7 @@ export default function Home() {
             <Link key={item.label} href={item.href} aria-label={item.label} className="bg-white rounded-xl p-3 sm:p-4 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all text-center">
               <div className="text-xl sm:text-2xl mb-1" aria-hidden="true">{item.icon}</div>
               <div className={`font-bold text-xs sm:text-sm ${item.color}`}>{item.label}</div>
-              {item.count ? <div className="text-[10px] sm:text-xs text-gray-500 mt-0.5">{item.count} colleges</div> : null}
+              {item.count ? <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5">{item.count} colleges</div> : null}
             </Link>
           ))}
         </div>
@@ -201,7 +201,7 @@ export default function Home() {
                   </div>
                   <div className="text-right shrink-0">
                     <div className="font-bold text-brand text-xs sm:text-sm">Rank {c.cutoff.cse.toLocaleString()}</div>
-                    <div className="text-[10px] sm:text-xs text-gray-500">{fmtFee(c.fee)}/yr</div>
+                    <div className="text-[11px] sm:text-xs text-gray-500">{fmtFee(c.fee)}/yr</div>
                   </div>
                 </Link>
               ))}
@@ -225,7 +225,7 @@ export default function Home() {
               </div>
               <div className="font-bold text-sm sm:text-base mb-2 leading-snug">{c.name}</div>
               <div className="flex items-center justify-between">
-                <div className="text-lg sm:text-xl font-extrabold text-brand">{fmtFee(c.fee)}<span className="text-[10px] sm:text-xs font-normal text-gray-500">/yr</span></div>
+                <div className="text-lg sm:text-xl font-extrabold text-brand">{fmtFee(c.fee)}<span className="text-[11px] sm:text-xs font-normal text-gray-500">/yr</span></div>
                 <span className="bg-blue-50 text-accent px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md text-[11px] sm:text-xs font-semibold">{c.district}</span>
               </div>
             </Link>

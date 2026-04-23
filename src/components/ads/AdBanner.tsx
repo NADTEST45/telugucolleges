@@ -24,7 +24,7 @@ export default function AdBanner({ ad, className = "" }: AdBannerProps) {
           loading="lazy"
         />
       </a>
-      <span className="absolute top-2 right-2 bg-black/50 text-white text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded">
+      <span className="absolute top-2 right-2 bg-black/50 text-white text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded">
         {ad.label || "Sponsored"}
       </span>
     </div>
