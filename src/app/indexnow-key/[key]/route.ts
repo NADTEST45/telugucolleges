@@ -30,7 +30,10 @@ export async function GET(
   if (key !== INDEXNOW_KEY) {
     return new NextResponse("Not Found", { status: 404 });
   }
-  return new NextResponse(`${INDEXNOW_KEY}\n`, {
+  // IndexNow's key check is strict: body must equal the key exactly, no
+  // trailing newline. The earlier `${KEY}\n` form caused a 422 from
+  // api.indexnow.org with errorCode "InvalidRequestParameters".
+  return new NextResponse(INDEXNOW_KEY, {
     status: 200,
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
