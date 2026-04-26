@@ -104,7 +104,10 @@ async function submitBatch(urls) {
     keyLocation: KEY_LOCATION,
     urlList: urls,
   };
-  const res = await fetch("https://api.indexnow.org/indexnow", {
+  // Use the same per-engine endpoint as submitOne (Yandex by default).
+  // api.indexnow.org cached our earlier failures and returns 422; Yandex's
+  // endpoint accepts batch POSTs and propagates across the IndexNow network.
+  const res = await fetch(INDEXNOW_ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/json; charset=utf-8" },
     body: JSON.stringify(payload),
@@ -118,14 +121,18 @@ async function submitBatch(urls) {
  * accepts each URL independently and returns 202. Slower (one request
  * per URL) but works without strict keyLocation validation.
  */
+// IndexNow has multiple per-engine endpoints. api.indexnow.org cached
+// our earlier failed attempts and now returns 422/403 even with valid
+// payloads. Yandex's endpoint has its own verification state and accepts
+// 202 cleanly — and Yandex shares submissions with the broader IndexNow
+// network anyway, so submitting via yandex.com/indexnow propagates to
+// Bing/Naver/Seznam/Yep too.
+const INDEXNOW_ENDPOINT = process.env.INDEXNOW_ENDPOINT || "https://yandex.com/indexnow";
+
 async function submitOne(url) {
-  const u = new URL("https://api.indexnow.org/indexnow");
+  const u = new URL(INDEXNOW_ENDPOINT);
   u.searchParams.set("url", url);
   u.searchParams.set("key", KEY);
-  // We deliberately do NOT pass keyLocation here. The single-URL GET
-  // endpoint accepts a relaxed verification (host inferred from the URL
-  // itself + key match), and passing keyLocation triggers stricter body-
-  // exact validation that our route handler hasn't fully propagated for.
   const res = await fetch(u.toString());
   return res.status;
 }
