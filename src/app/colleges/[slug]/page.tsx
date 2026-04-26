@@ -223,7 +223,56 @@ export default async function CollegePage({ params }: { params: Promise<{ slug: 
   const c = mergedColleges.find(col => col.slug === slug);
   if (!c) notFound();
 
-  const similar = mergedColleges.filter(s => s.id !== c.id && s.state === c.state && s.cutoff.cse > 0 && c.cutoff.cse > 0 && Math.abs(s.cutoff.cse - c.cutoff.cse) < 5000).slice(0, 4);
+  /*
+   * Pick up to 4 "similar" colleges to surface "Compare vs X" links.
+   *
+   * Layered strategy (each layer fills only if previous didn't reach 4):
+   *  1. Same-state peers within ±5k EAPCET CSE rank — apples-to-apples.
+   *  2. Same tier (Govt / Deemed-Univ / Private) ranked by qualityScore —
+   *     handles deemed unis (cutoff=0) and placeholder rows that layer 1
+   *     misses, and brings in cross-state marquees for peer-tier comparisons
+   *     (e.g. GITAM Vizag ↔ KL Univ ↔ SRM AP ↔ VIT-AP).
+   *  3. Same-state peers ranked by qualityScore — last-resort fallback.
+   *
+   * This widens internal linking into /compare/[pair] significantly:
+   * every college page now points at 4 compare URLs rather than 0–4.
+   */
+  const tierOf = (col: typeof c): "government" | "deemed" | "private" => {
+    if (col.type === "Government") return "government";
+    if (col.type === "Deemed University" || col.type === "Private University") return "deemed";
+    return "private";
+  };
+  const NAAC_BONUS: Record<string, number> = { "A++": 25, "A+": 18, "A": 12, "B++": 6, "B+": 4, "B": 2 };
+  const qScore = (col: typeof c): number => {
+    let s = 0;
+    if (col.cutoff.cse > 0) s += Math.min(40, 100000 / col.cutoff.cse);
+    s += Math.min(40, col.placements.avg * 2.5);
+    if (col.nirf > 0) s += Math.min(20, 400 / col.nirf);
+    s += NAAC_BONUS[col.naac?.trim?.() ?? ""] ?? 0;
+    if (col.nba) s += 5;
+    return s;
+  };
+  const cTier = tierOf(c);
+
+  const layer1 = mergedColleges.filter(s =>
+    s.id !== c.id &&
+    s.state === c.state &&
+    s.cutoff.cse > 0 &&
+    c.cutoff.cse > 0 &&
+    Math.abs(s.cutoff.cse - c.cutoff.cse) < 5000,
+  );
+  const seenIds = new Set<number>([c.id, ...layer1.map(s => s.id)]);
+
+  const layer2 = mergedColleges
+    .filter(s => !seenIds.has(s.id) && tierOf(s) === cTier && qScore(s) > 5)
+    .sort((a, b) => qScore(b) - qScore(a));
+  for (const s of layer2) seenIds.add(s.id);
+
+  const layer3 = mergedColleges
+    .filter(s => !seenIds.has(s.id) && s.state === c.state && qScore(s) > 0)
+    .sort((a, b) => qScore(b) - qScore(a));
+
+  const similar = [...layer1, ...layer2, ...layer3].slice(0, 4);
   const historicalCutoffs = (c.state === "Telangana" ? TS_CUTOFFS[c.code] : AP_CUTOFFS[c.code]) || null;
   const cutoffYears = c.state === "Telangana" ? TS_CUTOFF_YEARS : AP_CUTOFF_YEARS;
 

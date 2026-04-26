@@ -2,6 +2,12 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { COLLEGES, fmtFee } from "@/lib/colleges";
+import { getFeaturedPairs } from "@/lib/comparison-pairs";
+
+// Computed once at module load — runs in SSR too, so the marquee links
+// land in the initial HTML and are crawlable by Googlebot. Each card is
+// a plain anchor pointing at /compare/[pair], which is statically generated.
+const FEATURED = getFeaturedPairs(60);
 
 function CollegeSearchSelect({ selected, onSelect, stateFilter }: {
   selected: number[];
@@ -86,6 +92,40 @@ export default function ComparePage() {
       </nav>
       <h1 className="text-2xl sm:text-3xl font-bold mb-1">Compare Colleges</h1>
       <p className="text-sm text-gray-500 mb-6">Select 2-4 colleges to compare fees, cutoffs, and placements side-by-side</p>
+
+      {/* Popular comparisons — SSR'd so bots can crawl the links. These
+          are the highest-search-intent pairs (cross-tier + in-tier top N)
+          and they all resolve to statically-generated /compare/[pair] pages. */}
+      {FEATURED.length > 0 && (
+        <section className="mb-8" aria-labelledby="popular-comparisons-heading">
+          <div className="flex items-baseline justify-between mb-3">
+            <h2 id="popular-comparisons-heading" className="text-base font-bold text-gray-900">
+              Popular Comparisons
+            </h2>
+            <span className="text-xs text-gray-500">
+              {FEATURED.length} side-by-side guides
+            </span>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+            {FEATURED.map(p => (
+              <Link
+                key={p.slug}
+                href={`/compare/${p.slug}`}
+                className="block bg-white rounded-lg border border-gray-200 hover:border-accent hover:shadow-sm transition-all px-3 py-2.5 text-xs"
+              >
+                <div className="font-bold text-gray-900 truncate">
+                  {p.college1.code} vs {p.college2.code}
+                </div>
+                <div className="text-gray-500 truncate mt-0.5">
+                  {p.college1.district === p.college2.district
+                    ? p.college1.district
+                    : `${p.college1.district} · ${p.college2.district}`}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Selector */}
       <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm mb-6">
