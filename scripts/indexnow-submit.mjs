@@ -33,7 +33,7 @@ const KEY = "c153314b7546b33a6566a06402fd1965";
 // because Vercel's standalone-output deploy was caching 404s for the
 // static asset path. The route handler is contractually equivalent for
 // IndexNow — same host, text/plain, body is the key.
-const KEY_LOCATION = `https://${HOST}/indexnow-key/${KEY}`;
+const KEY_LOCATION = `https://${HOST}/${KEY}-indexnow`;
 const BASE = `https://${HOST}`;
 
 /**
