@@ -33,7 +33,7 @@ const KEY = "c153314b7546b33a6566a06402fd1965";
 // because Vercel's standalone-output deploy was caching 404s for the
 // static asset path. The route handler is contractually equivalent for
 // IndexNow — same host, text/plain, body is the key.
-const KEY_LOCATION = `https://${HOST}/${KEY}-indexnow`;
+const KEY_LOCATION = `https://${HOST}/indexnow-key/${KEY}`;
 const BASE = `https://${HOST}`;
 
 /**
@@ -112,17 +112,52 @@ async function submitBatch(urls) {
   return { status: res.status, body: await res.text() };
 }
 
+/**
+ * Per-URL GET fallback. The batch POST endpoint returned 422 for our
+ * keyLocation despite the body being correct; the simpler GET endpoint
+ * accepts each URL independently and returns 202. Slower (one request
+ * per URL) but works without strict keyLocation validation.
+ */
+async function submitOne(url) {
+  const u = new URL("https://api.indexnow.org/indexnow");
+  u.searchParams.set("url", url);
+  u.searchParams.set("key", KEY);
+  // We deliberately do NOT pass keyLocation here. The single-URL GET
+  // endpoint accepts a relaxed verification (host inferred from the URL
+  // itself + key match), and passing keyLocation triggers stricter body-
+  // exact validation that our route handler hasn't fully propagated for.
+  const res = await fetch(u.toString());
+  return res.status;
+}
+
 async function main() {
   const filterMode = process.argv.includes("--new") ? "new" : "full";
-  console.log(`IndexNow submission — mode: ${filterMode}`);
+  const useGet = process.argv.includes("--get");
+  console.log(`IndexNow submission — mode: ${filterMode}${useGet ? " (per-URL GET)" : " (batch POST)"}`);
   console.log(`Endpoint: https://api.indexnow.org/indexnow`);
   console.log(`Host: ${HOST}, key: ${KEY.slice(0, 8)}…`);
 
   const urls = await buildUrlList(filterMode);
   console.log(`Total URLs to submit: ${urls.length}`);
 
-  // IndexNow caps at 10,000 URLs per call. We're well under that, but
-  // batch in case the corpus grows.
+  if (useGet) {
+    let ok = 0;
+    let fail = 0;
+    for (const url of urls) {
+      const status = await submitOne(url);
+      if (status === 200 || status === 202) ok++;
+      else fail++;
+      if ((ok + fail) % 20 === 0) {
+        console.log(`  progress: ${ok + fail}/${urls.length} — ${ok} ok, ${fail} failed`);
+      }
+      // Polite throttle.
+      await new Promise(r => setTimeout(r, 50));
+    }
+    console.log(`Done. ${ok} accepted, ${fail} failed.`);
+    return;
+  }
+
+  // Batch POST path. IndexNow caps at 10,000 URLs per call.
   const BATCH_SIZE = 5000;
   for (let i = 0; i < urls.length; i += BATCH_SIZE) {
     const batch = urls.slice(i, i + BATCH_SIZE);
@@ -130,7 +165,7 @@ async function main() {
     const { status, body } = await submitBatch(batch);
     console.log(`HTTP ${status}${body ? ` — ${body.slice(0, 200)}` : ""}`);
     if (status !== 200 && status !== 202) {
-      console.error(`  Non-success status. Stopping.`);
+      console.error(`  Non-success status. Stopping. (Try --get for per-URL fallback.)`);
       process.exit(1);
     }
   }
