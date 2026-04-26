@@ -5,6 +5,7 @@ import { getAllBranchSlugs } from "@/lib/branch-data";
 import { getAllPairSlugs } from "@/lib/comparison-pairs";
 import { getAllCitySlugs } from "@/lib/city-data";
 import { getAllRankBandSlugs } from "@/lib/rank-band-data";
+import { NEWS_ITEMS } from "@/lib/news";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 const NOW = new Date().toISOString();
@@ -90,6 +91,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.75,
       lastModified: NOW,
+    });
+  }
+
+  // News permalink pages (one URL per news item). Each is a server-
+  // rendered NewsArticle page eligible for Top Stories. Higher priority
+  // for high-priority items, lastModified set from the item date so
+  // Google sees freshness cues directly.
+  for (const n of NEWS_ITEMS) {
+    entries.push({
+      url: `${BASE}/news/${n.id}`,
+      changeFrequency: n.priority === "high" ? "daily" : "weekly",
+      priority: n.priority === "high" ? 0.85 : n.priority === "medium" ? 0.7 : 0.5,
+      lastModified: `${n.date}T09:00:00+05:30`,
     });
   }
 
