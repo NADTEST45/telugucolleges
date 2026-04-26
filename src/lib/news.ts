@@ -13,6 +13,20 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  // ── New: April 26, 2026 ───────────────────────────────────────
+  {
+    id: "neet-ug-2026-admit-card-postponed-april-27",
+    date: "2026-04-26",
+    title: "NEET UG 2026 — Admit Card Release Postponed to April 27 at 10 AM",
+    summary: "NTA has postponed the NEET UG 2026 admit card release by one day. Hall tickets will now be available from 10:00 AM on Monday, April 27, 2026 at neet.nta.nic.in. Exam date (May 3) is unchanged.",
+    body: "The National Testing Agency (NTA) has postponed the release of NEET UG 2026 admit cards by one day. Originally scheduled for April 26, the hall tickets will now be available from 10:00 AM on Monday, April 27, 2026 at neet.nta.nic.in.\n\nKey points:\n• New admit card release: April 27, 2026, 10:00 AM IST\n• Download portal: neet.nta.nic.in (login with application number + password/DOB)\n• Exam date: May 3, 2026 (Sunday) — UNCHANGED\n• Timing: 2:00 PM – 5:00 PM (pen-and-paper mode)\n• Exam city intimation slip was released April 12, 2026 (separate from admit card)\n\nNTA's official announcement (via its X handle): \"NEET Admit Cards will be available to all candidates by 10 AM on Monday, 27th April 2026. Use the last Sunday before the exam for a practice test or revising concepts. Stay Calm. Keep yourself hydrated.\"\n\nWhat to do today (April 26): Use the day for revision or a full mock test. Do not download admit cards from any unofficial source. The only authoritative portal is neet.nta.nic.in.\n\nWhat to carry on exam day: Printed admit card + one valid photo ID (Aadhaar preferred). Reach the centre at least 1.5 hours before the exam — gates close 30 minutes before start. AP/TS aspirants will use NEET UG 2026 scores for MBBS/BDS counselling at Dr. NTR UHS (AP) and KNRUHS (Telangana), as well as MCC central quota and deemed universities.",
+    category: "general",
+    state: "Both",
+    priority: "high",
+    source: "NTA (NEET UG 2026 Admit Card Notice, 26.04.2026)",
+    sourceUrl: "https://neet.nta.nic.in/",
+    tags: ["NEET UG", "Admit Card", "Postponed", "NTA", "May 3", "2026"],
+  },
   // ── New: April 21, 2026 ───────────────────────────────────────
   {
     id: "ts-ecet-2026-deadline-extended-april-23",
@@ -56,9 +70,9 @@ export const NEWS_ITEMS: NewsItem[] = [
   {
     id: "neet-ug-2026-exam-may-3-admit-card-expected",
     date: "2026-04-21",
-    title: "NEET UG 2026 — Exam on May 3, City Slip Out, Admit Card Expected April 26",
-    summary: "NEET UG 2026 is scheduled for May 3 (2:00–5:00 PM). NTA released the exam city intimation slip on April 12; the full admit card is expected on April 26 at neet.nta.nic.in.",
-    body: "The National Testing Agency (NTA) has confirmed key details for NEET UG 2026, the single medical/dental/AYUSH entrance exam for MBBS, BDS, BAMS, BHMS, B.V.Sc and allied courses.\n\n• Exam date: May 3, 2026 (Sunday)\n• Timing: 2:00 PM – 5:00 PM (pen-and-paper mode)\n• Exam city intimation slip: Released April 12, 2026\n• Admit card: Expected on April 26, 2026 (per NTA)\n• Download portal: neet.nta.nic.in\n\nWhat AP/TS aspirants should do now:\n• Check the city intimation slip on neet.nta.nic.in and plan travel/accommodation early\n• Carry the printed admit card + one valid photo ID (Aadhaar preferred) to the exam centre\n• Reach the centre at least 1.5 hours before the exam; centres close gate 30 minutes before start\n• NEET UG 2026 scores are required for all MBBS/BDS admissions in AP (Dr. NTR UHS counselling) and Telangana (KNRUHS counselling), as well as central quota (MCC) and deemed universities\n\nAP/TS medical counselling is expected to start after NEET UG results, typically in July 2026.",
+    title: "NEET UG 2026 — Exam on May 3, City Slip Out, Admit Card Expected April 26 (Superseded)",
+    summary: "NEET UG 2026 is scheduled for May 3 (2:00–5:00 PM). NTA released the exam city intimation slip on April 12. As originally notified, the admit card was expected April 26 — this was later postponed by one day to April 27 (see the April 26 update).",
+    body: "The National Testing Agency (NTA) has confirmed key details for NEET UG 2026, the single medical/dental/AYUSH entrance exam for MBBS, BDS, BAMS, BHMS, B.V.Sc and allied courses.\n\n• Exam date: May 3, 2026 (Sunday)\n• Timing: 2:00 PM – 5:00 PM (pen-and-paper mode)\n• Exam city intimation slip: Released April 12, 2026\n• Admit card: Originally expected April 26, 2026 — postponed to April 27, 2026 at 10:00 AM (see April 26 update)\n• Download portal: neet.nta.nic.in\n\nWhat AP/TS aspirants should do now:\n• Check the city intimation slip on neet.nta.nic.in and plan travel/accommodation early\n• Carry the printed admit card + one valid photo ID (Aadhaar preferred) to the exam centre\n• Reach the centre at least 1.5 hours before the exam; centres close gate 30 minutes before start\n• NEET UG 2026 scores are required for all MBBS/BDS admissions in AP (Dr. NTR UHS counselling) and Telangana (KNRUHS counselling), as well as central quota (MCC) and deemed universities\n\nAP/TS medical counselling is expected to start after NEET UG results, typically in July 2026.",
     category: "general",
     state: "Both",
     priority: "high",
@@ -146,11 +160,11 @@ export const NEWS_ITEMS: NewsItem[] = [
     tags: ["AP ICET", "MBA", "MCA", "Admit Card", "2026"],
   },
   {
-    id: "ap-pgecet-2026-exam-april-29-30",
+    id: "ap-pgecet-2026-exam-april-28-30",
     date: "2026-04-12",
-    title: "AP PGECET 2026 — Exam on April 29–30 for M.Tech/M.Pharm Admissions",
-    summary: "AP PGECET 2026 exam is scheduled for April 29–30. Admit cards expected shortly for M.Tech, M.Pharm, and M.Arch aspirants.",
-    body: "AP Post Graduate Engineering Common Entrance Test (AP PGECET) 2026 is just weeks away.\n\n• Exam dates: April 29–30, 2026\n• Mode: Computer Based Test (CBT)\n• For admissions to: M.E/M.Tech, M.Pharm, M.Arch, Pharm.D (PB)\n• Conducted by: Sri Krishnadevaraya University on behalf of APSCHE\n• Admit cards: Expected mid-April at cets.apsche.ap.gov.in\n\nThis exam is for B.Tech/B.E. graduates seeking postgraduate engineering education in Andhra Pradesh. Qualifying AP PGECET along with a valid GATE score improves chances during counselling.\n\nCounselling is expected in July–August 2026 along with AP EAPCET counselling.",
+    title: "AP PGECET 2026 — Exam on April 28–30, Admit Cards Released April 15",
+    summary: "AP PGECET 2026 exam is scheduled for April 28–30, 2026 in two daily sessions. Admit cards were released on April 15, 2026 at cets.apsche.ap.gov.in for M.Tech, M.Pharm, M.Arch and Pharm.D (PB) aspirants.",
+    body: "AP Post Graduate Engineering Common Entrance Test (AP PGECET) 2026 is just days away.\n\n• Exam dates: April 28, 29 & 30, 2026 (CBT, two sessions/day)\n• For admissions to: M.E/M.Tech, M.Pharm, M.Arch, Pharm.D (PB)\n• Conducting university: Andhra University, Visakhapatnam (on behalf of APSCHE)\n• Admit card: Released April 15, 2026 — download at cets.apsche.ap.gov.in using registration number, qualifying-exam hall ticket number and date of birth\n• Result: May 14, 2026 (expected)\n\nThis exam is for B.Tech/B.E. graduates seeking postgraduate engineering education in Andhra Pradesh. Qualifying AP PGECET along with a valid GATE score improves chances during counselling.\n\nCounselling is expected in July–August 2026 along with AP EAPCET counselling. Carry a printed admit card and a valid photo ID (Aadhaar preferred) to the exam centre.",
     category: "general",
     state: "AP",
     priority: "low",
