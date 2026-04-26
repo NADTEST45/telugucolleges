@@ -54,14 +54,46 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-/** Build JSON-LD EducationalOrganization schema for a college */
+/** Map internal branch codes to human-readable names for Course schema */
+const BRANCH_NAME_MAP: Record<string, string> = {
+  CSE: "Computer Science and Engineering",
+  ECE: "Electronics and Communication Engineering",
+  EEE: "Electrical and Electronics Engineering",
+  MECH: "Mechanical Engineering",
+  CIVIL: "Civil Engineering",
+  IT: "Information Technology",
+  "AI&ML": "Artificial Intelligence and Machine Learning",
+  "AI&DS": "Artificial Intelligence and Data Science",
+  DS: "Data Science",
+  CYS: "Cyber Security",
+  AERO: "Aeronautical Engineering",
+  "B.Pharm": "Bachelor of Pharmacy",
+  "Pharm.D": "Doctor of Pharmacy",
+};
+const branchFullName = (b: string): string => BRANCH_NAME_MAP[b] ?? b;
+
+/**
+ * Build JSON-LD CollegeOrUniversity + Course schema for a college.
+ *
+ * Why a @graph with CollegeOrUniversity + Course entries?
+ *  - CollegeOrUniversity is a more specific subtype of EducationalOrganization
+ *    that Google understands for Knowledge Panel-style rich results on
+ *    branded queries ("VNR VJIET", "GITAM Vizag").
+ *  - Course is the schema Google prefers for individual programmes (over the
+ *    older EducationalOccupationalProgram), with first-class support for
+ *    courseMode, courseWorkload, and provider linkage.
+ *  - Emitting both in a single @graph (rather than two scripts) lets each
+ *    Course reference the college via @id, so crawlers join them as one
+ *    knowledge graph rather than two unrelated entities.
+ */
 function buildJsonLd(c: ReturnType<typeof getCollegeBySlug>) {
   if (!c) return null;
   const url = `${SITE_URL}/colleges/${c.slug}`;
+  const collegeId = `${url}#college`;
 
-  const schema: Record<string, unknown> = {
-    "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
+  const college: Record<string, unknown> = {
+    "@type": "CollegeOrUniversity",
+    "@id": collegeId,
     name: c.name,
     alternateName: c.code,
     url,
@@ -74,9 +106,19 @@ function buildJsonLd(c: ReturnType<typeof getCollegeBySlug>) {
     foundingDate: String(c.year),
   };
 
+  // Affiliation (university the college is affiliated to). Skip when the
+  // college *is* a university (Deemed / Private University) — affiliation
+  // would point at itself.
+  if (c.affiliation && c.type !== "Deemed University" && c.type !== "Private University") {
+    college.parentOrganization = {
+      "@type": "EducationalOrganization",
+      name: c.affiliation,
+    };
+  }
+
   // Accreditation
   if (c.naac && c.naac !== "-") {
-    schema.hasCredential = {
+    college.hasCredential = {
       "@type": "EducationalOccupationalCredential",
       credentialCategory: "NAAC Accreditation",
       name: `NAAC Grade ${c.naac}`,
@@ -85,27 +127,58 @@ function buildJsonLd(c: ReturnType<typeof getCollegeBySlug>) {
 
   // Fee as priceRange (Google uses this for rich results)
   if (c.fee > 0) {
-    schema.priceRange = `₹${c.fee.toLocaleString("en-IN")}/year`;
+    college.priceRange = `₹${c.fee.toLocaleString("en-IN")}/year`;
   }
 
-  // Programs offered
-  const programs = c.branches.map(b => ({
-    "@type": "EducationalOccupationalProgram",
-    name: `B.Tech in ${b}`,
-    educationalProgramMode: "full-time",
-    timeToComplete: "P4Y",
-    ...(c.fee > 0 ? { offers: { "@type": "Offer", price: c.fee, priceCurrency: "INR", category: "Tuition" } } : {}),
-  }));
-  if (programs.length > 0) schema.hasOfferCatalog = {
-    "@type": "OfferCatalog",
-    name: "Programs Offered",
-    itemListElement: programs,
+  // Per-branch Course entries (one Course per offered branch).
+  // Each Course points back at the college via provider @id, so crawlers
+  // can attribute the course to the institution without duplicating
+  // address/credential data.
+  const courses = c.branches.map(b => {
+    const fullName = branchFullName(b);
+    const courseUrl = `${url}#course-${b.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+    const isPharma = b === "B.Pharm" || b === "Pharm.D";
+    const programName = isPharma ? fullName : `B.Tech in ${fullName}`;
+    const description = isPharma
+      ? `${fullName} programme offered at ${c.name}, ${c.district}, ${c.state}.`
+      : `Four-year B.Tech programme in ${fullName} at ${c.name}, affiliated to ${c.affiliation}.`;
+
+    const course: Record<string, unknown> = {
+      "@type": "Course",
+      "@id": courseUrl,
+      name: programName,
+      description,
+      provider: { "@id": collegeId },
+      educationalLevel: "Undergraduate",
+      hasCourseInstance: {
+        "@type": "CourseInstance",
+        courseMode: "Onsite",
+        // ISO-8601 duration: P4Y (4 years) for B.Tech, P2Y (2 years) for M.Pharm-tier — we only have UG here.
+        courseWorkload: b === "Pharm.D" ? "P6Y" : "P4Y",
+      },
+    };
+    if (c.fee > 0) {
+      course.offers = {
+        "@type": "Offer",
+        price: c.fee,
+        priceCurrency: "INR",
+        category: "Tuition",
+        // Per-year tuition; eligibleDuration mirrors course length.
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: c.fee,
+          priceCurrency: "INR",
+          unitText: "ANN", // annual
+        },
+      };
+    }
+    return course;
+  });
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [college, ...courses],
   };
-
-  // Aggregate rating placeholder (NIRF rank as proxy)
-  // Note: only add aggregateRating if we have review data in future
-
-  return schema;
 }
 
 /** Generate FAQ items from college data */

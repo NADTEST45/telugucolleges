@@ -390,6 +390,41 @@ export default function EAPCETPage() {
         )}
       </section>
 
+      {/* Browse-by-rank hub — links to /eapcet/rank/[slug] static pages.
+          Crawlable internal links so Googlebot can discover the per-band
+          landing surfaces from the predictor without relying on sitemap-
+          only discovery. Built statically from a small constant so this
+          stays SSR-friendly even though the parent page is "use client". */}
+      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
+        <h2 className="text-base sm:text-lg font-bold mb-1">Browse colleges by rank</h2>
+        <p className="text-xs text-gray-500 mb-4">
+          Pre-built lists for popular EAPCET rank bands — useful before you have your final score.
+        </p>
+        {(["telangana", "andhra-pradesh"] as const).map(stateSlug => {
+          const stateLabel = stateSlug === "telangana" ? "Telangana (TG EAPCET)" : "Andhra Pradesh (AP EAPCET)";
+          const bands = [5000, 10000, 15000, 20000, 30000, 50000, 75000, 100000];
+          return (
+            <div key={stateSlug} className="mb-3 last:mb-0">
+              <div className="text-xs font-semibold text-gray-600 mb-2">{stateLabel} — CSE</div>
+              <div className="flex flex-wrap gap-2">
+                {bands.map(r => (
+                  <Link
+                    key={r}
+                    href={`/eapcet/rank/${r}-cse-${stateSlug}`}
+                    className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-gray-100 hover:bg-blue-50 text-gray-700 hover:text-accent transition-colors"
+                  >
+                    {r.toLocaleString("en-IN")} rank
+                  </Link>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+        <p className="text-[11px] text-gray-400 mt-3">
+          Other branches (ECE, EEE, Mech, Civil) and rank bands available — see any rank-band page for navigation.
+        </p>
+      </section>
+
       {/* Quick Stats */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
         <h2 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">At a Glance</h2>

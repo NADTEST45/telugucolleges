@@ -4,6 +4,7 @@ import { getAllProgramSlugs } from "@/lib/program-data";
 import { getAllBranchSlugs } from "@/lib/branch-data";
 import { getAllPairSlugs } from "@/lib/comparison-pairs";
 import { getAllCitySlugs } from "@/lib/city-data";
+import { getAllRankBandSlugs } from "@/lib/rank-band-data";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 const NOW = new Date().toISOString();
@@ -88,6 +89,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE}/best-colleges/${city}`,
       changeFrequency: "monthly",
       priority: 0.75,
+      lastModified: NOW,
+    });
+  }
+
+  // EAPCET rank-band landing pages (rank × branch × state combinations).
+  // High-intent counselling-season search surface — bumped priority since
+  // these target specific query patterns that the predictor itself can't
+  // rank for (Googlebot doesn't fill in forms).
+  for (const slug of getAllRankBandSlugs()) {
+    entries.push({
+      url: `${BASE}/eapcet/rank/${slug}`,
+      changeFrequency: "monthly",
+      priority: 0.7,
       lastModified: NOW,
     });
   }
