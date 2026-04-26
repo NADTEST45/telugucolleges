@@ -28,8 +28,12 @@ const require = createRequire(import.meta.url);
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const HOST = "telugucolleges.com";
-const KEY = "15273dbcb8c761cdfd95b8a0025a861a";
-const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
+const KEY = "c153314b7546b33a6566a06402fd1965";
+// We serve the key from a Next.js route handler instead of public/<KEY>.txt
+// because Vercel's standalone-output deploy was caching 404s for the
+// static asset path. The route handler is contractually equivalent for
+// IndexNow — same host, text/plain, body is the key.
+const KEY_LOCATION = `https://${HOST}/indexnow-key/${KEY}`;
 const BASE = `https://${HOST}`;
 
 /**
