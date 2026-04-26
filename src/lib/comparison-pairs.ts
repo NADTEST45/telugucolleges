@@ -9,61 +9,213 @@ export interface ComparisonPair {
   slug: string;
 }
 
-/**
- * Generate popular comparison pairs by grouping colleges in the same district
- * that both have CSE cutoff data and placement data, then creating pairs from
- * the top colleges (sorted by cutoff rank ascending — lower is better).
- */
-function generateAllPairs(): ComparisonPair[] {
-  // Group colleges by district
-  const byDistrict: Record<string, College[]> = {};
+/* ──────────────────────────────────────────────────────────────────────────
+ * Quality scoring & tiering
+ *
+ * Many COLLEGES rows have placeholder data (cutoff.cse=0, placements.avg=0,
+ * naac="-", nirf=0). We can't generate a useful comparison page from rows
+ * with no data, so the tiered generator below first computes a quality
+ * score and only emits pairs from rows that actually have measurable
+ * signal in at least two of the four dimensions (cutoff / placements /
+ * NAAC / NIRF).
+ * ────────────────────────────────────────────────────────────────────── */
 
-  COLLEGES.forEach(college => {
-    if (!byDistrict[college.district]) {
-      byDistrict[college.district] = [];
-    }
-    byDistrict[college.district].push(college);
+const NAAC_BONUS: Record<string, number> = {
+  "A++": 25,
+  "A+": 18,
+  "A": 12,
+  "B++": 6,
+  "B+": 4,
+  "B": 2,
+};
+
+function naacBonus(grade: string): number {
+  return NAAC_BONUS[grade?.trim()] ?? 0;
+}
+
+/**
+ * Higher = better. Combines:
+ *  - Cutoff inverse (lower CSE rank → higher score)
+ *  - Placements average (LPA)
+ *  - NIRF inverse (lower NIRF rank → higher score; missing = 0)
+ *  - NAAC grade bonus
+ *  - NBA bonus
+ *
+ * Scale is roughly comparable across tiers; deemed unis often have higher
+ * placement avg but worse state cutoff ranks (because they don't admit
+ * via EAPCET), so we don't penalize a missing cutoff — we just don't add
+ * the cutoff component.
+ */
+export function qualityScore(c: College): number {
+  let score = 0;
+  if (c.cutoff.cse > 0) score += Math.min(40, 100000 / c.cutoff.cse);
+  score += Math.min(40, c.placements.avg * 2.5); // 16 LPA → +40
+  if (c.nirf > 0) score += Math.min(20, 400 / c.nirf); // NIRF 20 → +20, NIRF 200 → +2
+  score += naacBonus(c.naac);
+  if (c.nba) score += 5;
+  return score;
+}
+
+/** Has at least *some* real data (not a placeholder row). */
+function hasSignal(c: College): boolean {
+  let dims = 0;
+  if (c.cutoff.cse > 0) dims++;
+  if (c.placements.avg > 0) dims++;
+  if (c.nirf > 0) dims++;
+  if (c.naac && c.naac !== "-" && c.naac !== "") dims++;
+  return dims >= 2;
+}
+
+type Tier = "government" | "deemed" | "private";
+
+function tierOf(c: College): Tier {
+  if (c.type === "Government") return "government";
+  if (c.type === "Deemed University" || c.type === "Private University") return "deemed";
+  return "private";
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+ * Pair generators
+ * ────────────────────────────────────────────────────────────────────── */
+
+function pairSlug(c1: College, c2: College): string {
+  return `${c1.code.toLowerCase()}-vs-${c2.code.toLowerCase()}`;
+}
+
+function makePair(c1: College, c2: College): ComparisonPair {
+  return { college1: c1, college2: c2, slug: pairSlug(c1, c2) };
+}
+
+/**
+ * Same-district pairs (the original generator). Top 5 colleges per
+ * district by CSE cutoff, then all combinations within. Captures
+ * "CBIT vs MGIT (both Hyderabad)"-type queries.
+ */
+function generateDistrictPairs(): ComparisonPair[] {
+  const byDistrict: Record<string, College[]> = {};
+  COLLEGES.forEach(c => {
+    (byDistrict[c.district] ||= []).push(c);
   });
 
   const pairs: ComparisonPair[] = [];
-
-  // Generate pairs for each district
-  Object.keys(byDistrict)
-    .sort()
-    .forEach(district => {
-      const collegesInDistrict = byDistrict[district];
-
-      // Filter colleges with valid CSE cutoff and placement data
-      const validColleges = collegesInDistrict.filter(
-        c => c.cutoff.cse > 0 && c.placements.avg > 0
-      );
-
-      if (validColleges.length >= 2) {
-        // Sort by CSE cutoff rank (ascending = better rank, lower number)
-        const sorted = validColleges.sort((a, b) => a.cutoff.cse - b.cutoff.cse);
-
-        // Take top 5 colleges per district to limit pair explosion
-        const top = sorted.slice(0, 5);
-
-        // Create all pairs from the top colleges
-        for (let i = 0; i < top.length; i++) {
-          for (let j = i + 1; j < top.length; j++) {
-            const c1 = top[i];
-            const c2 = top[j];
-            const slug = `${c1.code.toLowerCase()}-vs-${c2.code.toLowerCase()}`;
-
-            pairs.push({
-              college1: c1,
-              college2: c2,
-              slug,
-            });
-          }
-        }
+  for (const district of Object.keys(byDistrict).sort()) {
+    const valid = byDistrict[district].filter(
+      c => c.cutoff.cse > 0 && c.placements.avg > 0,
+    );
+    if (valid.length < 2) continue;
+    const top = valid
+      .sort((a, b) => a.cutoff.cse - b.cutoff.cse)
+      .slice(0, 5);
+    for (let i = 0; i < top.length; i++) {
+      for (let j = i + 1; j < top.length; j++) {
+        pairs.push(makePair(top[i], top[j]));
       }
-    });
+    }
+  }
+  return pairs;
+}
 
-  // Limit to ~1000 pairs maximum
-  return pairs.slice(0, 1000);
+/**
+ * Tier-based pairs — top N per tier, all in-tier combinations.
+ * This is the SEO-targeted set: "GITAM vs SRM AP", "VNR VJIET vs CBIT",
+ * "VIT-AP vs KL University". These pairs cross districts (and even
+ * states) but compare apples-to-apples within a tier of institutions.
+ */
+function generateTierPairs(): ComparisonPair[] {
+  const byTier: Record<Tier, College[]> = {
+    government: [],
+    deemed: [],
+    private: [],
+  };
+  for (const c of COLLEGES) {
+    if (!hasSignal(c)) continue;
+    byTier[tierOf(c)].push(c);
+  }
+
+  const TOP: Record<Tier, number> = {
+    government: 15,
+    deemed: 18,
+    private: 20,
+  };
+
+  const pairs: ComparisonPair[] = [];
+  for (const tier of ["government", "deemed", "private"] as Tier[]) {
+    const sorted = byTier[tier]
+      .sort((a, b) => qualityScore(b) - qualityScore(a))
+      .slice(0, TOP[tier]);
+    for (let i = 0; i < sorted.length; i++) {
+      for (let j = i + 1; j < sorted.length; j++) {
+        pairs.push(makePair(sorted[i], sorted[j]));
+      }
+    }
+  }
+  return pairs;
+}
+
+/**
+ * Cross-tier marquee pairs — high-search-volume comparisons that cross
+ * tier boundaries (e.g., "BITS Hyderabad vs CBIT", "GITAM vs Anurag
+ * University"). Top 6 from each tier, paired across tier boundaries.
+ */
+function generateCrossTierPairs(): ComparisonPair[] {
+  const byTier: Record<Tier, College[]> = {
+    government: [],
+    deemed: [],
+    private: [],
+  };
+  for (const c of COLLEGES) {
+    if (!hasSignal(c)) continue;
+    byTier[tierOf(c)].push(c);
+  }
+
+  const N = 6;
+  const tops: Record<Tier, College[]> = {
+    government: byTier.government.sort((a, b) => qualityScore(b) - qualityScore(a)).slice(0, N),
+    deemed: byTier.deemed.sort((a, b) => qualityScore(b) - qualityScore(a)).slice(0, N),
+    private: byTier.private.sort((a, b) => qualityScore(b) - qualityScore(a)).slice(0, N),
+  };
+
+  const pairs: ComparisonPair[] = [];
+  const tierCombos: [Tier, Tier][] = [
+    ["government", "deemed"],
+    ["government", "private"],
+    ["deemed", "private"],
+  ];
+  for (const [t1, t2] of tierCombos) {
+    for (const c1 of tops[t1]) {
+      for (const c2 of tops[t2]) {
+        pairs.push(makePair(c1, c2));
+      }
+    }
+  }
+  return pairs;
+}
+
+/**
+ * Build the final ALL_PAIRS list — district + in-tier + cross-tier,
+ * deduped on canonical slug. Order: cross-tier marquee first (highest
+ * search-intent), then in-tier, then same-district fallback.
+ */
+function generateAllPairs(): ComparisonPair[] {
+  const seen = new Set<string>();
+  const out: ComparisonPair[] = [];
+
+  const push = (p: ComparisonPair) => {
+    // Canonical slug ignores order (cbit-vs-vasv ≡ vasv-vs-cbit)
+    const codes = [p.college1.code, p.college2.code].sort();
+    if (codes[0] === codes[1]) return; // no self-pairs
+    const canon = codes.join("|");
+    if (seen.has(canon)) return;
+    seen.add(canon);
+    out.push(p);
+  };
+
+  for (const p of generateCrossTierPairs()) push(p);
+  for (const p of generateTierPairs()) push(p);
+  for (const p of generateDistrictPairs()) push(p);
+
+  // Generous cap — sitemap can comfortably handle this many static pages.
+  return out.slice(0, 2500);
 }
 
 // Cache the generated pairs
@@ -108,4 +260,13 @@ export function getAllPairSlugs(): string[] {
  */
 export function getTotalPairs(): number {
   return ALL_PAIRS.length;
+}
+
+/**
+ * Get the most "marquee" pairs first — cross-tier and in-tier top-N pairs
+ * are emitted before district fallback pairs by generateAllPairs ordering.
+ * Useful for /compare landing pages that want to surface high-intent links.
+ */
+export function getFeaturedPairs(limit: number = 60): ComparisonPair[] {
+  return ALL_PAIRS.slice(0, limit);
 }

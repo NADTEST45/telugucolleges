@@ -1,4 +1,5 @@
 import { getComparisonPair, getAllPairSlugs } from "@/lib/comparison-pairs";
+import { buildCompareFaqs, buildFaqJsonLd } from "@/lib/compare-faq";
 import { fmtFee } from "@/lib/colleges";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -100,6 +101,7 @@ export default async function ComparePairPage({
 
   const { college1, college2 } = comparisonPair;
   const branches = ["cse", "ece", "eee", "mech", "civil"];
+  const faqs = buildCompareFaqs(college1, college2);
 
   // Helper to determine which college is better for a metric
   const getBetterIdx = (values: number[]): number => {
@@ -393,6 +395,32 @@ export default async function ComparePairPage({
         </Link>
       </div>
 
+      {/* FAQ — programmatic, data-driven Q&A. Visible to users AND emitted
+          as FAQPage JSON-LD below for rich-result eligibility. */}
+      {faqs.length > 0 && (
+        <section className="mb-8" aria-labelledby="compare-faq-heading">
+          <h2 id="compare-faq-heading" className="text-xl font-bold text-gray-900 mb-4">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-3">
+            {faqs.map((f, i) => (
+              <details
+                key={i}
+                className="bg-white rounded-lg border border-gray-200 p-4 group"
+              >
+                <summary className="cursor-pointer font-semibold text-sm text-gray-900 list-none flex items-start justify-between gap-4">
+                  <span>{f.question}</span>
+                  <span className="text-gray-400 transition-transform group-open:rotate-45 select-none flex-shrink-0">+</span>
+                </summary>
+                <p className="text-sm text-gray-700 leading-relaxed mt-3">
+                  {f.answer}
+                </p>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Back to Compare */}
       <div className="text-center mb-4">
         <Link
@@ -403,13 +431,23 @@ export default async function ComparePairPage({
         </Link>
       </div>
 
-      {/* JSON-LD Schema */}
+      {/* JSON-LD Schema (BreadcrumbList) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(buildBreadcrumbJsonLd(college1.name, college2.name)),
         }}
       />
+
+      {/* JSON-LD Schema (FAQPage — only emit if we generated FAQs) */}
+      {faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(buildFaqJsonLd(faqs)),
+          }}
+        />
+      )}
     </main>
   );
 }
