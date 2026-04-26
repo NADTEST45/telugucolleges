@@ -8,6 +8,20 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "*.googleusercontent.com" },
     ],
   },
+  // Map IndexNow's default key-location path (<host>/<key>.txt) to our
+  // working route handler. We tried serving it as a static file in
+  // public/ but Vercel's standalone output + CDN behaviour caches
+  // Next.js's 404 page for that path, which IndexNow treats as a
+  // verification failure. The rewrite preserves the standard path
+  // search engines expect while routing through code we control.
+  async rewrites() {
+    return [
+      {
+        source: "/c153314b7546b33a6566a06402fd1965.txt",
+        destination: "/indexnow-key/c153314b7546b33a6566a06402fd1965",
+      },
+    ];
+  },
   async headers() {
     // Content Security Policy.
     // 'unsafe-inline' on script-src is required because we embed JSON-LD
