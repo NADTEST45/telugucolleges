@@ -6,6 +6,36 @@ export interface College {
   placements: { avg: number; highest: number; companies: number }; branches: string[];
 }
 
+/**
+ * A college "has real data" when at least 2 of these signals are present:
+ *   - cutoff.cse > 0
+ *   - placements.avg > 0
+ *   - NAAC grade (not "-" or empty)
+ *   - NIRF rank > 0
+ *
+ * Why this matters for SEO: pages where every field is a placeholder
+ * ("0", "-", default fee) read as thin / duplicate content to Google.
+ * With 735 such rows × 5 subpages each ≈ 3.6k URLs, they were the
+ * dominant reason for "Crawled — currently not indexed" in Search
+ * Console (only 83 of 4,415 URLs indexed as of 2026-04-26).
+ *
+ * Pages where hasRealData() === false are:
+ *   - Excluded from sitemap.xml
+ *   - Emitted with `<meta name="robots" content="noindex, follow">` so
+ *     Google won't index them but will still follow internal links.
+ *
+ * As college data is filled in over time, those pages auto-promote into
+ * the indexable set on the next deploy — no manual unlisting needed.
+ */
+export function hasRealData(c: College): boolean {
+  let signals = 0;
+  if (c.cutoff.cse > 0) signals++;
+  if (c.placements.avg > 0) signals++;
+  if (c.naac && c.naac !== "-" && c.naac !== "") signals++;
+  if (c.nirf > 0) signals++;
+  return signals >= 2;
+}
+
 export const COLLEGES: College[] = [
   {id:1,name:"AAR Mahaveer Engineering College",code:"AARM",slug:"aar-mahaveer-engineering-college-aarm",district:"Hyderabad",state:"Telangana",type:"Private",affiliation:"JNTUH",naac:"-",nba:false,year:2000,fee:45000,goFee:45000,nirf:0,cutoff:{"cse":0,"ece":0,"eee":0,"mech":0,"civil":0},placements:{"avg":0,"highest":0,"companies":0},branches:["CSE","ECE","EEE","MECH","CIVIL"]},
   {id:2,name:"ACE Engineering College",code:"ACEG",slug:"ace-engineering-college-aceg",district:"Hyderabad",state:"Telangana",type:"Private",affiliation:"JNTUH",naac:"A",nba:true,year:2003,fee:110000,goFee:110000,nirf:0,cutoff:{"cse":28981,"ece":37595,"eee":43862,"mech":60813,"civil":47800},placements:{"avg":4.3,"highest":18,"companies":55},branches:["CSE","ECE","EEE","MECH","CIVIL","IT"]},

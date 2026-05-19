@@ -28,8 +28,50 @@ export async function generateMetadata({
   }
 
   const { college1, college2 } = comparisonPair;
-  const title = `${college1.name} vs ${college2.name} 2026 — Fees, Cutoffs, Placements Compared | TeluguColleges`;
-  const description = `Compare ${college1.name} vs ${college2.name}: fees (₹${college1.fee?.toLocaleString("en-IN") || "N/A"} vs ₹${college2.fee?.toLocaleString("en-IN") || "N/A"}), EAPCET cutoffs, placements (₹${college1.placements.avg || "N/A"} vs ₹${college2.placements.avg || "N/A"} avg package). Side-by-side comparison.`;
+  /*
+   * Compose title/description with pair-specific signal so each page is
+   * distinguishable to Google. The previous template ("X vs Y — Fees,
+   * Cutoffs, Placements Compared") was identical bar the two names,
+   * which contributes to near-duplicate classification across ~530
+   * compare pages. We now vary by:
+   *   - State pair ("Hyderabad", "TS vs AP", etc.)
+   *   - Tier descriptor ("Government vs Deemed", "Private engineering")
+   *   - CSE-cutoff lead value when both are available
+   *   - Placement-average lead value when both are available
+   *
+   * Result: the head of the title still contains "X vs Y" (the query
+   * string), but the tail differentiates each page enough to stop
+   * Google bucketing them as duplicates.
+   */
+  const sameDistrict = college1.district === college2.district;
+  const sameState = college1.state === college2.state;
+  const locality = sameDistrict
+    ? `${college1.district}`
+    : sameState
+    ? `${college1.state}`
+    : `AP & TS`;
+
+  const tierLabel = (t: typeof college1.type) =>
+    t === "Government" ? "Govt" :
+    t === "Deemed University" || t === "Private University" ? "Deemed" :
+    "Private";
+  const sameTier = tierLabel(college1.type) === tierLabel(college2.type);
+  const tierBit = sameTier
+    ? `${tierLabel(college1.type)} engineering colleges`
+    : `${tierLabel(college1.type)} vs ${tierLabel(college2.type)}`;
+
+  const cutoffBit = (college1.cutoff.cse > 0 && college2.cutoff.cse > 0)
+    ? ` CSE cutoffs ${college1.cutoff.cse.toLocaleString("en-IN")} vs ${college2.cutoff.cse.toLocaleString("en-IN")}.`
+    : "";
+  const placementBit = (college1.placements.avg > 0 && college2.placements.avg > 0)
+    ? ` Average packages ₹${college1.placements.avg} LPA vs ₹${college2.placements.avg} LPA.`
+    : "";
+  const feeBit = (college1.fee > 0 && college2.fee > 0)
+    ? ` Annual fee ₹${college1.fee.toLocaleString("en-IN")} vs ₹${college2.fee.toLocaleString("en-IN")}.`
+    : "";
+
+  const title = `${college1.code} vs ${college2.code}: ${college1.name} or ${college2.name} — ${locality} ${tierBit} compared (2026) | TeluguColleges`;
+  const description = `${college1.name} (${college1.code}) vs ${college2.name} (${college2.code}) — ${locality} ${tierBit} side-by-side.${feeBit}${cutoffBit}${placementBit} Which is better for B.Tech 2026?`;
   const url = `${SITE_URL}/compare/${pair}`;
 
   return {

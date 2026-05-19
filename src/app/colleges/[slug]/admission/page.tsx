@@ -1,4 +1,4 @@
-import { COLLEGES, getCollegeBySlug, fmtFee } from "@/lib/colleges";
+import { COLLEGES, getCollegeBySlug, fmtFee, hasRealData } from "@/lib/colleges";
 import { getCollegeBySlugMerged, getCollegesMerged } from "@/lib/colleges-merged";
 import { AP_CUTOFFS, AP_CUTOFF_YEARS, CollegeCutoffs, YearCutoffs } from "@/lib/ap-cutoffs";
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
@@ -28,10 +28,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const title = `${c.name} Admission 2026 — Process, Dates, Eligibility | TeluguColleges`;
   const description = `How to get admission in ${c.name}. ${exam} counselling process, eligibility criteria, important dates, and management quota details.`;
   const url = `${SITE_URL}/colleges/${slug}/admission`;
+  // No real data → noindex; SEO-irrelevant page when fields are placeholders.
+  const noindex = !hasRealData(c);
 
   return {
     title,
     description,
+    robots: noindex ? "noindex, follow" : undefined,
     alternates: {
       canonical: url,
       languages: {

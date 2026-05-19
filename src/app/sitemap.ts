@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { COLLEGES } from "@/lib/colleges";
+import { COLLEGES, hasRealData } from "@/lib/colleges";
 import { getAllProgramSlugs } from "@/lib/program-data";
 import { getAllBranchSlugs } from "@/lib/branch-data";
 import { getAllPairSlugs } from "@/lib/comparison-pairs";
@@ -62,8 +62,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
-  // College profile pages + their sub-pages
+  // College profile pages + their sub-pages.
+  //
+  // ⚠️  Only colleges with hasRealData() === true are listed. The other
+  // ~735 placeholder rows (every field is "0" / "-" / default fee) are
+  // excluded from the sitemap AND emit `robots: noindex, follow` from
+  // their page metadata. Reason: with placeholders included we had
+  // ~4.4k URLs in the sitemap but only ~83 indexed in GSC — the thin
+  // pages were diluting crawl budget and getting flagged "Crawled —
+  // currently not indexed". As college data is populated, those rows
+  // auto-promote into the sitemap on the next deploy.
   for (const c of COLLEGES) {
+    if (!hasRealData(c)) continue;
     const base = `${BASE}/colleges/${c.slug}`;
     entries.push(
       { url: base, changeFrequency: "monthly", priority: 0.7, lastModified: NOW },

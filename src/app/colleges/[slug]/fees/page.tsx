@@ -1,4 +1,4 @@
-import { COLLEGES, getCollegeBySlug, fmtFee } from "@/lib/colleges";
+import { COLLEGES, getCollegeBySlug, fmtFee, hasRealData } from "@/lib/colleges";
 import { getCollegeBySlugMerged, getCollegesMerged } from "@/lib/colleges-merged";
 import { AP_CUTOFFS, AP_CUTOFF_YEARS, CollegeCutoffs, YearCutoffs } from "@/lib/ap-cutoffs";
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
@@ -27,10 +27,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const title = `${c.name} Fee Structure 2026 — B.Tech Fees, Courses | TeluguColleges`;
   const description = `${c.name} (${c.code}) B.Tech fee ${feeInfo}. Complete fee structure, courses offered, GO rates and management quota fees.`;
   const url = `${SITE_URL}/colleges/${slug}/fees`;
+  // Mirror the parent /colleges/[slug] noindex rule — placeholder rows
+  // shouldn't dilute crawl budget across 4 subpages each. See
+  // hasRealData() in src/lib/colleges.ts for the rule.
+  const noindex = !hasRealData(c);
 
   return {
     title,
     description,
+    robots: noindex ? "noindex, follow" : undefined,
     alternates: {
       canonical: url,
       languages: {

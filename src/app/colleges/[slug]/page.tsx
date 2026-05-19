@@ -1,4 +1,4 @@
-import { COLLEGES, getCollegeBySlug, fmtFee } from "@/lib/colleges";
+import { COLLEGES, getCollegeBySlug, fmtFee, hasRealData } from "@/lib/colleges";
 import { getCollegeBySlugMerged, getCollegesMerged } from "@/lib/colleges-merged";
 import { AP_CUTOFFS, AP_CUTOFF_YEARS, CollegeCutoffs, YearCutoffs } from "@/lib/ap-cutoffs";
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
@@ -29,9 +29,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const title = `${c.name} — Fee, Cutoffs, Placements | TeluguColleges`;
   const description = `${c.name} (${c.code}) in ${c.district}, ${c.state}. B.Tech fee ${c.fee > 0 ? fmtFee(c.fee) + "/yr" : ""}, EAPCET cutoff ranks, placements, NAAC ${c.naac && c.naac !== "-" ? c.naac : ""} & NIRF rankings.`;
   const url = `${SITE_URL}/colleges/${slug}`;
+
+  // Placeholder rows (no real cutoff / placement / NAAC / NIRF data) emit
+  // `noindex, follow` so Google won't index thin pages but will still
+  // discover linked URLs from them. This complements the sitemap
+  // exclusion in src/app/sitemap.ts. See hasRealData() for the rule.
+  const noindex = !hasRealData(c);
+
   return {
     title,
     description,
+    robots: noindex ? "noindex, follow" : undefined,
     alternates: {
       canonical: url,
       languages: {
