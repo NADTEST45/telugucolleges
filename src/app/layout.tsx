@@ -132,7 +132,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <Link href="/contact" className="block hover:text-white">Contact Us</Link>
                   <Link href="/privacy" className="block hover:text-white">Privacy Policy</Link>
                   <Link href="/terms" className="block hover:text-white">Terms of Use</Link>
-                  <Link href="/college-admin/login" className="block hover:text-white">College Admin</Link>
+                  {/* rel="nofollow" — admin paths are disallowed in robots.txt;
+                      without nofollow Googlebot re-discovers this link on every
+                      crawl and GSC logs a recurring "Blocked by robots.txt"
+                      notification. nofollow stops that loop while keeping the
+                      link useful for college representatives. */}
+                  <Link href="/college-admin/login" rel="nofollow" className="block hover:text-white">College Admin</Link>
                 </div>
               </div>
             </div>

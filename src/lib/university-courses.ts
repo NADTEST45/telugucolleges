@@ -39,43 +39,43 @@ export interface CourseInfo {
  */
 export const UNIVERSITY_FEE_AY: Record<string, string> = {
   // AP — Deemed Universities
-  KLUN: "2025-26", // kluniversity.in/sships3.aspx — ₹2.9L CSE merit, ₹3L full
+  KLUN: "2026-27", // kluniversity.in/sships3.aspx — AY 2026-27 page published; ₹1.475L/sem CSE Vijayawada
   GITM: "2026-27", // gitam.edu/fee-scholarship/fee-structure — ₹2.03L/sem CSE
   VIGF: "2026-27", // vignan.ac.in/newvignan/fee_str.php — 2026 Cat-A fees
   VRSE: "2026-27", // siddhartha.edu.in/wp-content/uploads/2026/01/Fee-details.pdf
-  AMRT: "2025-26", // amrita.edu
-  AUDI: "2025-26", // audisankara
+  AMRT: "2026-27", // amrita.edu — AEEE 2026 admissions; slab-based, Slab 4 Regular tier
+  AUDI: "2026-27", // audisankara.ac.in — ₹61K/yr B.Tech
   MITS: "2026-27", // mits.ac.in — Fee Details 2026-27 PDF
   GMRI: "2026-27", // gmrit.edu.in/du/eligibility.php — ₹1.25L/sem CSE, ₹75K/sem EEE/Mech/Civil
-  GIOM: "2025-26", // gitam.edu
+  GIOM: "2025-26", // gitam.edu — MBBS fee notification awaited for 2026-27
 
   // AP — Private State Universities
-  SRMA: "2026-27", // srmap.edu.in — Admissions 2026 page
-  VTAP: "2025-26", // vitap.ac.in
+  SRMA: "2026-27", // srmap.edu.in — Admissions 2026 page (refreshed 2026-05-19 — added Microelectronics, Defence, Energy, Health, Semiconductor, AI, Quantum Tech)
+  VTAP: "2026-27", // vitap.ac.in / vit.ac.in/admission/ug/fee-structure — Cat-1 ₹1.95L/yr + ₹3K caution
   CENT: "2026-27", // cutmap.ac.in — Fees Matrix 2026-27
-  AITS: "2025-26", // annamacharya
-  ADTP: "2025-26", // adityauniversity.in — ₹2.75L/yr CSE
+  AITS: "2026-27", // annamacharyauniversity.edu.in — ₹60K/yr B.Tech
+  ADTP: "2026-27", // adityauniversity.in — ₹2.75L/yr CSE (total ₹11L)
   MBUT: "2026-27", // mbu.asia — MBU_Fee_Structrure_2026_27_1.pdf — ₹2.5L/yr CSE
   GGUR: "2025-26", // ggu.edu.in — G.O.Ms.No.19 convener block 2024-27
-  APOL: "2025-26", // apollouniversity.edu.in — ₹2.85L/yr CSE tuition
-  BEST: "2025-26", // bestiu.edu.in
+  APOL: "2026-27", // apollouniversity.edu.in/admissions/fee-structure — ₹2.60L/yr CSE tuition (total ₹10.99L)
+  BEST: "2026-27", // bestiu.edu.in — ₹2L/yr CSE (total ₹8L)
 
   // TS — Deemed Universities
-  BITS: "2025-26", // bits-pilani.ac.in — official PDF
+  BITS: "2026-27", // admissions.bits-pilani.ac.in — Y1 ₹4.90L (₹2.45L/sem × 2), 5% annual hike, total ₹20.76L
   IIIT: "2026-27", // ugadmissions.iiit.ac.in/fee-jee-spec/ — ₹5L/yr B.Tech
   ICFA: "2026-27", // ifheindia.org — ₹1.4L/sem, batch 2026-30
   GITH: "2026-27", // gitam.edu/fee-scholarship/fee-structure — same as Vizag
-  KLHD: "2025-26", // kluniversity.in
+  KLHD: "2026-27", // kluniversity.in/sships3.aspx — AY 2026-27 (3 terms/yr at Aziz Nagar & Bowrampet campuses)
 
   // TS — Private State Universities
   MHND: "2026-27", // mahindrauniversity.edu.in — ₹5L/yr
   WOXN: "2026-27", // woxsen.edu.in — Batch 2026-30 PDF
-  CVSR: "2025-26", // anurag.edu.in
-  MRDU: "2025-26", // mallareddyuniversity.ac.in
+  CVSR: "2026-27", // anurag.edu.in — TAFRC ₹2.85L/yr B.Tech
+  MRDU: "2026-27", // mallareddyuniversity.ac.in — ₹2L/yr B.Tech CSE
   SRUN: "2026-27", // sru.edu.in — 2026-27 fee page confirmed
-  SNDU: "2025-26", // sreenidhi
-  GNKU: "2025-26", // gurunanak
-  MNRU: "2025-26", // mnr
+  SNDU: "2025-26", // sreenidhi — Sreenidhi University 2026-27 fee not yet officially published
+  GNKU: "2025-26", // gurunanak — 2026-27 fee not yet officially published
+  MNRU: "2025-26", // mnr — 2026-27 fee not yet officially published
 };
 
 export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
@@ -84,26 +84,38 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
   // AP — DEEMED UNIVERSITIES (official websites)
   // =============================================
 
-  "KLUN": [ // KL University — Vijayawada (kluniversity.in/sships3.aspx — 2025-26, Full Fee = Merit + ₹10K)
-    { program: "B.Tech", specialization: "CSE", fee: 300000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "AI & Data Science", fee: 285000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CS & IT", fee: 285000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "ECE", fee: 265000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "IoT", fee: 265000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Biotechnology", fee: 265000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "EEE", fee: 245000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Mechanical", fee: 245000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Civil", fee: 240000, duration: 4, level: "UG" },
-    { program: "B.Pharm", fee: 150000, duration: 4, level: "UG" },
-    { program: "BBA", fee: 150000, duration: 3, level: "UG" },
-    { program: "BCA", fee: 130000, duration: 3, level: "UG" },
-    { program: "B.Sc", fee: 100000, duration: 3, level: "UG" },
-    { program: "B.Com", fee: 80000, duration: 3, level: "UG" },
-    { program: "BA LLB (Hons)", fee: 180000, duration: 5, level: "Integrated" },
-    { program: "MBA", fee: 200000, duration: 2, level: "PG" },
-    { program: "MCA", fee: 130000, duration: 2, level: "PG" },
-    { program: "M.Tech", fee: 120000, duration: 2, level: "PG" },
-    { program: "M.Pharm", fee: 100000, duration: 2, level: "PG" },
+  "KLUN": [ // KL University — Vijayawada (kluniversity.in/sships3.aspx — AY 2026-27 published; Merit Fee/sem × 2 + ₹16K one-time admission)
+    { program: "B.Tech", specialization: "CSE", fee: 295000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "AI & Data Science", fee: 280000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CS & IT", fee: 275000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE", fee: 255000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "IoT", fee: 255000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Biotechnology", fee: 255000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "EEE", fee: 235000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Mechanical", fee: 235000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Civil", fee: 230000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE-AI & ML (Full Stack, 3 terms/yr)", fee: 315000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE-VLSI (Chip Mfg, 3 terms/yr)", fee: 270000, duration: 4, level: "UG" },
+    { program: "B.Pharm", fee: 235000, duration: 4, level: "UG" },
+    { program: "Pharm.D", fee: 310000, duration: 6, level: "Integrated" },
+    { program: "BBA", specialization: "Multi-Specialization", fee: 215000, duration: 3, level: "UG" },
+    { program: "BBA", specialization: "Global Finance / Business Analytics / Fintech", fee: 235000, duration: 3, level: "UG" },
+    { program: "BBA LLB", fee: 175000, duration: 5, level: "Integrated" },
+    { program: "BCA", fee: 215000, duration: 3, level: "UG" },
+    { program: "B.Sc (Hons) Agriculture", fee: 235000, duration: 4, level: "UG" },
+    { program: "B.Sc (Food Technology)", fee: 170000, duration: 3, level: "UG" },
+    { program: "B.Sc (Animation & Gaming)", fee: 160000, duration: 3, level: "UG" },
+    { program: "B.Com (Hons) with ACCA/CMA/EA", fee: 195000, duration: 3, level: "UG" },
+    { program: "BA Economics (IAS orientation)", fee: 170000, duration: 3, level: "UG" },
+    { program: "MBA", specialization: "Marketing/HR/Finance/Digital Mktg/Business Analytics", fee: 325000, duration: 2, level: "PG" },
+    { program: "MBA", specialization: "Fintech", fee: 550000, duration: 2, level: "PG" },
+    { program: "MBA", specialization: "Global Program", fee: 600000, duration: 2, level: "PG" },
+    { program: "MCA", fee: 250000, duration: 2, level: "PG" },
+    { program: "M.Tech", specialization: "CSE (AI&DS / Cyber Security / Digital Forensic)", fee: 160000, duration: 2, level: "PG" },
+    { program: "M.Tech", specialization: "ECE (VLSI / IoT)", fee: 140000, duration: 2, level: "PG" },
+    { program: "M.Tech", specialization: "Civil / EEE / ME", fee: 125000, duration: 2, level: "PG" },
+    { program: "M.Pharm", fee: 220000, duration: 2, level: "PG" },
+    { program: "M.Sc Chemistry", fee: 90000, duration: 2, level: "PG" },
     { program: "Ph.D", fee: 80000, duration: 3, level: "Doctoral" },
   ],
 
@@ -174,7 +186,7 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "M.Tech", fee: 80000, duration: 2, level: "PG" },
   ],
 
-  "AMRT": [ // Amrita Vishwa Vidyapeetham — Amaravati (amrita.edu — 2025-26 official PDF, Slab 4 Regular)
+  "AMRT": [ // Amrita Vishwa Vidyapeetham — Amaravati (amrita.edu — AY 2026-27 admissions open, Slab 4 Regular tier; slab-based fees from AEEE 2026)
     { program: "B.Tech", specialization: "CSE", fee: 450000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (AI)", fee: 450000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "ECE", fee: 450000, duration: 4, level: "UG" },
@@ -185,7 +197,7 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "Ph.D", fee: 100000, duration: 3, level: "Doctoral" },
   ],
 
-  "AUDI": [ // Audisankara University — Nellore
+  "AUDI": [ // Audisankara University — Nellore (audisankara.ac.in — AY 2026-27, ₹61K/yr B.Tech total ₹2.44L)
     { program: "B.Tech", specialization: "CSE", fee: 61000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 61000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (Data Science)", fee: 61000, duration: 4, level: "UG" },
@@ -222,15 +234,15 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
   // TS — DEEMED UNIVERSITIES (official websites)
   // =============================================
 
-  "BITS": [ // BITS Pilani — Hyderabad (bits-pilani.ac.in — Y1 ₹5.5L, 5% annual hike, total ₹23.7L)
-    { program: "B.E.", specialization: "CSE", fee: 550000, totalFee: 2370000, duration: 4, level: "UG" },
-    { program: "B.E.", specialization: "ECE", fee: 550000, totalFee: 2370000, duration: 4, level: "UG" },
-    { program: "B.E.", specialization: "EEE", fee: 550000, totalFee: 2370000, duration: 4, level: "UG" },
-    { program: "B.E.", specialization: "Mechanical", fee: 550000, totalFee: 2370000, duration: 4, level: "UG" },
-    { program: "B.E.", specialization: "Civil", fee: 550000, totalFee: 2370000, duration: 4, level: "UG" },
-    { program: "B.E.", specialization: "Chemical", fee: 550000, totalFee: 2370000, duration: 4, level: "UG" },
-    { program: "B.Pharm", fee: 550000, totalFee: 2370000, duration: 4, level: "UG" },
-    { program: "M.Sc (Hons)", specialization: "Biology / Chemistry / Economics / Maths / Physics", fee: 550000, totalFee: 2370000, duration: 4, level: "Integrated" },
+  "BITS": [ // BITS Pilani — Hyderabad (admissions.bits-pilani.ac.in — AY 2026-27: Y1 ₹4.90L tuition (₹2.45L/sem × 2), 5% annual hike, total 4-yr ₹20.76L)
+    { program: "B.E.", specialization: "CSE", fee: 490000, totalFee: 2076000, duration: 4, level: "UG" },
+    { program: "B.E.", specialization: "ECE", fee: 490000, totalFee: 2076000, duration: 4, level: "UG" },
+    { program: "B.E.", specialization: "EEE", fee: 490000, totalFee: 2076000, duration: 4, level: "UG" },
+    { program: "B.E.", specialization: "Mechanical", fee: 490000, totalFee: 2076000, duration: 4, level: "UG" },
+    { program: "B.E.", specialization: "Civil", fee: 490000, totalFee: 2076000, duration: 4, level: "UG" },
+    { program: "B.E.", specialization: "Chemical", fee: 490000, totalFee: 2076000, duration: 4, level: "UG" },
+    { program: "B.Pharm", fee: 490000, totalFee: 2076000, duration: 4, level: "UG" },
+    { program: "M.Sc (Hons)", specialization: "Biology / Chemistry / Economics / Maths / Physics", fee: 490000, totalFee: 2076000, duration: 4, level: "Integrated" },
     { program: "M.E.", fee: 300000, duration: 2, level: "PG" },
     { program: "MBA", fee: 500000, duration: 2, level: "PG" },
     { program: "Ph.D", fee: 200000, duration: 4, level: "Doctoral" },
@@ -285,16 +297,20 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "Ph.D", fee: 30000, duration: 3, level: "Doctoral" },
   ],
 
-  "KLHD": [ // KL University — Hyderabad (kluniversity.in/sships3.aspx — 2025-26, Full Fee = Merit + ₹10K)
-    { program: "B.Tech", specialization: "CSE", fee: 310000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "AI & Data Science", fee: 310000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CS & IT", fee: 295000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "ECE", fee: 280000, duration: 4, level: "UG" },
-    { program: "BBA", fee: 184000, duration: 4, level: "UG" },
-    { program: "BCA", fee: 162000, duration: 4, level: "UG" },
-    { program: "MBA", fee: 230000, duration: 2, level: "PG" },
-    { program: "MCA", fee: 150000, duration: 2, level: "PG" },
-    { program: "M.Tech", fee: 130000, duration: 2, level: "PG" },
+  "KLHD": [ // KL University — Hyderabad (Aziz Nagar & Bowrampet campuses) (kluniversity.in/sships3.aspx — AY 2026-27, 3 terms/yr × Merit Fee)
+    { program: "B.Tech", specialization: "CSE", fee: 330000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "AI & Data Science", fee: 330000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CS & IT (Bowrampet)", fee: 300000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE", fee: 285000, duration: 4, level: "UG" },
+    { program: "BCA", fee: 220000, duration: 3, level: "UG" },
+    { program: "BBA", specialization: "Marketing/HR/Finance/Digital Mktg/Business Analytics", fee: 250000, duration: 3, level: "UG" },
+    { program: "BBA", specialization: "Global Finance / Fintech / LSCM / Business Analytics", fee: 270000, duration: 3, level: "UG" },
+    { program: "B.Com (Hons) with ACCA/CMA/EA", fee: 210000, duration: 3, level: "UG" },
+    { program: "B.Sc (Animation & Gaming)", fee: 210000, duration: 3, level: "UG" },
+    { program: "MBA", specialization: "Marketing/HR/Finance/Digital Mktg/Business Analytics", fee: 450000, duration: 2, level: "PG" },
+    { program: "MBA", specialization: "Fintech", fee: 650000, duration: 2, level: "PG" },
+    { program: "MBA", specialization: "Global Program", fee: 600000, duration: 2, level: "PG" },
+    { program: "MCA", fee: 250000, duration: 2, level: "PG" },
   ],
 
   // =============================================
@@ -325,7 +341,7 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "Ph.D", fee: 153000, duration: 3, level: "Doctoral" },
   ],
 
-  "CVSR": [ // Anurag University (anurag.edu.in — TAFRC regulated ₹2.85L/yr)
+  "CVSR": [ // Anurag University — Hyderabad (anurag.edu.in/tuition-fee — AY 2026-27, TAFRC regulated ₹2.85L/yr B.Tech)
     { program: "B.Tech", specialization: "All Specializations", fee: 285000, duration: 4, level: "UG" },
     { program: "B.Pharm", fee: 120000, duration: 4, level: "UG" },
     { program: "BBA", fee: 160000, duration: 3, level: "UG" },
@@ -337,7 +353,7 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "M.Tech", fee: 120000, duration: 2, level: "PG" },
   ],
 
-  "MRDU": [ // Malla Reddy University
+  "MRDU": [ // Malla Reddy University — Hyderabad (mallareddyuniversity.ac.in — AY 2026-27, ₹2L/yr B.Tech CSE total ₹8L)
     { program: "B.Tech", specialization: "All Specializations", fee: 200000, duration: 4, level: "UG" },
     { program: "B.Sc (Hons)", fee: 180000, duration: 4, level: "UG" },
     { program: "B.Com", fee: 60000, duration: 3, level: "UG" },
@@ -386,25 +402,33 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
   // AP — PRIVATE UNIVERSITIES (official websites)
   // =============================================
 
-  "SRMA": [ // SRM University AP (srmap.edu.in — VERIFIED)
+  "SRMA": [ // SRM University AP (srmap.edu.in/admission/seas-btech-tuition-fee — AY 2026-27, page last modified 2026-05-07)
     { program: "B.Tech", specialization: "CSE", fee: 400000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 400000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (Big Data Analytics)", fee: 360000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (Cyber Security)", fee: 360000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (Cloud Computing)", fee: 360000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (Distributed & Cloud Computing)", fee: 360000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (IoT)", fee: 360000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (Software Product Engg — WIP)", fee: 460000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (Product Engineering with AI)", fee: 460000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (AI & Future Technologies)", fee: 460000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "ECE / VLSI / Semiconductors", fee: 250000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "Mechanical / Robotics", fee: 250000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "EEE / Civil", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE (incl. Adv. Comm. Systems / Signal Processing AI-ML / Embedded Systems & IoT / VLSI Design)", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Microelectronics & Semiconductors", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Mechanical (incl. Additive Mfg / Automotive / Robotics & Automation)", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "EEE (incl. Renewable Energy)", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Civil (incl. Computer Aided Structural Engineering)", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Defence Engineering", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Energy Engineering", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Health Engineering", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Semiconductor Engineering", fee: 250000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Artificial Intelligence (AiTI)", fee: 400000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Quantum Technology (QuTI)", fee: 400000, duration: 4, level: "UG" },
     { program: "BBA (Hons)", fee: 255000, duration: 3, level: "UG" },
-    { program: "MBA", fee: 540000, duration: 2, level: "PG" },
+    { program: "MBA", fee: 540000, duration: 2, level: "PG" }, // Tuition + Hostel (fully residential) — Paari School of Business
     { program: "M.Tech", fee: 200000, duration: 2, level: "PG" },
     { program: "M.Sc", fee: 200000, duration: 2, level: "PG" },
   ],
 
-  "VTAP": [ // VIT-AP University (vitap.ac.in — ₹1,95,000 tuition + ₹3,000 caution deposit)
+  "VTAP": [ // VIT-AP University (vitap.ac.in / vit.ac.in — AY 2026-27 published; Cat-1 ₹1,95,000 tuition + ₹3,000 caution = ₹1,98,000/yr)
     { program: "B.Tech", specialization: "CSE (all specializations)", fee: 198000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "ECE", fee: 198000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "EEE", fee: 198000, duration: 4, level: "UG" },
@@ -424,7 +448,7 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "MBA", fee: 25000, duration: 2, level: "PG" },
   ],
 
-  "AITS": [ // Annamacharya University — Rajampeta
+  "AITS": [ // Annamacharya University — Rajampeta (annamacharyauniversity.edu.in — AY 2026-27, ₹60K/yr B.Tech total ₹2.4L)
     { program: "B.Tech", specialization: "All Specializations", fee: 60000, duration: 4, level: "UG" },
     { program: "B.Sc", fee: 36000, duration: 3, level: "UG" },
     { program: "B.Sc (Hons) Agriculture", fee: 60000, duration: 4, level: "UG" },
@@ -434,7 +458,7 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "M.Sc", fee: 45000, duration: 2, level: "PG" },
   ],
 
-  "ADTP": [ // Aditya University — Surampalem (Private University since 2022; ₹2.75L/yr CSE, total ₹11L)
+  "ADTP": [ // Aditya University — Surampalem (adityauniversity.in — AY 2026-27, ₹2.75L/yr CSE total ₹11L)
     { program: "B.Tech", specialization: "CSE", fee: 275000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 275000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (Data Science)", fee: 275000, duration: 4, level: "UG" },
@@ -493,17 +517,23 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "M.Tech", fee: 120000, duration: 2, level: "PG" },
   ],
 
-  "APOL": [ // The Apollo University — Chittoor (apollouniversity.edu.in — ₹2.85L/yr tuition, same all 4 yrs, total ₹11.4L)
-    { program: "B.Tech", specialization: "CSE (AI & Data Science)", fee: 285000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 285000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "ECE", fee: 285000, duration: 4, level: "UG" },
+  "APOL": [ // The Apollo University — Chittoor (apollouniversity.edu.in/admissions/fee-structure — AY 2026-27; ₹2.60L/yr tuition + ₹13K recurring/yr, total ₹10.99L incl ₹7K admission)
+    { program: "B.Tech", specialization: "CSE", fee: 260000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & Data Science)", fee: 260000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 260000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (Cyber Security)", fee: 260000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (Cloud Computing)", fee: 260000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & Healthcare Technology)", fee: 260000, duration: 4, level: "UG" },
     { program: "BPT", fee: 100000, duration: 4, level: "UG" },
     { program: "B.Sc (Health Sciences)", fee: 80000, duration: 4, level: "UG" },
     { program: "B.Pharm", fee: 100000, duration: 4, level: "UG" },
+    { program: "BBA", fee: 150000, duration: 3, level: "UG" },
+    { program: "MBA", specialization: "Hospital & Healthcare Management", fee: 200000, duration: 2, level: "PG" },
     { program: "MPT", fee: 120000, duration: 2, level: "PG" },
+    { program: "M.Tech", specialization: "VLSI / Data Science / CSE / Embedded Systems", fee: 150000, duration: 2, level: "PG" },
   ],
 
-  "BEST": [ // BESTIU — Anantapur (bestiu.edu.in)
+  "BEST": [ // BESTIU — Anantapur (bestiu.edu.in — AY 2026-27, ₹2L/yr CSE total ₹8L)
     { program: "B.Tech", specialization: "CSE / AI&ML / Data Science / Cyber Security", fee: 200000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "ECE / EEE / Mechanical / Civil", fee: 110000, duration: 4, level: "UG" },
     { program: "B.Sc (Hons) Agriculture", fee: 80000, duration: 4, level: "UG" },
