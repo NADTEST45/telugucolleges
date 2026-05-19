@@ -9,15 +9,19 @@ interface ShortlistContextType {
   error: string | null;
   isShortlisted: (collegeSlug: string, program?: string | null) => boolean;
   toggle: (collegeSlug: string, program?: string | null) => Promise<boolean>;
+  /** Components that display shortlist state should call this on mount.
+   *  Idempotent — only the first call per logged-in user hits the API. */
+  ensureLoaded: () => Promise<void>;
   isLoggedIn: boolean;
 }
 
 const ShortlistContext = createContext<ShortlistContextType>({
   items: [],
-  loading: true,
+  loading: false,
   error: null,
   isShortlisted: () => false,
   toggle: async () => false,
+  ensureLoaded: async () => {},
   isLoggedIn: false,
 });
 

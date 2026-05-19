@@ -30,9 +30,13 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Invalid action filter" }, { status: 400 });
     }
 
+    // `count: "estimated"` uses Postgres planner statistics instead of a
+    // full SELECT COUNT(*) on every page load. The audit_log table grows
+    // unbounded — an exact count costs more than the rows we actually
+    // return. The estimate is plenty for pagination UI on an admin page.
     let query = sb
       .from("audit_log")
-      .select("*", { count: "exact" })
+      .select("*", { count: "estimated" })
       .order("created_at", { ascending: false })
       .range(offset, offset + limit - 1);
 

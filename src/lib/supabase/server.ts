@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
@@ -5,8 +6,14 @@ import { cookies } from "next/headers";
  * Server-side Supabase client for public user auth (App Router).
  * Uses @supabase/ssr for cookie-based session management.
  * Call this in Server Components, Route Handlers, and Server Actions.
+ *
+ * Wrapped in React's `cache()` so multiple call sites within the same
+ * request (e.g. a Server Component + a Route Handler triggered by it,
+ * or several helpers running off the same /api/shortlist invocation)
+ * share one client instance instead of re-reading cookies and re-
+ * instantiating Supabase on each call.
  */
-export async function createSupabaseServer() {
+export const createSupabaseServer = cache(async () => {
   const cookieStore = await cookies();
 
   return createServerClient(
@@ -31,7 +38,7 @@ export async function createSupabaseServer() {
       },
     }
   );
-}
+});
 
 /** Get the currently authenticated public user, or null */
 export async function getPublicUser() {

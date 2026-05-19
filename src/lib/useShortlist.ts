@@ -12,41 +12,84 @@ export interface ShortlistItem {
 
 /**
  * Hook to manage shortlist state.
- * Fetches the full shortlist on mount (when user is logged in),
- * and provides add/remove/check functions with optimistic updates.
+ *
+ * The shortlist is loaded lazily — `/api/shortlist` is NOT fetched on
+ * mount of the provider. Instead, consumers must call `ensureLoaded()`
+ * (typically from a `useEffect` in a component that actually displays
+ * shortlist state, e.g. `ShortlistButton`). Pages that never render a
+ * shortlist-aware component never trigger the Supabase round-trip.
+ *
+ * `toggle()` also triggers a load if one hasn't happened yet, so the
+ * very first interaction is always correct even if `ensureLoaded()`
+ * wasn't called explicitly.
  */
 export function useShortlist() {
   const { user, loading: authLoading } = useAuth();
   const [items, setItems] = useState<ShortlistItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Start as "not loading" — we haven't fetched yet, and most pages
+  // never will. ensureLoaded() flips this to true while in flight.
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Track in-flight toggles to prevent race conditions
   const pendingToggles = useRef(new Set<string>());
+  // Tracks whether we've initiated/completed the initial fetch for the
+  // current user. Reset when the user changes (login/logout).
+  const loadStateRef = useRef<{ status: "idle" | "loading" | "loaded"; userId: string | null }>({
+    status: "idle",
+    userId: null,
+  });
+  // Force a re-render of consumers when load state changes so isShortlisted
+  // re-evaluates after the fetch resolves.
+  const [, bumpRender] = useState(0);
 
   /** Build a unique key for a college+program combo */
   const toggleKey = (slug: string, program?: string | null) => `${slug}::${program || ""}`;
 
-  // Fetch shortlist when user is available
+  // Reset cached load state when the auth user changes (sign in / out).
   useEffect(() => {
     if (authLoading) return;
-    if (!user) {
+    const currentUserId = user?.id ?? null;
+    if (loadStateRef.current.userId !== currentUserId) {
+      loadStateRef.current = { status: "idle", userId: currentUserId };
       setItems([]);
       setLoading(false);
-      return;
+      setError(null);
     }
+  }, [user, authLoading]);
 
-    let cancelled = false;
+  /**
+   * Idempotently fetch the shortlist for the current user.
+   * Safe to call from many components — only the first call hits the API.
+   */
+  const ensureLoaded = useCallback(async (): Promise<void> => {
+    if (authLoading) return;
+    if (!user) return;
+    if (loadStateRef.current.status !== "idle") return;
+    if (loadStateRef.current.userId !== user.id) {
+      // userId mismatch — reset and proceed
+      loadStateRef.current = { status: "idle", userId: user.id };
+    }
+    loadStateRef.current = { status: "loading", userId: user.id };
     setLoading(true);
-    fetch("/api/shortlist")
-      .then(res => res.json())
-      .then(data => {
-        if (!cancelled) setItems(data.shortlists || []);
-      })
-      .catch(() => { if (!cancelled) setItems([]); })
-      .finally(() => { if (!cancelled) setLoading(false); });
-
-    return () => { cancelled = true; };
+    try {
+      const res = await fetch("/api/shortlist");
+      const data = await res.json().catch(() => ({}));
+      // Guard against the user having signed out while the fetch was in flight
+      if (loadStateRef.current.userId === user.id) {
+        setItems(data.shortlists || []);
+        loadStateRef.current = { status: "loaded", userId: user.id };
+      }
+    } catch {
+      if (loadStateRef.current.userId === user.id) {
+        setItems([]);
+        // Allow a retry on next call
+        loadStateRef.current = { status: "idle", userId: user.id };
+      }
+    } finally {
+      setLoading(false);
+      bumpRender(n => n + 1);
+    }
   }, [user, authLoading]);
 
   /** Check if a college (+ optional program) is shortlisted */
@@ -66,6 +109,12 @@ export function useShortlist() {
   const toggle = useCallback(
     async (collegeSlug: string, program?: string | null): Promise<boolean> => {
       if (!user) return false;
+
+      // Make sure we know the current shortlist contents before deciding
+      // whether this is an add or a remove. Idempotent — only fetches once.
+      if (loadStateRef.current.status !== "loaded") {
+        await ensureLoaded();
+      }
 
       const key = toggleKey(collegeSlug, program);
 
@@ -149,8 +198,8 @@ export function useShortlist() {
         pendingToggles.current.delete(key);
       }
     },
-    [user, items]
+    [user, items, ensureLoaded]
   );
 
-  return { items, loading, error, isShortlisted, toggle, isLoggedIn: !!user };
+  return { items, loading, error, isShortlisted, toggle, ensureLoaded, isLoggedIn: !!user };
 }

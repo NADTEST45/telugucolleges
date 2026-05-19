@@ -1,33 +1,51 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
 
-/* ── Simple in-memory rate limiter ──
- * TODO: Replace with Upstash Redis (@upstash/ratelimit) for production.
- * In-memory stores reset on cold starts and are not shared across
- * serverless instances, making them ineffective on Vercel.
+/* ── Rate limiter ──
+ * All limits are enforced by Upstash Redis (sliding window). Edge / Vercel
+ * serverless functions can't share state across instances, so an in-memory
+ * Map fallback would silently allow abuse on the live site — instead, we
+ * require Upstash. When the env vars are missing (e.g. a fresh local dev
+ * checkout) rate limiting is a no-op and a single warning is logged at
+ * cold start so the developer notices.
  */
-const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
+type LimiterName = "login" | "createUser" | "editSubmit" | "editReview" | "auditLog" | "shortlist";
 
-function isRateLimited(key: string, max: number, windowMs: number): boolean {
-  const now = Date.now();
-  const entry = rateLimitStore.get(key);
-  if (!entry || now > entry.resetAt) {
-    rateLimitStore.set(key, { count: 1, resetAt: now + windowMs });
-    return false;
+function createUpstashLimiters(): Record<LimiterName, Ratelimit> | null {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) {
+    if (process.env.NODE_ENV === "production") {
+      // Surfaces in Vercel logs — we never want production running without limits.
+      console.error("[middleware] Upstash env vars missing — rate limiting DISABLED");
+    } else {
+      console.warn("[middleware] Upstash not configured — rate limiting disabled in dev");
+    }
+    return null;
   }
-  entry.count++;
-  return entry.count > max;
+  const redis = new Redis({ url, token });
+  const mk = (tokens: number, window: Parameters<typeof Ratelimit.slidingWindow>[1], prefix: string) =>
+    new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(tokens, window), analytics: false, prefix });
+  return {
+    login:       mk(5,  "15 m", "rl:login"),
+    createUser:  mk(10, "1 h",  "rl:createUser"),
+    editSubmit:  mk(20, "1 h",  "rl:editSubmit"),
+    editReview:  mk(60, "1 h",  "rl:editReview"),
+    auditLog:    mk(30, "1 m",  "rl:auditLog"),
+    shortlist:   mk(60, "1 m",  "rl:shortlist"),
+  };
 }
 
-// Periodic cleanup to prevent memory leak (every 1000 checks)
-let cleanupCounter = 0;
-function maybeCleanup() {
-  if (++cleanupCounter % 1000 === 0) {
-    const now = Date.now();
-    for (const [key, entry] of rateLimitStore) {
-      if (now > entry.resetAt) rateLimitStore.delete(key);
-    }
-  }
+const upstashLimiters = createUpstashLimiters();
+
+/** Unified rate-limit check. Returns true if the request should be rejected.
+ *  When Upstash isn't configured (local dev), all requests pass through. */
+async function isRateLimited(name: LimiterName, key: string): Promise<boolean> {
+  if (!upstashLimiters) return false;
+  const { success } = await upstashLimiters[name].limit(key);
+  return !success;
 }
 
 /** Best-effort client IP — prefer Cloudflare/Vercel headers over spoofable x-forwarded-for */
@@ -43,16 +61,42 @@ function getClientIp(request: NextRequest): string {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  maybeCleanup();
-
-  /* ── Supabase session refresh (keeps cookies alive) ── */
   let response = NextResponse.next({
     request: { headers: request.headers },
   });
 
+  /* ── Gate Supabase auth by pathname ──
+   * `supabase.auth.getUser()` is a network round-trip to the Supabase Auth
+   * server. The previous implementation ran it on every matched request,
+   * which added that latency to dozens of public API endpoints that do
+   * their own auth checks downstream (or don't need auth at all).
+   *
+   * We only need the middleware-level user lookup for routes whose
+   * middleware-level behavior depends on it:
+   *   - /account/*            : redirects unauthenticated users to /login
+   *   - /auth/*               : OAuth/email callbacks rely on session
+   *                             cookies being refreshed during the flow
+   *   - /api/shortlist (write): bucket the rate limiter by user id when
+   *                             we have one, otherwise fall back to IP
+   *
+   * Every other route either does its own auth via getAuthUser() inside
+   * the route handler, or doesn't need auth at all. The browser-side
+   * Supabase client refreshes its own session via onAuthStateChange.
+   */
+  const isShortlistWrite =
+    pathname === "/api/shortlist" && (request.method === "POST" || request.method === "DELETE");
+  const needsMiddlewareAuth =
+    pathname.startsWith("/account") ||
+    pathname.startsWith("/auth/") ||
+    isShortlistWrite;
+
   let authenticatedUser: { id: string } | null = null;
 
-  if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+  if (
+    needsMiddlewareAuth &&
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  ) {
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
@@ -128,7 +172,7 @@ export async function middleware(request: NextRequest) {
   /* ── Rate limiting: admin login (5 per 15 min per IP) ── */
   if (pathname === "/api/auth/login" && request.method === "POST") {
     const ip = getClientIp(request);
-    if (isRateLimited(`login:${ip}`, 5, 15 * 60 * 1000)) {
+    if (await isRateLimited("login", ip)) {
       return NextResponse.json(
         { error: "Too many login attempts. Please try again in 15 minutes." },
         { status: 429 }
@@ -139,7 +183,7 @@ export async function middleware(request: NextRequest) {
   /* ── Rate limiting: user creation (10 per hour per IP) ── */
   if (pathname === "/api/admin/users" && request.method === "POST") {
     const ip = getClientIp(request);
-    if (isRateLimited(`create_user:${ip}`, 10, 60 * 60 * 1000)) {
+    if (await isRateLimited("createUser", ip)) {
       return NextResponse.json(
         { error: "Too many user creation attempts. Please try again later." },
         { status: 429 }
@@ -150,7 +194,7 @@ export async function middleware(request: NextRequest) {
   /* ── Rate limiting: edit submissions (20 per hour per IP) ── */
   if (pathname === "/api/edits/submit" && request.method === "POST") {
     const ip = getClientIp(request);
-    if (isRateLimited(`edit_submit:${ip}`, 20, 60 * 60 * 1000)) {
+    if (await isRateLimited("editSubmit", ip)) {
       return NextResponse.json(
         { error: "Too many edit submissions. Please try again later." },
         { status: 429 }
@@ -161,7 +205,7 @@ export async function middleware(request: NextRequest) {
   /* ── Rate limiting: edit reviews (60 per hour per IP) ── */
   if (pathname === "/api/edits/review" && request.method === "POST") {
     const ip = getClientIp(request);
-    if (isRateLimited(`edit_review:${ip}`, 60, 60 * 60 * 1000)) {
+    if (await isRateLimited("editReview", ip)) {
       return NextResponse.json(
         { error: "Too many review actions. Please try again later." },
         { status: 429 }
@@ -172,7 +216,7 @@ export async function middleware(request: NextRequest) {
   /* ── Rate limiting: audit-log reads (30 per min per IP) ── */
   if (pathname === "/api/admin/audit-log" && request.method === "GET") {
     const ip = getClientIp(request);
-    if (isRateLimited(`audit:${ip}`, 30, 60 * 1000)) {
+    if (await isRateLimited("auditLog", ip)) {
       return NextResponse.json(
         { error: "Too many requests. Please try again later." },
         { status: 429 }
@@ -182,8 +226,8 @@ export async function middleware(request: NextRequest) {
 
   /* ── Rate limiting: shortlist API (60 writes per min per user/IP) ── */
   if (pathname === "/api/shortlist" && ["POST", "DELETE"].includes(request.method)) {
-    const key = authenticatedUser ? `shortlist:${authenticatedUser.id}` : `shortlist:${getClientIp(request)}`;
-    if (isRateLimited(key, 60, 60 * 1000)) {
+    const key = authenticatedUser ? `user:${authenticatedUser.id}` : `ip:${getClientIp(request)}`;
+    if (await isRateLimited("shortlist", key)) {
       return NextResponse.json(
         { error: "Too many requests. Please slow down." },
         { status: 429 }

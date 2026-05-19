@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import { useShortlistContext } from "@/components/ShortlistProvider";
@@ -8,10 +8,21 @@ import { COLLEGES, fmtFee, type College } from "@/lib/colleges";
 
 export default function ShortlistPage() {
   const { user, loading: authLoading, signOut } = useAuth();
-  const { items, loading: shortlistLoading, toggle } = useShortlistContext();
+  const { items, loading: shortlistLoading, toggle, ensureLoaded } = useShortlistContext();
   const [removing, setRemoving] = useState<string | null>(null);
+  // Track whether we've requested the load so we can show the skeleton
+  // until the fetch settles (ensureLoaded is lazy now and starts in
+  // `loading: false` state).
+  const [loadRequested, setLoadRequested] = useState(false);
 
-  const loading = authLoading || shortlistLoading;
+  // This page needs the full shortlist; trigger the lazy fetch.
+  useEffect(() => {
+    if (authLoading || !user) return;
+    setLoadRequested(true);
+    ensureLoaded();
+  }, [user, authLoading, ensureLoaded]);
+
+  const loading = authLoading || shortlistLoading || (!!user && !loadRequested);
 
   // Resolve college data for each shortlisted item
   const shortlistedColleges = items.map(item => {

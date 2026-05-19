@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import { useShortlistContext } from "@/components/ShortlistProvider";
@@ -20,9 +20,15 @@ export default function ShortlistButton({
   className = "",
 }: ShortlistButtonProps) {
   const { user } = useAuth();
-  const { isShortlisted, toggle } = useShortlistContext();
+  const { isShortlisted, toggle, ensureLoaded } = useShortlistContext();
   const router = useRouter();
   const [busy, setBusy] = useState(false);
+
+  // Trigger the lazy shortlist fetch the first time any ShortlistButton
+  // mounts for a logged-in user. Idempotent across all buttons on the page.
+  useEffect(() => {
+    if (user) ensureLoaded();
+  }, [user, ensureLoaded]);
 
   const shortlisted = isShortlisted(collegeSlug, program);
 
