@@ -13,6 +13,33 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  // ── New: May 20, 2026 ─────────────────────────────────────────
+  {
+    id: "neet-ug-2026-cancelled-re-exam-june-21",
+    date: "2026-05-20",
+    title: "NEET UG 2026 Cancelled Due to Paper Leak — Re-Exam Scheduled for June 21",
+    summary: "NTA has cancelled the NEET UG 2026 exam held on May 3 after a confirmed question paper leak. A fresh re-exam (Re-NEET 2026) will be conducted on June 21, 2026 for all 22.79 lakh registered candidates. CBI is investigating.",
+    body: "The National Testing Agency (NTA) has cancelled the NEET UG 2026 examination that was conducted on May 3, 2026 following confirmation of a question paper leak. The Central Bureau of Investigation (CBI) has taken over the probe.\n\nKey developments:\n• A PDF containing approximately 500–600 questions had circulated on Telegram from April 29, 2026 — days before the exam. Around 180 questions were reported to match the actual NEET UG 2026 paper.\n• CBI arrested multiple suspects including a biology lecturer who was part of the NTA paper-setting committee.\n• The CBI has indicated the leak can be traced to a source inside the NTA itself.\n\nRe-NEET 2026 schedule:\n• Re-exam date: June 21, 2026 (Saturday)\n• Timing: 2:00 PM – 5:15 PM (15 minutes extra compared to the original exam)\n• Mode: Pen-and-paper\n• City choice filling / correction window: Open until May 21, 2026 at neet.nta.nic.in\n• Admit card: Expected by June 14, 2026\n• Exam fee: Will be refunded to original bank accounts of payers for the cancelled May 3 exam\n• All 22,79,743 registered candidates are eligible to appear\n\nFor AP/TS aspirants: The NEET UG 2026 result timeline is now delayed. State counselling for MBBS/BDS at Dr. NTR UHS (AP) and KNRUHS (Telangana) will begin only after the Re-NEET result, now expected in July 2026 instead of June.\n\nEducation Minister Dharmendra Pradhan has announced that NEET UG will shift to Computer-Based Test (CBT) mode from 2027 onwards to prevent future paper leaks.",
+    category: "general",
+    state: "Both",
+    priority: "high",
+    source: "NTA / CBI — NEET UG 2026 Cancellation and Re-Exam Notice",
+    sourceUrl: "https://neet.nta.nic.in/",
+    tags: ["NEET UG", "Cancelled", "Paper Leak", "Re-Exam", "CBI", "NTA", "June 21", "2026"],
+  },
+  {
+    id: "ts-ecet-2026-answer-key-released-may-20",
+    date: "2026-05-20",
+    title: "TS ECET 2026 — Answer Key Released, Objection Window Closes May 20 at 7 PM",
+    summary: "Osmania University has released the TS ECET 2026 provisional answer key, response sheets and question papers at ecet.tgche.ac.in. Candidates can raise objections until May 20, 2026 at 7:00 PM. Result expected in June 2026.",
+    body: "The provisional answer key, candidate response sheets and master question papers for TS (TG) ECET 2026 have been released by Osmania University at ecet.tgche.ac.in.\n\n• Exam conducted: May 15, 2026 (CBT mode)\n• Answer key released: May 2026\n• Last date to raise objections: May 20, 2026 at 7:00 PM\n• Objection submission: Via the official portal (login with registration number and DOB)\n• Result: Expected June 2026\n• Counselling: Typically July–August 2026\n\nCandidates should download their response sheets and cross-check with the provisional key before the objection deadline. The final answer key will be published along with the result after reviewing all objections.\n\nTS ECET is the lateral-entry test for diploma holders and B.Sc graduates seeking direct admission into the second year of B.Tech / B.Pharm programmes in Telangana.",
+    category: "general",
+    state: "TS",
+    priority: "medium",
+    source: "TGCHE / Osmania University — TS ECET 2026 Answer Key",
+    sourceUrl: "https://ecet.tgche.ac.in/",
+    tags: ["TS ECET", "TG ECET", "Answer Key", "Lateral Entry", "2026"],
+  },
   // ── New: May 19, 2026 ─────────────────────────────────────────
   {
     id: "ap-eapcet-2026-engineering-exam-concluded-may-18",
@@ -72,8 +99,8 @@ export const NEWS_ITEMS: NewsItem[] = [
   {
     id: "tg-ecet-2026-exam-conducted-may-15",
     date: "2026-05-15",
-    title: "TS ECET 2026 Conducted on May 15 — Lateral Entry Exam Over, Results Awaited",
-    summary: "Osmania University conducted TS (TG) ECET 2026 on May 15, 2026 in CBT mode. Provisional answer key and response sheets are expected within a week; results are anticipated by late May or early June.",
+    title: "TS ECET 2026 Conducted on May 15 — Answer Key Now Released (See May 20 Update)",
+    summary: "Osmania University conducted TS (TG) ECET 2026 on May 15, 2026 in CBT mode. The provisional answer key, response sheets and question papers have been released. Objection window closes May 20 at 7 PM. Result expected June 2026.",
     body: "Osmania University, on behalf of the Telangana Council of Higher Education (TGCHE), successfully conducted TS (TG) ECET 2026 — the lateral-entry test for diploma holders and B.Sc graduates seeking direct admission into the second year of B.Tech / B.Pharm programmes in Telangana — on May 15, 2026 in CBT mode.\n\n• Eligibility streams: Diploma in Engineering / B.Sc Mathematics graduates for lateral B.Tech; Diploma in Pharmacy for lateral B.Pharm\n• Official portal: ecet.tgche.ac.in\n• Provisional answer key + response sheet: Expected within 7–10 days\n• Result: Expected late May / early June 2026\n• Counselling: Typically July–August 2026 (after main TG EAPCET counselling concludes)\n\nCandidates should keep their diploma/B.Sc marks memos, SSC certificate, study/conduct certificate, caste certificate (if applicable) and Aadhaar ready for the counselling document-verification stage. Lateral-entry seats are filled in the 10% supernumerary quota over and above the sanctioned intake of each engineering branch.",
     category: "general",
     state: "TS",
@@ -100,8 +127,8 @@ export const NEWS_ITEMS: NewsItem[] = [
   {
     id: "neet-ug-2026-answer-key-may-6",
     date: "2026-05-06",
-    title: "NEET UG 2026 — Provisional Answer Key Released; Result Expected Mid-to-Late June",
-    summary: "NTA released the NEET UG 2026 provisional answer key on May 6 at neet.nta.nic.in for codes 11, 12, 13 and 14. The May 3 exam saw ~22.11 lakh candidates (97% attendance) appear across 551 cities. Result expected 2nd–3rd week of June.",
+    title: "NEET UG 2026 — Provisional Answer Key Was Released May 6 (Exam Now Cancelled)",
+    summary: "NTA had released the NEET UG 2026 provisional answer key on May 6 at neet.nta.nic.in for codes 11, 12, 13 and 14. However, the May 3 exam has since been cancelled due to a confirmed paper leak. A re-exam (Re-NEET) is scheduled for June 21, 2026. See the May 20 update.",
     body: "The National Testing Agency (NTA) released the NEET UG 2026 provisional answer key, response sheets and question papers on Wednesday, May 6, 2026 at neet.nta.nic.in — three days after the May 3 exam.\n\n• Answer key codes released: 11, 12, 13 and 14\n• Download portal: neet.nta.nic.in (login with application number + password / DOB)\n• Objection / challenge window: Per NTA notification on the portal (fee per challenge as applicable)\n• Final answer key and result: Expected 2nd or 3rd week of June 2026\n\nExam-day snapshot (May 3, 2026):\n• Candidates registered: 22,79,743\n• Approximate attendance: 97% (~22.11 lakh appeared)\n• Centres: 551 cities in India + 14 international locations\n• Mode: Pen-and-paper, 2:00 PM – 5:00 PM\n\nReported difficulty (informal student/coaching feedback — to be verified against the final key): Overall moderate, slightly easier than NEET 2025. Physics was the toughest section; Chemistry was balanced and manageable; Biology was the most scoring overall, though Botany felt lengthy.\n\nAP/TS aspirants: NEET UG 2026 scores are required for all MBBS/BDS admissions in Andhra Pradesh (Dr. NTR UHS counselling) and Telangana (KNRUHS counselling), plus the central 15% AIQ pool (MCC) and deemed universities. AP/TS state counselling typically begins in July, after the NEET UG result.",
     category: "general",
     state: "Both",
@@ -114,8 +141,8 @@ export const NEWS_ITEMS: NewsItem[] = [
   {
     id: "neet-ug-2026-exam-conducted-may-3",
     date: "2026-05-03",
-    title: "NEET UG 2026 Conducted on May 3 — Approx. 22.11 Lakh Candidates Appear",
-    summary: "NTA successfully conducted NEET UG 2026 on Sunday, May 3 from 2 PM to 5 PM across 551 Indian cities and 14 international centres. About 22.11 lakh candidates appeared (~97% attendance) out of 22,79,743 registered.",
+    title: "NEET UG 2026 Was Conducted on May 3 — Now Cancelled Due to Paper Leak",
+    summary: "NTA conducted NEET UG 2026 on May 3 across 551 Indian cities. About 22.11 lakh candidates appeared. However, the exam has since been cancelled due to a confirmed question paper leak. A re-exam (Re-NEET) is scheduled for June 21, 2026. See the May 20 update.",
     body: "The National Testing Agency (NTA) successfully conducted NEET UG 2026, the single medical entrance exam for MBBS, BDS, BAMS, BHMS, BVSc and allied AYUSH courses, on Sunday, May 3, 2026.\n\n• Timing: 2:00 PM – 5:00 PM (pen-and-paper mode)\n• Cities: 551 in India + 14 international locations\n• Candidates registered: 22,79,743\n• Approximate attendance: 97% (~22.11 lakh appeared)\n\nAdmit cards were released on April 27 at 10 AM (a one-day postponement from the original April 26 schedule). The exam-city intimation slip had already been issued on April 12.\n\nWhat's next:\n• Provisional answer key, response sheets and question papers: Released May 6, 2026 at neet.nta.nic.in (see May 6 update)\n• Objection window: Per NTA notification\n• Final result: Expected 2nd–3rd week of June 2026\n\nFor AP/TS students: NEET UG 2026 scores are the sole criterion for MBBS/BDS admissions in Andhra Pradesh (Dr. NTR UHS counselling) and Telangana (KNRUHS counselling), as well as the all-India 15% quota (MCC) and deemed universities. State counselling notifications typically open within 1–2 weeks of the NEET UG result.",
     category: "general",
     state: "Both",
@@ -128,8 +155,8 @@ export const NEWS_ITEMS: NewsItem[] = [
   {
     id: "neet-ug-2026-admit-card-postponed-april-27",
     date: "2026-04-26",
-    title: "NEET UG 2026 — Admit Card Release Postponed to April 27 at 10 AM",
-    summary: "NTA has postponed the NEET UG 2026 admit card release by one day. Hall tickets will now be available from 10:00 AM on Monday, April 27, 2026 at neet.nta.nic.in. Exam date (May 3) is unchanged.",
+    title: "NEET UG 2026 — Admit Card Was Released April 27 (May 3 Exam Now Cancelled)",
+    summary: "NTA released NEET UG 2026 admit cards on April 27 at neet.nta.nic.in. The May 3 exam was conducted but has since been cancelled due to a paper leak. A re-exam is scheduled for June 21, 2026. New admit cards will be issued.",
     body: "The National Testing Agency (NTA) has postponed the release of NEET UG 2026 admit cards by one day. Originally scheduled for April 26, the hall tickets will now be available from 10:00 AM on Monday, April 27, 2026 at neet.nta.nic.in.\n\nKey points:\n• New admit card release: April 27, 2026, 10:00 AM IST\n• Download portal: neet.nta.nic.in (login with application number + password/DOB)\n• Exam date: May 3, 2026 (Sunday) — UNCHANGED\n• Timing: 2:00 PM – 5:00 PM (pen-and-paper mode)\n• Exam city intimation slip was released April 12, 2026 (separate from admit card)\n\nNTA's official announcement (via its X handle): \"NEET Admit Cards will be available to all candidates by 10 AM on Monday, 27th April 2026. Use the last Sunday before the exam for a practice test or revising concepts. Stay Calm. Keep yourself hydrated.\"\n\nWhat to do today (April 26): Use the day for revision or a full mock test. Do not download admit cards from any unofficial source. The only authoritative portal is neet.nta.nic.in.\n\nWhat to carry on exam day: Printed admit card + one valid photo ID (Aadhaar preferred). Reach the centre at least 1.5 hours before the exam — gates close 30 minutes before start. AP/TS aspirants will use NEET UG 2026 scores for MBBS/BDS counselling at Dr. NTR UHS (AP) and KNRUHS (Telangana), as well as MCC central quota and deemed universities.",
     category: "general",
     state: "Both",
@@ -181,8 +208,8 @@ export const NEWS_ITEMS: NewsItem[] = [
   {
     id: "neet-ug-2026-exam-may-3-admit-card-expected",
     date: "2026-04-21",
-    title: "NEET UG 2026 — Exam on May 3, City Slip Out, Admit Card Expected April 26 (Superseded)",
-    summary: "NEET UG 2026 is scheduled for May 3 (2:00–5:00 PM). NTA released the exam city intimation slip on April 12. As originally notified, the admit card was expected April 26 — this was later postponed by one day to April 27 (see the April 26 update).",
+    title: "NEET UG 2026 — Original Schedule (May 3 Exam Now Cancelled; Re-Exam June 21)",
+    summary: "NEET UG 2026 was originally scheduled for May 3. The exam was conducted but has since been cancelled due to a confirmed paper leak. Re-NEET 2026 is now scheduled for June 21, 2026. See the May 20 update for full details.",
     body: "The National Testing Agency (NTA) has confirmed key details for NEET UG 2026, the single medical/dental/AYUSH entrance exam for MBBS, BDS, BAMS, BHMS, B.V.Sc and allied courses.\n\n• Exam date: May 3, 2026 (Sunday)\n• Timing: 2:00 PM – 5:00 PM (pen-and-paper mode)\n• Exam city intimation slip: Released April 12, 2026\n• Admit card: Originally expected April 26, 2026 — postponed to April 27, 2026 at 10:00 AM (see April 26 update)\n• Download portal: neet.nta.nic.in\n\nWhat AP/TS aspirants should do now:\n• Check the city intimation slip on neet.nta.nic.in and plan travel/accommodation early\n• Carry the printed admit card + one valid photo ID (Aadhaar preferred) to the exam centre\n• Reach the centre at least 1.5 hours before the exam; centres close gate 30 minutes before start\n• NEET UG 2026 scores are required for all MBBS/BDS admissions in AP (Dr. NTR UHS counselling) and Telangana (KNRUHS counselling), as well as central quota (MCC) and deemed universities\n\nAP/TS medical counselling is expected to start after NEET UG results, typically in July 2026.",
     category: "general",
     state: "Both",
