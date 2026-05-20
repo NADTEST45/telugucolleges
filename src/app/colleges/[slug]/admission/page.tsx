@@ -6,6 +6,7 @@ import { TS_PHASES, getTSPhaseCutoffs, type PhaseKey } from "@/lib/ts-cutoffs-ph
 import { getExamByCollegeCode } from "@/lib/admission-exams";
 import { notFound } from "next/navigation";
 import CollegeDetail from "../CollegeDetail";
+import JsonLd from "@/components/JsonLd";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
@@ -236,20 +237,9 @@ export default async function AdmissionPage({ params }: { params: Promise<{ slug
 
   return (
     <>
-      {jsonLd && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      )}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
-      />
+      {jsonLd && <JsonLd data={jsonLd} />}
+      <JsonLd data={faqJsonLd} />
+      <JsonLd data={breadcrumbLd} />
       <CollegeDetail c={c} similar={similar} historicalCutoffs={historicalCutoffs} cutoffYears={cutoffYears} phaseCutoffs={phaseCutoffs} phases={phases} faqs={faqs} initialTab="admission" />
     </>
   );

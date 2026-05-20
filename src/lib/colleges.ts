@@ -885,4 +885,5 @@ export const COLLEGES: College[] = [
 ];
 
 export const getCollegeBySlug = (slug: string) => COLLEGES.find(c => c.slug === slug);
-export const fmtFee = (n: number) => n ? `₹${n.toLocaleString("en-IN")}` : "—";
+export const fmtFee = (n: number | null | undefined): string =>
+  n ? `₹${n.toLocaleString("en-IN")}` : "—";

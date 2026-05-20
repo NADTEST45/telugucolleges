@@ -2,6 +2,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { NEWS_ITEMS, NEWS_CATEGORIES, type NewsItem } from "@/lib/news";
+import JsonLd from "@/components/JsonLd";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
@@ -129,14 +130,8 @@ export default function NewsPage() {
       {/* Structured data — ItemList of NewsArticle + BreadcrumbList. Lives on
           the index page only so /news/[slug] can emit its own NewsArticle
           schema without duplicate breadcrumbs. */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildBreadcrumbJsonLd()) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildNewsListJsonLd()) }}
-      />
+      <JsonLd data={buildBreadcrumbJsonLd()} />
+      <JsonLd data={buildNewsListJsonLd()} />
 
       {/* Breadcrumb */}
       <nav className="text-sm text-gray-600 mb-4 flex items-center gap-1.5">

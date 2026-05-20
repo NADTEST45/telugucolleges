@@ -689,7 +689,4 @@ export function getAffiliatedCourses(c: { code?: string; type: string; state: st
   return generateAffiliateCourses(c);
 }
 
-/** Format fee */
-export const fmtCourseFee = (fee: number): string => {
-  return `₹${fee.toLocaleString("en-IN")}`;
-};
+export { fmtFee as fmtCourseFee } from "./colleges";

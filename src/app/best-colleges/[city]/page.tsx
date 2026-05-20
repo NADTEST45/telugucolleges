@@ -8,6 +8,7 @@ import {
   CITY_META,
 } from "@/lib/city-data";
 import { fmtFee, type College } from "@/lib/colleges";
+import JsonLd from "@/components/JsonLd";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
@@ -98,12 +99,7 @@ function BreadcrumbSchema({
     ],
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-  );
+  return <JsonLd data={jsonLd} />;
 }
 
 function CollegeListSchema({
@@ -126,12 +122,7 @@ function CollegeListSchema({
     })),
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-  );
+  return <JsonLd data={jsonLd} />;
 }
 
 export default async function BestCollegesCityPage({
