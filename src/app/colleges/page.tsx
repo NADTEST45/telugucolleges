@@ -1,5 +1,7 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import AdSlot from "@/components/ads/AdSlot";
+import JsonLd from "@/components/JsonLd";
 import CollegeCard from "./CollegeCard";
 import CollegeFilterBar from "./CollegeFilterBar";
 import {
@@ -13,6 +15,37 @@ import {
   TOTAL_ALL,
 } from "./filtering";
 import { COLLEGES, type College } from "@/lib/colleges";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
+
+/*
+ * Metadata for /colleges. Until now this route had no metadata exported,
+ * so it inherited the site-wide default — useless against directory-intent
+ * queries like "engineering colleges in andhra pradesh" or "list of
+ * private engineering colleges telangana." Set a unique title/description
+ * + canonical so the route can actually rank for those.
+ *
+ * The canonical points at the bare /colleges URL (no query params) so
+ * filter-state variants don't fragment ranking signal.
+ */
+export const metadata: Metadata = {
+  title: "Engineering College Directory — AP & Telangana | TeluguColleges",
+  description: `Browse ${TOTAL_ALL}+ engineering, pharmacy, and management colleges in Andhra Pradesh & Telangana. Filter by state, district, type (government, private, deemed), affiliation, and fees.`,
+  alternates: { canonical: `${SITE_URL}/colleges` },
+  openGraph: {
+    title: "Engineering College Directory — AP & Telangana | TeluguColleges",
+    description: `Browse ${TOTAL_ALL}+ engineering, pharmacy, and management colleges in Andhra Pradesh & Telangana.`,
+    url: `${SITE_URL}/colleges`,
+    siteName: "TeluguColleges.com",
+    type: "website",
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary",
+    title: "Engineering College Directory — AP & Telangana",
+    description: `Browse ${TOTAL_ALL}+ engineering colleges across AP & TS.`,
+  },
+};
 
 /**
  * /colleges — Server Component.
@@ -73,8 +106,41 @@ export default async function CollegesPage({ searchParams }: PageProps) {
   const showAPInfo = !filters.state || filters.state === "Andhra Pradesh";
   const showTSInfo = !filters.state || filters.state === "Telangana";
 
+  // JSON-LD: BreadcrumbList + ItemList of the top filtered colleges. We
+  // only emit the ItemList when filters are unset (canonical /colleges
+  // view) — emitting per-filter ItemList variants would generate near-
+  // duplicate structured data across many URLs, all sharing the same
+  // canonical, which Google will ignore at best and penalise at worst.
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "TeluguColleges", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Colleges", item: `${SITE_URL}/colleges` },
+    ],
+  };
+  const isCanonicalView =
+    !filters.state && !filters.section && !filters.district && !filters.affiliation && !filters.q;
+  const topColleges = isCanonicalView ? filtered.slice(0, 50) : [];
+  const itemListLd = topColleges.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Top Engineering Colleges in AP & Telangana",
+        numberOfItems: topColleges.length,
+        itemListOrder: "https://schema.org/ItemListOrderAscending",
+        itemListElement: topColleges.map((c, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          url: `${SITE_URL}/colleges/${c.slug}`,
+          name: c.name,
+        })),
+      }
+    : null;
+
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <JsonLd data={itemListLd ? [breadcrumbLd, itemListLd] : [breadcrumbLd]} />
       <nav className="text-sm text-gray-500 mb-4 flex items-center gap-1.5">
         <Link href="/">Home</Link><span>/</span><span className="text-gray-600 font-medium">Colleges</span>
       </nav>

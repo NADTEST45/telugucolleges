@@ -8,7 +8,18 @@ import { getAllRankBandSlugs } from "@/lib/rank-band-data";
 import { NEWS_ITEMS } from "@/lib/news";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
-const NOW = new Date().toISOString();
+
+/*
+ * BUILD_DATE is pinned at module load, but we emit it sparingly. Previously
+ * every URL claimed `lastModified: NOW` which (a) told Google every page
+ * changed every deploy and (b) trained crawlers to recrawl static pages
+ * pointlessly — wasting our crawl budget. Now:
+ *   - Static top-level pages: lastModified omitted (Google infers freshness)
+ *   - News items: lastModified from the item's actual published date
+ *   - Other static-data pages (colleges, branches, programs, comparisons):
+ *     lastModified set to BUILD_DATE — these change only on deploy
+ */
+const BUILD_DATE = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
 
 /*
  * Single flat sitemap served at /sitemap.xml.
@@ -29,36 +40,41 @@ const NOW = new Date().toISOString();
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
 
-  // Static top-level pages
+  // Static top-level pages — no `lastModified`. These pages are templates
+  // whose user-visible content changes on every dataset refresh, so claiming
+  // a single timestamp would be misleading; Google handles missing
+  // lastModified by inferring from crawl history.
   entries.push(
-    { url: BASE, changeFrequency: "weekly", priority: 1.0, lastModified: NOW },
-    { url: `${BASE}/colleges`, changeFrequency: "weekly", priority: 0.9, lastModified: NOW },
-    { url: `${BASE}/branches`, changeFrequency: "weekly", priority: 0.8, lastModified: NOW },
-    { url: `${BASE}/universities`, changeFrequency: "monthly", priority: 0.8, lastModified: NOW },
-    { url: `${BASE}/eapcet`, changeFrequency: "monthly", priority: 0.8, lastModified: NOW },
-    { url: `${BASE}/news`, changeFrequency: "daily", priority: 0.8, lastModified: NOW },
-    { url: `${BASE}/compare`, changeFrequency: "monthly", priority: 0.6, lastModified: NOW },
-    { url: `${BASE}/best-colleges`, changeFrequency: "monthly", priority: 0.8, lastModified: NOW },
-    { url: `${BASE}/about`, changeFrequency: "monthly", priority: 0.4, lastModified: NOW },
+    { url: BASE, changeFrequency: "weekly", priority: 1.0 },
+    { url: `${BASE}/colleges`, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE}/branches`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/universities`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/eapcet`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/news`, changeFrequency: "daily", priority: 0.8 },
+    { url: `${BASE}/compare`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE}/best-colleges`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/about`, changeFrequency: "monthly", priority: 0.4 },
   );
 
-  // Branch landing pages
+  // Branch landing pages — content is computed from COLLEGES at build time,
+  // so BUILD_DATE is the right freshness signal.
   for (const slug of getAllBranchSlugs()) {
     entries.push({
       url: `${BASE}/branches/${slug}`,
       changeFrequency: "monthly",
       priority: 0.7,
-      lastModified: NOW,
+      lastModified: BUILD_DATE,
     });
   }
 
-  // Program landing pages
+  // Program landing pages — same: computed from COLLEGES + UNIVERSITY_COURSES
+  // at build time.
   for (const slug of getAllProgramSlugs()) {
     entries.push({
       url: `${BASE}/programs/${slug}`,
       changeFrequency: "monthly",
       priority: 0.5,
-      lastModified: NOW,
+      lastModified: BUILD_DATE,
     });
   }
 
@@ -76,11 +92,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     if (!hasRealData(c)) continue;
     const base = `${BASE}/colleges/${c.slug}`;
     entries.push(
-      { url: base, changeFrequency: "monthly", priority: 0.7, lastModified: NOW },
-      { url: `${base}/placement`, changeFrequency: "monthly", priority: 0.65, lastModified: NOW },
-      { url: `${base}/fees`, changeFrequency: "monthly", priority: 0.65, lastModified: NOW },
-      { url: `${base}/cutoff`, changeFrequency: "monthly", priority: 0.65, lastModified: NOW },
-      { url: `${base}/admission`, changeFrequency: "monthly", priority: 0.65, lastModified: NOW },
+      { url: base, changeFrequency: "monthly", priority: 0.7, lastModified: BUILD_DATE },
+      { url: `${base}/placement`, changeFrequency: "monthly", priority: 0.65, lastModified: BUILD_DATE },
+      { url: `${base}/fees`, changeFrequency: "monthly", priority: 0.65, lastModified: BUILD_DATE },
+      { url: `${base}/cutoff`, changeFrequency: "monthly", priority: 0.65, lastModified: BUILD_DATE },
+      { url: `${base}/admission`, changeFrequency: "monthly", priority: 0.65, lastModified: BUILD_DATE },
     );
   }
 
@@ -90,7 +106,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE}/compare/${pair}`,
       changeFrequency: "monthly",
       priority: 0.6,
-      lastModified: NOW,
+      lastModified: BUILD_DATE,
     });
   }
 
@@ -100,7 +116,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE}/best-colleges/${city}`,
       changeFrequency: "monthly",
       priority: 0.75,
-      lastModified: NOW,
+      lastModified: BUILD_DATE,
     });
   }
 
@@ -126,7 +142,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE}/eapcet/rank/${slug}`,
       changeFrequency: "monthly",
       priority: 0.7,
-      lastModified: NOW,
+      lastModified: BUILD_DATE,
     });
   }
 

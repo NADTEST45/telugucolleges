@@ -101,8 +101,12 @@ export async function generateMetadata({
 
 /**
  * Build JSON-LD BreadcrumbList schema
+ *
+ * 3rd-position `item` MUST be the canonical pair URL — previously it pointed
+ * back to /compare which made Google merge breadcrumbs across all 530 pair
+ * pages as "same trail," weakening per-pair signal.
  */
-function buildBreadcrumbJsonLd(college1Name: string, college2Name: string) {
+function buildBreadcrumbJsonLd(pair: string, college1Name: string, college2Name: string) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -123,7 +127,36 @@ function buildBreadcrumbJsonLd(college1Name: string, college2Name: string) {
         "@type": "ListItem",
         position: 3,
         name: `${college1Name} vs ${college2Name}`,
-        item: `${SITE_URL}/compare`,
+        item: `${SITE_URL}/compare/${pair}`,
+      },
+    ],
+  };
+}
+
+/**
+ * Build JSON-LD ItemList of the two colleges being compared. Gives Google a
+ * structured handle on the page subject — both as a comparison and as a
+ * pair of EducationalOrganization entities.
+ */
+function buildPairItemListJsonLd(pair: string, c1: { name: string; slug: string }, c2: { name: string; slug: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${c1.name} vs ${c2.name}`,
+    url: `${SITE_URL}/compare/${pair}`,
+    numberOfItems: 2,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        url: `${SITE_URL}/colleges/${c1.slug}`,
+        name: c1.name,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        url: `${SITE_URL}/colleges/${c2.slug}`,
+        name: c2.name,
       },
     ],
   };
@@ -477,7 +510,15 @@ export default async function ComparePairPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(buildBreadcrumbJsonLd(college1.name, college2.name)),
+          __html: JSON.stringify(buildBreadcrumbJsonLd(pair, college1.name, college2.name)),
+        }}
+      />
+
+      {/* JSON-LD Schema (ItemList — the two colleges being compared) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildPairItemListJsonLd(pair, college1, college2)),
         }}
       />
 
