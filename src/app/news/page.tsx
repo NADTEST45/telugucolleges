@@ -164,12 +164,13 @@ export default function NewsPage() {
                 <div className="flex justify-between"><span className="text-white/70 line-through">Registration</span><span className="text-white/70 line-through">Feb 4 — Mar 24</span></div>
                 <div className="flex justify-between"><span className="text-white/70 line-through">Engineering Exam</span><span className="text-white/70 line-through">May 12–15, 18 ✓</span></div>
                 <div className="flex justify-between"><span className="text-white/70 line-through">Agri/Pharmacy</span><span className="text-white/70 line-through">May 19–20 ✓</span></div>
-                <div className="flex justify-between"><span className="text-white/90">Answer Key</span><span className="font-bold text-green-300">May 23, 2026</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Preliminary Key</span><span className="font-bold text-green-300">Released May 25 ✓</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Objections Close</span><span className="font-semibold">May 27, 11 AM</span></div>
                 <div className="flex justify-between"><span className="text-white/90">Results</span><span className="font-semibold">June 1, 2026</span></div>
                 <div className="flex justify-between"><span className="text-white/90">Counselling</span><span className="font-semibold">July 2026</span></div>
               </div>
               <a href="https://cets.apsche.ap.gov.in/EAPCET/" target="_blank" rel="noopener noreferrer" className="inline-block mt-3 text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-colors">
-                Check Answer Key (May 23) →
+                Download Preliminary Key →
               </a>
             </div>
             {/* TS */}
