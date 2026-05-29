@@ -13,6 +13,34 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  // ── New: May 29, 2026 ─────────────────────────────────────────
+  {
+    id: "re-neet-2026-city-slip-may-31-admit-card-june-14",
+    date: "2026-05-29",
+    title: "Re-NEET 2026 — City Intimation Slip Expected by May 31; Admit Card June 14",
+    summary: "NTA is expected to release the Re-NEET 2026 city intimation slip by May 31, 2026 at neet.nta.nic.in. Admit card follows on June 14. The re-exam is on June 21, 2026 (2:00–5:15 PM) for all 22.79 lakh candidates affected by the May 3 paper-leak cancellation.",
+    body: "The National Testing Agency (NTA) is expected to release the Re-NEET UG 2026 city intimation slip at neet.nta.nic.in by May 31, 2026 — roughly three weeks ahead of the re-exam. The advance city slip lets candidates plan travel and accommodation; the actual exam centre address is shared only on the admit card.\n\nKey dates:\n• City intimation slip: Expected by May 31, 2026 at neet.nta.nic.in\n• Admit card release: Expected June 14, 2026\n• Re-exam (Re-NEET 2026): June 21, 2026 (Saturday)\n• Exam timing: 2:00 PM – 5:15 PM (15 minutes extra vs the original NEET UG)\n• Mode: Pen-and-paper\n• Fee refund window (for candidates not appearing in the re-exam): Extended to June 22, 2026\n\nBackground: NTA cancelled the May 3, 2026 NEET UG exam after a CBI-confirmed paper leak. All 22,79,743 originally registered candidates are eligible for Re-NEET 2026. The re-exam is being held in pen-and-paper mode at NTA-designated centres across India.\n\nHow to download the city slip:\n1. Visit neet.nta.nic.in\n2. Click the advance city intimation link for Re-NEET 2026\n3. Log in with application number + DOB / password\n4. Download and save the slip — it shows only the allotted city, not the exact centre\n\nFor AP/TS aspirants: NEET UG 2026 scores remain the sole criterion for MBBS/BDS admissions at Dr. NTR UHS (AP) and KNRUHS (Telangana), plus 15% AIQ (MCC) and deemed universities. State counselling is now expected to begin in late July / August 2026, after the Re-NEET result.\n\nFrom 2027 onwards, NEET UG will shift to Computer-Based Test (CBT) mode to prevent paper leaks, as announced by the Union Education Minister.",
+    category: "general",
+    state: "Both",
+    priority: "high",
+    source: "NTA — Re-NEET 2026 City Intimation / Admit Card Notice",
+    sourceUrl: "https://neet.nta.nic.in/",
+    tags: ["NEET UG", "Re-NEET", "City Intimation", "Admit Card", "NTA", "June 21", "2026"],
+  },
+  // ── New: May 27, 2026 ─────────────────────────────────────────
+  {
+    id: "josaa-2026-registration-opens-june-2",
+    date: "2026-05-27",
+    title: "JoSAA 2026 — IIT/NIT/IIIT/GFTI Counselling Registration Opens June 2",
+    summary: "JoSAA 2026 counselling registration will open on June 2, 2026 at josaa.nic.in — one day after the JEE Advanced 2026 result. Six rounds across IITs, NITs, IIITs and GFTIs. AP/TS aspirants targeting IIT Hyderabad should keep documents ready.",
+    body: "The Joint Seat Allocation Authority (JoSAA) has confirmed the JEE Advanced 2026 schedule and will open JoSAA 2026 counselling registration on June 2, 2026 at josaa.nic.in — one day after the JEE Advanced 2026 result is declared on June 1.\n\nKey points:\n• Registration opens: June 2, 2026 at josaa.nic.in\n• Total rounds: 6 (each round = seat allotment → online acceptance → online reporting + fee payment → document upload)\n• Participating institutes: 23 IITs (seat allotment based on JEE Advanced rank) + 31 NITs + 26 IIITs + 47 GFTIs (seat allotment based on JEE Main rank)\n• Choice-filling: Opens shortly after registration; candidates can lock as many institute–branch preferences as they wish, in priority order\n• Eligibility: JEE Main 2026 (any session) rank for NITs/IIITs/GFTIs; top 2,50,182 JEE Main qualifiers + JEE Advanced 2026 rank for IITs\n• Reporting fee: ₹35,000 (general) / ₹20,000 (SC/ST/PwD) — adjustable against tuition fee after final allotment\n\nFor AP/TS aspirants:\n• IIT Hyderabad remains the most popular IIT for Telugu-state candidates, followed by IIT Madras, Bombay and Roorkee\n• NIT Warangal (TS) and NIT Andhra Pradesh (Tadepalligudem) participate via JEE Main rank\n• IIIT Hyderabad (UGEE-based) and IIIT Sri City fill seats outside JoSAA — separate processes\n• CSAB special rounds follow JoSAA closure for left-over NIT+ seats\n\nDocuments to keep ready (scanned + originals for online reporting):\n• Class X and XII marksheets and pass certificates\n• Photo ID (Aadhaar preferred)\n• Category certificate (OBC-NCL / SC / ST / EWS) issued in the prescribed JoSAA format\n• PwD certificate (if applicable)\n• Passport-size photograph matching the application\n• JEE Main and (for IITs) JEE Advanced scorecards\n\nWatch josaa.nic.in for the full round-wise calendar — typically released alongside the JEE Advanced result on June 1. JoSAA round 1 allotment historically follows within 7–10 days of registration opening.",
+    category: "counselling",
+    state: "Both",
+    priority: "high",
+    source: "Joint Seat Allocation Authority (JoSAA) / JEE (Advanced) 2026 — IIT Roorkee",
+    sourceUrl: "https://josaa.nic.in/",
+    tags: ["JoSAA", "IIT", "NIT", "IIIT", "GFTI", "Counselling", "JEE Advanced", "2026"],
+  },
   // ── New: May 25, 2026 ─────────────────────────────────────────
   {
     id: "ap-eapcet-2026-preliminary-key-released-may-25",
