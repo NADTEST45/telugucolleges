@@ -166,7 +166,7 @@ export default function NewsPage() {
                 <div className="flex justify-between"><span className="text-white/70 line-through">Agri/Pharmacy</span><span className="text-white/70 line-through">May 19–20 ✓</span></div>
                 <div className="flex justify-between"><span className="text-white/70 line-through">Preliminary Key</span><span className="text-white/70 line-through">Released May 25 ✓</span></div>
                 <div className="flex justify-between"><span className="text-white/70 line-through">Objections</span><span className="text-white/70 line-through">Closed May 27 ✓</span></div>
-                <div className="flex justify-between"><span className="text-white/90">Results + Final Key</span><span className="font-bold text-green-300">June 1, 2026</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Results + Final Key</span><span className="font-bold text-amber-200">Postponed — Jun 17–21</span></div>
                 <div className="flex justify-between"><span className="text-white/90">Counselling</span><span className="font-semibold">July 2026</span></div>
               </div>
               <a href="https://cets.apsche.ap.gov.in/EAPCET/" target="_blank" rel="noopener noreferrer" className="inline-block mt-3 text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-colors">

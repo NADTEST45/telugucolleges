@@ -13,6 +13,47 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  // ── New: June 4, 2026 ─────────────────────────────────────────
+  {
+    id: "ap-eapcet-2026-result-postponed-june-17",
+    date: "2026-06-04",
+    title: "AP EAPCET 2026 Result Postponed — Now Expected Between June 17–21",
+    summary: "APSCHE has postponed the AP EAPCET 2026 result from the originally announced June 1 date. Rank cards are now expected between June 17 and June 21, after the AP Intermediate Advanced Supplementary and Improvement results are declared. The delay protects the 25% Class XII weightage in the EAPCET rank formula.",
+    body: "The Andhra Pradesh State Council of Higher Education (APSCHE) has officially postponed the AP EAPCET 2026 result declaration. The result was originally scheduled for June 1, 2026 but is now expected to be released between June 17 and June 21, 2026 at cets.apsche.ap.gov.in.\n\nWhy the delay?\n• Class XII (Intermediate) marks carry 25% weightage in the final AP EAPCET rank formula\n• Approximately 1.50 lakh second-year Intermediate students are currently writing the BIEAP Advanced Supplementary and Improvement examinations\n• Around 1 lakh of them are attempting the Mathematics paper to improve their score\n• Supplementary/Improvement exams conclude on June 5, 2026; results follow soon after\n• Declaring EAPCET ranks before the updated Inter marks are in would create an unfair rank for these students\n\nRevised expected timeline:\n• AP Intermediate Advanced Supplementary / Improvement exams: through June 5, 2026 (BIEAP)\n• BIEAP supplementary results: shortly after June 5\n• AP EAPCET 2026 final answer key + ranks: expected June 17–18, 2026\n• AP EAPCET 2026 rank cards available: expected by June 21, 2026\n• AP EAPCET 2026 counselling notification: expected first week of July 2026 (no change so far)\n\nThe final answer key — incorporating all valid objections submitted before the 11 AM, May 27 deadline — will be published alongside the result.\n\nWhat candidates should do now: Keep your hall ticket, response sheet and saved provisional key safe. Track cets.apsche.ap.gov.in for the official notification of the new result date. Counselling timelines (early July) remain unchanged for now.",
+    category: "eapcet",
+    state: "AP",
+    priority: "high",
+    source: "APSCHE / JNTU Kakinada — AP EAPCET 2026 Result Postponement",
+    sourceUrl: "https://cets.apsche.ap.gov.in/EAPCET/",
+    tags: ["AP EAPCET", "Result", "Postponed", "June 17", "June 21", "2026"],
+  },
+  // ── New: June 2, 2026 ─────────────────────────────────────────
+  {
+    id: "jee-advanced-2026-result-declared-june-1",
+    date: "2026-06-02",
+    title: "JEE Advanced 2026 Result Declared — Shubham Kumar AIR 1 (330/360); 56,880 Qualify",
+    summary: "IIT Roorkee declared the JEE Advanced 2026 result on June 1 at 2:45 AM at jeeadv.ac.in. Shubham Kumar (IIT Delhi zone) topped with AIR 1 and 330/360. Kabeer Chhillar (329) and Jatin Chahar (319) followed at AIR 2 and 3. Female topper: Arohi Deshpande (AIR 77, 280/360). 56,880 of 1,79,694 appeared candidates qualified.",
+    body: "IIT Roorkee, the organising institute for JEE Advanced 2026, declared the result on Monday, June 1, 2026 at 2:45 AM IST at jeeadv.ac.in.\n\nOverall toppers:\n• AIR 1: Shubham Kumar — 330/360 (IIT Delhi zone)\n• AIR 2: Kabeer Chhillar — 329/360\n• AIR 3: Jatin Chahar — 319/360\n• Female topper (overall): Arohi Deshpande — AIR 77, 280/360\n\nKey statistics:\n• Candidates registered: 1,87,389\n• Candidates appeared in both papers: 1,79,694\n• Candidates qualified for JoSAA counselling: 56,880\n• Female qualifiers: 10,107\n\nNext steps:\n• Final answer key: Published alongside the result on jeeadv.ac.in\n• Scorecard download: Available on the candidate portal (registration number + DOB / password)\n• JEE Advanced AAT (Architecture Aptitude Test) registration: Opened June 1, closed June 2 at 5 PM — exam on June 4, 2026\n• JoSAA 2026 counselling registration: Opened June 2, 2026 at 5 PM at josaa.nic.in — runs in 5 rounds (Round 1 allotment on June 13)\n\nFor AP/TS aspirants: All 56,880 qualified candidates are eligible to participate in JoSAA 2026 counselling for IIT seat allocation. IIT Hyderabad remains the most popular IIT for Telugu-state candidates, followed by IIT Madras, Bombay and Roorkee. Carry the Class X / XII marksheets, photo ID, category and PwD certificates (if applicable) to round-wise online reporting.",
+    category: "general",
+    state: "Both",
+    priority: "high",
+    source: "JEE (Advanced) 2026 — IIT Roorkee Result Declaration",
+    sourceUrl: "https://jeeadv.ac.in/",
+    tags: ["JEE Advanced", "IIT Roorkee", "Result", "Shubham Kumar", "Toppers", "AIR 1", "2026"],
+  },
+  {
+    id: "jee-aat-2026-exam-june-4",
+    date: "2026-06-02",
+    title: "JEE Advanced AAT 2026 — Registration Closed June 2; Exam on June 4, Result on June 7",
+    summary: "IIT Roorkee opened JEE Advanced AAT (Architecture Aptitude Test) 2026 registration on June 1 and closed it on June 2 at 5 PM. The 3-hour exam is on June 4, 2026; results follow on June 7. AAT scores are used for B.Arch admissions at IIT Kharagpur, IIT Roorkee and IIT (BHU) Varanasi.",
+    body: "IIT Roorkee opened the JEE Advanced AAT 2026 registration on Sunday, June 1, 2026 immediately after the JEE Advanced result was declared. Registration closed on Tuesday, June 2 at 5:00 PM IST.\n\n• Registration window: June 1 – June 2, 2026 (5 PM close) at jeeadv.ac.in\n• Exam date: June 4, 2026\n• Exam duration: 3 hours (Free-hand drawing, geometric drawing, three-dimensional perception, imagination & aesthetic sensitivity, architectural awareness)\n• Result: June 7, 2026\n• Admit card: Not separately issued — candidates must carry the printed JEE Advanced 2026 admit card + valid original photo ID to the AAT exam centre\n\nEligibility: Only candidates who appeared in JEE Advanced 2026 (both papers) and qualified are eligible to register for AAT.\n\nWhere AAT scores are used: B.Arch programme admissions at IIT Kharagpur, IIT Roorkee and IIT (BHU) Varanasi. AAT qualifying status is reported as Qualified / Not Qualified — actual seat allocation happens through JoSAA 2026 counselling on the basis of JEE Advanced rank.\n\nFor AP/TS aspirants targeting B.Arch at an IIT, AAT is the mandatory next gate after JEE Advanced.",
+    category: "general",
+    state: "Both",
+    priority: "medium",
+    source: "JEE (Advanced) 2026 — IIT Roorkee AAT 2026 Notice",
+    sourceUrl: "https://jeeadv.ac.in/",
+    tags: ["JEE AAT", "Architecture Aptitude Test", "IIT Roorkee", "B.Arch", "June 4", "2026"],
+  },
   // ── New: May 29, 2026 ─────────────────────────────────────────
   {
     id: "re-neet-2026-city-slip-may-31-admit-card-june-14",
@@ -31,9 +72,9 @@ export const NEWS_ITEMS: NewsItem[] = [
   {
     id: "josaa-2026-registration-opens-june-2",
     date: "2026-05-27",
-    title: "JoSAA 2026 — IIT/NIT/IIIT/GFTI Counselling Registration Opens June 2",
-    summary: "JoSAA 2026 counselling registration will open on June 2, 2026 at josaa.nic.in — one day after the JEE Advanced 2026 result. Six rounds across IITs, NITs, IIITs and GFTIs. AP/TS aspirants targeting IIT Hyderabad should keep documents ready.",
-    body: "The Joint Seat Allocation Authority (JoSAA) has confirmed the JEE Advanced 2026 schedule and will open JoSAA 2026 counselling registration on June 2, 2026 at josaa.nic.in — one day after the JEE Advanced 2026 result is declared on June 1.\n\nKey points:\n• Registration opens: June 2, 2026 at josaa.nic.in\n• Total rounds: 6 (each round = seat allotment → online acceptance → online reporting + fee payment → document upload)\n• Participating institutes: 23 IITs (seat allotment based on JEE Advanced rank) + 31 NITs + 26 IIITs + 47 GFTIs (seat allotment based on JEE Main rank)\n• Choice-filling: Opens shortly after registration; candidates can lock as many institute–branch preferences as they wish, in priority order\n• Eligibility: JEE Main 2026 (any session) rank for NITs/IIITs/GFTIs; top 2,50,182 JEE Main qualifiers + JEE Advanced 2026 rank for IITs\n• Reporting fee: ₹35,000 (general) / ₹20,000 (SC/ST/PwD) — adjustable against tuition fee after final allotment\n\nFor AP/TS aspirants:\n• IIT Hyderabad remains the most popular IIT for Telugu-state candidates, followed by IIT Madras, Bombay and Roorkee\n• NIT Warangal (TS) and NIT Andhra Pradesh (Tadepalligudem) participate via JEE Main rank\n• IIIT Hyderabad (UGEE-based) and IIIT Sri City fill seats outside JoSAA — separate processes\n• CSAB special rounds follow JoSAA closure for left-over NIT+ seats\n\nDocuments to keep ready (scanned + originals for online reporting):\n• Class X and XII marksheets and pass certificates\n• Photo ID (Aadhaar preferred)\n• Category certificate (OBC-NCL / SC / ST / EWS) issued in the prescribed JoSAA format\n• PwD certificate (if applicable)\n• Passport-size photograph matching the application\n• JEE Main and (for IITs) JEE Advanced scorecards\n\nWatch josaa.nic.in for the full round-wise calendar — typically released alongside the JEE Advanced result on June 1. JoSAA round 1 allotment historically follows within 7–10 days of registration opening.",
+    title: "JoSAA 2026 — IIT/NIT/IIIT/GFTI Counselling Registration Opens June 2 (5 PM); 5 Rounds, Last Date June 11",
+    summary: "JoSAA 2026 counselling registration opens on June 2, 2026 at 5 PM at josaa.nic.in — one day after the JEE Advanced result. Five rounds across 138 institutes (23 IITs, IISc, 31 NITs, IIEST Shibpur, 26 IIITs and 56 GFTIs) for 62,853 seats. Registration + choice-filling close June 11. Round 1 allotment: June 13.",
+    body: "The Joint Seat Allocation Authority (JoSAA) has confirmed the JEE Advanced 2026 schedule and opens JoSAA 2026 counselling registration on June 2, 2026 at 5:00 PM IST at josaa.nic.in — one day after the JEE Advanced 2026 result is declared on June 1.\n\nKey points:\n• Registration + choice-filling opens: June 2, 2026 at 5:00 PM\n• Registration + choice-filling closes: June 11, 2026\n• Total rounds: 5 (each round = seat allotment → online acceptance → online reporting + fee payment → document upload)\n• Participating institutes: 138 — 23 IITs + IISc Bengaluru + 31 NITs + IIEST Shibpur + 26 IIITs + 56 GFTIs (Other Government-Funded Technical Institutes)\n• Total seats offered: 62,853\n• Eligibility: JEE Main 2026 (any session) rank for NITs/IIITs/GFTIs; JEE Advanced 2026 qualified candidates (56,880 this year) for IITs\n• Reporting fee: ₹35,000 (general) / ₹20,000 (SC/ST/PwD) — adjustable against tuition fee after final allotment\n\nRound-wise schedule:\n• Mock allotment round 1: June 8, 2026\n• Mock allotment round 2: June 10, 2026\n• Round 1 seat allotment: June 13, 2026\n• Round 2 seat allotment: June 30, 2026\n• Round 3 seat allotment: July 6, 2026\n• Round 4 seat allotment: July 10, 2026\n• Round 5 seat allotment: July 16, 2026 (final JoSAA round; CSAB special rounds follow for left-over NIT+ seats)\n\nFor AP/TS aspirants:\n• IIT Hyderabad remains the most popular IIT for Telugu-state candidates, followed by IIT Madras, Bombay and Roorkee\n• NIT Warangal (TS) and NIT Andhra Pradesh (Tadepalligudem) participate via JEE Main rank\n• IIIT Hyderabad (UGEE-based) and IIIT Sri City fill seats outside JoSAA — separate processes\n\nDocuments to keep ready (scanned + originals for online reporting):\n• Class X and XII marksheets and pass certificates\n• Photo ID (Aadhaar preferred)\n• Category certificate (OBC-NCL / SC / ST / EWS) issued in the prescribed JoSAA format\n• PwD certificate (if applicable)\n• Passport-size photograph matching the application\n• JEE Main and (for IITs) JEE Advanced scorecards",
     category: "counselling",
     state: "Both",
     priority: "high",
