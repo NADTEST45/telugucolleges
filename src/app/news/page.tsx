@@ -184,7 +184,8 @@ export default function NewsPage() {
                 <div className="flex justify-between"><span className="text-white/70 line-through">Agri/Pharmacy Exam</span><span className="text-white/70 line-through">May 4–5 ✓</span></div>
                 <div className="flex justify-between"><span className="text-white/70 line-through">Engineering Exam</span><span className="text-white/70 line-through">May 9–11 ✓</span></div>
                 <div className="flex justify-between"><span className="text-white/90">Results</span><span className="font-bold text-blue-300">Declared May 17 ✓</span></div>
-                <div className="flex justify-between"><span className="text-white/90">Counselling Reg.</span><span className="font-semibold">Late June 2026</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Counselling Reg.</span><span className="font-bold text-blue-300">Jun 19–28</span></div>
+                <div className="flex justify-between"><span className="text-white/90">Web Options</span><span className="font-semibold">Jun 25–Jul 1</span></div>
                 <div className="flex justify-between"><span className="text-white/90">Counselling Rounds</span><span className="font-semibold">Jul–Aug 2026</span></div>
               </div>
               <a href="https://eapcet.tgche.ac.in/" target="_blank" rel="noopener noreferrer" className="inline-block mt-3 text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-colors">

@@ -13,6 +13,20 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  // ── New: June 9, 2026 ─────────────────────────────────────────
+  {
+    id: "tg-eapcet-2026-counselling-schedule-june-19",
+    date: "2026-06-09",
+    title: "TG EAPCET 2026 Engineering Counselling Schedule Notified — Registration June 19–28; Web Options June 25–July 1",
+    summary: "TGCHE has notified the TG EAPCET 2026 engineering admission schedule. Online registration and certificate-verification slot booking run June 19–28, 2026 at tgeapcet.nic.in. Certificate verification: June 22–29. Web options: June 25–July 1. Mock seat allocation by July 4; first-phase seat allotment expected in July. Processing fee ₹1,200 (OC/BC) / ₹600 (SC/ST).",
+    body: "The Telangana Council of Higher Education (TGCHE) has notified the TG EAPCET 2026 engineering (E-stream) admission counselling schedule. The process is conducted online at tgeapcet.nic.in in three phases plus internal sliding and spot admissions.\n\nFirst-phase schedule:\n• Online registration + processing-fee payment + slot booking: June 19 – June 28, 2026\n• Certificate verification (at Help Line Centres, per slot): June 22 – June 29, 2026\n• Web options (college/branch preferences): June 25 – July 1, 2026\n• Mock seat allocation: on or before July 4, 2026\n• Web option modification (after mock allotment): July 5 – July 7, 2026\n• First-phase seat allotment: expected in July 2026\n• Subsequent phases (web options, allotment, fee payment, reporting, internal sliding): through mid-August 2026\n\nProcessing fee:\n• OC / BC: ₹1,200\n• SC / ST: ₹600\n\nDocuments to keep ready (originals + scans for verification): TG EAPCET 2026 rank card and hall ticket, SSC (Class X) memo, Intermediate (Class XII) memos, Transfer Certificate, study/bonafide certificates (Classes VI–XII for local-area status), Aadhaar, income certificate (for fee reimbursement / tuition-fee eligibility), caste certificate (if applicable), and EWS certificate (if applicable).\n\nFee context: Convenor-quota tuition fees for the 2025–26 to 2027–28 block are fixed under G.O. Ms. No. 06 dt. 04.03.2026 (TAFRC), ₹45,000 floor and ₹1,83,000 ceiling (CBIT). The government fee-reimbursement scheme covers convenor-quota tuition for eligible candidates as per current policy.\n\nWhat candidates should do now: Pay the processing fee and book a certificate-verification slot early in the June 19–28 window to secure a convenient Help Line Centre and date. Track tgeapcet.nic.in and eapcet.tgche.ac.in for any revision to the allotment dates.",
+    category: "counselling",
+    state: "TS",
+    priority: "high",
+    source: "TGCHE / JNTU Hyderabad — TG EAPCET 2026 Engineering Counselling Notification",
+    sourceUrl: "https://eapcet.tgche.ac.in/",
+    tags: ["TG EAPCET", "TS EAMCET", "Counselling", "Registration", "June 19", "2026"],
+  },
   // ── New: June 4, 2026 ─────────────────────────────────────────
   {
     id: "ap-eapcet-2026-result-postponed-june-17",
