@@ -168,7 +168,10 @@ export default async function CollegesPage({ searchParams }: PageProps) {
                   </div>
                 )}
               </div>
-              <div className="text-[11px] text-gray-500 mt-1.5">Fees shown for private affiliated colleges are convener-quota (category-A) rates as per the applicable block period GO.</div>
+              <div className="text-[11px] text-gray-500 mt-1.5">
+                Fees shown for private affiliated colleges are convener-quota (category-A) rates as per the applicable block period GO.{" "}
+                <Link href="/fee-calculator" className="text-accent font-semibold hover:underline">Estimate your full 4-year cost →</Link>
+              </div>
             </div>
           </div>
         </div>
