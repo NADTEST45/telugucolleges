@@ -302,6 +302,9 @@ export default function ApResults2026Page() {
         </p>
         <ul className="text-sm text-gray-700 space-y-1.5">
           <li>
+            → <Link href="/eapcet/ap-cutoff-2026" className="text-accent underline">AP EAPCET 2026 cutoff — expected branch-wise closing ranks</Link>
+          </li>
+          <li>
             → <Link href="/eapcet/ap-web-options" className="text-accent underline">AP EAPCET web options entry — step-by-step guide</Link>
           </li>
           <li>

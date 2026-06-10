@@ -5,6 +5,7 @@ import { getAllBranchSlugs } from "@/lib/branch-data";
 import { getAllPairSlugs } from "@/lib/comparison-pairs";
 import { getAllCitySlugs } from "@/lib/city-data";
 import { getAllRankBandSlugs } from "@/lib/rank-band-data";
+import { AP_CUTOFF_BRANCHES } from "@/lib/ap-cutoff-2026";
 import { NEWS_ITEMS } from "@/lib/news";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
@@ -56,6 +57,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/eapcet/ap-web-options`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/eapcet/certificate-verification-documents`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/eapcet/ts-counselling-dates-2026`, changeFrequency: "weekly", priority: 0.8 },
+    // AP EAPCET 2026 cutoff landing pages — pre-built ahead of the June 18–21
+    // result spike; updated as official 2026 rounds conclude.
+    { url: `${BASE}/eapcet/ap-cutoff-2026`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE}/news`, changeFrequency: "daily", priority: 0.8 },
     { url: `${BASE}/compare`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE}/fee-calculator`, changeFrequency: "monthly", priority: 0.7 },
@@ -149,6 +153,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE}/eapcet/rank/${slug}`,
       changeFrequency: "monthly",
       priority: 0.7,
+      lastModified: BUILD_DATE,
+    });
+  }
+
+  // AP EAPCET 2026 branch-wise cutoff landing pages — high-intent
+  // "ap eapcet 2026 cutoff <branch>" queries ahead of the result spike.
+  for (const b of AP_CUTOFF_BRANCHES) {
+    entries.push({
+      url: `${BASE}/eapcet/ap-cutoff-2026/${b.slug}`,
+      changeFrequency: "weekly",
+      priority: 0.8,
       lastModified: BUILD_DATE,
     });
   }

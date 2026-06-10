@@ -255,6 +255,10 @@ export default function EAPCETPage() {
             <div className="font-semibold text-sm mb-0.5">AP EAPCET Results 2026 — Live Updates</div>
             <p className="text-xs text-gray-600 leading-relaxed">Why results are postponed, the new expected date (June 18–21), and rank card download steps.</p>
           </Link>
+          <Link href="/eapcet/ap-cutoff-2026" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
+            <div className="font-semibold text-sm mb-0.5">AP EAPCET 2026 Cutoff — Branch-wise</div>
+            <p className="text-xs text-gray-600 leading-relaxed">Expected college-wise closing ranks for CSE, ECE, EEE, Civil, Mech, IT &amp; AI branches.</p>
+          </Link>
           <Link href="/eapcet/ts-counselling-dates-2026" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
             <div className="font-semibold text-sm mb-0.5">TS Counselling Dates 2026</div>
             <p className="text-xs text-gray-600 leading-relaxed">Full TGCHE phase-wise schedule — Phase 1 registration June 19–28, allotment by July 10.</p>
