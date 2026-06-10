@@ -4,7 +4,7 @@ import Link from "next/link";
 import { COLLEGES, fmtFee, College } from "@/lib/colleges";
 import { AP_CUTOFFS, AP_CUTOFF_YEARS, CATEGORIES, catKey, type Category, type Gender } from "@/lib/ap-cutoffs";
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
-import { getHistoricalCutoff } from "@/lib/cutoff-utils";
+import { getHistoricalCutoff, getTSPhaseHistoricalCutoff, PREDICTOR_PHASES, type PredictorPhase } from "@/lib/cutoff-utils";
 
 export default function EAPCETPage() {
   const [rank, setRank] = useState("");
@@ -12,6 +12,9 @@ export default function EAPCETPage() {
   const [branch, setBranch] = useState("cse");
   const [category, setCategory] = useState<Category>("OC");
   const [gender, setGender] = useState<Gender>("boys");
+  const [phase, setPhase] = useState<PredictorPhase>("final");
+  // Phase-wise data exists only for TGEAPCET (TSCHE publishes phase-wise PDFs; APSCHE doesn't)
+  const effectivePhase: PredictorPhase = state === "Telangana" ? phase : "final";
 
   // Debounced rank for expensive predictor computation (P2)
   const [debouncedRank, setDebouncedRank] = useState("");
@@ -95,15 +98,25 @@ export default function EAPCETPage() {
       .map(([, code]) => code);
   }, []);
 
-  /* Predictor — uses category + gender specific historical data for AP & TS */
+  /* Predictor — uses category + gender specific historical data for AP & TS.
+     For TS, a specific counselling phase (Phase 1/2/Special) can be selected;
+     phase-specific lookups never fall back to other data — accuracy over coverage. */
+  const usePhaseData = effectivePhase !== "final";
+  const lookupCutoff = useCallback((code: string, collegeState: string) =>
+    collegeState === "Telangana"
+      ? getTSPhaseHistoricalCutoff(code, branch, category, gender, effectivePhase)
+      : getHistoricalCutoff(code, branch, category, gender, collegeState),
+  [branch, category, gender, effectivePhase]);
+
   const predictions = useMemo(() => {
     const r = parseInt(debouncedRank);
     if (!r || r <= 0) return [];
     return COLLEGES
       .filter(c => {
         if (state && c.state !== state) return false;
-        const hist = getHistoricalCutoff(c.code, branch, category, gender, c.state);
+        const hist = lookupCutoff(c.code, c.state);
         if (hist.avg > 0) return r <= hist.avg * 1.3;
+        if (usePhaseData) return false; // no fallback when a specific phase is chosen
         const cutoff = c.cutoff[branch];
         return cutoff && cutoff > 0 && r <= cutoff * 1.3;
       })
@@ -111,7 +124,7 @@ export default function EAPCETPage() {
         let cutoff = 0;
         let isHistorical = false;
         let dataYears: string[] = [];
-        const hist = getHistoricalCutoff(c.code, branch, category, gender, c.state);
+        const hist = lookupCutoff(c.code, c.state);
         if (hist.avg > 0) { cutoff = hist.avg; isHistorical = true; dataYears = hist.dataYears; }
         if (!isHistorical) cutoff = c.cutoff[branch] || 0;
 
@@ -122,7 +135,7 @@ export default function EAPCETPage() {
         return { college: c, cutoff, chance, isHistorical, dataYears };
       })
       .sort((a, b) => a.cutoff - b.cutoff);
-  }, [debouncedRank, state, branch, category, gender]);
+  }, [debouncedRank, state, branch, usePhaseData, lookupCutoff]);
 
   const catLabel = CATEGORIES.find(c => c.key === category)?.label || category;
 
@@ -314,7 +327,7 @@ export default function EAPCETPage() {
       {/* College Predictor */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
         <h2 className="text-base sm:text-lg font-bold mb-1">College Predictor</h2>
-        <p className="text-[11px] sm:text-xs text-gray-500 mb-4 sm:mb-5">Weighted prediction using official TSCHE closing ranks (2023-24 & 2024-25) and APSCHE closing ranks (2022-23 & 2023-24) — 70% latest year, 30% previous year. Category & gender-wise.</p>
+        <p className="text-[11px] sm:text-xs text-gray-500 mb-4 sm:mb-5">Weighted prediction using official TSCHE closing ranks (2023-24 & 2024-25) and APSCHE closing ranks (2022-23 & 2023-24) — 70% latest year, 30% previous year. Category & gender-wise. For Telangana, you can also predict by counselling phase (Phase 1 / Phase 2 / Special) — the only calculator with official first-phase data.</p>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3 mb-4 sm:mb-6">
           <div>
@@ -359,7 +372,33 @@ export default function EAPCETPage() {
               <option value="Andhra Pradesh">Andhra Pradesh</option>
             </select>
           </div>
+          {state === "Telangana" && (
+            <div>
+              <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Counselling Phase</label>
+              <select value={phase} onChange={e => setPhase(e.target.value as PredictorPhase)}
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm cursor-pointer font-semibold">
+                {PREDICTOR_PHASES.map(p => (
+                  <option key={p.key} value={p.key}>{p.label}</option>
+                ))}
+              </select>
+            </div>
+          )}
         </div>
+
+        {usePhaseData && (
+          <div className="bg-blue-50 rounded-lg px-4 py-2 text-[11px] text-blue-700 mb-4">
+            {phase === "phase1" && (
+              <>Phase-1 cutoffs are the <strong>tightest</strong> of the season — later phases relax as seats free up. TG EAPCET 2026 Phase-1 allotment is due by <strong>July 10</strong>. Data: official TSCHE Phase-1 Last Rank Statements (2023 &amp; 2022).</>
+            )}
+            {phase === "phase2" && (
+              <>Phase-2 cutoffs typically relax vs Phase 1 as candidates slide or exit. Data: official TSCHE Phase-2 Last Rank Statement (2023).</>
+            )}
+            {phase === "special" && (
+              <>Special-phase cutoffs are the most relaxed — leftover seats after regular phases. Data: official TSCHE Special-Phase Last Rank Statement (2023).</>
+            )}
+            {" "}Colleges without official data for this phase are excluded — no estimates.
+          </div>
+        )}
 
         {gender === "girls" && (
           <div className="bg-pink-50 rounded-lg px-4 py-2 text-[11px] text-pink-700 mb-4">
@@ -373,7 +412,7 @@ export default function EAPCETPage() {
               <div className="text-sm font-semibold text-gray-600">
                 {predictions.length} college{predictions.length !== 1 ? "s" : ""} for rank {parseInt(rank).toLocaleString()}
               </div>
-              <div className="text-[11px] text-gray-500">{catLabel} · {gender === "girls" ? "Girls" : "Boys"} · {branch.toUpperCase()}</div>
+              <div className="text-[11px] text-gray-500">{catLabel} · {gender === "girls" ? "Girls" : "Boys"} · {branch.toUpperCase()}{usePhaseData ? ` · ${PREDICTOR_PHASES.find(p => p.key === phase)?.label}` : ""}</div>
             </div>
             <div className="space-y-2 max-h-[500px] overflow-y-auto -mx-1 px-1">
               {predictions.map(({ college: col, cutoff, chance, isHistorical, dataYears }) => (
@@ -412,7 +451,11 @@ export default function EAPCETPage() {
           <div className="text-center py-8 text-gray-500">
             <div className="text-4xl mb-2">🎯</div>
             <p className="font-semibold">No colleges found for this rank</p>
-            <p className="text-xs mt-1">Try a different branch, category, or remove the state filter</p>
+            <p className="text-xs mt-1">
+              {usePhaseData
+                ? "Phase-specific data covers fewer college-branch combinations. Try Final Phase, or a different branch or category."
+                : "Try a different branch, category, or remove the state filter"}
+            </p>
           </div>
         )}
       </section>
