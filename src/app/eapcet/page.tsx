@@ -234,6 +234,29 @@ export default function EAPCETPage() {
         </div>
       </section>
 
+      {/* 2026 season guides */}
+      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
+        <h2 className="text-base sm:text-lg font-bold mb-3">EAPCET 2026 — Results & Counselling Guides</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <Link href="/eapcet/ap-results-2026" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
+            <div className="font-semibold text-sm mb-0.5">AP EAPCET Results 2026 — Live Updates</div>
+            <p className="text-xs text-gray-600 leading-relaxed">Why results are postponed, the new expected date (June 18–21), and rank card download steps.</p>
+          </Link>
+          <Link href="/eapcet/ts-counselling-dates-2026" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
+            <div className="font-semibold text-sm mb-0.5">TS Counselling Dates 2026</div>
+            <p className="text-xs text-gray-600 leading-relaxed">Full TGCHE phase-wise schedule — Phase 1 registration June 19–28, allotment by July 10.</p>
+          </Link>
+          <Link href="/eapcet/ap-web-options" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
+            <div className="font-semibold text-sm mb-0.5">AP Web Options Entry — Step-by-Step</div>
+            <p className="text-xs text-gray-600 leading-relaxed">The exact entry process and the priority-order strategy that decides your seat.</p>
+          </Link>
+          <Link href="/eapcet/certificate-verification-documents" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
+            <div className="font-semibold text-sm mb-0.5">Certificate Verification Documents</div>
+            <p className="text-xs text-gray-600 leading-relaxed">Complete checklist for AP & TS — including income certificate validity rules.</p>
+          </Link>
+        </div>
+      </section>
+
       {/* Overview */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
         <h2 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">About EAPCET</h2>

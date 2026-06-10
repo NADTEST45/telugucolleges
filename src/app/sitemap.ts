@@ -50,6 +50,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/branches`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/universities`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/eapcet`, changeFrequency: "monthly", priority: 0.8 },
+    // EAPCET 2026 season pages — results tracker changes near-daily until the
+    // result drops; counselling guides update as schedules are notified.
+    { url: `${BASE}/eapcet/ap-results-2026`, changeFrequency: "daily", priority: 0.9 },
+    { url: `${BASE}/eapcet/ap-web-options`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/eapcet/certificate-verification-documents`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/eapcet/ts-counselling-dates-2026`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/news`, changeFrequency: "daily", priority: 0.8 },
     { url: `${BASE}/compare`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE}/best-colleges`, changeFrequency: "monthly", priority: 0.8 },
