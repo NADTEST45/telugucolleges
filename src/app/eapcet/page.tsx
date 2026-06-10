@@ -138,8 +138,8 @@ export default function EAPCETPage() {
         { label: "Admit card download",date: "Apr 28",             highlight: false },
         { label: "Engineering Exam",   date: "May 12–15, 18 ✓",    highlight: true  },
         { label: "Agri / Pharmacy",    date: "May 19–20",          highlight: true  },
-        { label: "Results (Expected)", date: "June 1, 2026",       highlight: false },
-        { label: "Counselling Reg.",   date: "July 2026",          highlight: false },
+        { label: "Results (Expected)", date: "June 18–21, 2026 (postponed)", highlight: true },
+        { label: "Counselling Reg.",   date: "Early July 2026 (expected)",   highlight: false },
         { label: "Counselling Rounds", date: "Jul–Aug 2026 (3 rds + spot)", highlight: false },
       ],
     },
@@ -152,8 +152,10 @@ export default function EAPCETPage() {
         { label: "Agri / Pharmacy",    date: "May 4–5 ✓",          highlight: false },
         { label: "Engineering Exam",   date: "May 9–11 ✓",         highlight: true  },
         { label: "Results",            date: "Declared May 17, 2026", highlight: true  },
-        { label: "Counselling Reg.",   date: "Early June 2026",    highlight: false },
-        { label: "Counselling Rounds", date: "Jun–Aug 2026 (3 rds + spot)", highlight: false },
+        { label: "Counselling Reg.",   date: "June 19–28, 2026",   highlight: true  },
+        { label: "Cert. Verification", date: "June 22–29, 2026",   highlight: false },
+        { label: "Web Options",        date: "June 25 — July 1",   highlight: false },
+        { label: "Counselling Rounds", date: "Jul–Aug 2026 (3 phases + sliding/spot)", highlight: false },
       ],
     },
   } as const;
@@ -228,7 +230,7 @@ export default function EAPCETPage() {
           </div>
         </div>
         <div className="px-4 sm:px-6 pb-3 sm:pb-4 text-[11px] text-blue-200/50">
-          * Dates based on official notifications as of May 19, 2026. TG EAPCET results declared May 17, 2026; AP EAPCET results expected June 1, 2026. Check APSCHE / TSCHE websites for latest updates.
+          * Dates based on official notifications as of June 10, 2026. TG EAPCET results declared May 17, 2026; TG counselling registration June 19–28. AP EAPCET results postponed — expected June 18–21, 2026. Check APSCHE / TGCHE websites for latest updates.
         </div>
       </section>
 
