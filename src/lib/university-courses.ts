@@ -47,7 +47,7 @@ export const UNIVERSITY_FEE_AY: Record<string, string> = {
   AUDI: "2026-27", // audisankara.ac.in — ₹61K/yr B.Tech
   MITS: "2026-27", // mits.ac.in — Fee Details 2026-27 PDF
   GMRI: "2026-27", // gmrit.edu.in/du/eligibility.php — ₹1.25L/sem CSE, ₹75K/sem EEE/Mech/Civil
-  GIOM: "2025-26", // gitam.edu — MBBS fee notification awaited for 2026-27
+  GIOM: "2025-26", // gitam.edu/gimsr/admissions/under-graduate — official ₹25.37L/yr (Y1-4), ₹12.7L Y5; 2026-27 notification awaited
 
   // AP — Private State Universities
   SRMA: "2026-27", // srmap.edu.in — Admissions 2026 page (refreshed 2026-05-19 — added Microelectronics, Defence, Energy, Health, Semiconductor, AI, Quantum Tech)
@@ -56,7 +56,7 @@ export const UNIVERSITY_FEE_AY: Record<string, string> = {
   AITS: "2026-27", // annamacharyauniversity.edu.in — ₹60K/yr B.Tech
   ADTP: "2026-27", // adityauniversity.in — ₹2.75L/yr CSE (total ₹11L)
   MBUT: "2026-27", // mbu.asia — MBU_Fee_Structrure_2026_27_1.pdf — ₹2.5L/yr CSE
-  GGUR: "2025-26", // ggu.edu.in — G.O.Ms.No.19 convener block 2024-27
+  GGUR: "2026-27", // ggu.edu.in/fee-structure — convener (G.O. block 2024-27) + university quota tables; page updated 2026-03-28
   APOL: "2026-27", // apollouniversity.edu.in/admissions/fee-structure — ₹2.60L/yr CSE tuition (total ₹10.99L)
   BEST: "2026-27", // bestiu.edu.in — ₹2L/yr CSE (total ₹8L)
 
@@ -73,9 +73,9 @@ export const UNIVERSITY_FEE_AY: Record<string, string> = {
   CVSR: "2026-27", // anurag.edu.in — TAFRC ₹2.85L/yr B.Tech
   MRDU: "2026-27", // mallareddyuniversity.ac.in — ₹2L/yr B.Tech CSE
   SRUN: "2026-27", // sru.edu.in — 2026-27 fee page confirmed
-  SNDU: "2025-26", // sreenidhi — Sreenidhi University 2026-27 fee not yet officially published
-  GNKU: "2025-26", // gurunanak — 2026-27 fee not yet officially published
-  MNRU: "2025-26", // mnr — 2026-27 fee not yet officially published
+  SNDU: "2025-26", // suh.edu.in/university-fee — ATFC 2025-26 official (₹4.5L sticker, merit slabs ₹1.25L–4L); 2026-27 not yet published
+  GNKU: "2026-27", // gnuindia.org/gnu-fee-structure.php — official "Fee Structure AY 2026-27" table
+  MNRU: "2026-27", // mnruniversity.edu.in/fees — official "Programme Fee Structure AY 2026-27"
 };
 
 export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
@@ -374,28 +374,47 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "M.Sc", fee: 220000, duration: 2, level: "PG" },
   ],
 
-  "SNDU": [ // Sreenidhi University
-    { program: "B.Tech", specialization: "All Specializations", fee: 460000, duration: 4, level: "UG" },
+  "SNDU": [ // Sreenidhi University (suh.edu.in/university-fee — ATFC 2025-26: ₹4.5L/yr sticker tuition; merit scholarships reduce to ₹1.25L–4L; +₹20K one-time admission +₹20K refundable deposit)
+    { program: "B.Tech", specialization: "All Specializations (CSE / AI&ML / Data Science / Cyber Security / SAP-Cloud ERP)", fee: 450000, duration: 4, level: "UG" },
     { program: "MBA", fee: 170000, duration: 2, level: "PG" },
     { program: "M.Tech", fee: 210000, duration: 2, level: "PG" },
   ],
 
-  "GNKU": [ // Gurunanak University (gnuindia.org — 2025-26 official)
-    { program: "B.Tech", specialization: "CSE / AI&ML / Data Science / Cyber Security", fee: 250000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "IT", fee: 220000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "ECE / Automation & Robotics / Biotech", fee: 190000, duration: 4, level: "UG" },
-    { program: "B.Pharm", fee: 110000, duration: 4, level: "UG" },
-    { program: "BCA", fee: 60000, duration: 3, level: "UG" },
-    { program: "MBA", fee: 45000, duration: 2, level: "PG" },
-    { program: "M.Tech", fee: 83000, duration: 2, level: "PG" },
+  "GNKU": [ // Guru Nanak University (gnuindia.org/gnu-fee-structure.php — official AY 2026-27 fee table)
+    { program: "B.Tech", specialization: "CSE", fee: 260000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & ML / Data Science / Cyber Security)", fee: 260000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Biotechnology", fee: 260000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "IT / ECE / Mechanical / Civil", fee: 240000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE-SAP / CSE-AIML (IBM / Intellipaat) / Robotics & AI (Industry-Linked)", fee: 320000, duration: 4, level: "UG" },
+    { program: "B.Pharm", fee: 200000, duration: 4, level: "UG" },
+    { program: "BCA", fee: 170000, duration: 3, level: "UG" },
+    { program: "BCA", specialization: "Data Science / Cyber Security / AI", fee: 150000, duration: 3, level: "UG" },
+    { program: "BBA", fee: 150000, duration: 3, level: "UG" },
+    { program: "B.Com", fee: 80000, duration: 3, level: "UG" },
+    { program: "B.Sc (Hons) Agriculture", fee: 180000, duration: 4, level: "UG" },
+    { program: "B.Sc Nursing", fee: 150000, duration: 4, level: "UG" },
+    { program: "BPT", fee: 200000, duration: 4.5, level: "UG" },
+    { program: "BA LLB (Hons)", fee: 150000, duration: 5, level: "Integrated" },
+    { program: "MBA", fee: 250000, duration: 2, level: "PG" },
+    { program: "MBA", specialization: "Business Analytics / Fintech / Entrepreneurship", fee: 260000, duration: 2, level: "PG" },
+    { program: "MCA", fee: 200000, duration: 2, level: "PG" },
+    { program: "M.Tech", specialization: "CSE", fee: 150000, duration: 2, level: "PG" },
+    { program: "M.Tech", specialization: "ECE / Biotechnology", fee: 100000, duration: 2, level: "PG" },
   ],
 
-  "MNRU": [ // MNR University — Sangareddy
-    { program: "B.Tech", specialization: "CSE / ECE / Mechanical / IT", fee: 63000, duration: 4, level: "UG" },
-    { program: "MBBS", fee: 60000, duration: 5, level: "UG" },
-    { program: "B.Pharm", fee: 85000, duration: 4, level: "UG" },
-    { program: "Pharm.D", fee: 170000, duration: 6, level: "Integrated" },
-    { program: "M.Pharm", fee: 55000, duration: 2, level: "PG" },
+  "MNRU": [ // MNR University — Sangareddy (mnruniversity.edu.in/fees — official AY 2026-27; annual tuition, +services ₹9K-19K/sem; 5% annual escalation)
+    // Note: MBBS / B.Pharm / Pharm.D are offered by MNR Medical College & MNR College of Pharmacy
+    // (separate KNRUHS/JNTUH-affiliated institutions), NOT by MNR University — removed per official MNRU fee page.
+    { program: "B.Tech", specialization: "CSE", fee: 200000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 200000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & Data Science)", fee: 200000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE (IoT)", fee: 200000, duration: 4, level: "UG" },
+    { program: "BPT", fee: 200000, duration: 5, level: "UG" },
+    { program: "B.Sc (Allied Healthcare Sciences)", specialization: "MLS / AOTT / MRIT / Dialysis / Optometry / Emergency / Respiratory / Cardiac & Perfusion etc.", fee: 150000, duration: 4, level: "UG" },
+    { program: "M.Tech", specialization: "CSE (AI & ML)", fee: 120000, duration: 2, level: "PG" },
+    { program: "M.Sc (Medical)", specialization: "Anatomy / Physiology / Biochemistry / Pharmacology / Microbiology", fee: 150000, duration: 2, level: "PG" },
+    { program: "MPT", fee: 120000, duration: 2, level: "PG" },
+    { program: "Ph.D", fee: 100000, duration: 3, level: "Doctoral" },
   ],
 
   // =============================================
@@ -485,8 +504,8 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "M.Tech", fee: 60000, duration: 2, level: "PG" },
   ],
 
-  "GIOM": [ // GITAM Institute of Medical Sciences — Visakhapatnam (gitam.edu)
-    { program: "MBBS", fee: 1600000, duration: 5, level: "UG" },
+  "GIOM": [ // GITAM Institute of Medical Sciences (GIMSR) — Visakhapatnam (gitam.edu/gimsr/admissions/under-graduate — official AY 2025-26: ₹25.37L/yr Y1-4, ₹12.7L Y5; NEET-rank scholarships up to 100%)
+    { program: "MBBS", fee: 2537000, totalFee: 11418000, duration: 5, level: "UG" },
     { program: "MD/MS", fee: 2000000, duration: 3, level: "PG" },
   ],
 
@@ -508,13 +527,26 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "M.Pharm", fee: 125000, duration: 2, level: "PG" },
   ],
 
-  "GGUR": [ // Godavari Global University — Rajahmundry (G.O.Ms.No.19, 2024-27 convener; university fee from ggu.edu.in)
-    { program: "B.Tech", specialization: "All Specializations", fee: 120000, duration: 4, level: "UG" },
-    { program: "BCA", fee: 70000, duration: 3, level: "UG" },
-    { program: "B.Sc (Hons) Agriculture", fee: 80000, duration: 4, level: "UG" },
-    { program: "MBA", fee: 100000, duration: 2, level: "PG" },
-    { program: "MCA", fee: 80000, duration: 2, level: "PG" },
-    { program: "M.Tech", fee: 120000, duration: 2, level: "PG" },
+  "GGUR": [ // Godavari Global University — Rajahmundry (ggu.edu.in/fee-structure — official convener + university quota tables, updated 2026-03)
+    // fee = Convener (EAPCET/ICET) quota tuition; mgmtFee = University (management) quota tuition
+    { program: "B.Tech", specialization: "CSE", fee: 60000, mgmtFee: 220000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 60000, mgmtFee: 220000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (Data Science / Cyber Security / AI & DS)", fee: 60000, mgmtFee: 180000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE", fee: 60000, mgmtFee: 180000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "EEE / Mechanical / Civil", fee: 60000, mgmtFee: 100000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Automobile / Mining / Agricultural Engg", fee: 60000, mgmtFee: 75000, duration: 4, level: "UG" },
+    { program: "BCA (Hons)", fee: 37000, mgmtFee: 60000, duration: 4, level: "UG" },
+    { program: "BBA (Hons)", fee: 35500, mgmtFee: 60000, duration: 4, level: "UG" },
+    { program: "B.Com (Hons)", fee: 35500, mgmtFee: 50000, duration: 4, level: "UG" },
+    { program: "B.Sc (Hons)", specialization: "AI / Data Science / Computer Science / Forensic Science / Physics / Chemistry etc.", fee: 35500, mgmtFee: 60000, duration: 4, level: "UG" },
+    { program: "B.Sc (Hons) Agriculture", fee: 44500, mgmtFee: 100000, duration: 4, level: "UG" },
+    { program: "B.Pharm", fee: 52500, mgmtFee: 120000, duration: 4, level: "UG" },
+    { program: "Pharm.D", fee: 65000, mgmtFee: 200000, duration: 6, level: "Integrated" },
+    { program: "B.Sc (Hons) Allied Health Sciences", fee: 35500, mgmtFee: 70000, duration: 4, level: "UG" },
+    { program: "MBA", fee: 60000, mgmtFee: 80000, duration: 2, level: "PG" },
+    { program: "MCA", fee: 60000, mgmtFee: 90000, duration: 2, level: "PG" },
+    { program: "M.Tech", fee: 80000, duration: 2, level: "PG" },
+    { program: "M.Pharm", fee: 80000, duration: 2, level: "PG" },
   ],
 
   "APOL": [ // The Apollo University — Chittoor (apollouniversity.edu.in/admissions/fee-structure — AY 2026-27; ₹2.60L/yr tuition + ₹13K recurring/yr, total ₹10.99L incl ₹7K admission)

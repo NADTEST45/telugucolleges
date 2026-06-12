@@ -452,7 +452,7 @@ export const ADMISSION_EXAMS: AdmissionExam[] = [
   {
     examName: "SUCET",
     examFullName: "Sreenidhi University Common Entrance Test",
-    officialUrl: "https://sru.edu.in/",
+    officialUrl: "https://suh.edu.in/",
     applicationFee: "Contact university",
     mode: "Online",
     duration: "Contact university",
@@ -471,7 +471,7 @@ export const ADMISSION_EXAMS: AdmissionExam[] = [
   {
     examName: "TS EAPCET / JEE Main",
     examFullName: "MNR University admits through TS EAPCET, JEE Main and direct application",
-    officialUrl: "https://www.mnru.ac.in/btech",
+    officialUrl: "https://mnruniversity.edu.in/btech",
     applicationFee: "TS EAPCET: ₹900 (General) / ₹500 (SC/ST)",
     mode: "Online CBT (TS EAPCET)",
     duration: "3 hours (TS EAPCET)",
