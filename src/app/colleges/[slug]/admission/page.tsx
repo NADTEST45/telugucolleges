@@ -25,9 +25,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!c) return {};
 
   const exam = c.state === "Telangana" ? "TS EAPCET" : "AP EAPCET";
+  const isDeemed = c.type === "Deemed University";
 
   const title = `${c.name} Admission 2026 — Process, Dates, Eligibility | TeluguColleges`;
-  const description = `How to get admission in ${c.name}. ${exam} counselling process, eligibility criteria, important dates, and management quota details.`;
+  const description = isDeemed
+    ? `How to get admission in ${c.name}. University entrance exam and counselling process, eligibility criteria, important dates, and direct admission details.`
+    : `How to get admission in ${c.name}. ${exam} counselling process, eligibility criteria, important dates, and management quota details.`;
   const url = `${SITE_URL}/colleges/${slug}/admission`;
   // No real data → noindex; SEO-irrelevant page when fields are placeholders.
   const noindex = !hasRealData(c);

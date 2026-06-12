@@ -258,7 +258,9 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                 {c.fee > 0 ? `The annual tuition fee for B.Tech is ${fmtFee(c.fee)}${c.type === "Government" ? ", making it one of the most affordable options in " + c.state : c.goFee > 0 && c.goFee !== c.fee ? ` (government order fee: ${fmtFee(c.goFee)})` : ""}. Over four years, the total tuition cost comes to approximately ${fmtFee(btechTotalFee)}. ` : ""}
                 {c.placements.avg > 0 ? `In recent placements, ${c.name.split(" ")[0]} reported an average package of ₹${c.placements.avg} LPA${c.placements.highest > 0 ? ` with the highest offer reaching ₹${c.placements.highest} LPA` : ""}${c.placements.companies > 0 ? `, attracting ${c.placements.companies}+ recruiting companies` : ""}. ` : ""}
                 {"" /* ROI sentence removed */}
-                {c.cutoff.cse > 0 ? `For ${c.state === "Telangana" ? "TS" : "AP"} EAPCET admissions, the CSE branch had a closing rank of ${c.cutoff.cse.toLocaleString("en-IN")} in the most recent counselling cycle.` : ""}
+                {c.cutoff.cse > 0 ? (c.type === "Deemed University"
+                  ? `In its final ${c.state === "Telangana" ? "TS" : "AP"} EAPCET counselling cycle before becoming a deemed university, the CSE branch closed at rank ${c.cutoff.cse.toLocaleString("en-IN")}.`
+                  : `For ${c.state === "Telangana" ? "TS" : "AP"} EAPCET admissions, the CSE branch had a closing rank of ${c.cutoff.cse.toLocaleString("en-IN")} in the most recent counselling cycle.`) : ""}
               </p>
             </div>
           </section>
