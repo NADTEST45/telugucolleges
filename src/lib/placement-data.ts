@@ -253,6 +253,38 @@ export const PLACEMENT_DATA: Record<string, CollegePlacementData> = {
    * so these use `summary` rather than branch-wise `years`.
    * ════════════════════════════════════════════════════════════════════ */
 
+  /* ── NIT Andhra Pradesh ────────────────────────────────────────────── */
+  NITA: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", graduated: 527, placed: 393, avgPackage: 8.13, maxPackage: 44.1, medianPackage: 7.56 },
+  },
+
+  /* ── IIIT Sri City ─────────────────────────────────────────────────── */
+  IIIS: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", avgPackage: 18.92, maxPackage: 120, medianPackage: 14.32 },
+  },
+
+  /* ── IIITDM Kurnool ────────────────────────────────────────────────── */
+  IIDK: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", avgPackage: 7.64, maxPackage: 32.5 },
+  },
+
+  /* ── Gayatri Vidya Parishad College of Engineering ─────────────────── */
+  GVPE: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", maxPackage: 50, medianPackage: 5.4 },
+  },
+
   /* ── IIT Tirupati ──────────────────────────────────────────────────── */
   IITP: {
     source: "NIRF",
