@@ -209,8 +209,15 @@ export default function ComparePage() {
                 );
               })()}
 
-              {/* Cutoffs */}
-              <tr><td colSpan={colleges.length + 1} className="px-3 sm:px-4 py-2 sm:py-2.5 bg-blue-50 font-bold text-brand text-[11px] sm:text-xs">EAPCET Cutoffs (2024-25)</td></tr>
+              {/* Cutoffs — label reflects the actual data vintage per state
+                  (TS colleges carry TSCHE 2024-25 OC; AP colleges carry APSCHE 2023-24 OC). */}
+              <tr><td colSpan={colleges.length + 1} className="px-3 sm:px-4 py-2 sm:py-2.5 bg-blue-50 font-bold text-brand text-[11px] sm:text-xs">{(() => {
+                const states = new Set(colleges.map(c => c.state));
+                const hasTS = states.has("Telangana");
+                const hasAP = states.has("Andhra Pradesh");
+                const vintage = hasTS && hasAP ? "TSCHE 2024-25 & APSCHE 2023-24" : hasAP ? "APSCHE 2023-24" : "TSCHE 2024-25";
+                return `EAPCET closing ranks · OC · ${vintage}`;
+              })()}</td></tr>
               {branches.map(b => {
                 const vals = colleges.map(c => c.cutoff[b] || Infinity);
                 const bestIdx = vals.indexOf(Math.min(...vals));

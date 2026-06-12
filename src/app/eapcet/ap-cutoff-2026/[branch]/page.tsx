@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
 import { fmtFee } from "@/lib/colleges";
 import { AP_CUTOFF_BRANCHES, getCutoffBranch, getCutoffRows } from "@/lib/ap-cutoff-2026";
 
@@ -188,8 +189,8 @@ export default async function APCutoffBranchPage({
         Not an admission guarantee.
       </p>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <JsonLd data={breadcrumbJsonLd} />
+      <JsonLd data={faqJsonLd} />
     </main>
   );
 }

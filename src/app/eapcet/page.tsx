@@ -5,6 +5,7 @@ import { COLLEGES, fmtFee, College } from "@/lib/colleges";
 import { AP_CUTOFFS, AP_CUTOFF_YEARS, CATEGORIES, catKey, type Category, type Gender } from "@/lib/ap-cutoffs";
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
 import { getHistoricalCutoff, getTSPhaseHistoricalCutoff, PREDICTOR_PHASES, type PredictorPhase } from "@/lib/cutoff-utils";
+import ShortlistButton from "@/components/ShortlistButton";
 
 export default function EAPCETPage() {
   const [rank, setRank] = useState("");
@@ -139,6 +140,60 @@ export default function EAPCETPage() {
 
   const catLabel = CATEGORIES.find(c => c.key === category)?.label || category;
 
+  /* ── Shareable predictor state (URL <-> controls) ──
+     Lets a parent send their child a single link that reproduces the exact
+     prediction (rank + filters). Validated against the same whitelists the
+     selects use, so a junk param silently falls back to the default rather
+     than producing a wrong result. */
+  const [copied, setCopied] = useState(false);
+  const hydratedFromUrl = useRef(false);
+
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    const rk = p.get("rank");
+    if (rk && /^\d+$/.test(rk)) { setRank(rk); setDebouncedRank(rk); }
+    const st = p.get("st");
+    if (st === "ap") setState("Andhra Pradesh");
+    else if (st === "ts") setState("Telangana");
+    const br = p.get("br");
+    if (br && allBranches.includes(br)) setBranch(br);
+    const ct = p.get("cat");
+    if (ct && CATEGORIES.some(c => c.key === ct)) setCategory(ct as Category);
+    const g = p.get("g");
+    if (g === "girls" || g === "boys") setGender(g);
+    const ph = p.get("ph");
+    if (ph && PREDICTOR_PHASES.some(x => x.key === ph)) setPhase(ph as PredictorPhase);
+    hydratedFromUrl.current = true;
+    // Run once on mount; whitelists referenced are stable for the page's life.
+  }, []);
+
+  useEffect(() => {
+    if (!hydratedFromUrl.current) return; // don't clobber an incoming link before we read it
+    const p = new URLSearchParams();
+    if (rank && parseInt(rank) > 0) p.set("rank", String(parseInt(rank)));
+    p.set("st", state === "Telangana" ? "ts" : "ap");
+    p.set("br", branch);
+    p.set("cat", category);
+    p.set("g", gender);
+    if (state === "Telangana" && phase !== "final") p.set("ph", phase);
+    const qs = p.toString();
+    window.history.replaceState(null, "", qs ? `?${qs}` : window.location.pathname);
+    setCopied(false);
+  }, [rank, state, branch, category, gender, phase]);
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch { /* clipboard blocked — no-op */ }
+  };
+  const handleWhatsApp = () => {
+    const r = parseInt(rank);
+    const text = `My EAPCET 2026 college options (rank ${r > 0 ? r.toLocaleString("en-IN") : "—"}, ${branchLabels[branch] || branch.toUpperCase()}, ${catLabel}): ${window.location.href}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+  };
+
   // ── EAPCET 2026 Key Dates ─────────────────────────────────────────────────
   // Update ONLY this object when dates change — the UI renders from it automatically.
   const EAPCET_DATES = {
@@ -258,6 +313,10 @@ export default function EAPCETPage() {
           <Link href="/eapcet/ap-cutoff-2026" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
             <div className="font-semibold text-sm mb-0.5">AP EAPCET 2026 Cutoff — Branch-wise</div>
             <p className="text-xs text-gray-600 leading-relaxed">Expected college-wise closing ranks for CSE, ECE, EEE, Civil, Mech, IT &amp; AI branches.</p>
+          </Link>
+          <Link href="/eapcet/tg-cutoff-2026" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
+            <div className="font-semibold text-sm mb-0.5">TG EAPCET 2026 Cutoff — Branch-wise</div>
+            <p className="text-xs text-gray-600 leading-relaxed">College-wise closing ranks from official TSCHE 2024-25 &amp; 2023-24 last-rank data, plus Phase-1 reference.</p>
           </Link>
           <Link href="/eapcet/ts-counselling-dates-2026" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
             <div className="font-semibold text-sm mb-0.5">TS Counselling Dates 2026</div>
@@ -418,10 +477,33 @@ export default function EAPCETPage() {
               </div>
               <div className="text-[11px] text-gray-500">{catLabel} · {gender === "girls" ? "Girls" : "Boys"} · {branch.toUpperCase()}{usePhaseData ? ` · ${PREDICTOR_PHASES.find(p => p.key === phase)?.label}` : ""}</div>
             </div>
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-[11px] text-gray-400 font-medium">Share these results:</span>
+              <button onClick={handleWhatsApp}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-green-50 text-green-700 hover:bg-green-100 transition-colors active:scale-95">
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.59 5.39l-.999 3.648 3.908-1.039zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                WhatsApp
+              </button>
+              <button onClick={handleCopyLink}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors active:scale-95">
+                {copied ? "Link copied ✓" : "Copy link"}
+              </button>
+            </div>
             <div className="space-y-2 max-h-[500px] overflow-y-auto -mx-1 px-1">
-              {predictions.map(({ college: col, cutoff, chance, isHistorical, dataYears }) => (
-                <Link key={col.id} href={`/colleges/${col.slug}`}
-                  className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center justify-between gap-2 sm:gap-3 px-3 sm:px-4 py-3 rounded-lg bg-gray-50 hover:bg-blue-50 transition-all active:scale-[0.99]">
+              {predictions.map(({ college: col, cutoff, chance, isHistorical, dataYears }) => {
+                // When there's no category/gender-specific history, the value
+                // is the static OC closing rank (TSCHE 2024 / APSCHE 2023).
+                // Flag that clearly so an SC/Girls selection never reads as if
+                // it were category-specific data.
+                const ocMismatch = !isHistorical && (category !== "OC" || gender === "girls");
+                const ocVintage = col.state === "Telangana" ? "TSCHE 2024" : "APSCHE 2023";
+                return (
+                <div key={col.id}
+                  className="relative flex flex-col sm:flex-row sm:flex-wrap sm:items-center justify-between gap-2 sm:gap-3 px-3 sm:px-4 py-3 rounded-lg bg-gray-50 hover:bg-blue-50 transition-colors">
+                  {/* Stretched link makes the whole card navigate while keeping
+                      the heart button (relative z-10) independently clickable. */}
+                  <Link href={`/colleges/${col.slug}`} aria-label={`View ${col.name}`}
+                    className="absolute inset-0 z-[1] rounded-lg" />
                   <div className="flex-1 min-w-0">
                     <div className="font-semibold text-xs sm:text-sm leading-tight">{col.name}</div>
                     <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5 truncate">
@@ -429,11 +511,16 @@ export default function EAPCETPage() {
                       {isHistorical && (
                         <span className="ml-1.5 text-blue-500">· {catLabel.split(" ")[0]} weighted ({dataYears.join(", ")})</span>
                       )}
+                      {!isHistorical && (
+                        <span className={`ml-1.5 ${ocMismatch ? "text-amber-600" : "text-gray-400"}`}>
+                          · OC reference{ocMismatch ? ` — no ${catLabel.split(" ")[0]}${gender === "girls" ? "/Girls" : ""} data` : ""} ({ocVintage})
+                        </span>
+                      )}
                     </div>
                   </div>
                   <div className="flex items-center gap-3 sm:gap-4 text-sm">
                     <div className="text-center">
-                      <div className="text-[11px] text-gray-500">{isHistorical ? `${catLabel.split(" ")[0]} Cutoff` : "Cutoff"}</div>
+                      <div className="text-[11px] text-gray-500">{isHistorical ? `${catLabel.split(" ")[0]} Cutoff` : "OC Cutoff"}</div>
                       <div className="font-bold text-xs sm:text-sm">{cutoff.toLocaleString()}</div>
                     </div>
                     <span className={`px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold ${
@@ -441,9 +528,11 @@ export default function EAPCETPage() {
                       chance === "Moderate" ? "bg-amber-100 text-amber-700" :
                       "bg-red-100 text-red-600"
                     }`}>{chance}</span>
+                    <ShortlistButton collegeSlug={col.slug} program={branchLabels[branch] || branch.toUpperCase()} className="relative z-10" />
                   </div>
-                </Link>
-              ))}
+                </div>
+                );
+              })}
             </div>
             <div className="mt-4 bg-amber-50 rounded-lg px-4 py-2.5 text-[11px] text-amber-700">
               Data from official APSCHE &amp; TSCHE &quot;Last Rank Details&quot; PDFs. {gender === "girls" ? "Girls-specific data available for select colleges." : ""} Actual cutoffs vary year to year.

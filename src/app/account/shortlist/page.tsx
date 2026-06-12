@@ -180,7 +180,7 @@ export default function ShortlistPage() {
               Ready to compare your shortlisted colleges?
             </p>
             <Link
-              href={`/compare/${validColleges[0].college!.slug}-vs-${validColleges[1].college!.slug}`}
+              href={`/compare/${validColleges[0].college!.code.toLowerCase()}-vs-${validColleges[1].college!.code.toLowerCase()}`}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand text-white text-sm font-semibold hover:bg-brand/90 transition-colors"
           >
             Compare Top 2

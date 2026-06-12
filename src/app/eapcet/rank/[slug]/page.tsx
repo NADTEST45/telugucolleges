@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
 import { fmtFee } from "@/lib/colleges";
 import {
   RANK_BANDS,
@@ -289,19 +290,9 @@ export default async function RankBandPage({
       </p>
 
       {/* JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(buildBreadcrumbJsonLd(slug, breadcrumbLabel)),
-        }}
-      />
+      <JsonLd data={buildBreadcrumbJsonLd(slug, breadcrumbLabel)} />
       {matches.length > 0 && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(buildItemListJsonLd(slug, matches)),
-          }}
-        />
+        <JsonLd data={buildItemListJsonLd(slug, matches)} />
       )}
     </main>
   );

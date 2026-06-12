@@ -4,6 +4,7 @@ import { fmtFee } from "@/lib/colleges";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
@@ -294,10 +295,17 @@ export default async function ComparePairPage({
               );
             })()}
 
-            {/* Cutoffs Section */}
+            {/* Cutoffs Section — label reflects actual data vintage per state
+                (TS colleges carry TSCHE 2024-25 OC; AP colleges carry APSCHE 2023-24 OC). */}
             <tr>
               <td colSpan={3} className="px-4 py-2 bg-blue-50 font-bold text-brand text-xs">
-                EAPCET CUTOFFS (2024-25) — Lower Rank is Better
+                {(() => {
+                  const states = new Set([college1.state, college2.state]);
+                  const hasTS = states.has("Telangana");
+                  const hasAP = states.has("Andhra Pradesh");
+                  const vintage = hasTS && hasAP ? "TSCHE 2024-25 & APSCHE 2023-24" : hasAP ? "APSCHE 2023-24" : "TSCHE 2024-25";
+                  return `EAPCET closing ranks · OC · ${vintage} — lower rank is better`;
+                })()}
               </td>
             </tr>
             {branches.map(b => {
@@ -507,30 +515,13 @@ export default async function ComparePairPage({
       </div>
 
       {/* JSON-LD Schema (BreadcrumbList) */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(buildBreadcrumbJsonLd(pair, college1.name, college2.name)),
-        }}
-      />
+      <JsonLd data={buildBreadcrumbJsonLd(pair, college1.name, college2.name)} />
 
       {/* JSON-LD Schema (ItemList — the two colleges being compared) */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(buildPairItemListJsonLd(pair, college1, college2)),
-        }}
-      />
+      <JsonLd data={buildPairItemListJsonLd(pair, college1, college2)} />
 
       {/* JSON-LD Schema (FAQPage — only emit if we generated FAQs) */}
-      {faqs.length > 0 && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(buildFaqJsonLd(faqs)),
-          }}
-        />
-      )}
+      {faqs.length > 0 && <JsonLd data={buildFaqJsonLd(faqs)} />}
     </main>
   );
 }

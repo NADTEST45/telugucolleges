@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 const url = `${SITE_URL}/eapcet`;
@@ -137,18 +138,9 @@ export default function EapcetLayout({ children }: { children: React.ReactNode }
   return (
     <>
       {children}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildBreadcrumbJsonLd()) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebApplicationJsonLd()) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqJsonLd()) }}
-      />
+      <JsonLd data={buildBreadcrumbJsonLd()} />
+      <JsonLd data={buildWebApplicationJsonLd()} />
+      <JsonLd data={buildFaqJsonLd()} />
     </>
   );
 }
