@@ -1,6 +1,8 @@
-import { AP_CUTOFFS, AP_CUTOFF_YEARS, catKey, type Category, type Gender, type CollegeCutoffs } from "./ap-cutoffs";
+import { AP_CUTOFFS, AP_CUTOFF_YEARS, getRankForGender, type Category, type Gender, type CollegeCutoffs } from "./ap-cutoffs";
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "./ts-cutoffs";
 import {
+  TS_CUTOFFS_2025_PHASE1,
+  TS_CUTOFFS_2025_PHASE2,
   TS_CUTOFFS_2023_PHASE1,
   TS_CUTOFFS_2023_PHASE2,
   TS_CUTOFFS_2023_SPECIAL,
@@ -27,8 +29,6 @@ export function getHistoricalCutoff(
 
   const ranks: number[] = [];
   const dataYears: string[] = [];
-  const key = catKey(cat, gen);
-  const fallbackKey = cat; // boys key as fallback
   const yearsToCheck = collegeState === "Telangana" ? TS_CUTOFF_YEARS : AP_CUTOFF_YEARS;
   const branchVariants = [branch, branch.toUpperCase(), branch.toLowerCase()];
 
@@ -37,7 +37,7 @@ export function getHistoricalCutoff(
     if (!yearData) continue;
     const matchedBranch = branchVariants.find(v => yearData[v]);
     if (!matchedBranch) continue;
-    const val = yearData[matchedBranch][key] || (gen === "girls" ? 0 : yearData[matchedBranch][fallbackKey]);
+    const val = getRankForGender(yearData[matchedBranch], cat, gen);
     if (val && val > 0) {
       ranks.push(val);
       dataYears.push(year);
@@ -69,10 +69,14 @@ const TS_PHASE_SOURCES: Record<
   { src: Record<string, CollegeCutoffs>; year: string; label: string }[]
 > = {
   phase1: [
+    { src: TS_CUTOFFS_2025_PHASE1, year: "2025", label: "2025 P1" },
     { src: TS_CUTOFFS_2023_PHASE1, year: "2023", label: "2023 P1" },
     { src: TS_CUTOFFS_2022_PHASE1, year: "2022", label: "2022 P1" },
   ],
-  phase2: [{ src: TS_CUTOFFS_2023_PHASE2, year: "2023", label: "2023 P2" }],
+  phase2: [
+    { src: TS_CUTOFFS_2025_PHASE2, year: "2025", label: "2025 P2" },
+    { src: TS_CUTOFFS_2023_PHASE2, year: "2023", label: "2023 P2" },
+  ],
   special: [{ src: TS_CUTOFFS_2023_SPECIAL, year: "2023", label: "2023 SP" }],
 };
 
@@ -91,7 +95,6 @@ export function getTSPhaseHistoricalCutoff(
 
   const ranks: number[] = [];
   const dataYears: string[] = [];
-  const key = catKey(cat, gen);
   const branchVariants = [branch, branch.toUpperCase(), branch.toLowerCase()];
 
   for (const { src, year, label } of TS_PHASE_SOURCES[phase]) {
@@ -99,7 +102,7 @@ export function getTSPhaseHistoricalCutoff(
     if (!yearData) continue;
     const matchedBranch = branchVariants.find(v => yearData[v]);
     if (!matchedBranch) continue;
-    const val = yearData[matchedBranch][key] || (gen === "girls" ? 0 : yearData[matchedBranch][cat]);
+    const val = getRankForGender(yearData[matchedBranch], cat, gen);
     if (val && val > 0) {
       ranks.push(val);
       dataYears.push(label);

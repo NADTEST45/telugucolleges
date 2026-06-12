@@ -4,6 +4,7 @@ import { AP_CUTOFFS, AP_CUTOFF_YEARS, CollegeCutoffs, YearCutoffs } from "@/lib/
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
 import { TS_PHASES, getTSPhaseCutoffs, type PhaseKey } from "@/lib/ts-cutoffs-phases";
 import { getExamByCollegeCode } from "@/lib/admission-exams";
+import { isMedicalCollege, getMedicalAdmission } from "@/lib/medical-admission";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
 import CollegeDetail from "../CollegeDetail";
@@ -26,9 +27,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const exam = c.state === "Telangana" ? "TS EAPCET" : "AP EAPCET";
   const isDeemed = c.type === "Deemed University";
+  const isMedical = isMedicalCollege(c.branches);
 
   const title = `${c.name} Admission 2026 — Process, Dates, Eligibility | TeluguColleges`;
-  const description = isDeemed
+  const description = isMedical
+    ? `How to get admission in ${c.name}. NEET-UG counselling process, eligibility criteria, ${c.state === "Telangana" ? "KNRUHS" : "NTRUHS"} state quota, All India Quota, and important dates.`
+    : isDeemed
     ? `How to get admission in ${c.name}. University entrance exam and counselling process, eligibility criteria, important dates, and direct admission details.`
     : `How to get admission in ${c.name}. ${exam} counselling process, eligibility criteria, important dates, and management quota details.`;
   const url = `${SITE_URL}/colleges/${slug}/admission`;
@@ -52,11 +56,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: "TeluguColleges.com",
       type: "website",
       locale: "en_IN",
+      images: [{ url: `${SITE_URL}/api/og/${slug}`, width: 1200, height: 630 }],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description,
+      images: [`${SITE_URL}/api/og/${slug}`],
     },
   };
 }
@@ -113,22 +119,36 @@ function generateFAQs(c: NonNullable<ReturnType<typeof getCollegeBySlug>>): FAQI
   const council = c.state === "Telangana" ? "TSCHE" : "APSCHE";
   const isDeemed = c.type === "Deemed University";
   const isPvtUni = c.type === "Private University";
+  const isMedical = isMedicalCollege(c.branches);
+  const med = isMedical ? getMedicalAdmission(c) : null;
 
   // Admission process
   faqs.push({
     question: `How to get admission in ${c.name}?`,
-    answer: isDeemed
+    answer: med
+      ? med.counsellingSummary + ` Counselling is conducted online by ${med.authorityFullName} (${med.officialUrl}).`
+      : isDeemed
       ? `Admission to ${c.name} is through the university's own entrance exam and counselling process. As a deemed university, it does not participate in ${exam} state counselling. Candidates should visit the official website for application deadlines, eligibility criteria, and the admission procedure.`
       : isPvtUni
       ? `Admission to ${c.name} is through two routes: (1) ${exam} counselling conducted by ${council}, where fees are regulated by the government, and (2) the university's own admission process with university-set fees. Candidates should check both ${council} counselling and the university's official website.`
       : `Admission to ${c.name} is primarily through ${exam} counselling conducted by ${council}. ${c.type === "Government" ? "All seats are filled through convener quota." : "70% of seats are filled through convener quota (Category-A) via state counselling. The remaining 30% are management quota (Category-B) where admissions and fees are controlled by the college management."} Candidates must qualify ${exam} and participate in the web counselling process.`,
   });
 
+  // NEET requirement (medical only)
+  if (med) {
+    faqs.push({
+      question: `Is admission to ${c.name} through EAPCET or NEET?`,
+      answer: `Admission to ${c.name} is through NEET-UG, not EAPCET/EAMCET. AP/TS EAPCET is only for engineering, pharmacy, and agriculture courses. MBBS seats are filled solely on the basis of a valid NEET-UG score and rank — 15% through the All India Quota (MCC) and 85% through ${med.authority} state-quota counselling.`,
+    });
+  }
+
   // Branches offered
   if (c.branches.length > 0) {
     faqs.push({
-      question: `What branches are available at ${c.name}?`,
-      answer: isDeemed
+      question: `What ${med ? "courses" : "branches"} are available at ${c.name}?`,
+      answer: med
+        ? `${c.name} offers ${c.branches.join(", ")}. Seats are filled through NEET-UG based counselling conducted by ${med.authority} (state quota) and MCC (All India Quota).`
+        : isDeemed
         ? `${c.name} offers ${c.branches.length} branches: ${c.branches.join(", ")}. As a deemed university, admissions are conducted by the university through its own entrance exam and counselling process.`
         : isPvtUni
         ? `${c.name} offers ${c.branches.length} branches: ${c.branches.join(", ")}. Some seats are filled through ${exam} counselling conducted by ${council}, while the university also admits students through its own process.`
@@ -140,8 +160,10 @@ function generateFAQs(c: NonNullable<ReturnType<typeof getCollegeBySlug>>): FAQI
   if (c.fee > 0) {
     const feeBlock = c.state === "Telangana" ? "G.O.Ms.No.06 (2025–28)" : "APHERMC block (2023–26)";
     faqs.push({
-      question: `What is the B.Tech fee at ${c.name}?`,
-      answer: isDeemed
+      question: med ? `What is the MBBS fee at ${c.name}?` : `What is the B.Tech fee at ${c.name}?`,
+      answer: med
+        ? `The MBBS tuition fee at ${c.name} (${c.code}) is approximately ${fmtFee(c.fee)} per year for the convener/competent-authority quota${c.type === "Government" ? ", among the lowest in " + c.state + " as a government college" : ""}. Management (B-category) and NRI (C-category) seats carry higher fees set as per the ${med.authority} notification. Fees are regulated by the state medical fee-fixation framework, not APHERMC/AFRC engineering orders.`
+        : isDeemed
         ? `The B.Tech tuition fee at ${c.name} (${c.code}) is approximately ${fmtFee(c.fee)} per year. As a deemed university, fees are set by the university and may vary by programme. Check the official website for the latest fee structure.`
         : isPvtUni
         ? `The B.Tech tuition fee at ${c.name} (${c.code}) is ${fmtFee(c.fee)} per year for students admitted through ${exam} counselling, as regulated by the government. Students admitted directly by the university may have different fees set by the institution.`

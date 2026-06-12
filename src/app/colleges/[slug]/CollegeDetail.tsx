@@ -2,11 +2,12 @@
 import { useState, useRef, useCallback } from "react";
 import Link from "next/link";
 import { College, fmtFee } from "@/lib/colleges";
-import { CATEGORIES, catKey, type CollegeCutoffs, type YearCutoffs, type Category, type Gender } from "@/lib/ap-cutoffs";
+import { CATEGORIES, TS_CATEGORIES, getRankForGender, type CollegeCutoffs, type YearCutoffs, type Category, type Gender } from "@/lib/ap-cutoffs";
 import { getCourses, getAffiliatedCourses, fmtCourseFee, UNIVERSITY_FEE_AY, type CourseInfo } from "@/lib/university-courses";
 import { getReviewsByCollege, getAverageRating, type Review } from "@/lib/reviews";
 import { getScholarships } from "@/lib/scholarships";
 import { getExamByCollegeCode } from "@/lib/admission-exams";
+import { isMedicalCollege, getMedicalAdmission } from "@/lib/medical-admission";
 import { getPlacementData, branchDisplayName } from "@/lib/placement-data";
 import AdSlot from "@/components/ads/AdSlot";
 import ShortlistButton from "@/components/ShortlistButton";
@@ -132,11 +133,13 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
 
   const scholarshipInfo = getScholarships(c.code);
   const admissionExam = getExamByCollegeCode(c.code);
+  const isMedical = isMedicalCollege(c.branches);
+  const medical = isMedical ? getMedicalAdmission(c) : null;
 
   let TABS = scholarshipInfo
     ? [...BASE_TABS.slice(0, 2), { key: "scholarships", label: "Scholarships" }, ...BASE_TABS.slice(2)]
     : [...BASE_TABS];
-  if (admissionExam) {
+  if (admissionExam || medical) {
     const placIdx = TABS.findIndex(t => t.key === "placements");
     TABS.splice(placIdx + 1, 0, { key: "admission", label: "Admission" });
   }
@@ -191,7 +194,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 mb-6">
         {([
           ["B.Tech Fee", btechFeeLabel, c.type === "Deemed University" || c.type === "Private University" ? `University fee${UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}` : c.state === "Telangana" ? "GO.Ms.06 · 2025-28" : "APHERMC · 2023-26", "text-brand"],
-          ...(c.type !== "Deemed University" ? [["CSE Cutoff", c.cutoff.cse?.toLocaleString() || "—", "EAPCET final OC", "text-gray-900"]] : [["Admission", "Own Exam", "Not via EAPCET", "text-gray-900"]]),
+          ...(medical ? [["Admission", "NEET-UG", `Via ${medical.authority} counselling`, "text-gray-900"]] : c.type !== "Deemed University" ? [["CSE Cutoff", c.cutoff.cse?.toLocaleString() || "—", "EAPCET final OC", "text-gray-900"]] : [["Admission", "Own Exam", "Not via EAPCET", "text-gray-900"]]),
           ["Avg Package", c.placements.avg > 0 ? `₹${c.placements.avg} LPA` : "—", "Placements", "text-green-600"],
           ["Highest Pkg", c.placements.highest > 0 ? `₹${c.placements.highest}L` : "—", "Top offer", "text-amber-600"],
           ...(c.nirf > 0
@@ -248,14 +251,18 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
             <h2 className="text-lg font-bold mb-3">About {c.name}</h2>
             <div className="text-sm text-gray-700 leading-relaxed space-y-3">
               <p>
-                {c.name} ({c.code}) is {c.type === "Government" ? "a government" : c.type === "Deemed University" ? "a deemed" : c.type === "Private University" ? "a private" : "a private"} engineering {c.type.includes("University") ? "university" : "college"} located in {c.district}, {c.state}, India{c.year > 0 ? `, established in ${c.year}` : ""}.{" "}
+                {c.name} ({c.code}) is {c.type === "Government" ? "a government" : c.type === "Deemed University" ? "a deemed" : c.type === "Private University" ? "a private" : "a private"} {medical ? "medical" : "engineering"} {c.type.includes("University") ? "university" : "college"} located in {c.district}, {c.state}, India{c.year > 0 ? `, established in ${c.year}` : ""}.{" "}
                 {!c.type.includes("University") && `It is affiliated to ${c.affiliation} and `}
                 {c.naac && c.naac !== "-" ? `holds NAAC Grade ${c.naac} accreditation${c.nba ? " with NBA-accredited programmes" : ""}. ` : c.nba ? "has NBA-accredited programmes. " : ""}
-                {c.nirf > 0 ? `The institution is ranked in the ${nirfBand(c.nirf)} band under the NIRF 2025 Engineering category. ` : ""}
-                {c.name} offers B.Tech programmes in {c.branches.length} {c.branches.length === 1 ? "branch" : "branches"} including {c.branches.slice(0, 5).join(", ")}{c.branches.length > 5 ? `, and ${c.branches.length - 5} more` : ""}.
+                {c.nirf > 0 ? `The institution is ranked in the ${nirfBand(c.nirf)} band under the NIRF 2025 ${medical ? "Medical" : "Engineering"} category. ` : ""}
+                {medical
+                  ? `${c.name} offers the ${c.branches.join(", ")} programme, with seats filled through NEET-UG based counselling conducted by ${medical.authorityFullName} (state quota) and the Medical Counselling Committee (All India Quota).`
+                  : <>{c.name} offers B.Tech programmes in {c.branches.length} {c.branches.length === 1 ? "branch" : "branches"} including {c.branches.slice(0, 5).join(", ")}{c.branches.length > 5 ? `, and ${c.branches.length - 5} more` : ""}.</>}
               </p>
               <p>
-                {c.fee > 0 ? `The annual tuition fee for B.Tech is ${fmtFee(c.fee)}${c.type === "Government" ? ", making it one of the most affordable options in " + c.state : c.goFee > 0 && c.goFee !== c.fee ? ` (government order fee: ${fmtFee(c.goFee)})` : ""}. Over four years, the total tuition cost comes to approximately ${fmtFee(btechTotalFee)}. ` : ""}
+                {c.fee > 0 ? (medical
+                  ? `The annual MBBS tuition fee (convener/competent-authority quota) is ${fmtFee(c.fee)}${c.type === "Government" ? ", making it one of the most affordable options in " + c.state : ""}. Management and NRI quota seats carry higher fees set per the ${medical.authority} notification. `
+                  : `The annual tuition fee for B.Tech is ${fmtFee(c.fee)}${c.type === "Government" ? ", making it one of the most affordable options in " + c.state : c.goFee > 0 && c.goFee !== c.fee ? ` (government order fee: ${fmtFee(c.goFee)})` : ""}. Over four years, the total tuition cost comes to approximately ${fmtFee(btechTotalFee)}. `) : ""}
                 {c.placements.avg > 0 ? `In recent placements, ${c.name.split(" ")[0]} reported an average package of ₹${c.placements.avg} LPA${c.placements.highest > 0 ? ` with the highest offer reaching ₹${c.placements.highest} LPA` : ""}${c.placements.companies > 0 ? `, attracting ${c.placements.companies}+ recruiting companies` : ""}. ` : ""}
                 {"" /* ROI sentence removed */}
                 {c.cutoff.cse > 0 ? (c.type === "Deemed University"
@@ -354,8 +361,21 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                 : "Annual tuition fee as per official government order"}
             </p>
 
+            {/* Medical fee banner — MBBS fees are NEET/health-university regulated, not APHERMC/AFRC */}
+            {medical && (
+              <div className="flex items-center gap-3 bg-blue-50 border border-blue-200 rounded-lg px-4 py-3">
+                <div className="shrink-0 w-10 h-10 rounded-full bg-brand flex items-center justify-center">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <div>
+                  <div className="text-sm font-bold text-brand">NEET-based MBBS admission · {medical.authority} counselling</div>
+                  <div className="text-xs text-blue-700 mt-0.5">Convener/competent-authority fee shown below. Management (B-category) and NRI (C-category) seats carry higher fees per the {medical.authority} notification. Not an EAPCET/APHERMC fee.</div>
+                </div>
+              </div>
+            )}
+
             {/* Block Period Banner — only for affiliated private/govt colleges */}
-            {!isDeemedOrPrivateUni && (
+            {!isDeemedOrPrivateUni && !medical && (
               <div className="flex items-center gap-3 bg-blue-50 border border-blue-200 rounded-lg px-4 py-3">
                 <div className="shrink-0 w-10 h-10 rounded-full bg-brand flex items-center justify-center">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
@@ -464,10 +484,12 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                   <div className="bg-gray-50 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
                       <div className="text-sm text-gray-500">
-                        {isDeemedOrPrivateUni ? "B.Tech Annual Tuition" : isGovt ? "B.Tech Annual Tuition" : "B.Tech Convener Quota (Category-A)"}
+                        {medical ? "MBBS Annual Tuition (Convener Quota)" : isDeemedOrPrivateUni ? "B.Tech Annual Tuition" : isGovt ? "B.Tech Annual Tuition" : "B.Tech Convener Quota (Category-A)"}
                       </div>
                       <div className="text-xs text-gray-500 mt-0.5">
-                        {isDeemedOrPrivateUni
+                        {medical
+                          ? `Competent-authority quota fee · ${c.type === "Government" ? "Government medical college" : "Per " + medical.authority + " notification"}`
+                          : isDeemedOrPrivateUni
                           ? `${c.type} · Fee set by university${UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}`
                           : isGovt
                           ? "Government college — nominal fee per state norms"
@@ -483,7 +505,12 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       {`${c.type} fees are set by the institution${UNIVERSITY_FEE_AY[c.code] ? ` (sourced from official website for AY ${UNIVERSITY_FEE_AY[c.code]})` : ""}. Contact admissions for exact, up-to-date fee details.`}
                     </div>
                   )}
-                  {!isDeemedOrPrivateUni && !isGovt && (
+                  {medical && (
+                    <div className="mt-3 bg-amber-50 rounded-lg px-4 py-2.5 text-xs text-amber-700">
+                      For management (B-category) and NRI (C-category) quota fees, refer to the {medical.authority} fee notification or contact the college directly. MBBS fees are not regulated by APHERMC/AFRC.
+                    </div>
+                  )}
+                  {!isDeemedOrPrivateUni && !isGovt && !medical && (
                     <>
                       {c.state === "Telangana" && (
                         <div className="mt-3 bg-emerald-50 rounded-lg px-4 py-2.5 text-xs text-emerald-800">
@@ -727,6 +754,26 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
 
       {tab === "cutoffs" && (() => {
         const isDeemedUni = c.type === "Deemed University";
+        if (medical) {
+          return (
+            <div className="space-y-6">
+              <section className="bg-white rounded-xl p-6 shadow-sm">
+                <h2 className="text-lg font-bold mb-4">Admission Cutoffs</h2>
+                <div className="bg-amber-50 rounded-xl p-6 text-center">
+                  <div className="text-3xl mb-3">🩺</div>
+                  <p className="font-semibold text-amber-800 mb-2">MBBS cutoffs are NEET-rank based — not EAPCET</p>
+                  <p className="text-sm text-amber-700 mb-4">
+                    {c.name} admits students through NEET-UG ranks, with seats allotted by {medical.authorityFullName} (state quota) and the Medical Counselling Committee (All India Quota). It does not participate in AP/TS EAPCET counselling.
+                  </p>
+                  <div className="bg-white rounded-lg p-4 text-left text-sm text-gray-600 max-w-md mx-auto">
+                    <p className="font-semibold text-gray-800 mb-2">Closing ranks</p>
+                    <p>NEET-UG closing ranks vary each year by category and counselling round. Check the official portal <a href={medical.officialUrl} target="_blank" rel="noopener noreferrer" className="text-brand underline">{medical.officialUrl.replace(/^https?:\/\//, "")}</a> for the latest seat allotment and last-rank details. See the Admission tab for the full counselling process.</p>
+                  </div>
+                </div>
+              </section>
+            </div>
+          );
+        }
         if (isDeemedUni) {
           return (
             <div className="space-y-6">
@@ -759,8 +806,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           if (!yearData) return 0;
           const brData = yearData[branch] || yearData[branch.toUpperCase()] || yearData[branch.toLowerCase()];
           if (!brData) return 0;
-          const key = catKey(category, gender);
-          return brData[key] || (gender === "girls" ? 0 : brData[category] || 0);
+          return getRankForGender(brData, category, gender);
         };
 
         // Default year-wise view
@@ -801,8 +847,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           if (!yearData) return 0;
           const brData = yearData[branch] || yearData[branch.toUpperCase()] || yearData[branch.toLowerCase()];
           if (!brData) return 0;
-          const key = catKey(category, gender);
-          return brData[key] || (gender === "girls" ? 0 : brData[category] || 0);
+          return getRankForGender(brData, category, gender);
         };
 
         const branchLabel = (b: string) => {
@@ -833,7 +878,8 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
         };
 
         const noCutoffData = yearCols.length === 0 && !hasPhases;
-        const selectedCatLabel = CATEGORIES.find(ct => ct.key === category)?.label || category;
+        const catList = c.state === "Telangana" ? TS_CATEGORIES : CATEGORIES;
+        const selectedCatLabel = catList.find(ct => ct.key === category)?.label || category;
 
         return (
           <div className="space-y-6">
@@ -873,7 +919,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Category</label>
                       <select value={category} onChange={e => setCategory(e.target.value as Category)}
                         className="px-3 py-2 rounded-lg border border-gray-200 text-sm cursor-pointer font-semibold">
-                        {CATEGORIES.map(ct => (
+                        {catList.map(ct => (
                           <option key={ct.key} value={ct.key}>{ct.label}</option>
                         ))}
                       </select>
@@ -922,7 +968,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       })}
                     </tbody>
                   </table>
-                  <p className="text-[11px] sm:text-xs text-gray-500 mt-2">↓ = cutoff relaxed from previous phase (higher rank = easier to get in). Source: TSCHE official Last Rank Statement PDFs</p>
+                  <p className="text-[11px] sm:text-xs text-gray-500 mt-2">↓ = cutoff relaxed from previous phase (higher rank = easier to get in). Source: TSCHE official Last Rank Statement PDFs. From 2025, the SC quota is split into SC-I/II/III; for earlier years those options show the combined SC rank.</p>
                 </div>
               </section>
             )}
@@ -955,7 +1001,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Category / Caste</label>
                       <select value={category} onChange={e => setCategory(e.target.value as Category)}
                         className="px-3 py-2 rounded-lg border border-gray-200 text-sm cursor-pointer font-semibold">
-                        {CATEGORIES.map(ct => (
+                        {catList.map(ct => (
                           <option key={ct.key} value={ct.key}>{ct.label}</option>
                         ))}
                       </select>
@@ -1010,7 +1056,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       })}
                     </tbody>
                   </table>
-                  <p className="text-[11px] sm:text-xs text-gray-500 mt-2">↑ = getting harder · ↓ = getting easier · Source: APSCHE official last rank details PDFs</p>
+                  <p className="text-[11px] sm:text-xs text-gray-500 mt-2">↑ = getting harder · ↓ = getting easier · Source: {c.state === "Telangana" ? "TSCHE" : "APSCHE"} official last rank details PDFs{c.state === "Telangana" ? ". From 2025, the SC quota is split into SC-I/II/III; for earlier years those options show the combined SC rank." : ""}</p>
                 </div>
               ) : (
                 <div className="text-center py-8 text-gray-500">
@@ -1240,7 +1286,73 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
       })()}
 
       {/* ─── Admission Tab ─── */}
-      {tab === "admission" && admissionExam && (
+      {tab === "admission" && medical && (
+        <div className="space-y-6">
+          {/* NEET Overview */}
+          <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
+            <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+              <div>
+                <h2 className="text-lg font-bold">{medical.exam} — {medical.examFullName}</h2>
+                <p className="text-sm text-gray-500 mt-1">Admission to {c.name} is through NEET-UG, not EAPCET/EAMCET</p>
+              </div>
+              <a href={medical.primaryUrl} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand text-white text-xs font-semibold hover:bg-brand-dark transition-colors shrink-0">
+                Counselling Portal
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm">
+              {[
+                ["Qualifying Exam", "NEET-UG (single national exam)"],
+                ["Counselling Authority", medical.primaryCounsellor],
+                ["All India Quota (15%)", medical.aiqAuthority],
+                ["Eligibility", "10+2 with Physics, Chemistry, Biology + qualified NEET-UG"],
+              ].map(([label, value]) => (
+                <div key={label} className="flex justify-between py-2 border-b border-gray-50">
+                  <span className="text-gray-500">{label}</span>
+                  <span className="font-semibold text-right max-w-[60%]">{value}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* EAPCET clarification */}
+          <section className="bg-amber-50 border border-amber-200 rounded-xl p-4 sm:p-6">
+            <p className="font-semibold text-amber-800 mb-1">MBBS is filled through NEET, not EAPCET</p>
+            <p className="text-sm text-amber-700">
+              AP/TS EAPCET (EAMCET) is only for engineering, pharmacy, and agriculture courses. MBBS seats are allotted
+              solely on a valid NEET-UG score and rank. Do not register on EAPCET counselling portals for an MBBS seat.
+            </p>
+          </section>
+
+          {/* Seat Quotas */}
+          <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
+            <h2 className="text-lg font-bold mb-4">How Seats Are Filled</h2>
+            <div className="space-y-3">
+              {medical.quotas.map(q => (
+                <div key={q.label} className="border-l-4 border-brand bg-blue-50/50 rounded-r-lg px-4 py-3">
+                  <div className="text-sm font-semibold text-brand">{q.label}</div>
+                  <div className="text-sm text-gray-600 mt-0.5">{q.detail}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Counselling Process */}
+          <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm space-y-4">
+            <div>
+              <h3 className="font-semibold text-sm text-gray-700 mb-1">Counselling Process</h3>
+              <p className="text-sm text-gray-600 bg-blue-50 rounded-lg px-4 py-2.5">{medical.counsellingSummary}</p>
+            </div>
+            <p className="text-xs text-gray-500">
+              NEET-UG and counselling schedules are set by NTA, MCC, and {medical.authority}. Dates and seat matrices change each year —
+              always verify on the official portal ({medical.officialUrl}) before registering.
+            </p>
+          </section>
+        </div>
+      )}
+
+      {tab === "admission" && admissionExam && !medical && (
         <div className="space-y-6">
           {/* Exam Overview */}
           <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
