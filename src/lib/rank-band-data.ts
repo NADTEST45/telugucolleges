@@ -18,7 +18,7 @@ import { AP_CUTOFFS } from "@/lib/ap-cutoffs";
  * pre-listing the top colleges where that rank is realistic for the
  * convenor-quota (general / OC) closing cutoff.
  *
- * Bands × branches × states = 10 × 5 × 2 = 100 pages.
+ * Bands × branches × states = 10 × 10 × 2 = 200 pages.
  * ────────────────────────────────────────────────────────────────────── */
 
 export const RANK_BANDS = [
@@ -38,12 +38,21 @@ export interface BranchOption {
   apCode: string;
 }
 
+// NOTE: branch slugs MUST be a single lowercase token ([a-z]+) — parseRankBandSlug's
+// regex cannot parse hyphens/underscores in the branch segment. tsCode/apCode pairings
+// below were verified against TS_CUTOFFS / AP_CUTOFFS keys (same program on both sides;
+// e.g. CSE-AI&ML = TS "CSM" + AP "cse_aiml", NOT the standalone "AI & ML" = TS "AIM").
 export const BRANCH_OPTIONS: BranchOption[] = [
-  { slug: "cse",   label: "CSE",         tsCode: "CSE",  apCode: "cse" },
-  { slug: "ece",   label: "ECE",         tsCode: "ECE",  apCode: "ece" },
-  { slug: "eee",   label: "EEE",         tsCode: "EEE",  apCode: "eee" },
-  { slug: "mech",  label: "Mechanical",  tsCode: "MEC",  apCode: "mech" },
-  { slug: "civil", label: "Civil",       tsCode: "CIV",  apCode: "civil" },
+  { slug: "cse",   label: "CSE",                  tsCode: "CSE",  apCode: "cse" },
+  { slug: "ece",   label: "ECE",                  tsCode: "ECE",  apCode: "ece" },
+  { slug: "eee",   label: "EEE",                  tsCode: "EEE",  apCode: "eee" },
+  { slug: "mech",  label: "Mechanical",           tsCode: "MEC",  apCode: "mech" },
+  { slug: "civil", label: "Civil",                tsCode: "CIV",  apCode: "civil" },
+  { slug: "it",    label: "IT",                   tsCode: "INF",  apCode: "it" },
+  { slug: "csm",   label: "CSE (AI & ML)",        tsCode: "CSM",  apCode: "cse_aiml" },
+  { slug: "csd",   label: "CSE (Data Science)",   tsCode: "CSD",  apCode: "cse_ds" },
+  { slug: "aid",   label: "AI & Data Science",    tsCode: "AID",  apCode: "ai_ds" },
+  { slug: "csc",   label: "CSE (Cyber Security)", tsCode: "CSC",  apCode: "csc" },
 ];
 
 export interface StateOption {
