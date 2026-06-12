@@ -2,7 +2,7 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { COLLEGES, fmtFee, College } from "@/lib/colleges";
-import { AP_CUTOFFS, AP_CUTOFF_YEARS, CATEGORIES, catKey, type Category, type Gender } from "@/lib/ap-cutoffs";
+import { AP_CUTOFFS, AP_CUTOFF_YEARS, CATEGORIES, TS_CATEGORIES, catKey, type Category, type Gender } from "@/lib/ap-cutoffs";
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
 import { getHistoricalCutoff, getTSPhaseHistoricalCutoff, PREDICTOR_PHASES, type PredictorPhase } from "@/lib/cutoff-utils";
 import ShortlistButton from "@/components/ShortlistButton";
@@ -140,7 +140,8 @@ export default function EAPCETPage() {
       .sort((a, b) => a.cutoff - b.cutoff);
   }, [debouncedRank, state, branch, usePhaseData, lookupCutoff]);
 
-  const catLabel = CATEGORIES.find(c => c.key === category)?.label || category;
+  const predictorCatList = state === "Telangana" ? TS_CATEGORIES : CATEGORIES;
+  const catLabel = predictorCatList.find(c => c.key === category)?.label || category;
 
   /* ── Shareable predictor state (URL <-> controls) ──
      Lets a parent send their child a single link that reproduces the exact
@@ -160,7 +161,7 @@ export default function EAPCETPage() {
     const br = p.get("br");
     if (br && allBranches.includes(br)) setBranch(br);
     const ct = p.get("cat");
-    if (ct && CATEGORIES.some(c => c.key === ct)) setCategory(ct as Category);
+    if (ct && (CATEGORIES.some(c => c.key === ct) || TS_CATEGORIES.some(c => c.key === ct))) setCategory(ct as Category);
     const g = p.get("g");
     if (g === "girls" || g === "boys") setGender(g);
     const ph = p.get("ph");
@@ -404,7 +405,7 @@ export default function EAPCETPage() {
             <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Category / Caste</label>
             <select value={category} onChange={e => setCategory(e.target.value as Category)}
               className="w-full px-3 sm:px-4 py-2.5 rounded-lg border border-gray-200 text-sm cursor-pointer font-semibold">
-              {CATEGORIES.map(ct => (
+              {predictorCatList.map(ct => (
                 <option key={ct.key} value={ct.key}>{ct.label}</option>
               ))}
             </select>
@@ -467,7 +468,7 @@ export default function EAPCETPage() {
 
         {gender === "girls" && (
           <div className="bg-pink-50 rounded-lg px-4 py-2 text-[11px] text-pink-700 mb-4">
-            Girls cutoff data is available for select AP colleges (2024-25). For colleges without girls-specific data, results use Boys cutoffs as reference. Girls cutoffs are typically similar or slightly higher.
+            Girls cutoff data is available for select AP colleges (2023-24). For colleges without girls-specific data, results use Boys cutoffs as reference. Girls cutoffs are typically similar or slightly higher.
           </div>
         )}
 
