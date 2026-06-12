@@ -1,6 +1,7 @@
 /**
  * Merit-based scholarship data for Deemed & Private Universities in AP & Telangana.
- * All data sourced from official university websites (2025-26 academic year).
+ * All data sourced from official university websites (2025-26 / 2026-27 academic year,
+ * per each university's latest official publication). Last verified: June 2026.
  */
 
 export interface ScholarshipSlab {
@@ -9,7 +10,7 @@ export interface ScholarshipSlab {
 }
 
 export interface ScholarshipTable {
-  examName: string;          // e.g. "GAT", "KLUEEE", "BITSAT"
+  examName: string;          // e.g. "GAT", "KLEEE", "BITSAT"
   branchGroup?: string;      // e.g. "CSE, AI&DS, Biotech" — omit if same for all
   slabs: ScholarshipSlab[];
 }
@@ -74,11 +75,11 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
         ],
       },
     ],
-    maintenance: "CGPA 8.0 required each year to continue scholarship",
+    maintenance: "CGPA ≥8.0 continues full scholarship; CGPA 7.5–7.99 → scholarship downgraded one slab; below 7.5 → discontinued",
     notes: [
       "GITAM is a Deemed University — there is no EAPCET convener quota counselling. Admission is only through GAT/JEE/direct application",
       "EAPCET rank is accepted purely as a scholarship eligibility criterion for direct admission students",
-      "Candidates offered 100% or 75% scholarship must attend a personal interview",
+      "Candidates offered 60% or higher scholarship must attend a personal interview",
       "Scholarships apply to tuition fee only",
       "Need-based and sports scholarships also available",
       "Use the GITAM Scholarship Calculator at gitam.edu for personalised estimates",
@@ -135,11 +136,11 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
         ],
       },
     ],
-    maintenance: "CGPA 8.0 required each year to continue scholarship",
+    maintenance: "CGPA ≥8.0 continues full scholarship; CGPA 7.5–7.99 → scholarship downgraded one slab; below 7.5 → discontinued",
     notes: [
       "Same scholarship structure as GITAM Vizag campus",
       "GITAM is a Deemed University — no EAPCET convener quota. EAPCET rank is used only as a scholarship criterion",
-      "Candidates offered 100% or 75% scholarship must attend a personal interview",
+      "Candidates offered 60% or higher scholarship must attend a personal interview",
     ],
     source: "https://www.gitam.edu/fee-scholarship/student-scholarships",
     sourceLabel: "GITAM Official — Fee & Scholarships",
@@ -150,36 +151,47 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     collegeName: "KL University — Vijayawada",
     tables: [
       {
-        examName: "KLUEEE Rank",
+        examName: "KLEEE Rank",
         branchGroup: "CSE, AI & DS, Biotech",
         slabs: [
-          { percent: "50%", criteria: "Rank 1–50" },
-          { percent: "25%", criteria: "Rank 51–1,000" },
-          { percent: "15%", criteria: "Rank 1,001–2,000" },
-          { percent: "10%", criteria: "Rank 2,001–5,000" },
-          { percent: "₹10,000/yr", criteria: "Rank 5,001–20,000" },
+          { percent: "50%", criteria: "Rank 1–100" },
+          { percent: "25%", criteria: "Rank 101–1,500" },
+          { percent: "15%", criteria: "Rank 1,501–3,000" },
+          { percent: "10%", criteria: "Rank 3,001–6,000" },
+          { percent: "₹5,000/yr", criteria: "Rank 6,001–25,000" },
         ],
       },
       {
-        examName: "KLUEEE Rank",
+        examName: "KLEEE Rank",
         branchGroup: "ECE, CS & IT, IoT",
         slabs: [
           { percent: "50%", criteria: "Rank 1–500" },
-          { percent: "25%", criteria: "Rank 501–1,500" },
-          { percent: "15%", criteria: "Rank 1,501–3,500" },
-          { percent: "10%", criteria: "Rank 3,501–7,500" },
-          { percent: "₹10,000/yr", criteria: "Rank 7,501–15,000" },
+          { percent: "25%", criteria: "Rank 501–2,000" },
+          { percent: "15%", criteria: "Rank 2,001–4,000" },
+          { percent: "10%", criteria: "Rank 4,001–15,000" },
+          { percent: "₹5,000/yr", criteria: "Rank 15,001–30,000" },
         ],
       },
       {
-        examName: "KLUEEE Rank",
+        examName: "KLEEE Rank",
         branchGroup: "CE, ME, EEE",
         slabs: [
           { percent: "50%", criteria: "Rank 1–1,000" },
-          { percent: "25%", criteria: "Rank 1,001–4,000" },
-          { percent: "15%", criteria: "Rank 4,001–8,000" },
-          { percent: "10%", criteria: "Rank 8,001–15,000" },
-          { percent: "₹10,000/yr", criteria: "Rank 15,001–25,000" },
+          { percent: "25%", criteria: "Rank 1,001–5,000" },
+          { percent: "15%", criteria: "Rank 5,001–10,000" },
+          { percent: "10%", criteria: "Rank 10,001–25,000" },
+          { percent: "₹5,000/yr", criteria: "Rank 25,001–75,000" },
+        ],
+      },
+      {
+        examName: "AP/TS EAPCET Rank",
+        branchGroup: "CSE, AI & DS, Biotech",
+        slabs: [
+          { percent: "50%", criteria: "Rank 1–1,000" },
+          { percent: "25%", criteria: "Rank 1,001–5,000" },
+          { percent: "15%", criteria: "Rank 5,001–10,000" },
+          { percent: "10%", criteria: "Rank 10,001–15,000" },
+          { percent: "₹5,000/yr", criteria: "Rank 15,001–20,000" },
         ],
       },
       {
@@ -218,8 +230,9 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     ],
     maintenance: "CGPA 9.0 for CSE/AI&DS/BT/ECE/CS&IT groups; CGPA 8.0 for ME/CE/EEE/IoT",
     notes: [
-      "KL is a Deemed University — there is no EAPCET convener quota counselling. All admissions are through KLUEEE/JEE/direct application",
-      "AP/TS EAPCET rank is also accepted as a scholarship eligibility criterion (similar to KLUEEE rank slabs) — contact admissions for exact EAPCET slab mapping",
+      "KL is a Deemed University — there is no EAPCET convener quota counselling. All admissions are through KLEEE/JEE/direct application",
+      "EAPCET slabs shown are for the CSE group — other branch groups have separate bands, see official page",
+      "Rank bands above are from the official 2026-27 scholarship publication",
       "Board-based scholarships also available — concession varies by branch (e.g. CBSE ≥94% gets 50% for CSE group)",
       "SC/ST/PH: ₹10,000/yr concession; OBC: ₹5,000/yr concession",
       "Scholarship is on tuition fee only, applied semester-wise",
@@ -233,41 +246,30 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     collegeName: "KL University — Hyderabad",
     tables: [
       {
-        examName: "KLUEEE Rank",
-        branchGroup: "CSE, AI & DS, Biotech",
+        examName: "KLEEE Rank",
+        branchGroup: "CSE, AI & DS",
         slabs: [
-          { percent: "50%", criteria: "Rank 1–50" },
-          { percent: "25%", criteria: "Rank 51–1,000" },
-          { percent: "15%", criteria: "Rank 1,001–2,000" },
-          { percent: "10%", criteria: "Rank 2,001–5,000" },
-          { percent: "₹10,000/yr", criteria: "Rank 5,001–20,000" },
+          { percent: "50%", criteria: "Rank 1–100" },
+          { percent: "25%", criteria: "Rank 101–1,500" },
+          { percent: "15%", criteria: "Rank 1,501–3,000" },
+          { percent: "10%", criteria: "Rank 3,001–6,000" },
+          { percent: "₹5,000/yr", criteria: "Rank 6,001–25,000" },
         ],
       },
       {
-        examName: "KLUEEE Rank",
-        branchGroup: "ECE, CS & IT, IoT",
+        examName: "KLEEE Rank",
+        branchGroup: "ECE, CS & IT",
         slabs: [
           { percent: "50%", criteria: "Rank 1–500" },
-          { percent: "25%", criteria: "Rank 501–1,500" },
-          { percent: "15%", criteria: "Rank 1,501–3,500" },
-          { percent: "10%", criteria: "Rank 3,501–7,500" },
-          { percent: "₹10,000/yr", criteria: "Rank 7,501–15,000" },
-        ],
-      },
-      {
-        examName: "KLUEEE Rank",
-        branchGroup: "CE, ME, EEE",
-        slabs: [
-          { percent: "50%", criteria: "Rank 1–1,000" },
-          { percent: "25%", criteria: "Rank 1,001–4,000" },
-          { percent: "15%", criteria: "Rank 4,001–8,000" },
-          { percent: "10%", criteria: "Rank 8,001–15,000" },
-          { percent: "₹10,000/yr", criteria: "Rank 15,001–25,000" },
+          { percent: "25%", criteria: "Rank 501–2,000" },
+          { percent: "15%", criteria: "Rank 2,001–4,000" },
+          { percent: "10%", criteria: "Rank 4,001–15,000" },
+          { percent: "₹5,000/yr", criteria: "Rank 15,001–30,000" },
         ],
       },
       {
         examName: "JEE Main Percentile",
-        branchGroup: "CSE, AI & DS, Biotech",
+        branchGroup: "CSE, AI & DS",
         slabs: [
           { percent: "100%", criteria: "Percentile ≥97" },
           { percent: "50%", criteria: "Percentile ≥95" },
@@ -277,9 +279,10 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
         ],
       },
     ],
-    maintenance: "CGPA 9.0 for CSE/AI&DS/BT/ECE/CS&IT groups; CGPA 8.0 for ME/CE/EEE/IoT",
+    maintenance: "CGPA 9.0 for CSE/AI&DS/ECE/CS&IT groups",
     notes: [
-      "Same scholarship structure as KL Vijayawada campus",
+      "Hyderabad operates two campuses — Aziz Nagar and Bowrampet. Programs offered: CSE, AI&DS, ECE (CS&IT at Bowrampet only)",
+      "KLEEE rank bands are the same as the Vijayawada campus (official 2026-27 publication)",
       "KL is a Deemed University — no EAPCET convener quota. EAPCET rank is accepted as a scholarship criterion",
       "Board-based scholarships also available",
     ],
@@ -339,6 +342,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
       "Scholarships limited to 30% of intake per branch (first-come, first-served)",
       "SEEE (own exam) ranks also accepted",
       "IT branch: same slabs as CSE at ₹2,25,000/yr",
+      "Slabs are as published for AY 2025-26 — SAHE has not yet released a 2026-27 update; confirm with admissions",
     ],
     source: "https://www.vrsiddhartha.ac.in/scholorships2025-26/",
     sourceLabel: "SAHE Official — Scholarships 2025-26",
@@ -351,25 +355,27 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
       {
         examName: "BITSAT Rank",
         slabs: [
-          { percent: "100%", criteria: "Top 500 rank + family income ≤₹20L/yr" },
-          { percent: "10–100%", criteria: "Top 25% of admitted students (semester-wise)" },
+          { percent: "100%", criteria: "Top 500 all-India BITSAT rank + family income ≤₹20L/yr (tuition-blind, all 4 years)" },
+          { percent: "10–100%", criteria: "Top 25% of admitted students (semester-wise waivers)" },
         ],
       },
       {
-        examName: "Board Toppers",
+        examName: "Semester Merit Scholarships (CGPA-based)",
         slabs: [
-          { percent: "100% (1st sem)", criteria: "1st position in 12th board" },
-          { percent: "75% (1st sem)", criteria: "2nd position in 12th board" },
-          { percent: "50% (1st sem)", criteria: "3rd position in 12th board" },
-          { percent: "20% (1st sem)", criteria: "≥90% aggregate in 12th" },
+          { percent: "100%", criteria: "Merit: top 2% of campus by CGPA" },
+          { percent: "50%", criteria: "Merit: next 1% by CGPA" },
+          { percent: "100%", criteria: "Merit-cum-Need: top 5% (with need criteria)" },
+          { percent: "50%", criteria: "Merit-cum-Need: next 2%" },
+          { percent: "25%", criteria: "Merit-cum-Need: next 5%" },
+          { percent: "10%", criteria: "Merit-cum-Need: next 10%" },
         ],
       },
     ],
     maintenance: "CGPA 7.5 to retain 100% scholarship; semester waivers renewed each sem",
     notes: [
       "No waiver on admission fee under any scholarship scheme",
-      "25% of students receive semester-based tuition fee waivers (10–100%)",
-      "Merit-cum-Need scholarships evaluated separately",
+      "~25% of students receive semester-based tuition fee waivers (10–100%)",
+      "Merit scholarships are awarded semester-wise on campus CGPA standing, not entrance scores",
     ],
     source: "https://admissions.bits-pilani.ac.in/FD/scholarship.html",
     sourceLabel: "BITS Pilani Official — Admissions Scholarships",
@@ -380,18 +386,18 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     collegeName: "IIIT Hyderabad",
     tables: [
       {
-        examName: "Diversity & Need-Based",
+        examName: "Need-Based Financial Assistance",
         slabs: [
-          { percent: "25% tuition waiver", criteria: "All women students" },
-          { percent: "100% tuition waiver", criteria: "Family income <₹8L/yr (from 2nd semester)" },
-          { percent: "Partial tuition waiver", criteria: "Income >₹8L — evaluated case-by-case" },
+          { percent: "Financial support (up to full tuition)", criteria: "Family income <₹8L/yr — subject to availability and stipulated criteria" },
+          { percent: "Partial support", criteria: "Income >₹8L — evaluated case-by-case" },
         ],
       },
     ],
     maintenance: "Good academic standing — no specific CGPA threshold published",
     notes: [
       "Admission via UGEE, JEE Main, Olympiad, Board-based (≥85%), and other routes — highly selective, no traditional merit slabs",
-      "Alumni-funded pay-it-forward scholarship model",
+      "25% Diversity Pool of seats for women candidates in the top percentile (JEE channel) — this is a seat pool, not a fee waiver",
+      "Financial assistance is via the alumni-funded pay-it-forward model — support level is not guaranteed",
       "SBI education loan up to ₹40L without collateral available",
     ],
     source: "https://ugadmissions.iiit.ac.in/financial-assistance/",
@@ -403,21 +409,31 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     collegeName: "ICFAI Foundation for Higher Education (IFHE)",
     tables: [
       {
-        examName: "10+2 Marks / Entrance Exam",
+        examName: "10+2 Marks (Semester 1, % of ₹1,40,000 sem fee)",
         slabs: [
-          { percent: "25–100%", criteria: "Based on 10+2 performance (exact slab cutoffs vary yearly)" },
-          { percent: "Up to 10%", criteria: "From 2nd year onward based on semester CGPA" },
+          { percent: "100%", criteria: "10+2 aggregate ≥95%" },
+          { percent: "80%", criteria: "10+2 aggregate 90–94.99%" },
+          { percent: "60%", criteria: "10+2 aggregate 85–89.99%" },
+          { percent: "40%", criteria: "10+2 aggregate 80–84.99%" },
+          { percent: "20%", criteria: "10+2 aggregate 75–79.99%" },
+        ],
+      },
+      {
+        examName: "Continuation Scholarship (Semester 2 onward, by CGPA)",
+        slabs: [
+          { percent: "30%/sem", criteria: "CGPA ≥9.0" },
+          { percent: "22%/sem", criteria: "CGPA 8.5–8.99" },
+          { percent: "15%/sem", criteria: "CGPA 8.0–8.49" },
         ],
       },
     ],
-    maintenance: "Continued based on academic performance each semester",
+    maintenance: "From Semester 2, scholarship is re-awarded each semester based on CGPA slabs above",
     notes: [
-      "Scholarship slabs are finalized during admission counselling each year",
-      "Base B.Tech fee: ~₹2,50,000/yr",
-      "Contact admissions for current year's exact slab breakpoints",
+      "Base B.Tech fee: ₹1,40,000/sem (₹2,80,000/yr; ₹11.2L program + ₹20,000 admission fee)",
+      "Slabs per official AY 2026-27 B.Tech admissions page",
     ],
-    source: "https://www.ifheindia.org/",
-    sourceLabel: "IFHE Official Website",
+    source: "https://www.ifheindia.org/icfaitech-school-hyderabad/icfaitech/ugprograms/btech",
+    sourceLabel: "IFHE Official — B.Tech Admissions & Scholarships",
   },
 
   // ─── Vignan's University ────────────────────────────────────────────
@@ -425,9 +441,9 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     collegeName: "Vignan's Foundation for Science, Technology & Research",
     tables: [
       {
-        examName: "VSAT / JEE / EAMCET Performance",
+        examName: "Branch-wise Academic Merit (Top 5% of intake)",
         slabs: [
-          { percent: "50%", criteria: "Top 5% of branch intake (top fifth)" },
+          { percent: "50%", criteria: "Top 5% of branch intake (top fifth) — % of Category-A fee" },
           { percent: "30%", criteria: "Top 5% of branch intake (next two-fifths)" },
           { percent: "20%", criteria: "Top 5% of branch intake (remaining two-fifths)" },
         ],
@@ -441,12 +457,11 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     ],
     maintenance: "CGPA 7.0, no backlogs",
     notes: [
+      "The official scheme above is awarded on in-university academic performance, branch-wise — not on entrance-exam scores",
       "Vignan's is a Deemed University — there is no EAPCET convener quota counselling. Admission is through VSAT/JEE/direct application only",
-      "AP/TS EAPCET rank is accepted as a scholarship eligibility criterion — students apply directly and cite EAPCET rank for fee concession",
+      "Separate V-SAT entrance-merit scholarships exist for new admissions — current-year slab PDF available via vignan.ac.in admissions pages; contact admissions for exact criteria",
       "Merit scholarships apply to Category-A fee component only",
-      "VSAT (Vignan's own exam) is the primary admission and scholarship route",
-      "25% of total seats reserved for scholarships: 5% at 75%, 10% at 50%, 10% at 25% concession",
-      "Intermediate marks may also be considered for scholarship — contact admissions for current year's criteria",
+      "Maintenance criteria (CGPA 7.0, no backlogs) per earlier published norms — confirm with admissions",
     ],
     source: "https://www.vignan.ac.in/curscholorships.php",
     sourceLabel: "Vignan's University Official — Scholarships",
@@ -457,24 +472,27 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     collegeName: "Amrita Vishwa Vidyapeetham, Amaravati",
     tables: [
       {
-        examName: "AEEE / JEE Main Rank — Base fee: ₹5,00,000/yr",
+        examName: "AEEE / JEE Main Rank — Amaravati (CSE, AI, ECE), full fee ₹4,50,000/yr",
         slabs: [
-          { percent: "~80% off → Pay ~₹1,00,000/yr", criteria: "Top AEEE / JEE ranks (Slab 1 — highest merit)" },
-          { percent: "~60% off → Pay ~₹2,00,000/yr", criteria: "Strong AEEE / JEE performance (Slab 2)" },
-          { percent: "~30% off → Pay ~₹3,50,000/yr", criteria: "Above-average AEEE / JEE performance (Slab 3)" },
-          { percent: "No concession → ₹5,00,000/yr", criteria: "Regular admission (no scholarship)" },
+          { percent: "Slab 1 → Pay ₹1,50,000/yr", criteria: "Top AEEE / JEE ranks (highest merit)" },
+          { percent: "Slab 2 → Pay ₹2,25,000/yr", criteria: "Strong AEEE / JEE performance" },
+          { percent: "Slab 3 → Pay ₹3,00,000/yr", criteria: "Good AEEE / JEE performance" },
+          { percent: "Slab 4 → Pay ₹3,75,000/yr", criteria: "Moderate AEEE / JEE performance" },
+          { percent: "Slab 5 → ₹4,50,000/yr (full fee)", criteria: "Regular admission (no scholarship)" },
         ],
       },
     ],
-    maintenance: "Slab 1: CGPA 8.0; Slab 2: CGPA 7.5 each year",
+    maintenance: "Slab 1: CGPA 7.0; Slab 2: CGPA 6.5; Slab 3: CGPA 6.0 — plus no arrears and no disciplinary action",
     notes: [
       "70%+ of seats are in scholarship category",
       "Exact rank cutoffs for each slab assigned during counselling",
+      "One-way slab movement: once moved to a higher-fee slab for not meeting CGPA, a student cannot return to the lower-fee slab even if CGPA recovers",
       "Separate scholarship pools for AEEE and JEE candidates",
       "One-time caution deposit of ₹10,000 applicable",
+      "Slab fees per official 2026-27 B.Tech fee structure & scholarship terms",
     ],
-    source: "https://www.amrita.edu/admissions/engineering/",
-    sourceLabel: "Amrita Official — B.Tech Admissions",
+    source: "https://aeee.amrita.edu/wp-content/uploads/2026/04/BTECH_FEE_STRUCTURE_SCHOLARSHIP_TERMS.pdf",
+    sourceLabel: "Amrita Official — B.Tech Fee Structure & Scholarship Terms 2026-27",
   },
 
   // ─── GMR University ─────────────────────────────────────────────────
@@ -482,20 +500,23 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     collegeName: "GMR University (formerly GMRIT)",
     tables: [
       {
-        examName: "AP EAPCET Rank",
+        examName: "JEE Main / State Entrance Ranks / Class XII Performance",
         slabs: [
-          { percent: "100% tuition + hostel", criteria: "EAPCET Rank <5,000" },
-          { percent: "₹10,000 merit award", criteria: "High CGPA during studies" },
+          { percent: "Up to 100%", criteria: "Highest merit band (JEE / state entrance rank / Class XII)" },
+          { percent: "75%", criteria: "Merit band 2" },
+          { percent: "50%", criteria: "Merit band 3" },
+          { percent: "25%", criteria: "Merit band 4" },
         ],
       },
     ],
     maintenance: "Good academic standing",
     notes: [
-      "Detailed slab breakpoints not published — contact admissions",
+      "Up to 20% of admitted students are eligible for merit concessions (official FAQ)",
+      "Exact rank breakpoints for each band are not published — contact admissions",
       "Base B.Tech fee: ~₹2,50,000/yr (as a Deemed University; formerly ~₹78,000/yr when GMRIT was affiliated)",
     ],
-    source: "https://www.gmru.edu.in/admissions/",
-    sourceLabel: "GMR University Official — Admissions",
+    source: "https://gmrit.edu.in/du/faqs.php",
+    sourceLabel: "GMR University Official — Deemed University FAQs",
   },
 
   // ─── Audisankara University ─────────────────────────────────────────
@@ -503,21 +524,22 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     collegeName: "Audisankara Deemed to be University",
     tables: [
       {
-        examName: "National / State Exam Scores",
+        examName: "Merit & Means-Based Schemes",
         slabs: [
-          { percent: "Merit-based concession", criteria: "Based on JEE / EAPCET / 10+2 marks" },
+          { percent: "Merit-based concession", criteria: "Trust-funded merit scholarships (incl. Atal Bihari Vajpayee Scholarship)" },
+          { percent: "Fee support", criteria: "10% of management seats reserved for economically backward students" },
         ],
       },
     ],
     maintenance: "Continued based on academic performance",
     notes: [
-      "~80% of students receive some form of fee assistance",
-      "Central Sector and Merit-cum-Means government schemes applicable",
+      "~80% of students receive some form of fee assistance (incl. AP government RTF fee reimbursement)",
+      "Economically Backward Students Fund (EBSF) available",
       "Specific institutional slab table not publicly available — contact admissions",
       "Base B.Tech fee: ~₹61,000/yr (most affordable deemed university in AP/TS)",
     ],
-    source: "https://www.audisankarauni.ac.in/",
-    sourceLabel: "Audisankara University Official Website",
+    source: "https://audisankara.ac.in/amss.html",
+    sourceLabel: "Audisankara Official — Merit Scholarship Schemes",
   },
 
   // ─── MITS Madanapalle ──────────────────────────────────────────────
@@ -694,6 +716,69 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     ],
     source: "https://anurag.edu.in/scholarships/",
     sourceLabel: "Anurag University Official — Scholarships",
+  },
+
+  // ─── NRI Deemed to be University (Dr. RVR NRI), Agiripalli ──────────
+  "NRIA": {
+    collegeName: "NRI Deemed to be University (Dr. RVR NRI Institute of Technology)",
+    tables: [
+      {
+        examName: "Inter / CBSE % · JEE Main Percentile · AP/TS EAPCET Rank",
+        branchGroup: "School of Computer Science (CSE, AIML, CSE-AIML, CSE-DS, IT) — Base fee: ₹2,00,000/yr",
+        slabs: [
+          { percent: "50% → Pay ₹1,00,000/yr", criteria: "Inter ≥95% · CBSE ≥95% · JEE ≥95 percentile · EAPCET Rank 1–5,000" },
+          { percent: "40% → Pay ₹1,20,000/yr", criteria: "Inter 85–94.99% · CBSE 80–94.99% · JEE 80–94.99 percentile · EAPCET 5,001–15,000" },
+          { percent: "30% → Pay ₹1,40,000/yr", criteria: "Inter 70–84.99% · CBSE 70–79.99% · JEE 70–79.99 percentile · EAPCET 15,001–30,000" },
+          { percent: "20% → Pay ₹1,60,000/yr", criteria: "Inter 60–69.99% · CBSE 60–69.99% · JEE <70 percentile · EAPCET >30,000" },
+        ],
+      },
+      {
+        examName: "Inter / CBSE % · JEE Main · AP/TS EAPCET Rank",
+        branchGroup: "ECE — Base fee: ₹1,00,000/yr",
+        slabs: [
+          { percent: "25% → Pay ₹75,000/yr", criteria: "Inter/CBSE/JEE ≥85 · EAPCET Rank 1–15,000" },
+          { percent: "10% → Pay ₹90,000/yr", criteria: "Inter/CBSE/JEE 60–84.99 · EAPCET 15,001–30,000" },
+        ],
+      },
+    ],
+    maintenance: "Continuation criteria not published — confirm with admissions",
+    notes: [
+      "NRIU is a Deemed University — no EAPCET convener quota counselling. EAPCET rank is used as a scholarship/fee-category criterion for direct admission",
+      "Structured as fee categories: any one qualifying criterion (Inter % OR CBSE % OR JEE percentile OR EAPCET rank) places the student in a fee category",
+      "Official prospectus: merit scholarships up to 50% of tuition fee",
+      "EEE, Civil, Mechanical: flat ₹55,000/yr — no scholarship categories",
+      "Fee categories per official AY 2026-27 fee structure",
+    ],
+    source: "https://nriit.edu.in/nri-deemed-university/fee-structure/",
+    sourceLabel: "NRI Deemed University Official — Fee Structure 2026-27",
+  },
+
+  // ─── GITAM Institute of Medical Sciences (GIMSR), Visakhapatnam ─────
+  "GIOM": {
+    collegeName: "GITAM Institute of Medical Sciences (GIMSR)",
+    tables: [
+      {
+        examName: "NEET-UG All India Rank (MBBS, % of ₹25,37,000/yr tuition)",
+        slabs: [
+          { percent: "100%", criteria: "NEET AIR 1–25,000" },
+          { percent: "75%", criteria: "NEET AIR 25,001–75,000" },
+          { percent: "50%", criteria: "NEET AIR 75,001–1,50,000" },
+          { percent: "25%", criteria: "NEET AIR 1,50,001–3,00,000" },
+          { percent: "15%", criteria: "NEET AIR 3,00,001–4,50,000" },
+          { percent: "10%", criteria: "NEET AIR 4,50,001–6,00,000" },
+        ],
+      },
+    ],
+    maintenance: "Scholarship continues in years 2–5 only if the student scores ≥65% aggregate marks every year",
+    notes: [
+      "MBBS admission is only through MCC NEET-UG counselling (deemed-university quota) — no state convener quota",
+      "GIMSR is excluded from GITAM's general engineering scholarship policy — this is a separate NEET-rank-based MBBS scheme",
+      "Scholarship recipients also get an additional 20% scholarship toward hostel fees (food + accommodation)",
+      "Top 5% of students not admitted under the scheme (max 7 students) receive 10% scholarship in years 2–5, same 65% condition",
+      "Rank slabs are restated each year against that year's NEET — slabs shown are from the 2025-26 cycle",
+    ],
+    source: "https://www.gitam.edu/gimsr/admissions/under-graduate",
+    sourceLabel: "GITAM GIMSR Official — MBBS Admissions & Scholarships",
   },
 };
 
