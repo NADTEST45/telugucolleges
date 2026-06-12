@@ -1,31 +1,36 @@
 import { ImageResponse } from "next/og";
-import { COLLEGES, getCollegeBySlug, fmtFee } from "@/lib/colleges";
+import { getCollegeBySlug, fmtFee } from "@/lib/colleges";
 
 /**
- * Per-college OG image (1200×630), generated with next/og.
+ * Per-college OG image (1200×630) as a plain route handler.
  *
- * Why: shares on WhatsApp/Telegram (our dominant share channel) previously
- * showed one generic site-wide og-image.png for every college. A card with
- * the college's own name, fee, cutoff and placements materially improves
- * link click-through.
+ * Why a route handler and not the opengraph-image.tsx file convention?
+ * In Next 16 (Turbopack) the file convention in this dynamic segment
+ * registered itself as file-based metadata — overriding the page's
+ * config-based openGraph.images — but failed to inject its own URL,
+ * so og:image silently fell back to the site-wide default. A normal
+ * route + explicit openGraph.images in generateMetadata is deterministic.
+ * (Verified in production 2026-06-12.)
  *
- * Uses ONLY the static COLLEGES data (no Supabase/merged overrides) so image
- * generation never makes a network call. Values that are zero/placeholder
- * render as "—". Satori supports flexbox only — every multi-child div needs
- * display:flex.
+ * Cached at the CDN for 24h (s-maxage); college data changes at most
+ * with a deploy, and a stale share card for a few hours is harmless.
+ *
+ * Uses ONLY static COLLEGES data — no Supabase call. Satori supports
+ * flexbox only; every multi-child div needs display:flex.
  */
 
-export const alt = "College fees, cutoffs and placements on TeluguColleges.com";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
-
-export function generateStaticParams() {
-  return COLLEGES.map(c => ({ slug: c.slug }));
-}
+export const dynamic = "force-dynamic";
 
 const BRAND = "#1a5276";
+const SIZE = { width: 1200, height: 630 };
+const CACHE_HEADERS = {
+  "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800",
+};
 
-export default async function OgImage({ params }: { params: Promise<{ slug: string }> }) {
+export async function GET(
+  _req: Request,
+  { params }: { params: Promise<{ slug: string }> }
+) {
   const { slug } = await params;
   const c = getCollegeBySlug(slug);
 
@@ -36,7 +41,7 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
           TeluguColleges.com
         </div>
       ),
-      size
+      { ...SIZE, headers: CACHE_HEADERS }
     );
   }
 
@@ -129,6 +134,6 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
         </div>
       </div>
     ),
-    size
+    { ...SIZE, headers: CACHE_HEADERS }
   );
 }
