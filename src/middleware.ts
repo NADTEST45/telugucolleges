@@ -14,7 +14,7 @@ import { Redis } from "@upstash/redis";
  * failing open. The fallback is per-instance and best-effort, NOT a
  * replacement for Upstash, but it prevents unlimited login brute force.
  */
-type LimiterName = "login" | "createUser" | "editSubmit" | "editReview" | "auditLog" | "shortlist" | "report";
+type LimiterName = "login" | "createUser" | "editSubmit" | "editReview" | "auditLog" | "shortlist" | "report" | "leads";
 
 function createUpstashLimiters(): Record<LimiterName, Ratelimit> | null {
   const url = process.env.UPSTASH_REDIS_REST_URL;
@@ -39,6 +39,7 @@ function createUpstashLimiters(): Record<LimiterName, Ratelimit> | null {
     auditLog:    mk(30, "1 m",  "rl:auditLog"),
     shortlist:   mk(60, "1 m",  "rl:shortlist"),
     report:      mk(5,  "1 h",  "rl:report"),
+    leads:       mk(5,  "1 h",  "rl:leads"),
   };
 }
 
@@ -60,6 +61,7 @@ const FALLBACK_LIMITS: Record<LimiterName, { tokens: number; windowMs: number }>
   auditLog:   { tokens: 30, windowMs: 60 * 1000 },
   shortlist:  { tokens: 60, windowMs: 60 * 1000 },
   report:     { tokens: 5,  windowMs: 60 * 60 * 1000 },
+  leads:      { tokens: 5,  windowMs: 60 * 60 * 1000 },
 };
 
 // Map of "name:key" -> recent request timestamps (ms). Module-level so it
@@ -294,6 +296,17 @@ export async function middleware(request: NextRequest) {
     if (await isRateLimited("report", ip)) {
       return NextResponse.json(
         { error: "Too many reports. Please try again later." },
+        { status: 429 }
+      );
+    }
+  }
+
+  /* ── Rate limiting: WhatsApp lead capture (5 per hour per IP) ── */
+  if (pathname === "/api/leads" && request.method === "POST") {
+    const ip = getClientIp(request);
+    if (await isRateLimited("leads", ip)) {
+      return NextResponse.json(
+        { error: "Too many submissions. Please try again later." },
         { status: 429 }
       );
     }

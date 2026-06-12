@@ -6,6 +6,7 @@ import { AP_CUTOFFS, AP_CUTOFF_YEARS, CATEGORIES, catKey, type Category, type Ge
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
 import { getHistoricalCutoff, getTSPhaseHistoricalCutoff, PREDICTOR_PHASES, type PredictorPhase } from "@/lib/cutoff-utils";
 import ShortlistButton from "@/components/ShortlistButton";
+import LeadCapture from "@/components/LeadCapture";
 import { EapcetStructuredData, PREDICTOR_FAQS } from "./structured-data";
 
 export default function EAPCETPage() {
@@ -341,13 +342,13 @@ export default function EAPCETPage() {
           {(state === "Telangana") && (
             <div>
               <h3 className="font-semibold text-sm text-accent mb-3">TS EAPCET (Telangana)</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">Conducted by JNTU Hyderabad on behalf of TSCHE. Required for B.E./B.Tech admissions into all engineering colleges in Telangana through convener quota counselling.</p>
+              <p className="text-sm text-gray-600 leading-relaxed">Conducted by JNTU Hyderabad on behalf of TGCHE. Required for B.E./B.Tech admissions into all engineering colleges in Telangana through convener quota counselling.</p>
               <div className="mt-3 space-y-1 text-xs text-gray-500">
-                <div>Convener Quota: 70% of seats filled via TSCHE web counselling</div>
+                <div>Convener Quota: 70% of seats filled via TGCHE web counselling</div>
                 <div>Fee regulation: TS AFRC (block period system, currently 2025-28)</div>
-                <div>Conducting body: JNTUH for TSCHE</div>
+                <div>Conducting body: JNTUH for TGCHE</div>
               </div>
-              <div className="mt-3 text-xs text-gray-500">Official website: eapcet.tsche.ac.in</div>
+              <div className="mt-3 text-xs text-gray-500">Official website: eapcet.tgche.ac.in</div>
             </div>
           )}
           {(state === "Andhra Pradesh") && (
@@ -364,7 +365,7 @@ export default function EAPCETPage() {
           )}
         </div>
         <div className="mt-4 bg-blue-50 rounded-lg px-4 py-2.5 text-xs text-blue-700">
-          Check the official TSCHE / APSCHE websites for confirmed dates, notifications, and registration links.
+          Check the official TGCHE / APSCHE websites for confirmed dates, notifications, and registration links.
         </div>
       </section>
 
@@ -538,6 +539,7 @@ export default function EAPCETPage() {
             <div className="mt-4 bg-amber-50 rounded-lg px-4 py-2.5 text-[11px] text-amber-700">
               Data from official APSCHE &amp; TSCHE &quot;Last Rank Details&quot; PDFs. {gender === "girls" ? "Girls-specific data available for select colleges." : ""} Actual cutoffs vary year to year.
             </div>
+            <LeadCapture rank={parseInt(rank)} examState={state} branch={branch} category={category} />
           </div>
         )}
 
