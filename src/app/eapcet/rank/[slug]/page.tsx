@@ -98,6 +98,39 @@ export default async function RankBandPage({
   const rankFmt = rank.toLocaleString("en-IN");
   const matches = getCollegesForBand(parsed);
   const breadcrumbLabel = `${rankFmt} rank · ${branch.label} · ${state.short}`;
+  const refYearLabel = state.refYear === "2024" ? "2024–25" : "2023–24";
+
+  // FAQ content (rendered visibly below AND emitted as FAQPage JSON-LD —
+  // Google requires the schema text to match on-page content).
+  const faqs = [
+    {
+      q: `Which ${branch.label} colleges can I get with ${rankFmt} rank in ${state.exam}?`,
+      a: matches.length > 0
+        ? `Based on official ${refYearLabel} convener-quota closing ranks, ${matches.length} ${state.full} college${matches.length === 1 ? "" : "s"} closed ${branch.label} at or beyond rank ${rankFmt} for OC — including ${matches.slice(0, 3).map(m => m.college.name).join(", ")}. Cutoffs shift every year, so treat these as realistic targets rather than guarantees.`
+        : `In the ${refYearLabel} reference data, no ${state.full} college in our dataset had an OC closing rank of ${rankFmt} or beyond for ${branch.label}. Consider nearby branches or use the full predictor with your exact category.`,
+    },
+    {
+      q: `Is ${rankFmt} a good rank in ${state.exam} 2026?`,
+      a: `It depends on the branch and category. For ${branch.label}, ${matches.length > 0 ? `${matches.length} college${matches.length === 1 ? " was" : "s were"} reachable at this rank for OC candidates in ${refYearLabel}` : "options for OC candidates were limited at this rank in the reference year"}. Reserved-category (BC, SC, ST, EWS) closing ranks are substantially higher than OC, so the same rank reaches more colleges in those categories.`,
+    },
+    {
+      q: `Do these cutoffs apply to all categories?`,
+      a: `No — the table on this page uses OC (boys) closing ranks as the reference. Closing ranks for BC-A/B/C/D/E, SC, ST and EWS are higher (more lenient), and girls' closing ranks also differ. Use the TeluguColleges EAPCET predictor for a list matched to your exact category and gender.`,
+    },
+    {
+      q: `When is ${state.exam} 2026 counselling?`,
+      a: `${state.exam === "AP EAPCET" ? "AP EAPCET 2026 results are expected June 18–21, 2026, with counselling registration from early July." : "TG EAPCET 2026 counselling is conducted by TSCHE; phase-1 registration typically opens within weeks of results."} Official closing ranks for 2026 are published after each allotment round.`,
+    },
+  ];
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map(f => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
 
   return (
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
@@ -278,6 +311,21 @@ export default async function RankBandPage({
         </Link>
       </div>
 
+      {/* FAQs (visible content matching FAQPage JSON-LD) */}
+      <section className="mb-8">
+        <h2 className="text-lg font-bold text-gray-900 mb-3">
+          {rankFmt} Rank in {state.exam} — FAQs
+        </h2>
+        <div className="space-y-3">
+          {faqs.map(f => (
+            <details key={f.q} className="bg-white rounded-xl border border-gray-200 p-4 group">
+              <summary className="font-semibold text-sm cursor-pointer text-gray-900">{f.q}</summary>
+              <p className="text-sm text-gray-600 leading-relaxed mt-2">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
       {/* Methodology disclaimer */}
       <p className="text-xs text-gray-500 leading-relaxed">
         Methodology: closing ranks are sourced from official{" "}
@@ -291,6 +339,7 @@ export default async function RankBandPage({
 
       {/* JSON-LD */}
       <JsonLd data={buildBreadcrumbJsonLd(slug, breadcrumbLabel)} />
+      <JsonLd data={faqJsonLd} />
       {matches.length > 0 && (
         <JsonLd data={buildItemListJsonLd(slug, matches)} />
       )}

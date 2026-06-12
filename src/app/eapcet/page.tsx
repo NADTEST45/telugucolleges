@@ -6,6 +6,7 @@ import { AP_CUTOFFS, AP_CUTOFF_YEARS, CATEGORIES, catKey, type Category, type Ge
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
 import { getHistoricalCutoff, getTSPhaseHistoricalCutoff, PREDICTOR_PHASES, type PredictorPhase } from "@/lib/cutoff-utils";
 import ShortlistButton from "@/components/ShortlistButton";
+import { EapcetStructuredData, PREDICTOR_FAQS } from "./structured-data";
 
 export default function EAPCETPage() {
   const [rank, setRank] = useState("");
@@ -587,6 +588,26 @@ export default function EAPCETPage() {
           Other branches (ECE, EEE, Mech, Civil) and rank bands available — see any rank-band page for navigation.
         </p>
       </section>
+
+      {/* FAQs — visible content matching the FAQPage JSON-LD emitted by
+          EapcetStructuredData below (Google requires schema text to be
+          present on the page). */}
+      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
+        <h2 className="text-base sm:text-lg font-bold mb-1">How the predictor works — FAQs</h2>
+        <p className="text-xs text-gray-500 mb-4">
+          Data sources, methodology, and what the predictions do (and don&apos;t) guarantee.
+        </p>
+        <div className="space-y-3">
+          {PREDICTOR_FAQS.map(f => (
+            <details key={f.q} className="bg-gray-50 rounded-xl border border-gray-200 p-4 group">
+              <summary className="font-semibold text-sm cursor-pointer text-gray-900">{f.q}</summary>
+              <p className="text-sm text-gray-600 leading-relaxed mt-2">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <EapcetStructuredData />
 
       {/* Quick Stats */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">

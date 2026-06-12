@@ -12,6 +12,7 @@ import AdSlot from "@/components/ads/AdSlot";
 import ShortlistButton from "@/components/ShortlistButton";
 import ShareButtons from "./components/ShareButtons";
 import FAQAccordion from "./components/FAQAccordion";
+import ReportDataButton from "./components/ReportDataButton";
 
 /* ─── Download Cutoff Table as PDF ─── */
 function DownloadCutoffPDF({ collegeName, tableRef, category, gender }: { collegeName: string; tableRef: React.RefObject<HTMLDivElement | null>; category: string; gender: string }) {
@@ -182,6 +183,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           </a>
           {/* <ShareButtons collegeName={c.name} district={c.district} state={c.state} /> */}
           <ShortlistButton collegeSlug={c.slug} variant="full" />
+          <ReportDataButton collegeCode={c.code} />
         </div>
       </div>
 

@@ -56,7 +56,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       locale: "en_IN",
     },
     twitter: {
-      card: "summary",
+      // summary_large_image so the per-college OG card (opengraph-image.tsx)
+      // renders full-width; Next wires the image URL automatically from the
+      // file convention.
+      card: "summary_large_image",
       title,
       description,
     },

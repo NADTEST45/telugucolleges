@@ -7,6 +7,7 @@ import AuthProvider from "@/components/AuthProvider";
 import ShortlistProvider from "@/components/ShortlistProvider";
 import UserNavMenu from "@/components/UserNavMenu";
 import { LogoMark } from "@/components/Logo";
+import { Analytics } from "@vercel/analytics/next";
 
 // Build-time constant. Evaluated when this module is bundled, so it
 // reflects the last production deploy (which is when static data was
@@ -150,6 +151,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </footer>
         </ShortlistProvider>
         </AuthProvider>
+        {/* Vercel Web Analytics — script loads from /_vercel/insights (same
+            origin, so script-src 'self' in our CSP covers it). Must also be
+            enabled once in the Vercel dashboard: Project → Analytics. */}
+        <Analytics />
       </body>
     </html>
   );
