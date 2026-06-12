@@ -217,21 +217,6 @@ export const PLACEMENT_DATA: Record<string, CollegePlacementData> = {
     ],
   },
 
-  /* ── MITS Madanapalle, Chittoor, AP ── 3-year overall data ──────────── */
-  MITS: {
-    source: "AICTE-MD",
-    sourceUrl: "https://mits.ac.in/mandatory-disclosures",
-    years: [
-      {
-        year: "2023-24",
-        totalPlaced: 1113,
-        branches: {
-          ALL: { placed: 1113, intake: 1854, avgPackage: 4.01, maxPackage: 29.5 },
-        },
-      },
-    ],
-  },
-
   /* ── Sreenidhi Institute of Science & Technology, Hyderabad ────────── */
   SNIS: {
     source: "AICTE-MD",

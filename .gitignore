@@ -28,3 +28,6 @@ _reference/
 .build-output.log*
 .next-build.log
 .next-build.pid
+
+# placement data sourcing scratch (workflow output)
+.placement-research/
