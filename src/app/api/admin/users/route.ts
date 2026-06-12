@@ -77,7 +77,11 @@ export async function POST(req: NextRequest) {
     });
 
     if (authError || !authData.user) {
-      return NextResponse.json({ error: authError?.message || "Failed to create auth user" }, { status: 500 });
+      // Log the real error server-side for debugging, but never leak it to the
+      // client — the raw message reveals whether the email already exists,
+      // enabling user enumeration.
+      console.error("[admin/users] createUser failed:", authError);
+      return NextResponse.json({ error: "Failed to create user" }, { status: 500 });
     }
 
     // Create admin_users record

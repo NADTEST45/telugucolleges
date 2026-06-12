@@ -22,3 +22,9 @@ _reference/
 *.plugin
 .claude/
 .claude/
+
+# local build logs / pids
+.build-*.log*
+.build-output.log*
+.next-build.log
+.next-build.pid

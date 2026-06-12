@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { getAuthUser, clearAuthCookies } from "@/lib/supabase/auth";
 import { getServiceClient } from "@/lib/supabase/client";
 
 export const dynamic = "force-dynamic";
+
+// Must match TOKEN_COOKIE in src/lib/supabase/auth.ts
+const TOKEN_COOKIE = "tc_admin_token";
 
 export async function POST() {
   const user = await getAuthUser();
@@ -10,10 +14,16 @@ export async function POST() {
     return NextResponse.json({ error: "Not logged in" }, { status: 401 });
   }
 
-  // Invalidate session server-side before clearing cookies
+  // Invalidate session server-side before clearing cookies.
+  // admin.signOut() expects the user's access token (JWT), NOT the
+  // admin_users.id UUID — so we read the token cookie directly.
   const sb = getServiceClient();
   try {
-    await sb.auth.admin.signOut(user.id);
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get(TOKEN_COOKIE)?.value;
+    if (accessToken) {
+      await sb.auth.admin.signOut(accessToken);
+    }
   } catch {
     // Continue with cookie cleanup even if server-side signout fails
   }

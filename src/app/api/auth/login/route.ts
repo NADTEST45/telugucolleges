@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServiceClient } from "@/lib/supabase/client";
+import { getServiceClient, createPasswordAuthClient } from "@/lib/supabase/client";
 import { setAuthCookies } from "@/lib/supabase/auth";
 
 export const dynamic = "force-dynamic";
@@ -13,8 +13,11 @@ export async function POST(req: NextRequest) {
 
     const sb = getServiceClient();
 
-    // Authenticate with Supabase Auth
-    const { data: authData, error: authError } = await sb.auth.signInWithPassword({
+    // Authenticate with Supabase Auth on a DEDICATED, non-persistent client.
+    // signInWithPassword() mutates the client's auth session; running it on the
+    // cached service singleton would bleed sessions across concurrent logins.
+    const authClient = createPasswordAuthClient();
+    const { data: authData, error: authError } = await authClient.auth.signInWithPassword({
       email,
       password,
     });

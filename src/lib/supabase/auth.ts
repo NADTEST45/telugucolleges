@@ -43,23 +43,26 @@ export async function getAuthUser(): Promise<AdminUser | null> {
   if (!userCookie?.value || !tokenCookie?.value) return null;
 
   try {
-    const cookieData = JSON.parse(userCookie.value) as { id: string; role: string };
-
-    // Verify token is still valid with Supabase
+    // Verify token is still valid with Supabase. This is the ONLY trusted
+    // source of identity — the user cookie is unsigned and attacker-mutable,
+    // so we must never look the admin up by an id taken from it.
     const sb = getServiceClient();
     const { data } = await sb.auth.getUser(tokenCookie.value);
     if (!data?.user) return null;
 
-    // Re-fetch full user from DB to check is_active and get latest data
+    // Bind the session to the admin record via the token's verified auth_id.
+    // (Previously this queried by the cookie's `id`, which let anyone holding
+    //  any valid Supabase token impersonate any admin by forging that id.)
     const { data: dbUser, error } = await sb
       .from("admin_users")
       .select("*")
-      .eq("id", cookieData.id)
+      .eq("auth_id", data.user.id)
       .eq("is_active", true)
       .single();
 
     if (error || !dbUser) {
-      // User deactivated or deleted — clear stale session
+      // User deactivated, deleted, or token doesn't map to an admin —
+      // clear the stale/forged session.
       await clearAuthCookies();
       return null;
     }
