@@ -54,14 +54,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: "TeluguColleges.com",
       type: "website",
       locale: "en_IN",
+      // Explicit reference to the per-college OG card (./opengraph-image.tsx).
+      // The file convention alone did NOT inject the meta tag here (verified
+      // in production 2026-06-12: og:image pointed at the root site-wide
+      // image while /colleges/<slug>/opengraph-image served fine), so we
+      // wire the URL by hand.
+      images: [{ url: `${SITE_URL}/colleges/${slug}/opengraph-image`, width: 1200, height: 630 }],
     },
     twitter: {
-      // summary_large_image so the per-college OG card (opengraph-image.tsx)
-      // renders full-width; Next wires the image URL automatically from the
-      // file convention.
       card: "summary_large_image",
       title,
       description,
+      images: [`${SITE_URL}/colleges/${slug}/opengraph-image`],
     },
   };
 }
