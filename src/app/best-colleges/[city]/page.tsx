@@ -68,6 +68,7 @@ export async function generateMetadata({
       siteName: "TeluguColleges.com",
       type: "website",
       locale: "en_IN",
+      images: [{ url: `${SITE_URL}/og-image.png`, width: 1200, height: 630 }],
     },
   };
 }

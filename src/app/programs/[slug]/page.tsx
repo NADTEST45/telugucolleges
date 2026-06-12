@@ -27,11 +27,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: "TeluguColleges.com",
       type: "website",
       locale: "en_IN",
+      images: [{ url: `${SITE_URL}/og-image.png`, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary" as const,
       title,
       description,
+      images: [`${SITE_URL}/og-image.png`],
     },
   };
 }

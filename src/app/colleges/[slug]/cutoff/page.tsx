@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const cseCutoff = c.cutoff.cse > 0 ? c.cutoff.cse.toLocaleString("en-IN") : "N/A";
   const eceCutoff = c.cutoff.ece > 0 ? c.cutoff.ece.toLocaleString("en-IN") : "N/A";
 
-  const title = `${c.name} EAPCET Cutoff 2025 — Branch-wise Closing Ranks | TeluguColleges`;
+  const title = `${c.name} EAPCET Cutoff 2026 — Branch-wise Closing Ranks | TeluguColleges`;
   const description = `${c.name} (${c.code}) EAPCET cutoff ranks: CSE ${cseCutoff}, ECE ${eceCutoff}. Category-wise closing ranks, year-over-year trends.`;
   const url = `${SITE_URL}/colleges/${slug}/cutoff`;
   // Placeholder rows have no cutoff data → emit noindex so the page
@@ -50,11 +50,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: "TeluguColleges.com",
       type: "website",
       locale: "en_IN",
+      images: [{ url: `${SITE_URL}/api/og/${slug}`, width: 1200, height: 630 }],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description,
+      images: [`${SITE_URL}/api/og/${slug}`],
     },
   };
 }
