@@ -1047,6 +1047,58 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
             {/* ROI section removed */}
           </section>
 
+          {/* ── NIRF / institutional placement summary (college-level) ── */}
+          {pd?.summary && (
+            <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
+              <h2 className="text-lg font-bold mb-1">Placement Summary · {pd.summary.year}</h2>
+              <p className="text-xs text-gray-500 mb-4">
+                {pd.source === "NIRF" ? "Official NIRF 2025 submission / report figures" : "Institutional data"}
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
+                {pd.summary.medianPackage != null && (
+                  <div className="bg-green-50 rounded-xl p-3 sm:p-4 text-center">
+                    <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Median Package</div>
+                    <div className="text-base sm:text-xl font-extrabold text-green-700">₹{pd.summary.medianPackage} LPA</div>
+                  </div>
+                )}
+                {pd.summary.avgPackage != null && (
+                  <div className="bg-emerald-50 rounded-xl p-3 sm:p-4 text-center">
+                    <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Average Package</div>
+                    <div className="text-base sm:text-xl font-extrabold text-emerald-700">₹{pd.summary.avgPackage} LPA</div>
+                  </div>
+                )}
+                {pd.summary.maxPackage != null && (
+                  <div className="bg-amber-50 rounded-xl p-3 sm:p-4 text-center">
+                    <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Highest Package</div>
+                    <div className="text-base sm:text-xl font-extrabold text-amber-700">₹{pd.summary.maxPackage} LPA</div>
+                  </div>
+                )}
+                {pd.summary.placed != null && (
+                  <div className="bg-blue-50 rounded-xl p-3 sm:p-4 text-center">
+                    <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Students Placed</div>
+                    <div className="text-base sm:text-xl font-extrabold text-accent">{pd.summary.placed.toLocaleString("en-IN")}</div>
+                  </div>
+                )}
+                {pd.summary.graduated != null && (
+                  <div className="bg-indigo-50 rounded-xl p-3 sm:p-4 text-center">
+                    <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Graduated</div>
+                    <div className="text-base sm:text-xl font-extrabold text-indigo-700">{pd.summary.graduated.toLocaleString("en-IN")}</div>
+                  </div>
+                )}
+                {pd.summary.placed != null && pd.summary.graduated != null && pd.summary.graduated > 0 && (
+                  <div className="bg-purple-50 rounded-xl p-3 sm:p-4 text-center">
+                    <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Placement Rate</div>
+                    <div className="text-base sm:text-xl font-extrabold text-purple-700">{Math.round((pd.summary.placed / pd.summary.graduated) * 100)}%</div>
+                  </div>
+                )}
+              </div>
+              {pd.summary.note && <p className="text-[11px] sm:text-xs text-gray-500 mt-3">{pd.summary.note}</p>}
+              {pd.sourceUrl && (
+                <p className="text-[11px] sm:text-xs text-gray-500 mt-2">Source: <a href={pd.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-accent">{pd.source === "NIRF" ? "NIRF India Rankings 2025" : "Institution"}</a></p>
+              )}
+            </section>
+          )}
+
           {/* ── Branch-wise Placement Data (only if detailed data exists) ── */}
           {latestYear && Object.keys(latestYear.branches).length > 0 && (
             <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">

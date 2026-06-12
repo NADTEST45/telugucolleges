@@ -24,10 +24,27 @@ export interface YearPlacement {
   topRecruiters?: { name: string; offers: number; avgPackage: number }[];
 }
 
+/**
+ * College-level placement summary from NIRF submissions/reports.
+ * NIRF publishes institute-level figures (not branch-wise), so these
+ * live alongside (or instead of) the branch-wise `years` data.
+ * Only fields actually published are set — never estimated.
+ */
+export interface PlacementSummary {
+  year: string;            // data year, e.g. "2023-24"
+  graduated?: number;
+  placed?: number;
+  medianPackage?: number;  // LPA — NIRF's audited figure
+  avgPackage?: number;     // LPA
+  maxPackage?: number;     // LPA
+  note?: string;
+}
+
 export interface CollegePlacementData {
   source: "AICTE-MD" | "NIRF" | "college";
   sourceUrl?: string;
   years: YearPlacement[];
+  summary?: PlacementSummary;
 }
 
 // ── Placement data keyed by college code ────────────────────────────────
@@ -228,6 +245,123 @@ export const PLACEMENT_DATA: Record<string, CollegePlacementData> = {
         totalPlaced: 64,
       },
     ],
+  },
+
+  /* ════════════════════════════════════════════════════════════════════
+   * NIRF 2025 college-level summaries (data year 2023-24).
+   * Source: NIRF 2025 submissions & reports — institute-level only,
+   * so these use `summary` rather than branch-wise `years`.
+   * ════════════════════════════════════════════════════════════════════ */
+
+  /* ── IIT Tirupati ──────────────────────────────────────────────────── */
+  IITP: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", graduated: 170, placed: 114, avgPackage: 13.1, maxPackage: 41.64, medianPackage: 11.63 },
+  },
+
+  /* ── Andhra University College of Engineering ──────────────────────── */
+  AUCE: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", graduated: 513, placed: 496, medianPackage: 9.3 },
+  },
+
+  /* ── JNTUA College of Engineering, Anantapur ───────────────────────── */
+  JNTA: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", graduated: 1106, placed: 534, avgPackage: 6.0, maxPackage: 29, medianPackage: 4.2 },
+  },
+
+  /* ── University College of Engineering, Kakinada (JNTUK) ───────────── */
+  UCEK: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", maxPackage: 35, medianPackage: 9.42 },
+  },
+
+  /* ── KL University ──────────────────────────────────────────────────── */
+  KLUN: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", avgPackage: 11, maxPackage: 75 },
+  },
+
+  /* ── Vignan's Foundation (VFSTR) ───────────────────────────────────── */
+  VIGF: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", medianPackage: 6.96 },
+  },
+
+  /* ── SRM University AP ─────────────────────────────────────────────── */
+  SRMA: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", avgPackage: 13.43, maxPackage: 55, medianPackage: 7.07 },
+  },
+
+  /* ── VIT-AP University ─────────────────────────────────────────────── */
+  VTAP: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", avgPackage: 14.43, maxPackage: 27 },
+  },
+
+  /* ── RVR & JC College of Engineering ───────────────────────────────── */
+  RVRJ: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", graduated: 1081, placed: 589, avgPackage: 4.73, maxPackage: 25, medianPackage: 4.25 },
+  },
+
+  /* ── Mohan Babu University (formerly Sree Vidyanikethan) ───────────── */
+  MBUT: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", graduated: 1554, placed: 1363, avgPackage: 4.9, maxPackage: 31, medianPackage: 5.3, note: "Submitted as Sree Vidyanikethan Engineering College (SVEC), now part of Mohan Babu University" },
+  },
+
+  /* ── Sri Venkateswara College of Engineering, Tirupati ─────────────── */
+  SVCE: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", placed: 1625, maxPackage: 11, medianPackage: 5.5 },
+  },
+
+  /* ── Gudlavalleru Engineering College ──────────────────────────────── */
+  GDLV: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", placed: 872, avgPackage: 4.01, maxPackage: 31, medianPackage: 4.12 },
+  },
+
+  /* ── Prasad V. Potluri Siddhartha Institute of Technology ──────────── */
+  PPSV: {
+    source: "NIRF",
+    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    years: [],
+    summary: { year: "2023-24", avgPackage: 7.44, maxPackage: 44 },
+  },
+
+  /* ── Lakireddy Bali Reddy College of Engineering ───────────────────── */
+  LBCE: {
+    source: "college",
+    years: [],
+    summary: { year: "2023-24", avgPackage: 4.0, maxPackage: 16, note: "Self-reported institutional data (NIRF participant)" },
   },
 
 };
