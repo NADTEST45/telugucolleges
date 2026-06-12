@@ -47,6 +47,7 @@ export const UNIVERSITY_FEE_AY: Record<string, string> = {
   AUDI: "2026-27", // audisankara.ac.in — ₹61K/yr B.Tech
   MITS: "2026-27", // mits.ac.in — Fee Details 2026-27 PDF
   GMRI: "2026-27", // gmrit.edu.in/du/eligibility.php — ₹1.25L/sem CSE, ₹75K/sem EEE/Mech/Civil
+  NRIA: "2026-27", // nriit.edu.in/nri-deemed-university/fee-structure — "Tuition Fee particulars for AY 2026-27"
   GIOM: "2025-26", // gitam.edu/gimsr/admissions/under-graduate — official ₹25.37L/yr (Y1-4), ₹12.7L Y5; 2026-27 notification awaited
 
   // AP — Private State Universities
@@ -228,6 +229,25 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "MCA", fee: 120000, duration: 2, level: "PG" },
     { program: "M.Tech", fee: 70000, duration: 2, level: "PG" },
     { program: "Ph.D", fee: 80000, duration: 3, level: "Doctoral" },
+  ],
+
+  "NRIA": [ // Dr. RVR NRI Institute of Technology (NRI Deemed University) — Agiripalli, Eluru (nriit.edu.in/nri-deemed-university/fee-structure — official AY 2026-27)
+    // fee = sticker tuition/yr. Merit scholarships reduce Computer-school fees to ₹1L–1.6L
+    // (Cat 1–4 by Inter % / CBSE % / JEE percentile / EAPCET rank) and ECE to ₹75K–90K.
+    { program: "B.Tech", specialization: "AI & ML", fee: 200000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE", fee: 200000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 200000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "CSE (Data Science)", fee: 200000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "IT", fee: 200000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "ECE", fee: 100000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "EEE", fee: 55000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Mechanical", fee: 55000, duration: 4, level: "UG" },
+    { program: "B.Tech", specialization: "Civil", fee: 55000, duration: 4, level: "UG" },
+    { program: "M.Tech", specialization: "CSE / Structural / Thermal / VLSI & Embedded / EV Technology", fee: 55000, duration: 2, level: "PG" },
+    { program: "B.Pharm", fee: 60000, duration: 4, level: "UG" },
+    { program: "Pharm.D", fee: 140000, duration: 6, level: "Integrated" },
+    { program: "M.Pharm", specialization: "Pharmaceutics / Pharmaceutical Analysis / Quality Analysis", fee: 50000, duration: 2, level: "PG" },
+    { program: "Ph.D", fee: 40000, duration: 3, level: "Doctoral" }, // ₹20K/sem (full-time), ₹15K/sem (part-time)
   ],
 
   // =============================================
