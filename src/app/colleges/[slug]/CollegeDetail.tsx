@@ -115,6 +115,34 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
   const [feeTab, setFeeTab] = useState(0); // 0 = primary tab, 1 = secondary tab
   const cutoffTableRef = useRef<HTMLDivElement>(null);
   const cutoffs = Object.entries(c.cutoff).filter(([, v]) => v > 0).sort((a, b) => a[1] - b[1]);
+
+  // Resolve the CSE OC closing rank for the summary card / About paragraph.
+  // The static summary (c.cutoff.cse) is 0 for many colleges that DO have
+  // real final-phase / historical CSE data in the cutoff tables below — which
+  // produced the trust-breaking "CSE Cutoff: 0" card while the table showed
+  // genuine closing ranks. Backfill from the same data the table renders:
+  // prefer the static summary, then the most recent phase (phases are ordered
+  // final-phase-first), then the latest historical year. OC / boys, matching
+  // the "EAPCET final OC" card label.
+  const cseClosing = (() => {
+    if (c.cutoff.cse > 0) return c.cutoff.cse;
+    if (phaseCutoffs && phases) {
+      for (const p of phases) {
+        const br = phaseCutoffs[p.key]?.["CSE"];
+        const r = br ? getRankForGender(br, "OC", "boys") : 0;
+        if (r > 0) return r;
+      }
+    }
+    if (historicalCutoffs) {
+      for (const y of Object.keys(historicalCutoffs).sort((a, b) => b.localeCompare(a))) {
+        const br = historicalCutoffs[y]?.["CSE"];
+        const r = br ? getRankForGender(br, "OC", "boys") : 0;
+        if (r > 0) return r;
+      }
+    }
+    return 0;
+  })();
+
   const courses = getCourses(c.code) || getAffiliatedCourses(c);
   // Use actual total from course data when available (handles variable yearly fees)
   const btechCourse = courses?.find(co => (co.program === "B.Tech" || co.program === "B.E.") && co.fee === c.fee);
@@ -194,7 +222,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 mb-6">
         {([
           ["B.Tech Fee", btechFeeLabel, c.type === "Deemed University" || c.type === "Private University" ? `University fee${UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}` : c.state === "Telangana" ? "GO.Ms.06 · 2025-28" : "APHERMC · 2023-26", "text-brand"],
-          ...(medical ? [["Admission", "NEET-UG", `Via ${medical.authority} counselling`, "text-gray-900"]] : c.type !== "Deemed University" ? [["CSE Cutoff", c.cutoff.cse?.toLocaleString() || "—", "EAPCET final OC", "text-gray-900"]] : [["Admission", "Own Exam", "Not via EAPCET", "text-gray-900"]]),
+          ...(medical ? [["Admission", "NEET-UG", `Via ${medical.authority} counselling`, "text-gray-900"]] : c.type !== "Deemed University" ? [["CSE Cutoff", cseClosing > 0 ? cseClosing.toLocaleString("en-IN") : "—", cseClosing > 0 ? "EAPCET final OC" : "Data pending", "text-gray-900"]] : [["Admission", "Own Exam", "Not via EAPCET", "text-gray-900"]]),
           ["Avg Package", c.placements.avg > 0 ? `₹${c.placements.avg} LPA` : "—", "Placements", "text-green-600"],
           ["Highest Pkg", c.placements.highest > 0 ? `₹${c.placements.highest}L` : "—", "Top offer", "text-amber-600"],
           ...(c.nirf > 0
@@ -265,9 +293,9 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                   : `The annual tuition fee for B.Tech is ${fmtFee(c.fee)}${c.type === "Government" ? ", making it one of the most affordable options in " + c.state : c.goFee > 0 && c.goFee !== c.fee ? ` (government order fee: ${fmtFee(c.goFee)})` : ""}. Over four years, the total tuition cost comes to approximately ${fmtFee(btechTotalFee)}. `) : ""}
                 {c.placements.avg > 0 ? `In recent placements, ${c.name.split(" ")[0]} reported an average package of ₹${c.placements.avg} LPA${c.placements.highest > 0 ? ` with the highest offer reaching ₹${c.placements.highest} LPA` : ""}${c.placements.companies > 0 ? `, attracting ${c.placements.companies}+ recruiting companies` : ""}. ` : ""}
                 {"" /* ROI sentence removed */}
-                {c.cutoff.cse > 0 ? (c.type === "Deemed University"
-                  ? `In its final ${c.state === "Telangana" ? "TS" : "AP"} EAPCET counselling cycle before becoming a deemed university, the CSE branch closed at rank ${c.cutoff.cse.toLocaleString("en-IN")}.`
-                  : `For ${c.state === "Telangana" ? "TS" : "AP"} EAPCET admissions, the CSE branch had a closing rank of ${c.cutoff.cse.toLocaleString("en-IN")} in the most recent counselling cycle.`) : ""}
+                {cseClosing > 0 ? (c.type === "Deemed University"
+                  ? `In its final ${c.state === "Telangana" ? "TS" : "AP"} EAPCET counselling cycle before becoming a deemed university, the CSE branch closed at rank ${cseClosing.toLocaleString("en-IN")}.`
+                  : `For ${c.state === "Telangana" ? "TS" : "AP"} EAPCET admissions, the CSE branch had a closing rank of ${cseClosing.toLocaleString("en-IN")} in the most recent counselling cycle.`) : ""}
               </p>
             </div>
           </section>

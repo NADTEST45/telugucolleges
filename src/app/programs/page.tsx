@@ -55,7 +55,7 @@ export default function ProgramsPage() {
                         </div>
                       </div>
                       <span className={`px-2 py-0.5 rounded text-[11px] font-semibold ${style.bg} ${style.text}`}>
-                        {p.collegeCount} colleges
+                        {p.uniqueCollegeCount} colleges
                       </span>
                     </div>
                     <div className="flex items-end justify-between">

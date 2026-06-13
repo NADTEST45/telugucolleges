@@ -27,9 +27,15 @@ export interface College {
  * As college data is filled in over time, those pages auto-promote into
  * the indexable set on the next deploy — no manual unlisting needed.
  */
-export function hasRealData(c: College): boolean {
+export function hasRealData(c: College, hasCutoffData: boolean = c.cutoff.cse > 0): boolean {
   let signals = 0;
-  if (c.cutoff.cse > 0) signals++;
+  // The cutoff signal is true when either the summary cutoff.cse is populated
+  // OR the college has real data in the historical cutoff tables. The summary
+  // field is only the "current year" column and is blank for many colleges
+  // whose ranks live in historical years — callers that have access to the
+  // cutoff tables should pass the table-aware value (see isIndexable in
+  // cutoff-presence.ts). Default keeps the original summary-only behaviour.
+  if (hasCutoffData) signals++;
   if (c.placements.avg > 0) signals++;
   if (c.naac && c.naac !== "-" && c.naac !== "") signals++;
   if (c.nirf > 0) signals++;

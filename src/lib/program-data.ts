@@ -10,7 +10,8 @@ export interface ProgramSummary {
   name: string;          // e.g. "B.Tech", "MBBS"
   level: string;         // UG, PG, Integrated, etc.
   duration: number;      // years
-  collegeCount: number;
+  collegeCount: number;        // total branch-college entries (a college with N specialisations counts N times)
+  uniqueCollegeCount: number;  // distinct colleges offering this program
   feeMin: number;
   feeMax: number;
   feeMedian: number;
@@ -84,6 +85,7 @@ export function getAllPrograms(): ProgramSummary[] {
       level: data.info.level,
       duration: data.info.duration,
       collegeCount: data.colleges.length,
+      uniqueCollegeCount: new Set(data.colleges.map(cp => cp.college.id)).size,
       feeMin: fees[0],
       feeMax: fees[fees.length - 1],
       feeMedian: fees[Math.floor(fees.length / 2)],
@@ -111,6 +113,7 @@ export function getCollegesForProgram(slug: string): { program: ProgramSummary; 
         level: data.info.level,
         duration: data.info.duration,
         collegeCount: data.colleges.length,
+        uniqueCollegeCount: new Set(data.colleges.map(cp => cp.college.id)).size,
         feeMin: fees[0],
         feeMax: fees[fees.length - 1],
         feeMedian: fees[Math.floor(fees.length / 2)],

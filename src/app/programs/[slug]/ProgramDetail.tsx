@@ -51,8 +51,14 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
   const hasFilters = !!(search || state || district || collegeType);
   const clearAll = () => { setSearch(""); setState(""); setDistrict(""); setCollegeType(""); };
 
-  const apCount = colleges.filter(c => c.college.state === "Andhra Pradesh").length;
-  const tsCount = colleges.filter(c => c.college.state === "Telangana").length;
+  // Count DISTINCT colleges, not branch-college entries. A single college that
+  // offers a program under several specialisations (e.g. CSE, CSE-AI, CSE-DS)
+  // appears once per specialisation in `colleges`, so `.length` over-counts.
+  const uniq = (list: CollegeProgram[]) => new Set(list.map(cp => cp.college.id)).size;
+  const totalUnique = program.uniqueCollegeCount;
+  const apUnique = uniq(colleges.filter(c => c.college.state === "Andhra Pradesh"));
+  const tsUnique = uniq(colleges.filter(c => c.college.state === "Telangana"));
+  const filteredUnique = uniq(filtered);
 
   const sel = "px-3 py-2 rounded-lg border border-gray-200 text-sm bg-white cursor-pointer";
 
@@ -71,7 +77,8 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
           <span className={`text-sm font-semibold ${CATEGORY_COLORS[program.category] || "text-gray-600"}`}>{program.category}</span>
         </div>
         <p className="text-sm text-gray-500">
-          {program.level} · {program.duration} {program.duration === 1 ? "year" : "years"} · Offered at {program.collegeCount} colleges
+          {program.level} · {program.duration} {program.duration === 1 ? "year" : "years"} · Offered at {program.uniqueCollegeCount} colleges
+          {program.collegeCount !== program.uniqueCollegeCount ? ` (${program.collegeCount} branch-college entries)` : ""}
         </p>
       </div>
 
@@ -91,7 +98,7 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
         </div>
         <div className="bg-white rounded-xl p-4 shadow-sm text-center">
           <div className="text-xs text-gray-500 mb-1">Total Colleges</div>
-          <div className="font-bold text-lg">{program.collegeCount}</div>
+          <div className="font-bold text-lg">{totalUnique}</div>
         </div>
       </div>
 
@@ -99,15 +106,15 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
       <div className="flex gap-2 mb-4">
         <button onClick={() => { setState(""); setDistrict(""); }}
           className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${!state ? "bg-brand text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
-          All ({colleges.length})
+          All ({totalUnique})
         </button>
         <button onClick={() => { setState(state === "Andhra Pradesh" ? "" : "Andhra Pradesh"); setDistrict(""); }}
           className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${state === "Andhra Pradesh" ? "bg-green-600 text-white" : "bg-green-50 text-green-700 hover:bg-green-100"}`}>
-          AP ({apCount})
+          AP ({apUnique})
         </button>
         <button onClick={() => { setState(state === "Telangana" ? "" : "Telangana"); setDistrict(""); }}
           className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${state === "Telangana" ? "bg-accent text-white" : "bg-blue-50 text-accent hover:bg-blue-100"}`}>
-          TS ({tsCount})
+          TS ({tsUnique})
         </button>
       </div>
 
@@ -154,7 +161,10 @@ export default function ProgramDetail({ program, colleges }: { program: ProgramS
         )}
       </div>
 
-      <div className="text-sm text-gray-500 font-semibold mb-4">{filtered.length} colleges found</div>
+      <div className="text-sm text-gray-500 font-semibold mb-4">
+        {filteredUnique} colleges found
+        {filtered.length !== filteredUnique ? ` · ${filtered.length} branch-college entries` : ""}
+      </div>
 
       {/* College List */}
       <div className="space-y-2">

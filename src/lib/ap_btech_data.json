@@ -88,7 +88,7 @@
     "code": "ALTS",
     "name": "Anantha Lakshmi Inst of Technology and Sci - Anantapuramu",
     "district": "ATP",
-    "fee": 50200
+    "fee": 61100
   },
   {
     "sno": 14,
@@ -123,7 +123,7 @@
     "code": "ASIP",
     "name": "Amrita Sai Inst. of Science and Technology - Paritala",
     "district": "NTR",
-    "fee": 52900
+    "fee": 66800
   },
   {
     "sno": 19,
@@ -522,7 +522,7 @@
     "code": "ISTS",
     "name": "International School of Tech and Sci for Women - Rajahmundry",
     "district": "EG",
-    "fee": 51100
+    "fee": 54000
   },
   {
     "sno": 76,
@@ -767,7 +767,7 @@
     "code": "NARN",
     "name": "Narayana Engineering College - Nellore",
     "district": "NLR",
-    "fee": 47200
+    "fee": 56000
   },
   {
     "sno": 111,
@@ -809,7 +809,7 @@
     "code": "NRIA",
     "name": "NRI Institute of Technology - Agiripally",
     "district": "NTR",
-    "fee": 55000,
+    "fee": 61600,
     "type": "Deemed University",
     "note": "Granted Deemed University status effective 2026-27. Fees self-regulated; not covered by APHERMC. Verify current fee with institution."
   },
@@ -1028,7 +1028,7 @@
     "code": "SASI",
     "name": "Sasi Institute of Technology and Engineering - Tadepalligudem",
     "district": "WG",
-    "fee": 40000
+    "fee": 55600
   },
   {
     "sno": 148,
@@ -1119,7 +1119,7 @@
     "code": "SRIN",
     "name": "Srinivasa Inst of Engg and Technology - Cheyyeru",
     "district": "KON",
-    "fee": 45700
+    "fee": 55100
   },
   {
     "sno": 161,

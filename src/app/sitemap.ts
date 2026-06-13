@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
-import { COLLEGES, hasRealData } from "@/lib/colleges";
+import { COLLEGES } from "@/lib/colleges";
+import { isIndexable } from "@/lib/cutoff-presence";
 import { getAllProgramSlugs } from "@/lib/program-data";
 import { getAllBranchSlugs } from "@/lib/branch-data";
 import { getAllPairSlugs } from "@/lib/comparison-pairs";
@@ -105,7 +106,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // currently not indexed". As college data is populated, those rows
   // auto-promote into the sitemap on the next deploy.
   for (const c of COLLEGES) {
-    if (!hasRealData(c)) continue;
+    if (!isIndexable(c)) continue;
     const base = `${BASE}/colleges/${c.slug}`;
     entries.push(
       { url: base, changeFrequency: "monthly", priority: 0.7, lastModified: BUILD_DATE },

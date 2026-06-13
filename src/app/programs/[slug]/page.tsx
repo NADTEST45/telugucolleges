@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const data = getCollegesForProgram(slug);
   if (!data) return {};
   const title = `${data.program.name} Colleges in AP & Telangana — Fees & Cutoffs | TeluguColleges`;
-  const description = `${data.program.collegeCount}+ colleges offering ${data.program.name} in Andhra Pradesh & Telangana. Compare fees, cutoff ranks, and placements.`;
+  const description = `${data.program.uniqueCollegeCount}+ colleges offering ${data.program.name} in Andhra Pradesh & Telangana. Compare fees, cutoff ranks, and placements.`;
   const url = `${SITE_URL}/programs/${slug}`;
   return {
     title,
@@ -67,7 +67,7 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
     "@context": "https://schema.org",
     "@type": "Course",
     name: program.name,
-    description: `${program.name} (${program.level}) programs offered by ${program.collegeCount} colleges across Andhra Pradesh and Telangana. Duration: ${program.duration} years.`,
+    description: `${program.name} (${program.level}) programs offered by ${program.uniqueCollegeCount} colleges across Andhra Pradesh and Telangana. Duration: ${program.duration} years.`,
     url,
     provider: {
       "@type": "Organization",

@@ -148,7 +148,7 @@ export default function BranchesPage() {
                       <div className="text-[11px] text-gray-500 leading-tight">{p.level} · {p.duration} {p.duration === 1 ? "yr" : "yrs"}</div>
                     </div>
                     <span className="text-[11px] sm:text-xs font-bold text-accent bg-blue-50 px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
-                      {p.collegeCount}
+                      {p.uniqueCollegeCount}
                     </span>
                   </div>
                   <div className="flex flex-wrap items-center gap-x-1.5 text-[11px] text-gray-500">
@@ -181,7 +181,7 @@ export default function BranchesPage() {
                       <div className="text-[11px] text-gray-500 leading-tight">{p.level} · {p.duration} {p.duration === 1 ? "yr" : "yrs"}</div>
                     </div>
                     <span className="text-[11px] sm:text-xs font-bold text-accent bg-blue-50 px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
-                      {p.collegeCount}
+                      {p.uniqueCollegeCount}
                     </span>
                   </div>
                   <div className="flex flex-wrap items-center gap-x-1.5 text-[11px] text-gray-500">
@@ -214,7 +214,7 @@ export default function BranchesPage() {
                       <div className="text-[11px] text-gray-500 leading-tight">{p.level} · {p.duration} {p.duration === 1 ? "yr" : "yrs"}</div>
                     </div>
                     <span className="text-[11px] sm:text-xs font-bold text-accent bg-blue-50 px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
-                      {p.collegeCount}
+                      {p.uniqueCollegeCount}
                     </span>
                   </div>
                   <div className="flex flex-wrap items-center gap-x-1.5 text-[11px] text-gray-500">
@@ -243,7 +243,7 @@ export default function BranchesPage() {
                       <div className="text-[11px] text-gray-500 leading-tight">{p.level} · {p.duration} {p.duration === 1 ? "yr" : "yrs"}</div>
                     </div>
                     <span className="text-[11px] sm:text-xs font-bold text-accent bg-blue-50 px-1.5 sm:px-2 py-0.5 rounded-full shrink-0">
-                      {p.collegeCount}
+                      {p.uniqueCollegeCount}
                     </span>
                   </div>
                   <div className="flex flex-wrap items-center gap-x-1.5 text-[11px] text-gray-500">

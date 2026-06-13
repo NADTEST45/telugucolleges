@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 
 function FAQAccordionItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false);
-  const itemId = `faq-${Math.random().toString(36).substr(2, 9)}`;
+  const itemId = useId();
   const contentId = `${itemId}-content`;
 
   return (
@@ -24,16 +24,20 @@ function FAQAccordionItem({ question, answer }: { question: string; answer: stri
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
         </svg>
       </button>
-      {open && (
-        <div
-          id={contentId}
-          className="px-3 sm:px-5 pb-3 sm:pb-4 text-xs sm:text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-2 sm:pt-3"
-          role="region"
-          aria-labelledby={itemId}
-        >
-          {answer}
-        </div>
-      )}
+      {/*
+        The answer is ALWAYS rendered in the DOM (not conditionally mounted) so
+        that crawlers and HTML parsers see the full Q&A text in the server HTML,
+        matching the FAQPage JSON-LD. When collapsed it is visually hidden via
+        the `hidden` class rather than removed from the tree.
+      */}
+      <div
+        id={contentId}
+        className={`${open ? "block" : "hidden"} px-3 sm:px-5 pb-3 sm:pb-4 text-xs sm:text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-2 sm:pt-3`}
+        role="region"
+        aria-labelledby={itemId}
+      >
+        {answer}
+      </div>
     </div>
   );
 }

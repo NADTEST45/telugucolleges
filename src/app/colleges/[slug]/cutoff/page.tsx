@@ -1,4 +1,5 @@
-import { COLLEGES, getCollegeBySlug, fmtFee, hasRealData } from "@/lib/colleges";
+import { COLLEGES, getCollegeBySlug, fmtFee } from "@/lib/colleges";
+import { isIndexable } from "@/lib/cutoff-presence";
 import { getCollegeBySlugMerged, getCollegesMerged } from "@/lib/colleges-merged";
 import { AP_CUTOFFS, AP_CUTOFF_YEARS, CollegeCutoffs, YearCutoffs } from "@/lib/ap-cutoffs";
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const url = `${SITE_URL}/colleges/${slug}/cutoff`;
   // Placeholder rows have no cutoff data → emit noindex so the page
   // doesn't read as thin content to Google.
-  const noindex = !hasRealData(c);
+  const noindex = !isIndexable(c);
 
   return {
     title,

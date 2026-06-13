@@ -1,4 +1,5 @@
-import { COLLEGES, getCollegeBySlug, fmtFee, hasRealData } from "@/lib/colleges";
+import { COLLEGES, getCollegeBySlug, fmtFee } from "@/lib/colleges";
+import { isIndexable } from "@/lib/cutoff-presence";
 import { getCollegeBySlugMerged, getCollegesMerged } from "@/lib/colleges-merged";
 import { AP_CUTOFFS, AP_CUTOFF_YEARS, CollegeCutoffs, YearCutoffs } from "@/lib/ap-cutoffs";
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   // Mirror the parent /colleges/[slug] noindex rule — placeholder rows
   // shouldn't dilute crawl budget across 4 subpages each. See
   // hasRealData() in src/lib/colleges.ts for the rule.
-  const noindex = !hasRealData(c);
+  const noindex = !isIndexable(c);
 
   return {
     title,
