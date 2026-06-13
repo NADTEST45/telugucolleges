@@ -17,9 +17,16 @@ export interface HistoricalCutoffResult {
 
 /** Historical cutoff lookup — weighted average (70% latest year, 30% older).
  *  Shared between EAPCET predictor and CollegeDetail (Q3). */
+/** Expand a branch (single code or list of equivalent codes) into all the
+ *  case variants we may encounter across AP (lowercase) and TS (uppercase) data. */
+function branchVariantsOf(branch: string | string[]): string[] {
+  const list = Array.isArray(branch) ? branch : [branch];
+  return [...new Set(list.flatMap(b => [b, b.toUpperCase(), b.toLowerCase()]))];
+}
+
 export function getHistoricalCutoff(
   code: string,
-  branch: string,
+  branch: string | string[],
   cat: Category,
   gen: Gender,
   collegeState?: string
@@ -30,7 +37,7 @@ export function getHistoricalCutoff(
   const ranks: number[] = [];
   const dataYears: string[] = [];
   const yearsToCheck = collegeState === "Telangana" ? TS_CUTOFF_YEARS : AP_CUTOFF_YEARS;
-  const branchVariants = [branch, branch.toUpperCase(), branch.toLowerCase()];
+  const branchVariants = branchVariantsOf(branch);
 
   for (const year of yearsToCheck) {
     const yearData = cutoffSource[year];
@@ -86,7 +93,7 @@ const TS_PHASE_SOURCES: Record<
  *  without data for the chosen phase return avg 0 (caller should exclude — no silent fallback). */
 export function getTSPhaseHistoricalCutoff(
   code: string,
-  branch: string,
+  branch: string | string[],
   cat: Category,
   gen: Gender,
   phase: PredictorPhase
@@ -95,7 +102,7 @@ export function getTSPhaseHistoricalCutoff(
 
   const ranks: number[] = [];
   const dataYears: string[] = [];
-  const branchVariants = [branch, branch.toUpperCase(), branch.toLowerCase()];
+  const branchVariants = branchVariantsOf(branch);
 
   for (const { src, year, label } of TS_PHASE_SOURCES[phase]) {
     const yearData = src[code]?.[year];

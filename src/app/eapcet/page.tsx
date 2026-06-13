@@ -5,6 +5,7 @@ import { COLLEGES, fmtFee, College } from "@/lib/colleges";
 import { AP_CUTOFFS, AP_CUTOFF_YEARS, CATEGORIES, TS_CATEGORIES, catKey, type Category, type Gender } from "@/lib/ap-cutoffs";
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
 import { getHistoricalCutoff, getTSPhaseHistoricalCutoff, PREDICTOR_PHASES, type PredictorPhase } from "@/lib/cutoff-utils";
+import { CANONICAL_BRANCHES, branchLabel, codesForBranch, canonicalIdForCode } from "@/lib/branch-taxonomy";
 import ShortlistButton from "@/components/ShortlistButton";
 import LeadCapture from "@/components/LeadCapture";
 import { EapcetStructuredData, PREDICTOR_FAQS } from "./structured-data";
@@ -29,87 +30,39 @@ export default function EAPCETPage() {
   }, []);
   useEffect(() => { return () => { if (debounceRef.current) clearTimeout(debounceRef.current); }; }, []);
 
-  /* Canonical branch labels (display name for each branch code) */
-  const branchLabels: Record<string, string> = {
-    CSE: "CSE", ECE: "ECE", EEE: "EEE", MEC: "Mechanical", CIV: "Civil", INF: "IT",
-    CSM: "CSE (AI & ML)", CSD: "CSE (Data Science)", CSO: "CSE (IoT)", CSI: "CSE (Information Security)",
-    CSB: "CSE (Blockchain)", CSC: "CSE (Cyber Security)", CSA: "CSE (AI)", CSG: "CSE (Gaming)",
-    CSN: "CSE (Networks)", CSW: "CSE (IoT & Cyber Security with Blockchain)",
-    AID: "AI & DS", AIM: "AI & ML", AI: "AI",
-    BME: "Biomedical", BIO: "Biotechnology", BSE: "Bio Sciences", BTB: "B.Tech + B.Tech (Dual)",
-    CHE: "Chemical", CIC: "CIC", CME: "Computer & Comm. Eng",
-    ANE: "Automobile", AUT: "Automobile", DRG: "Agricultural", DTD: "Dairy Technology",
-    AGR: "Agricultural", FDT: "Food Technology", GEO: "Geo Informatics",
-    MET: "Metallurgy", MIN: "Mining", MMS: "Mechatronics", MTE: "Materials Tech",
-    MCT: "Mech (Mechatronics)", MMT: "Mining & Mineral Tech",
-    TEX: "Textile", PLG: "Plastics", PHE: "Pharma (Pharm-D)", PHS: "Pharma (B.Pharm)",
-    PHB: "Pharma (B.Pharm)", PDB: "Pharma (Pharm-D BiPC)",
-    ECI: "ECE (IoT)", ECM: "ECE & Comm. Eng", EIE: "Instrumentation",
-    ETM: "Electronics & Telematics", EVL: "Environmental",
-    CS: "Computer Science",
-    // AP lowercase keys
-    cse: "CSE", ece: "ECE", eee: "EEE", mech: "Mechanical", civil: "Civil",
-    it: "IT", cse_ds: "CSE (Data Science)", cse_aiml: "CSE (AI/ML)", cse_iot: "CSE (IoT)",
-    cse_bs: "CSE (Business Systems)", ai_ml: "AI & ML", ai_ds: "AI & DS", ai: "AI",
-    cai: "CSE (AI)", cba: "CSE (Blockchain)", ccc: "Cyber Security", cia: "CSE (AI)",
-    cic: "CIC", cit: "CSE (IoT)", cos: "Computer Science", cs: "Computer Science",
-    csc: "CSE (Cyber Security)", cseb: "CSE (Blockchain)", cser: "CSE (Robotics)",
-    csg: "CSE (Gaming)", csn: "CSE (Networks)", css: "CSE (Smart Systems)",
-    eca: "ECE (AI)", biotech: "Biotechnology", chemical: "Chemical",
-    auto: "Automobile", agr: "Agricultural", mining: "Mining",
-    met: "Metallurgy", petroleum: "Petroleum", naval: "Naval Architecture",
-    ase: "Aerospace", rbt: "Robotics", pee: "Power Electronics",
-    geoinformatics: "Geo Informatics", ist: "IST", mrb: "Mech (Robotics)",
-    eie: "Instrumentation", eii: "Instrumentation", evt: "Environmental",
-    cad: "CAD/CAM", bme: "Biomedical", bse: "Bio Sciences",
-    bpharm: "B.Pharm", drg: "Agricultural", dtd: "Dairy Tech",
-    fdt: "Food Tech", inf: "IT", mec: "Mechanical", civ: "Civil",
-    min: "Mining", mms: "Mechatronics", mte: "Materials", phb: "B.Pharm",
-    pdb: "Pharm-D", plg: "Plastics", tex: "Textile", csm: "CSE (AI & ML)",
-    csd: "CSE (Data Science)", cso: "CSE (IoT)", csi: "CSE (InfoSec)",
-    che: "Chemical", mbbs: "MBBS",
-  };
-
-  /* All branches across all data sources — deduplicated by display label */
+  /* Branches to offer in the dropdown: the canonical taxonomy filtered to those
+     that actually have cutoff data in at least one source. One label per branch,
+     each backed by all its equivalent AP/TS codes (see branch-taxonomy.ts), so a
+     single selection reaches both states' data. Order = competitor-style,
+     most-popular-first (taxonomy order), not alphabetical. */
   const allBranches = useMemo(() => {
-    const set = new Set<string>();
-    // From colleges.ts static cutoffs
-    COLLEGES.forEach(c => Object.keys(c.cutoff).forEach(b => set.add(b)));
-    // From TS cutoff data (UPPERCASE)
-    Object.values(TS_CUTOFFS).forEach(college => {
-      Object.values(college).forEach(yearData => {
-        Object.keys(yearData).forEach(b => set.add(b));
-      });
-    });
-    // From AP cutoff data (lowercase)
-    Object.values(AP_CUTOFFS).forEach(college => {
-      Object.values(college).forEach(yearData => {
-        Object.keys(yearData).forEach(b => set.add(b));
-      });
-    });
-    // Deduplicate: keep one code per display label (prefer lowercase for consistency)
-    const labelMap = new Map<string, string>(); // label → first code seen
-    const allCodes = [...set].filter(b => b !== "mbbs" && b !== "MBBS");
-    // Sort so lowercase comes first (ap data), then uppercase (ts data)
-    allCodes.sort((a, b) => a.localeCompare(b));
-    for (const code of allCodes) {
-      const label = branchLabels[code] || code.toUpperCase();
-      if (!labelMap.has(label)) labelMap.set(label, code);
-    }
-    return [...labelMap.entries()]
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([, code]) => code);
+    const present = new Set<string>();
+    const add = (b: string) => present.add(b.toLowerCase());
+    COLLEGES.forEach(c => Object.keys(c.cutoff).forEach(add));
+    Object.values(TS_CUTOFFS).forEach(college =>
+      Object.values(college).forEach(yearData => Object.keys(yearData).forEach(add)));
+    Object.values(AP_CUTOFFS).forEach(college =>
+      Object.values(college).forEach(yearData => Object.keys(yearData).forEach(add)));
+    return CANONICAL_BRANCHES.filter(b => b.codes.some(c => present.has(c.toLowerCase())));
   }, []);
+  const branchIds = useMemo(() => allBranches.map(b => b.id), [allBranches]);
 
   /* Predictor — uses category + gender specific historical data for AP & TS.
      For TS, a specific counselling phase (Phase 1/2/Special) can be selected;
      phase-specific lookups never fall back to other data — accuracy over coverage. */
   const usePhaseData = effectivePhase !== "final";
+  // Equivalent AP + TS codes for the selected canonical branch — tried together
+  // so one choice resolves against both states' data.
+  const branchCodes = useMemo(() => codesForBranch(branch), [branch]);
   const lookupCutoff = useCallback((code: string, collegeState: string) =>
     collegeState === "Telangana"
-      ? getTSPhaseHistoricalCutoff(code, branch, category, gender, effectivePhase)
-      : getHistoricalCutoff(code, branch, category, gender, collegeState),
-  [branch, category, gender, effectivePhase]);
+      ? getTSPhaseHistoricalCutoff(code, branchCodes, category, gender, effectivePhase)
+      : getHistoricalCutoff(code, branchCodes, category, gender, collegeState),
+  [branchCodes, category, gender, effectivePhase]);
+  // colleges.ts static cutoffs are keyed by lowercase core codes — try each equivalent.
+  const staticCutoff = useCallback((c: College) =>
+    branchCodes.reduce<number>((v, cd) => v || c.cutoff[cd] || c.cutoff[cd.toLowerCase()] || 0, 0),
+  [branchCodes]);
 
   const predictions = useMemo(() => {
     const r = parseInt(debouncedRank);
@@ -120,8 +73,8 @@ export default function EAPCETPage() {
         const hist = lookupCutoff(c.code, c.state);
         if (hist.avg > 0) return r <= hist.avg * 1.3;
         if (usePhaseData) return false; // no fallback when a specific phase is chosen
-        const cutoff = c.cutoff[branch];
-        return cutoff && cutoff > 0 && r <= cutoff * 1.3;
+        const cutoff = staticCutoff(c);
+        return cutoff > 0 && r <= cutoff * 1.3;
       })
       .map(c => {
         let cutoff = 0;
@@ -129,7 +82,7 @@ export default function EAPCETPage() {
         let dataYears: string[] = [];
         const hist = lookupCutoff(c.code, c.state);
         if (hist.avg > 0) { cutoff = hist.avg; isHistorical = true; dataYears = hist.dataYears; }
-        if (!isHistorical) cutoff = c.cutoff[branch] || 0;
+        if (!isHistorical) cutoff = staticCutoff(c);
 
         const ratio = r / cutoff;
         let chance: "Safe" | "Moderate" | "Reach" = "Safe";
@@ -138,7 +91,7 @@ export default function EAPCETPage() {
         return { college: c, cutoff, chance, isHistorical, dataYears };
       })
       .sort((a, b) => a.cutoff - b.cutoff);
-  }, [debouncedRank, state, branch, usePhaseData, lookupCutoff]);
+  }, [debouncedRank, state, usePhaseData, lookupCutoff, staticCutoff]);
 
   const predictorCatList = state === "Telangana" ? TS_CATEGORIES : CATEGORIES;
   const catLabel = predictorCatList.find(c => c.key === category)?.label || category;
@@ -159,7 +112,11 @@ export default function EAPCETPage() {
     if (st === "ap") setState("Andhra Pradesh");
     else if (st === "ts") setState("Telangana");
     const br = p.get("br");
-    if (br && allBranches.includes(br)) setBranch(br);
+    if (br) {
+      // Accept a canonical id, or map a legacy raw code (e.g. "CSM", "cse_aiml") to it.
+      const id = canonicalIdForCode(br);
+      if (id && branchIds.includes(id)) setBranch(id);
+    }
     const ct = p.get("cat");
     if (ct && (CATEGORIES.some(c => c.key === ct) || TS_CATEGORIES.some(c => c.key === ct))) setCategory(ct as Category);
     const g = p.get("g");
@@ -193,7 +150,7 @@ export default function EAPCETPage() {
   };
   const handleWhatsApp = () => {
     const r = parseInt(rank);
-    const text = `My EAPCET 2026 college options (rank ${r > 0 ? r.toLocaleString("en-IN") : "—"}, ${branchLabels[branch] || branch.toUpperCase()}, ${catLabel}): ${window.location.href}`;
+    const text = `My EAPCET 2026 college options (rank ${r > 0 ? r.toLocaleString("en-IN") : "—"}, ${branchLabel(branch)}, ${catLabel}): ${window.location.href}`;
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener");
   };
 
@@ -427,7 +384,7 @@ export default function EAPCETPage() {
             <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Branch</label>
             <select value={branch} onChange={e => setBranch(e.target.value)}
               className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm cursor-pointer uppercase">
-              {allBranches.map(b => <option key={b} value={b}>{branchLabels[b] || b.toUpperCase()}</option>)}
+              {allBranches.map(b => <option key={b.id} value={b.id}>{b.label}</option>)}
             </select>
           </div>
           <div>
@@ -478,7 +435,7 @@ export default function EAPCETPage() {
               <div className="text-sm font-semibold text-gray-600">
                 {predictions.length} college{predictions.length !== 1 ? "s" : ""} for rank {parseInt(rank).toLocaleString()}
               </div>
-              <div className="text-[11px] text-gray-500">{catLabel} · {gender === "girls" ? "Girls" : "Boys"} · {branch.toUpperCase()}{usePhaseData ? ` · ${PREDICTOR_PHASES.find(p => p.key === phase)?.label}` : ""}</div>
+              <div className="text-[11px] text-gray-500">{catLabel} · {gender === "girls" ? "Girls" : "Boys"} · {branchLabel(branch)}{usePhaseData ? ` · ${PREDICTOR_PHASES.find(p => p.key === phase)?.label}` : ""}</div>
             </div>
             <div className="flex items-center gap-2 mb-3">
               <span className="text-[11px] text-gray-400 font-medium">Share these results:</span>
@@ -531,7 +488,7 @@ export default function EAPCETPage() {
                       chance === "Moderate" ? "bg-amber-100 text-amber-700" :
                       "bg-red-100 text-red-600"
                     }`}>{chance}</span>
-                    <ShortlistButton collegeSlug={col.slug} program={branchLabels[branch] || branch.toUpperCase()} className="relative z-10" />
+                    <ShortlistButton collegeSlug={col.slug} program={branchLabel(branch)} className="relative z-10" />
                   </div>
                 </div>
                 );
