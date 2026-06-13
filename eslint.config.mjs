@@ -26,10 +26,18 @@ function pickNextRules(rulesObj) {
 export default [
   {
     ignores: [
+      // Generated build output — at the repo root AND nested anywhere (e.g.
+      // .claude/worktrees/<id>/.next_old2/). The `**/` variants are required:
+      // a bare ".next_old*/" only matches at the root, so without them ESLint
+      // descends into worktree build artifacts and fails the lint run.
       ".next/",
       ".next_old/",
       ".next_old*/",
       ".next.stale*/",
+      "**/.next/",
+      "**/.next_old*/",
+      "**/.next.stale*/",
+      ".claude/",
       "node_modules/",
       "out/",
       "public/",

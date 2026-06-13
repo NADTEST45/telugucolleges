@@ -42,16 +42,21 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { category, field_name, new_value, change_reason } = body;
 
+    // Role allowlist: only college_admin and super_admin may submit edits.
     // For college_admins, derive college_code from session — body value is ignored (defense in depth).
     // Super_admins may specify college_code in the body (e.g. submitting on behalf of a college).
+    // Any other authenticated role (e.g. marketing) is rejected so it cannot
+    // POST an arbitrary college_code via the body-trusting path.
     let college_code: string | undefined;
     if (user.role === "college_admin") {
       if (!user.college_code) {
         return NextResponse.json({ error: "Your account is not linked to a college" }, { status: 403 });
       }
       college_code = user.college_code;
-    } else {
+    } else if (user.role === "super_admin") {
       college_code = body.college_code;
+    } else {
+      return NextResponse.json({ error: "Your role is not permitted to submit edit requests" }, { status: 403 });
     }
 
     // --- Input validation (S4) ---

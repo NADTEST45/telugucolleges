@@ -41,44 +41,94 @@ export async function POST(req: NextRequest) {
 
     const newStatus = action === "approve" ? "approved" : "rejected";
 
-    // Update edit request status — .eq("status","pending") prevents double-approve race
-    const { data: updated, error: updateError } = await sb
-      .from("edit_requests")
-      .update({
-        status: newStatus,
-        reviewer_id: user.id,
-        reviewer_notes: notes || null,
-      })
-      .eq("id", edit_id)
-      .eq("status", "pending")
-      .select();
+    if (action === "reject") {
+      // Reject is a pure status change — no override. The .eq("status","pending")
+      // guard makes a double-review a no-op (0 rows updated → 409).
+      const { data: updated, error: updateError } = await sb
+        .from("edit_requests")
+        .update({
+          status: newStatus,
+          reviewer_id: user.id,
+          reviewer_notes: notes || null,
+        })
+        .eq("id", edit_id)
+        .eq("status", "pending")
+        .select();
 
-    if (updateError) {
-      return NextResponse.json({ error: "Failed to update edit" }, { status: 500 });
-    }
-    // If another reviewer beat us to it, the row count will be 0
-    if (!updated || updated.length === 0) {
-      return NextResponse.json({ error: "Edit already reviewed by another admin" }, { status: 409 });
-    }
+      if (updateError) {
+        return NextResponse.json({ error: "Failed to update edit" }, { status: 500 });
+      }
+      if (!updated || updated.length === 0) {
+        return NextResponse.json({ error: "Edit already reviewed by another admin" }, { status: 409 });
+      }
+    } else {
+      // Approve: the status flip and the override write MUST be atomic. If they
+      // are not, an override-write failure can leave an edit marked "approved"
+      // whose change never reaches the public site (silent data drift). Use the
+      // DB function that does both in one transaction with a row lock
+      // (approve_edit_request, see 003_security_hardening.sql).
+      const { error: rpcError } = await sb.rpc("approve_edit_request", {
+        p_edit_id: edit_id,
+        p_reviewer_id: user.id,
+        p_reviewer_notes: notes || null,
+      });
 
-    // If approved, upsert into college_overrides
-    if (action === "approve") {
-      const { error: overrideError } = await sb
-        .from("college_overrides")
-        .upsert({
-          college_code: edit.college_code,
-          field_name: edit.field_name,
-          value: edit.new_value,
-          edit_request_id: edit_id,
-          updated_by: user.id,
-          updated_at: new Date().toISOString(),
-        }, { onConflict: "college_code,field_name" });
+      if (rpcError) {
+        const code = (rpcError as { code?: string }).code;
+        const msg = (rpcError.message || "").toLowerCase();
 
-      if (overrideError) {
-        return NextResponse.json(
-          { error: "Edit approved but failed to save override. Please retry." },
-          { status: 500 }
-        );
+        // Function raised because the row is no longer pending.
+        if (msg.includes("not found") || msg.includes("already reviewed")) {
+          return NextResponse.json({ error: "Edit already reviewed by another admin" }, { status: 409 });
+        }
+
+        // Fallback only if the function isn't deployed (PostgREST PGRST202 /
+        // Postgres 42883). Any other RPC error is a real failure — surface it.
+        const functionMissing =
+          code === "PGRST202" ||
+          code === "42883" ||
+          msg.includes("could not find the function") ||
+          msg.includes("does not exist");
+        if (!functionMissing) {
+          return NextResponse.json({ error: "Failed to approve edit. Please retry." }, { status: 500 });
+        }
+
+        // --- Sequential fallback: write the override FIRST, then flip status. ---
+        // This ordering means an edit is only ever marked "approved" after its
+        // override has actually landed, so a failure can never produce the
+        // "approved but public data unchanged" state.
+        const { error: overrideError } = await sb
+          .from("college_overrides")
+          .upsert({
+            college_code: edit.college_code,
+            field_name: edit.field_name,
+            value: edit.new_value,
+            edit_request_id: edit_id,
+            updated_by: user.id,
+            updated_at: new Date().toISOString(),
+          }, { onConflict: "college_code,field_name" });
+
+        if (overrideError) {
+          return NextResponse.json({ error: "Failed to save override. Please retry." }, { status: 500 });
+        }
+
+        const { data: updated, error: updateError } = await sb
+          .from("edit_requests")
+          .update({
+            status: newStatus,
+            reviewer_id: user.id,
+            reviewer_notes: notes || null,
+          })
+          .eq("id", edit_id)
+          .eq("status", "pending")
+          .select();
+
+        if (updateError) {
+          return NextResponse.json({ error: "Override saved but failed to mark approved. Please retry." }, { status: 500 });
+        }
+        if (!updated || updated.length === 0) {
+          return NextResponse.json({ error: "Edit already reviewed by another admin" }, { status: 409 });
+        }
       }
     }
 
