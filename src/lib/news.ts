@@ -13,19 +13,33 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
-  // ── New: June 10, 2026 ────────────────────────────────────────
+  // ── New: June 13, 2026 ───────────────────────────────────────
   {
-    id: "tg-icet-2026-result-june-19",
-    date: "2026-06-10",
-    title: "TG ICET 2026 Result Confirmed for June 19 — Rank Cards at icet.tgche.ac.in",
-    summary: "TGCHE will declare the TG ICET 2026 result (MBA/MCA admissions) on June 19, 2026 at icet.tgche.ac.in, along with the final answer key. The exam was held May 13–14; objections on the preliminary key were accepted May 30 – June 5. Counselling is expected to begin a few weeks after the result.",
-    body: "The Telangana Council of Higher Education (TGCHE) has confirmed that the TG ICET 2026 result will be declared on June 19, 2026 at icet.tgche.ac.in. The final answer key PDF will be published along with the result.\n\nKey points:\n• Exam conducted: May 13–14, 2026 (CBT mode)\n• Preliminary answer key: Released May 29, 2026\n• Objection window: May 30 – June 5, 2026 (closed)\n• Result + final answer key: June 19, 2026 at icet.tgche.ac.in\n• Rank card download: Hall ticket number + registration number + date of birth\n\nWhat TG ICET scores are used for: Admission into MBA and MCA programmes in university and affiliated colleges across Telangana for 2026–27. Seat allocation happens through TGCHE's online ICET counselling (registration, certificate verification, web options, seat allotment), expected to begin a few weeks after the result — track icet.tgche.ac.in for the counselling notification.\n\nWhat candidates should do now: Keep the hall ticket safe (it is required for rank-card download and counselling), and keep certificates ready — SSC, Intermediate, degree memos, Transfer Certificate, study certificates, and caste/income/EWS certificates as applicable.",
+    id: "josaa-2026-round-1-allotment-june-13",
+    date: "2026-06-13",
+    title: "JoSAA 2026 Round 1 Seat Allotment Released — Check Result at josaa.nic.in",
+    summary: "JoSAA 2026 Round 1 seat allotment was released on June 13, 2026 at 10:00 AM at josaa.nic.in. Candidates allotted a seat must choose Freeze, Float, or Slide and complete online financial commitment (reporting fee) before June 26. Round 2 allotment is on June 30.",
+    body: "The Joint Seat Allocation Authority (JoSAA) released the Round 1 seat allotment result for 2026 on June 13, 2026 at 10:00 AM at josaa.nic.in, covering 138 institutes — 23 IITs, IISc Bengaluru, 31 NITs, IIEST Shibpur, 26 IIITs and 56 GFTIs — for 62,853 total seats.\n\nHow to check your allotment:\n1. Visit josaa.nic.in\n2. Log in with your JEE 2026 Main application number and password\n3. Your allotted institute, programme and category will display\n4. Download and save the allotment letter\n\nWhat to do after Round 1 allotment:\n• Freeze: Accept the seat permanently and opt out of subsequent rounds (best option if you're happy with the allotment)\n• Float: Accept the current seat but remain in the pool for upgrades to a higher preference in the next round at the same or a different institute\n• Slide: Accept the current seat but seek an upgrade to a higher-preferred programme within the same institute only\n\nOnline financial commitment (reporting fee): Mandatory during the June 13–26 window to lock any Round 1 seat.\n• General/OBC-NCL/EWS: ₹35,000\n• SC/ST/PwD: ₹20,000\n(Adjustable against tuition fee after final allotment)\n\nRemaining round schedule:\n• Round 2 allotment: June 30, 2026\n• Round 3 allotment: July 6, 2026\n• Round 4 allotment: July 10, 2026\n• Round 5 allotment: July 16, 2026 (final JoSAA round)\n\nFor AP/TS aspirants: IIT Hyderabad is the most popular IIT for Telugu-state candidates. NIT Warangal (TS) and NIT Andhra Pradesh (Tadepalligudem) participate via JEE Main rank. IIIT Hyderabad (UGEE-based) and IIIT Sri City fill seats outside JoSAA through separate processes.\n\nDocuments to keep ready for online reporting: Class X and XII marksheets, Aadhaar/photo ID, category certificate (OBC-NCL/SC/ST/EWS in JoSAA format), PwD certificate if applicable, JEE Main and JEE Advanced scorecards, and passport-size photograph matching the application.",
+    category: "counselling",
+    state: "Both",
+    priority: "high",
+    source: "Joint Seat Allocation Authority (JoSAA) 2026",
+    sourceUrl: "https://josaa.nic.in/",
+    tags: ["JoSAA", "IIT", "NIT", "IIIT", "Round 1", "Seat Allotment", "June 13", "2026"],
+  },
+  // ── New: June 12, 2026 ───────────────────────────────────────
+  {
+    id: "tg-icet-2026-result-declared-june-12",
+    date: "2026-06-12",
+    title: "TG ICET 2026 Result Declared — Rank Cards Live at icet.tgche.ac.in",
+    summary: "TGCHE declared the TG ICET 2026 result (MBA/MCA admissions) on June 12, 2026 at 3:30 PM at icet.tgche.ac.in — one week ahead of the originally announced June 19 date. Rank cards are now live. Counselling is expected to begin a few weeks after the result.",
+    body: "The Telangana Council of Higher Education (TGCHE) declared the TG ICET 2026 result on June 12, 2026 at 3:30 PM at icet.tgche.ac.in — preponed from the originally announced June 19 date after swift resolution of candidate objections.\n\nKey points:\n• Exam conducted: May 13–14, 2026 (CBT mode)\n• Preliminary answer key: Released May 29, 2026\n• Objection window: May 30 – June 5, 2026 (closed)\n• Result declared: June 12, 2026 at 3:30 PM at icet.tgche.ac.in\n• Rank card download: Hall ticket number + registration number + date of birth\n\nHow to download your rank card:\n1. Visit icet.tgche.ac.in\n2. Click the \"Download Rank Card\" link\n3. Enter ICET Hall Ticket Number, Registration Number and Date of Birth\n4. Click \"View Rank Card\" — normalised scores, section-wise marks and state rank will display\n5. Download the PDF and take printouts\n\nQualifying marks: General/OBC candidates must score a minimum 25% (50/200 marks). No minimum qualifying marks for SC/ST candidates.\n\nWhat TG ICET scores are used for: Admission into MBA and MCA programmes in university and affiliated colleges across Telangana for 2026–27. Seat allocation happens through TGCHE's online ICET counselling (registration, certificate verification, web options, seat allotment) — expected to be notified a few weeks after the result. Track icet.tgche.ac.in for the counselling schedule.\n\nWhat candidates should do now: Download and save your rank card. Keep certificates ready for counselling — SSC, Intermediate, degree memos, Transfer Certificate, study certificates, and caste/income/EWS certificates as applicable.",
     category: "general",
     state: "TS",
-    priority: "medium",
-    source: "TGCHE — TG ICET 2026 Result Notice",
+    priority: "high",
+    source: "TGCHE — TG ICET 2026 Result Declaration",
     sourceUrl: "https://icet.tgche.ac.in/",
-    tags: ["TG ICET", "TS ICET", "Result", "MBA", "MCA", "June 19", "2026"],
+    tags: ["TG ICET", "TS ICET", "Result", "MBA", "MCA", "June 12", "2026"],
   },
   // ── New: June 9, 2026 ─────────────────────────────────────────
   {
