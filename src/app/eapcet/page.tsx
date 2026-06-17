@@ -282,6 +282,10 @@ export default function EAPCETPage() {
             <div className="font-semibold text-sm mb-0.5">TS Counselling Dates 2026</div>
             <p className="text-xs text-gray-600 leading-relaxed">Full TGCHE phase-wise schedule — Phase 1 registration June 19–28, allotment by July 10.</p>
           </Link>
+          <Link href="/eapcet/web-options-generator" className="block rounded-lg border border-accent/40 bg-blue-50/40 p-3 hover:border-accent hover:shadow-sm transition-all">
+            <div className="font-semibold text-sm mb-0.5">Web Options Generator <span className="text-[10px] font-bold text-accent align-middle">NEW</span></div>
+            <p className="text-xs text-gray-600 leading-relaxed">Enter your rank, category &amp; branches to auto-build a best-first preference list across all colleges — tagged safe / moderate / reach.</p>
+          </Link>
           <Link href="/eapcet/ap-web-options" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
             <div className="font-semibold text-sm mb-0.5">AP Web Options Entry — Step-by-Step</div>
             <p className="text-xs text-gray-600 leading-relaxed">The exact entry process and the priority-order strategy that decides your seat.</p>
