@@ -43,34 +43,11 @@ export default function CollegeCard({ c, borderClass }: { c: College; borderClas
             {c.branches.includes("MBBS") && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[11px] sm:text-xs font-semibold bg-rose-50 text-rose-600">Medical</span>}
           </div>
         </div>
-        {/* Stats: 4-col on mobile (full-width row below), 4-col on desktop (fixed-width right side) */}
-        <div className="grid grid-cols-4 gap-2 sm:gap-4 text-center pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-100 shrink-0 sm:w-[320px]">
+        {/* Stats: 3-col (Tuition · Avg Pkg · Highest), full-width row on mobile, fixed-width right side on desktop */}
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-100 shrink-0 sm:w-[240px]">
           <div>
             <div className="text-[11px] sm:text-xs text-gray-500">{feeLabel}</div>
             <div className="font-bold text-brand text-xs sm:text-sm">{fmtFee(c.fee)}</div>
-          </div>
-          <div>
-            {c.cutoff.cse > 0 ? (
-              <>
-                <div className="text-[11px] sm:text-xs text-gray-500">CSE Cutoff</div>
-                <div className="font-bold text-xs sm:text-sm">{c.cutoff.cse.toLocaleString()}</div>
-              </>
-            ) : c.branches.includes("B.Pharm") ? (
-              <>
-                <div className="text-[11px] sm:text-xs text-gray-500">Type</div>
-                <div className="font-bold text-teal-600 text-xs sm:text-sm">Pharmacy</div>
-              </>
-            ) : c.branches.includes("MBBS") ? (
-              <>
-                <div className="text-[11px] sm:text-xs text-gray-500">Type</div>
-                <div className="font-bold text-rose-600 text-xs sm:text-sm">Medical</div>
-              </>
-            ) : (
-              <>
-                <div className="text-[11px] sm:text-xs text-gray-500">CSE Cutoff</div>
-                <div className="font-bold text-gray-300 text-xs sm:text-sm">—</div>
-              </>
-            )}
           </div>
           <div>
             <div className="text-[11px] sm:text-xs text-gray-500">Avg Pkg</div>
