@@ -22,7 +22,7 @@ export default function CollegeCard({ c, borderClass }: { c: College; borderClas
       : "Convener Fee";
 
   return (
-    <div className={`relative bg-white rounded-xl px-3 sm:px-5 py-3 sm:py-4 shadow-sm hover:shadow-md transition-all border-l-4 ${borderClass}`}>
+    <div className={`cv-card relative bg-white rounded-xl px-3 sm:px-5 py-3 sm:py-4 shadow-sm hover:shadow-md transition-all border-l-4 ${borderClass}`}>
       {/* Full-card link — covers entire card for navigation */}
       <Link href={`/colleges/${c.slug}`} className="absolute inset-0 z-0 rounded-xl" aria-label={c.name} />
       {/* Shortlist button — positioned outside the Link DOM to avoid iOS Safari tap conflicts */}

@@ -16,6 +16,18 @@
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+/* Off-screen render skipping for long card lists (e.g. /colleges renders
+   ~849 cards = 22k+ DOM nodes). content-visibility lets the browser skip
+   layout/paint for cards outside the viewport, cutting initial render and
+   scroll cost on low-end phones — without removing anything from the DOM,
+   so all internal links stay crawlable for SEO. `auto` in
+   contain-intrinsic-size remembers each card's real height after first
+   paint; the fallback height is just an initial estimate. */
+.cv-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 110px;
+}
+
 /* Hide scrollbar for horizontal-scroll pill rows */
 .scrollbar-hide {
   -ms-overflow-style: none;
