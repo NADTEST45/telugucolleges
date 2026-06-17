@@ -122,6 +122,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <Link href="/colleges" className="block hover:text-white">All Colleges</Link>
                   <Link href="/branches" className="block hover:text-white">All Branches</Link>
                   <Link href="/eapcet" className="block hover:text-white">EAPCET 2026</Link>
+                  <Link href="/scholarships" className="block hover:text-white">Scholarships</Link>
                   <Link href="/news" className="block hover:text-white">News & Alerts</Link>
                   <Link href="/compare" className="block hover:text-white">Fee Comparison</Link>
                   <Link href="/about" className="block hover:text-white">About</Link>

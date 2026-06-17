@@ -70,6 +70,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/news`, changeFrequency: "daily", priority: 0.8 },
     { url: `${BASE}/compare`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE}/fee-calculator`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE}/scholarships`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/best-colleges`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/about`, changeFrequency: "monthly", priority: 0.4 },
   );
