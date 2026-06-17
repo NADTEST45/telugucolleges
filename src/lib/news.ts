@@ -69,6 +69,20 @@ export const NEWS_ITEMS: NewsItem[] = [
     sourceUrl: "https://cets.apsche.ap.gov.in/EAPCET/",
     tags: ["AP EAPCET", "Result", "Postponed", "June 17", "June 21", "2026"],
   },
+  // ── New: June 4, 2026 ─────────────────────────────────────────
+  {
+    id: "ts-lawcet-2026-result-declared-june-4",
+    date: "2026-06-04",
+    title: "TS LAWCET & PGLCET 2026 Results Declared — Rank Cards Live at lawcet.tgche.ac.in",
+    summary: "Osmania University, on behalf of TGCHE, declared the TS LAWCET and TS PGLCET 2026 results on June 4, 2026 at lawcet.tgche.ac.in. Of 54,374 candidates who appeared, 39,672 qualified. Meesala Vijayadurga topped the 3-Year LLB and Alluri Sanith Reddy the 5-Year LLB. Counselling for LLB/LLM admissions will be notified at lawcetadm.tgche.ac.in.",
+    body: "Osmania University, the conducting body on behalf of the Telangana Council of Higher Education (TGCHE), declared the TS LAWCET 2026 (3-Year and 5-Year LLB) and TS PGLCET 2026 (LLM) results on June 4, 2026 at lawcet.tgche.ac.in. The final answer key and topper list were published alongside the result.\n\nResult statistics:\n• Total applications received: 66,620\n• Candidates appeared: 54,374\n• Candidates qualified: 39,672\n\nToppers:\n• 3-Year LLB — Rank 1: Meesala Vijayadurga (Vizianagaram, Andhra Pradesh)\n• 5-Year LLB — Rank 1: Alluri Sanith Reddy (Medchal-Malkajgiri)\n• TS PGLCET (LLM) — Rank 1: Sheguri Nishitha (Rangareddy)\n\nQualifying marks: General/OBC candidates must score a minimum 35% — 42 out of 120 marks. There is no minimum qualifying mark for SC/ST candidates.\n\nHow to download your rank card:\n1. Visit lawcet.tgche.ac.in\n2. Click the \"TS LAWCET Result 2026\" link\n3. Enter your Hall Ticket Number, Registration Number and Date of Birth\n4. Submit — your marks, rank, category and qualifying status will display\n5. Download the rank card and take printouts for counselling\n\nWhat happens next — counselling: Qualified candidates are eligible for admission to 3-Year LLB and 5-Year integrated LLB programmes (and LLM via PGLCET) across Telangana law colleges. The detailed counselling schedule will be notified at lawcetadm.tgche.ac.in. The process includes online registration, counselling-fee payment, certificate verification, web options and seat allotment.\n\nCounselling fee: ₹800 (General/OBC) and ₹500 (SC/ST).\n\nDocuments to keep ready: TS LAWCET rank card and hall ticket, SSC (Class X) and Intermediate memos, degree certificate (for LLB/LLM as applicable), Transfer Certificate, study certificates, Aadhaar, and caste/income/EWS certificates if applicable. Track lawcetadm.tgche.ac.in for the counselling notification.",
+    category: "general",
+    state: "TS",
+    priority: "medium",
+    source: "TGCHE / Osmania University — TS LAWCET & PGLCET 2026 Result Declaration",
+    sourceUrl: "https://lawcet.tgche.ac.in/",
+    tags: ["TS LAWCET", "TG LAWCET", "PGLCET", "Result", "LLB", "LLM", "June 4", "2026"],
+  },
   // ── New: June 2, 2026 ─────────────────────────────────────────
   {
     id: "jee-advanced-2026-result-declared-june-1",
