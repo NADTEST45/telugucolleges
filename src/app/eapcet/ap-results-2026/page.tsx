@@ -6,7 +6,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com
 const url = `${SITE_URL}/eapcet/ap-results-2026`;
 
 // Bump this (and the update log below) whenever the page content changes.
-const LAST_UPDATED = "2026-06-10";
+const LAST_UPDATED = "2026-06-17";
 
 export const metadata: Metadata = {
   title: "AP EAPCET Results 2026 — Live Updates: New Date, Why Delayed, Rank Card Steps",
@@ -39,6 +39,12 @@ export const metadata: Metadata = {
  * Each entry also feeds the LiveBlogPosting JSON-LD below.
  */
 const UPDATES: { date: string; time: string; title: string; body: string }[] = [
+  {
+    date: "2026-06-17",
+    time: "09:00",
+    title: "Still pending — result window June 18–21",
+    body: "As of June 17, AP EAPCET 2026 rank cards have not yet been released. APSCHE has still not notified an official date, but the result is expected any time in the June 18–21 window now that Intermediate supplementary/improvement results are out. Keep your hall ticket and date of birth ready — we will update this page and publish the rank card link the moment the result goes live at cets.apsche.ap.gov.in.",
+  },
   {
     date: "2026-06-10",
     time: "09:00",
