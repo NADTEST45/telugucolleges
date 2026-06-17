@@ -9,6 +9,7 @@ import { CANONICAL_BRANCHES, branchLabel, codesForBranch, canonicalIdForCode } f
 import ShortlistButton from "@/components/ShortlistButton";
 import LeadCapture from "@/components/LeadCapture";
 import { EapcetStructuredData, PREDICTOR_FAQS } from "./structured-data";
+import { readStatePref, writeStatePref } from "@/lib/state-pref";
 
 export default function EAPCETPage() {
   const [rank, setRank] = useState("");
@@ -108,9 +109,15 @@ export default function EAPCETPage() {
     const p = new URLSearchParams(window.location.search);
     const rk = p.get("rank");
     if (rk && /^\d+$/.test(rk)) { setRank(rk); setDebouncedRank(rk); }
+    // State priority: explicit URL param (shared link) wins; otherwise fall
+    // back to the saved cookie preference so a returning AP user lands on AP.
     const st = p.get("st");
     if (st === "ap") setState("Andhra Pradesh");
     else if (st === "ts") setState("Telangana");
+    else {
+      const pref = readStatePref();
+      if (pref) setState(pref);
+    }
     const br = p.get("br");
     if (br) {
       // Accept a canonical id, or map a legacy raw code (e.g. "CSM", "cse_aiml") to it.
@@ -129,6 +136,9 @@ export default function EAPCETPage() {
 
   useEffect(() => {
     if (!hydratedFromUrl.current) return; // don't clobber an incoming link before we read it
+    // Remember the chosen state section-wide (read back on the next visit and,
+    // later, by other /eapcet pages).
+    writeStatePref(state);
     const p = new URLSearchParams();
     if (rank && parseInt(rank) > 0) p.set("rank", String(parseInt(rank)));
     p.set("st", state === "Telangana" ? "ts" : "ap");
@@ -262,40 +272,64 @@ export default function EAPCETPage() {
         </div>
       </section>
 
-      {/* 2026 season guides */}
-      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
-        <h2 className="text-base sm:text-lg font-bold mb-3">EAPCET 2026 — Results & Counselling Guides</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <Link href="/eapcet/ap-results-2026" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
-            <div className="font-semibold text-sm mb-0.5">AP EAPCET Results 2026 — Live Updates</div>
-            <p className="text-xs text-gray-600 leading-relaxed">Why results are postponed, the new expected date (June 18–21), and rank card download steps.</p>
-          </Link>
-          <Link href="/eapcet/ap-cutoff-2026" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
-            <div className="font-semibold text-sm mb-0.5">AP EAPCET 2026 Cutoff — Branch-wise</div>
-            <p className="text-xs text-gray-600 leading-relaxed">Expected college-wise closing ranks for CSE, ECE, EEE, Civil, Mech, IT &amp; AI branches.</p>
-          </Link>
-          <Link href="/eapcet/tg-cutoff-2026" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
-            <div className="font-semibold text-sm mb-0.5">TG EAPCET 2026 Cutoff — Branch-wise</div>
-            <p className="text-xs text-gray-600 leading-relaxed">College-wise closing ranks from official TSCHE 2024-25 &amp; 2023-24 last-rank data, plus Phase-1 reference.</p>
-          </Link>
-          <Link href="/eapcet/ts-counselling-dates-2026" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
-            <div className="font-semibold text-sm mb-0.5">TS Counselling Dates 2026</div>
-            <p className="text-xs text-gray-600 leading-relaxed">Full TGCHE phase-wise schedule — Phase 1 registration June 19–28, allotment by July 10.</p>
-          </Link>
-          <Link href="/eapcet/web-options-generator" className="block rounded-lg border border-accent/40 bg-blue-50/40 p-3 hover:border-accent hover:shadow-sm transition-all">
-            <div className="font-semibold text-sm mb-0.5">Web Options Generator <span className="text-[10px] font-bold text-accent align-middle">NEW</span></div>
-            <p className="text-xs text-gray-600 leading-relaxed">Enter your rank, category &amp; branches to auto-build a best-first preference list across all colleges — tagged safe / moderate / reach.</p>
-          </Link>
-          <Link href="/eapcet/ap-web-options" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
-            <div className="font-semibold text-sm mb-0.5">AP Web Options Entry — Step-by-Step</div>
-            <p className="text-xs text-gray-600 leading-relaxed">The exact entry process and the priority-order strategy that decides your seat.</p>
-          </Link>
-          <Link href="/eapcet/certificate-verification-documents" className="block rounded-lg border border-gray-200 p-3 hover:border-accent hover:shadow-sm transition-all">
-            <div className="font-semibold text-sm mb-0.5">Certificate Verification Documents</div>
-            <p className="text-xs text-gray-600 leading-relaxed">Complete checklist for AP & TS — including income certificate validity rules.</p>
-          </Link>
-        </div>
-      </section>
+      {/* 2026 season guides — every card stays rendered (crawlable internal
+          links), but we tag each by state and order the selected state + shared
+          guides first so an AP user isn't led to TS-only pages and vice versa. */}
+      {(() => {
+        const selectedTag = state === "Telangana" ? "TS" : "AP";
+        const guides: {
+          href: string;
+          title: string;
+          desc: string;
+          tag: "AP" | "TS" | "Both";
+          isNew?: boolean;
+        }[] = [
+          { href: "/eapcet/ap-results-2026", tag: "AP", title: "AP EAPCET Results 2026 — Live Updates", desc: "Why results are postponed, the new expected date (June 18–21), and rank card download steps." },
+          { href: "/eapcet/ap-cutoff-2026", tag: "AP", title: "AP EAPCET 2026 Cutoff — Branch-wise", desc: "Expected college-wise closing ranks for CSE, ECE, EEE, Civil, Mech, IT & AI branches." },
+          { href: "/eapcet/ap-web-options", tag: "AP", title: "AP Web Options Entry — Step-by-Step", desc: "The exact entry process and the priority-order strategy that decides your seat." },
+          { href: "/eapcet/tg-cutoff-2026", tag: "TS", title: "TG EAPCET 2026 Cutoff — Branch-wise", desc: "College-wise closing ranks from official TSCHE 2024-25 & 2023-24 last-rank data, plus Phase-1 reference." },
+          { href: "/eapcet/ts-counselling-dates-2026", tag: "TS", title: "TS Counselling Dates 2026", desc: "Full TGCHE phase-wise schedule — Phase 1 registration June 19–28, allotment by July 10." },
+          { href: "/eapcet/web-options-generator", tag: "Both", isNew: true, title: "Web Options Generator", desc: "Enter your rank, category & branches to auto-build a best-first preference list across all colleges — tagged safe / moderate / reach." },
+          { href: "/eapcet/certificate-verification-documents", tag: "Both", title: "Certificate Verification Documents", desc: "Complete checklist for AP & TS — including income certificate validity rules." },
+        ];
+        // Selected state first, then shared ("Both"), then the other state.
+        const rank = (t: "AP" | "TS" | "Both") => (t === selectedTag ? 0 : t === "Both" ? 1 : 2);
+        const ordered = guides
+          .map((g, i) => ({ g, i }))
+          .sort((a, b) => rank(a.g.tag) - rank(b.g.tag) || a.i - b.i)
+          .map(({ g }) => g);
+        const tagStyle: Record<"AP" | "TS" | "Both", string> = {
+          AP: "bg-green-100 text-green-700",
+          TS: "bg-blue-100 text-accent",
+          Both: "bg-gray-100 text-gray-500",
+        };
+        return (
+          <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
+            <h2 className="text-base sm:text-lg font-bold mb-3">EAPCET 2026 — Results & Counselling Guides</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {ordered.map(g => {
+                const dimmed = g.tag !== "Both" && g.tag !== selectedTag;
+                return (
+                  <Link
+                    key={g.href}
+                    href={g.href}
+                    className={`block rounded-lg border p-3 hover:border-accent hover:shadow-sm transition-all ${
+                      g.tag === "Both" ? "border-accent/40 bg-blue-50/40" : "border-gray-200"
+                    } ${dimmed ? "opacity-60 hover:opacity-100" : ""}`}
+                  >
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${tagStyle[g.tag]}`}>{g.tag === "Both" ? "AP & TS" : g.tag}</span>
+                      <span className="font-semibold text-sm">{g.title}</span>
+                      {g.isNew && <span className="text-[10px] font-bold text-accent align-middle">NEW</span>}
+                    </div>
+                    <p className="text-xs text-gray-600 leading-relaxed">{g.desc}</p>
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        );
+      })()}
 
       {/* Overview */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
@@ -528,7 +562,9 @@ export default function EAPCETPage() {
         <p className="text-xs text-gray-500 mb-4">
           Pre-built lists for popular EAPCET rank bands — useful before you have your final score.
         </p>
-        {(["telangana", "andhra-pradesh"] as const).map(stateSlug => {
+        {((state === "Andhra Pradesh"
+          ? ["andhra-pradesh", "telangana"]
+          : ["telangana", "andhra-pradesh"]) as ("telangana" | "andhra-pradesh")[]).map(stateSlug => {
           const stateLabel = stateSlug === "telangana" ? "Telangana (TG EAPCET)" : "Andhra Pradesh (AP EAPCET)";
           const bands = [5000, 10000, 15000, 20000, 30000, 50000, 75000, 100000];
           return (
