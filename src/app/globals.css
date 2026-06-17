@@ -9,6 +9,12 @@
   --color-brand-dark: #154360;   /* brand hover / darker rest */
   --color-accent: #2e86c1;       /* secondary / links / focus ring */
   --color-surface-dark: #1b2631; /* footer / deep backgrounds */
+
+  /* Semantic text scale (additive — existing gray-* utilities still valid).
+     `muted` is the floor for body/caption text: #6b7280 = 4.83:1 on white,
+     passes WCAG AA. Do NOT use a lighter gray for text. */
+  --color-ink: #1f2937;          /* primary text */
+  --color-muted: #6b7280;        /* secondary / caption text — AA on white */
 }
 
 /* Safe area inset for notched iPhones — bottom nav */

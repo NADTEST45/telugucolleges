@@ -3,6 +3,8 @@ import { COLLEGES, fmtFee } from "@/lib/colleges";
 import { getLatestNews } from "@/lib/news";
 import AdSlot from "@/components/ads/AdSlot";
 import JsonLd from "@/components/JsonLd";
+import ProgramIcon from "@/components/ui/ProgramIcon";
+import Badge from "@/components/ui/Badge";
 import ts_mba from "@/lib/mba_data.json";
 import ap_mba from "@/lib/ap_mba_data.json";
 import ts_mca from "@/lib/mca_data.json";
@@ -135,23 +137,25 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 -mt-4 sm:-mt-8 relative z-10 pt-8 sm:pt-12">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3">
           {[
-            { label: "B.Tech", count: stats.eng, href: "/programs/b-tech", icon: "⚙️", color: "text-indigo-600" },
-            { label: "MBA", count: stats.mba, href: "/programs/mba", icon: "📊", color: "text-amber-600" },
-            { label: "MCA", count: stats.mca, href: "/programs/mca", icon: "💻", color: "text-cyan-600" },
-            { label: "BBA", count: null, href: "/programs/bba", icon: "📈", color: "text-orange-600" },
-            { label: "BCA", count: null, href: "/programs/bca", icon: "🖥️", color: "text-sky-600" },
-            { label: "MBBS", count: stats.med, href: "/programs/mbbs", icon: "🏥", color: "text-rose-600" },
-            { label: "B.Pharm", count: stats.pharm, href: "/programs/b-pharm", icon: "💊", color: "text-teal-600" },
-            { label: "Pharm.D", count: stats.pharmd, href: "/programs/pharm-d", icon: "🧪", color: "text-emerald-600" },
-            { label: "M.Pharm", count: stats.mpharm, href: "/programs/m-pharm", icon: "🔬", color: "text-violet-600" },
-            { label: "M.Tech", count: null, href: "/programs/m-tech", icon: "🎓", color: "text-blue-600" },
-            { label: "B.Arch", count: null, href: "/programs/b-arch", icon: "🏛️", color: "text-stone-600" },
-            { label: "BA LLB", count: null, href: "/programs/ba-llb-hons", icon: "⚖️", color: "text-red-600" },
+            { label: "B.Tech", count: stats.eng, href: "/programs/b-tech", tint: "bg-indigo-50 text-indigo-600" },
+            { label: "MBA", count: stats.mba, href: "/programs/mba", tint: "bg-amber-50 text-amber-600" },
+            { label: "MCA", count: stats.mca, href: "/programs/mca", tint: "bg-cyan-50 text-cyan-600" },
+            { label: "BBA", count: null, href: "/programs/bba", tint: "bg-orange-50 text-orange-600" },
+            { label: "BCA", count: null, href: "/programs/bca", tint: "bg-sky-50 text-sky-600" },
+            { label: "MBBS", count: stats.med, href: "/programs/mbbs", tint: "bg-rose-50 text-rose-600" },
+            { label: "B.Pharm", count: stats.pharm, href: "/programs/b-pharm", tint: "bg-teal-50 text-teal-600" },
+            { label: "Pharm.D", count: stats.pharmd, href: "/programs/pharm-d", tint: "bg-emerald-50 text-emerald-600" },
+            { label: "M.Pharm", count: stats.mpharm, href: "/programs/m-pharm", tint: "bg-violet-50 text-violet-600" },
+            { label: "M.Tech", count: null, href: "/programs/m-tech", tint: "bg-blue-50 text-blue-600" },
+            { label: "B.Arch", count: null, href: "/programs/b-arch", tint: "bg-stone-100 text-stone-600" },
+            { label: "BA LLB", count: null, href: "/programs/ba-llb-hons", tint: "bg-red-50 text-red-600" },
           ].map(item => (
             <Link key={item.label} href={item.href} aria-label={item.label} className="bg-white rounded-xl p-3 sm:p-4 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all text-center">
-              <div className="text-xl sm:text-2xl mb-1" aria-hidden="true">{item.icon}</div>
-              <div className={`font-bold text-xs sm:text-sm ${item.color}`}>{item.label}</div>
-              {item.count ? <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5">{item.count} colleges</div> : null}
+              <span className={`inline-flex items-center justify-center w-10 h-10 rounded-lg mb-2 ${item.tint}`} aria-hidden="true">
+                <ProgramIcon name={item.label} className="w-5 h-5" />
+              </span>
+              <div className="font-bold text-xs sm:text-sm text-gray-800">{item.label}</div>
+              {item.count ? <div className="text-xs text-gray-500 mt-0.5 tabular-nums">{item.count} colleges</div> : null}
             </Link>
           ))}
         </div>
@@ -162,18 +166,18 @@ export default function Home() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 mt-4 sm:mt-6">
           <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-100">
-              <span className="bg-red-100 text-red-700 text-[11px] font-bold px-2 py-0.5 rounded uppercase tracking-wide">Updates</span>
+              <Badge tone="alert" className="uppercase tracking-wide">Updates</Badge>
               <span className="font-bold text-sm text-gray-800">Latest Admission Updates</span>
               <Link href="/news" className="ml-auto text-xs text-accent font-semibold hover:underline">View All →</Link>
             </div>
             <div className="divide-y divide-gray-50">
               {latestNews.map(item => (
                 <Link key={item.id} href="/news" className="flex items-center gap-3 px-5 py-2.5 hover:bg-gray-50 transition-colors">
-                  <span className={`shrink-0 px-1.5 py-0.5 rounded text-[11px] font-bold ${item.state === "AP" ? "bg-green-50 text-green-700" : item.state === "TS" ? "bg-blue-50 text-accent" : "bg-violet-50 text-violet-700"}`}>
+                  <span className={`shrink-0 px-1.5 py-0.5 rounded text-xs font-bold ${item.state === "AP" ? "bg-green-50 text-green-700" : item.state === "TS" ? "bg-blue-50 text-accent" : "bg-violet-50 text-violet-700"}`}>
                     {item.state}
                   </span>
                   <span className="text-sm text-gray-700 truncate">{item.title}</span>
-                  <span className="shrink-0 text-[11px] text-gray-500 ml-auto">{item.date.slice(5)}</span>
+                  <span className="shrink-0 text-xs text-gray-500 ml-auto tabular-nums">{item.date.slice(5)}</span>
                 </Link>
               ))}
             </div>
@@ -200,8 +204,8 @@ export default function Home() {
                     <span className="font-semibold text-xs sm:text-sm truncate" title={c.name}>{c.name}</span>
                   </div>
                   <div className="text-right shrink-0">
-                    <div className="font-bold text-brand text-xs sm:text-sm">Rank {c.cutoff.cse.toLocaleString()}</div>
-                    <div className="text-[11px] sm:text-xs text-gray-500">{fmtFee(c.fee)}/yr</div>
+                    <div className="font-bold text-brand text-xs sm:text-sm tabular-nums">Rank {c.cutoff.cse.toLocaleString()}</div>
+                    <div className="text-xs text-gray-500 tabular-nums">{fmtFee(c.fee)}/yr</div>
                   </div>
                 </Link>
               ))}
@@ -220,13 +224,13 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-10 sm:mb-14">
           {cheapest.map(c => (
             <Link key={c.id} href={`/colleges/${c.slug}`} className="bg-white rounded-xl p-4 sm:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all active:scale-[0.98]">
-              <div className={`text-[11px] sm:text-xs font-semibold mb-1 ${c.type === "Government" ? "text-green-600" : "text-accent"}`}>
+              <div className={`text-xs font-semibold mb-1 ${c.type === "Government" ? "text-green-600" : "text-accent"}`}>
                 {c.type} · {c.state}
               </div>
               <div className="font-bold text-sm sm:text-base mb-2 leading-snug">{c.name}</div>
               <div className="flex items-center justify-between">
-                <div className="text-lg sm:text-xl font-extrabold text-brand">{fmtFee(c.fee)}<span className="text-[11px] sm:text-xs font-normal text-gray-500">/yr</span></div>
-                <span className="bg-blue-50 text-accent px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md text-[11px] sm:text-xs font-semibold">{c.district}</span>
+                <div className="text-lg sm:text-xl font-extrabold text-brand tabular-nums">{fmtFee(c.fee)}<span className="text-xs font-normal text-gray-500">/yr</span></div>
+                <Badge tone="accent">{c.district}</Badge>
               </div>
             </Link>
           ))}
