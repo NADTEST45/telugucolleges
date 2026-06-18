@@ -13,6 +13,20 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  // ── New: June 18, 2026 ───────────────────────────────────────
+  {
+    id: "ap-inter-supplementary-results-2026-june-18",
+    date: "2026-06-18",
+    title: "AP Inter 1st & 2nd Year Supplementary (IPASE) Results 2026 Declared — Check at bie.ap.gov.in",
+    summary: "BIEAP declared the AP Intermediate Advanced Supplementary (IPASE) results 2026 for both 1st and 2nd year on June 18, 2026 at 12:00 PM at bie.ap.gov.in and resultsbie.ap.gov.in. Candidates check the marks memo with their 10-digit hall ticket number. These exams were the second chance for students who did not clear one or more subjects in the regular IPE, whose results were declared on April 15 (1st year 77%, 2nd year 81%).",
+    body: "The Board of Intermediate Education, Andhra Pradesh (BIEAP) declared the AP Intermediate Public Advanced Supplementary Examination (IPASE) results 2026 for both 1st year and 2nd year on June 18, 2026 at 12:00 PM at bie.ap.gov.in and resultsbie.ap.gov.in.\n\nKey points:\n• Supplementary (IPASE) exams: May 21 – June 4, 2026 (papers postponed from May 28 — Economics Paper-I, Maths Paper-IIB and the Vocational Bridge Course — were held on June 5)\n• Practical examinations: June 7 – June 11, 2026\n• Result declared: June 18, 2026 at 12:00 PM\n• Login: 10-digit hall ticket number (date of birth may also be required)\n\nHow to check your AP Inter supplementary result 2026:\n1. Visit bie.ap.gov.in or resultsbie.ap.gov.in\n2. Click the \"AP Inter 1st / 2nd Year Supplementary Result 2026\" link under the Results section\n3. Enter your 10-digit hall ticket number (and date of birth if prompted)\n4. Submit — your subject-wise marks, total and pass/fail status will display\n5. Download and print the marks memo for admissions and verification\n\nAlternative ways to check: BIEAP WhatsApp service (send \"Hi\" to 9552300009), DigiLocker for the digital marks memo, and mirror portals bieap.apcfss.in and Manabadi if the official site is busy.\n\nPassing criteria: A minimum of 35% (35/100) is required in each subject, in both theory and practical components where applicable.\n\nContext — the regular IPE 2026 results: The main Intermediate results were declared on April 15, 2026, with a first-year pass percentage of 77% (5,31,275 students appeared) and a second-year pass percentage of 81% (5,26,264 students appeared). The supplementary examination gave students who missed the cut-off in one or more subjects a chance to clear them without losing an academic year.\n\nWhat candidates should do now: Download and save the supplementary marks memo immediately. Students who have now cleared 2nd year are eligible to proceed with higher-education admissions and entrance-based counselling (including AP EAPCET). Candidates not satisfied with their marks can apply for recounting or revaluation per the separate BIEAP notification. The original physical marks memo is issued later through colleges.",
+    category: "general",
+    state: "AP",
+    priority: "high",
+    source: "BIEAP — AP Inter Advanced Supplementary (IPASE) Results 2026",
+    sourceUrl: "https://resultsbie.ap.gov.in/",
+    tags: ["AP Inter", "Intermediate", "IPASE", "Supplementary", "BIEAP", "Result", "June 18", "2026"],
+  },
   // ── New: June 13, 2026 ───────────────────────────────────────
   {
     id: "josaa-2026-round-1-allotment-june-13",
