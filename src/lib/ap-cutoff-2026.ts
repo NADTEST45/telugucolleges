@@ -3,7 +3,7 @@
  * (/eapcet/ap-cutoff-2026 and /eapcet/ap-cutoff-2026/[branch]).
  *
  * Pre-built BEFORE the AP EAPCET 2026 result spike (results expected
- * June 18–21, 2026) so pages are indexed when search volume peaks.
+ * June 22–23, 2026) so pages are indexed when search volume peaks.
  * Tables show official APSCHE last-rank data (2023-24 & 2022-23) as the
  * reference for expected 2026 cutoffs — clearly labelled as such.
  */

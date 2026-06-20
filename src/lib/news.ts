@@ -13,6 +13,20 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  // ── New: June 20, 2026 ───────────────────────────────────────
+  {
+    id: "ap-eapcet-2026-result-awaited-june-20",
+    date: "2026-06-20",
+    title: "AP EAPCET 2026 Result Still Awaited — Now Expected Around June 22–23",
+    summary: "AP EAPCET 2026 rank cards are still not out as of June 20. The AP Intermediate supplementary/improvement results — the dependency for the 25% Class XII weightage in the rank formula — were declared on June 18, so final ranks can now be computed. APSCHE has not notified an official date, but education-department and press sources now point to June 22–23, 2026 at cets.apsche.ap.gov.in.",
+    body: "As of June 20, 2026, the Andhra Pradesh State Council of Higher Education (APSCHE) has still not released the AP EAPCET 2026 rank cards. The result was originally scheduled for June 1 and then expected in the June 18–21 window.\n\nWhat has changed:\n• The AP Intermediate Advanced Supplementary / Improvement results — which carry 25% weightage in the final EAPCET rank — were declared by BIEAP on June 18, 2026.\n• With the updated Intermediate marks now available, APSCHE can finalise the 75% EAPCET + 25% Inter rank computation for all candidates.\n• APSCHE has not yet notified an exact official date. Education-department and press sources now indicate the rank cards are expected around June 22–23, 2026.\n\nHow to check your result once it goes live:\n1. Visit cets.apsche.ap.gov.in and open EAPCET 2026 → Results / Rank Card\n2. Log in with your hall ticket number and date of birth (or registration number)\n3. Download and save the PDF rank card; take 2–3 printouts for counselling\n\nWhat to do now: Keep your hall ticket, date of birth and counselling certificates (income, caste, study/Transfer Certificate) ready, and build your college preference list using your expected rank so you can enter web options quickly once counselling opens (expected early July 2026). Treat all dates as expected until APSCHE publishes the official notification.",
+    category: "eapcet",
+    state: "AP",
+    priority: "high",
+    source: "APSCHE / JNTU Kakinada — AP EAPCET 2026 result status (June 20)",
+    sourceUrl: "https://cets.apsche.ap.gov.in/EAPCET/",
+    tags: ["AP EAPCET", "Result", "Expected", "June 22", "June 23", "2026"],
+  },
   // ── New: June 18, 2026 ───────────────────────────────────────
   {
     id: "ap-inter-supplementary-results-2026-june-18",
@@ -73,7 +87,7 @@ export const NEWS_ITEMS: NewsItem[] = [
   {
     id: "ap-eapcet-2026-result-postponed-june-17",
     date: "2026-06-04",
-    title: "AP EAPCET 2026 Result Postponed — Now Expected Between June 18–21",
+    title: "AP EAPCET 2026 Result Postponed Beyond Original June 1 Date",
     summary: "APSCHE has postponed the AP EAPCET 2026 result from the originally announced June 1 date. Rank cards are now expected between June 18 and June 21, after the AP Intermediate Advanced Supplementary and Improvement results are declared. The delay protects the 25% Class XII weightage in the EAPCET rank formula.",
     body: "The Andhra Pradesh State Council of Higher Education (APSCHE) has officially postponed the AP EAPCET 2026 result declaration. The result was originally scheduled for June 1, 2026 but is now expected to be released between June 18 and June 21, 2026 at cets.apsche.ap.gov.in.\n\nWhy the delay?\n• Class XII (Intermediate) marks carry 25% weightage in the final AP EAPCET rank formula\n• Approximately 1.50 lakh second-year Intermediate students are currently writing the BIEAP Advanced Supplementary and Improvement examinations\n• Around 1 lakh of them are attempting the Mathematics paper to improve their score\n• Supplementary/Improvement exams conclude on June 5, 2026; results follow soon after\n• Declaring EAPCET ranks before the updated Inter marks are in would create an unfair rank for these students\n\nRevised expected timeline:\n• AP Intermediate Advanced Supplementary / Improvement exams: through June 5, 2026 (BIEAP)\n• BIEAP supplementary results: shortly after June 5\n• AP EAPCET 2026 final answer key + ranks: expected June 18, 2026 onwards\n• AP EAPCET 2026 rank cards available: expected by June 21, 2026\n• AP EAPCET 2026 counselling notification: expected first week of July 2026 (no change so far)\n\nThe final answer key — incorporating all valid objections submitted before the 11 AM, May 27 deadline — will be published alongside the result.\n\nWhat candidates should do now: Keep your hall ticket, response sheet and saved provisional key safe. Track cets.apsche.ap.gov.in for the official notification of the new result date. Counselling timelines (early July) remain unchanged for now.",
     category: "eapcet",

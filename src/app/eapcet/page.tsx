@@ -176,7 +176,7 @@ export default function EAPCETPage() {
         { label: "Admit card download",date: "Apr 28",             highlight: false },
         { label: "Engineering Exam",   date: "May 12–15, 18 ✓",    highlight: true  },
         { label: "Agri / Pharmacy",    date: "May 19–20",          highlight: true  },
-        { label: "Results (Expected)", date: "June 18–21, 2026 (postponed)", highlight: true },
+        { label: "Results (Expected)", date: "June 22–23, 2026 (expected)", highlight: true },
         { label: "Counselling Reg.",   date: "Early July 2026 (expected)",   highlight: false },
         { label: "Counselling Rounds", date: "Jul–Aug 2026 (3 rds + spot)", highlight: false },
       ],
@@ -268,7 +268,7 @@ export default function EAPCETPage() {
           </div>
         </div>
         <div className="px-4 sm:px-6 pb-3 sm:pb-4 text-[11px] text-blue-200/50">
-          * Dates based on official notifications as of June 10, 2026. TG EAPCET results declared May 17, 2026; TG counselling registration June 19–28. AP EAPCET results postponed — expected June 18–21, 2026. Check APSCHE / TGCHE websites for latest updates.
+          * Dates based on official notifications as of June 20, 2026. TG EAPCET results declared May 17, 2026; TG counselling registration June 19–28. AP EAPCET results awaited — now expected around June 22–23, 2026. Check APSCHE / TGCHE websites for latest updates.
         </div>
       </section>
 
@@ -284,7 +284,7 @@ export default function EAPCETPage() {
           tag: "AP" | "TS" | "Both";
           isNew?: boolean;
         }[] = [
-          { href: "/eapcet/ap-results-2026", tag: "AP", title: "AP EAPCET Results 2026 — Live Updates", desc: "Why results are postponed, the new expected date (June 18–21), and rank card download steps." },
+          { href: "/eapcet/ap-results-2026", tag: "AP", title: "AP EAPCET Results 2026 — Live Updates", desc: "Why results are delayed, the new expected date (June 22–23), and rank card download steps." },
           { href: "/eapcet/ap-cutoff-2026", tag: "AP", title: "AP EAPCET 2026 Cutoff — Branch-wise", desc: "Expected college-wise closing ranks for CSE, ECE, EEE, Civil, Mech, IT & AI branches." },
           { href: "/eapcet/ap-web-options", tag: "AP", title: "AP Web Options Entry — Step-by-Step", desc: "The exact entry process and the priority-order strategy that decides your seat." },
           { href: "/eapcet/tg-cutoff-2026", tag: "TS", title: "TG EAPCET 2026 Cutoff — Branch-wise", desc: "College-wise closing ranks from official TSCHE 2024-25 & 2023-24 last-rank data, plus Phase-1 reference." },
