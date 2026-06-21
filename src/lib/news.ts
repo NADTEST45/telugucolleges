@@ -13,6 +13,20 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  // ── New: June 21, 2026 ───────────────────────────────────────
+  {
+    id: "ap-eapcet-2026-result-expected-end-june-21",
+    date: "2026-06-21",
+    title: "AP EAPCET 2026 Result Now Expected by End of June — Officials Awaiting CBSE Revised Marks",
+    summary: "AP EAPCET 2026 rank cards are still not declared as of June 21. APSCHE officials are now waiting on CBSE revised (re-evaluation) Class XII results before finalising ranks, since Intermediate marks carry 25% weightage in the EAPCET rank formula. Press reports (Eenadu, June 21) indicate the rank cards are now expected by the end of June 2026 at cets.apsche.ap.gov.in. No official date has been notified — treat all dates as tentative until APSCHE confirms.",
+    body: "As of June 21, 2026, the Andhra Pradesh State Council of Higher Education (APSCHE) has still not released the AP EAPCET 2026 rank cards. The result was originally scheduled for June 1, then expected in the June 18–21 window, and is now reported to be pushed to the end of June.\n\nWhy the further delay:\n• The final EAPCET rank combines the entrance score (75%) with Intermediate (Class XII) marks (25%), so APSCHE needs every candidate's final Class XII marks before locking ranks.\n• Officials are now waiting for the CBSE revised / re-evaluation Class XII results to be factored in for CBSE-stream candidates.\n• Marks verification for the AP Intermediate supplementary/improvement exams concluded around June 7, and a small number of candidate grievances were still being resolved.\n• With these inputs pending, press reports (Eenadu, June 21, 2026) indicate the rank cards are now expected by the end of June 2026. APSCHE has not notified an exact official date.\n\nContext: Around 3.29 lakh+ candidates are awaiting the result. AP EAPCET ranks drive admission into B.Tech/B.E, B.Pharmacy, and Agriculture/Pharmacy courses across Andhra Pradesh for 2026–27.\n\nHow to check your result once it goes live:\n1. Visit cets.apsche.ap.gov.in and open EAPCET 2026 → Results / Rank Card\n2. Log in with your hall ticket number and date of birth (or registration number)\n3. Download and save the PDF rank card; take 2–3 printouts for counselling\n\nWhat to do now: Keep your hall ticket, date of birth and counselling certificates (income, caste, study/Transfer Certificate) ready, and build your college preference list using your expected rank so you can enter web options quickly once counselling opens (expected July 2026). Treat all dates as tentative until APSCHE publishes the official notification.",
+    category: "eapcet",
+    state: "AP",
+    priority: "high",
+    source: "Eenadu / APSCHE — AP EAPCET 2026 result status (June 21)",
+    sourceUrl: "https://cets.apsche.ap.gov.in/EAPCET/",
+    tags: ["AP EAPCET", "Result", "Expected", "End of June", "CBSE", "2026"],
+  },
   // ── New: June 20, 2026 ───────────────────────────────────────
   {
     id: "ap-eapcet-2026-result-awaited-june-20",
