@@ -3,6 +3,9 @@ import Link from "next/link";
 import { BRANCHES, getCollegesForBranch } from "@/lib/branch-data";
 import { getAllPrograms } from "@/lib/program-data";
 import { fmtFee } from "@/lib/colleges";
+import JsonLd from "@/components/JsonLd";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export const metadata: Metadata = {
   title: "Engineering Branches — CSE, ECE, EEE & More | TeluguColleges",
@@ -64,8 +67,33 @@ export default function BranchesPage() {
 
   const totalCount = enriched.length + extraPrograms.length;
 
+  // JSON-LD: BreadcrumbList + an ItemList of every branch landing page, so
+  // Google can see this hub as a curated index linking out to /branches/[slug].
+  // Built from the canonical BRANCHES list (stable slugs) — server-rendered.
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "TeluguColleges", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Branches", item: `${SITE_URL}/branches` },
+    ],
+  };
+  const itemListLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Engineering & Professional Branches in AP & Telangana",
+    numberOfItems: BRANCHES.length,
+    itemListElement: BRANCHES.map((b, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `${SITE_URL}/branches/${b.slug}`,
+      name: b.name,
+    })),
+  };
+
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <JsonLd data={[breadcrumbLd, itemListLd]} />
       <nav className="text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4 flex items-center gap-1.5">
         <Link href="/" className="hover:text-accent">Home</Link>
         <span>/</span>

@@ -1,4 +1,8 @@
 import type { Metadata } from "next";
+import { COLLEGES } from "@/lib/colleges";
+import JsonLd from "@/components/JsonLd";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export const metadata: Metadata = {
   title: "Universities in AP & Telangana — Deemed & Private Universities | TeluguColleges.com",
@@ -15,6 +19,40 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://telugucolleges.com/universities" },
 };
 
+// The page itself is a client component, so its JSON-LD is emitted here from
+// the (server) layout. Mirrors the universities-section filter on the page:
+// deemed + private state universities, each linking to its /colleges/[slug].
+const UNIVERSITIES = COLLEGES.filter(
+  (c) => c.type === "Deemed University" || c.type === "Private University"
+);
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "TeluguColleges", item: SITE_URL },
+    { "@type": "ListItem", position: 2, name: "Universities", item: `${SITE_URL}/universities` },
+  ],
+};
+
+const itemListLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Deemed & Private Universities in Andhra Pradesh & Telangana",
+  numberOfItems: UNIVERSITIES.length,
+  itemListElement: UNIVERSITIES.map((c, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    url: `${SITE_URL}/colleges/${c.slug}`,
+    name: c.name,
+  })),
+};
+
 export default function UniversitiesLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      <JsonLd data={[breadcrumbLd, itemListLd]} />
+      {children}
+    </>
+  );
 }
