@@ -13,6 +13,20 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  // ── New: June 24, 2026 ───────────────────────────────────────
+  {
+    id: "tg-eapcet-2026-counselling-live-web-options-june-25",
+    date: "2026-06-24",
+    title: "TG EAPCET 2026 Counselling Now Live — Web Options Open June 25; Phase 1 Seat Allotment by July 10",
+    summary: "TG EAPCET (TS EAMCET) 2026 engineering counselling is underway at tgeapcet.nic.in. Phase 1 registration and certificate-verification slot booking opened June 19 and stay open until June 28. Certificate verification is on (June 22–29). Web options (college/branch preferences) open June 25 and close July 1, with mock allotment by July 4 and the first-phase seat allotment on or before July 10. Processing fee ₹1,200 (OC/BC) / ₹600 (SC/ST).",
+    body: "TG EAPCET 2026 (formerly TS EAMCET) engineering admission counselling is now live at tgeapcet.nic.in. The Telangana Council of Higher Education (TGCHE), through JNTU Hyderabad, is conducting the process online in three phases plus internal sliding and spot admissions.\n\nWhere Phase 1 stands as of June 24:\n• Online registration + processing-fee payment + certificate-verification slot booking: open since June 19, closes June 28, 2026\n• Certificate verification (at Help Line Centres, per booked slot): in progress, June 22 – June 29, 2026\n• Web options (college/branch preferences): open June 25 – July 1, 2026\n• Mock seat allocation: on or before July 4, 2026\n• Web option modification (after mock allotment): July 5 – July 7, 2026\n• First-phase seat allotment: on or before July 10, 2026\n• Tuition-fee payment + online self-reporting (Phase 1): July 10 – July 14, 2026\n\nThree-phase timeline: Phase 1 runs June 19 – July 14, Phase 2 July 17 – 28, and Phase 3 July 31 – August 7, with internal sliding and spot admissions concluding by mid-August 2026.\n\nProcessing fee:\n• OC / BC: ₹1,200\n• SC / ST: ₹600\n(Pay before slot booking and certificate verification.)\n\nStep-by-step for candidates:\n1. Visit tgeapcet.nic.in and register using your TG EAPCET 2026 hall ticket number and rank\n2. Pay the processing fee online and book a certificate-verification slot (Help Line Centre + date)\n3. Attend certificate verification at your chosen centre with originals\n4. Enter web options (college + branch preferences in priority order) during June 25 – July 1\n5. Check the mock allotment by July 4 and modify options July 5–7 if needed\n6. View the seat allotment by July 10, then pay tuition fee and self-report online by July 14\n\nDocuments to keep ready (originals + scans): TG EAPCET 2026 rank card and hall ticket, SSC (Class X) memo, Intermediate (Class XII) memos, Transfer Certificate, study/bonafide certificates (Classes VI–XII for local-area status), Aadhaar, income certificate (for fee reimbursement / tuition-fee eligibility), caste certificate (if applicable), and EWS certificate (if applicable).\n\nWhat to do now: If you haven't already, pay the processing fee and complete certificate verification before the June 28 deadline so you can enter web options without a last-minute rush. Build your preference list in advance using your rank and the previous years' closing ranks. Track tgeapcet.nic.in and eapcet.tgche.ac.in for any revision to the allotment dates.",
+    category: "counselling",
+    state: "TS",
+    priority: "high",
+    source: "TGCHE / JNTU Hyderabad — TG EAPCET 2026 Counselling (tgeapcet.nic.in)",
+    sourceUrl: "https://eapcet.tgche.ac.in/",
+    tags: ["TG EAPCET", "TS EAMCET", "Counselling", "Web Options", "Seat Allotment", "June 25", "2026"],
+  },
   // ── New: June 21, 2026 ───────────────────────────────────────
   {
     id: "ap-eapcet-2026-result-expected-end-june-21",
