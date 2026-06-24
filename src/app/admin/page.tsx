@@ -89,6 +89,9 @@ export default function AdminDashboard() {
             <span className="text-sm text-white/80">Admin Dashboard</span>
           </div>
           <div className="flex items-center gap-4">
+            <Link href="/admin/leads" className="text-xs bg-white/15 px-3 py-1.5 rounded-lg hover:bg-white/25 transition-colors">
+              Leads
+            </Link>
             <Link href="/admin/users" className="text-xs bg-white/15 px-3 py-1.5 rounded-lg hover:bg-white/25 transition-colors">
               Manage Users
             </Link>
