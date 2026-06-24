@@ -4,7 +4,7 @@ import Link from "next/link";
 import { COLLEGES, fmtFee, College } from "@/lib/colleges";
 import { AP_CUTOFFS, AP_CUTOFF_YEARS, CATEGORIES, TS_CATEGORIES, catKey, type Category, type Gender } from "@/lib/ap-cutoffs";
 import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
-import { getHistoricalCutoff, getTSPhaseHistoricalCutoff, PREDICTOR_PHASES, type PredictorPhase } from "@/lib/cutoff-utils";
+import { getHistoricalCutoff, getTSPhaseHistoricalCutoff, estimateAllotmentChance, PREDICTOR_PHASES, type PredictorPhase } from "@/lib/cutoff-utils";
 import { CANONICAL_BRANCHES, branchLabel, codesForBranch, canonicalIdForCode } from "@/lib/branch-taxonomy";
 import ShortlistButton from "@/components/ShortlistButton";
 import LeadCapture from "@/components/LeadCapture";
@@ -89,7 +89,13 @@ export default function EAPCETPage() {
         let chance: "Safe" | "Moderate" | "Reach" = "Safe";
         if (ratio > 1) chance = "Reach";
         else if (ratio > 0.7) chance = "Moderate";
-        return { college: c, cutoff, chance, isHistorical, dataYears };
+
+        // Rough allotment-probability estimate — only when we have ≥2 real
+        // category/gender closing ranks to back it (returns null otherwise).
+        // Deliberately not shown for OC-reference fallbacks.
+        const estPct = isHistorical ? estimateAllotmentChance(r, hist.years) : null;
+
+        return { college: c, cutoff, chance, isHistorical, dataYears, estPct };
       })
       .sort((a, b) => a.cutoff - b.cutoff);
   }, [debouncedRank, state, usePhaseData, lookupCutoff, staticCutoff]);
@@ -488,7 +494,7 @@ export default function EAPCETPage() {
               </button>
             </div>
             <div className="space-y-2 max-h-[500px] overflow-y-auto -mx-1 px-1">
-              {predictions.map(({ college: col, cutoff, chance, isHistorical, dataYears }) => {
+              {predictions.map(({ college: col, cutoff, chance, isHistorical, dataYears, estPct }) => {
                 // When there's no category/gender-specific history, the value
                 // is the static OC closing rank (TSCHE 2024 / APSCHE 2023).
                 // Flag that clearly so an SC/Girls selection never reads as if
@@ -521,11 +527,21 @@ export default function EAPCETPage() {
                       <div className="text-[11px] text-gray-500">{isHistorical ? `${catLabel.split(" ")[0]} Cutoff` : "OC Cutoff"}</div>
                       <div className="font-bold text-xs sm:text-sm">{cutoff.toLocaleString()}</div>
                     </div>
-                    <span className={`px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold ${
-                      chance === "Safe" ? "bg-green-100 text-green-700" :
-                      chance === "Moderate" ? "bg-amber-100 text-amber-700" :
-                      "bg-red-100 text-red-600"
-                    }`}>{chance}</span>
+                    <div className="flex flex-col items-center gap-0.5">
+                      <span className={`px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold ${
+                        chance === "Safe" ? "bg-green-100 text-green-700" :
+                        chance === "Moderate" ? "bg-amber-100 text-amber-700" :
+                        "bg-red-100 text-red-600"
+                      }`}>{chance}</span>
+                      {estPct !== null && (
+                        <span
+                          title={`Rough estimate from ${dataYears.length} year${dataYears.length !== 1 ? "s" : ""} of closing ranks (${dataYears.join(", ")}). Not a guarantee — actual allotment depends on this year's seats and your option order.`}
+                          className="text-[10px] sm:text-[11px] font-semibold text-gray-400 tabular-nums leading-none"
+                        >
+                          ~{estPct}% est.
+                        </span>
+                      )}
+                    </div>
                     <ShortlistButton collegeSlug={col.slug} program={branchLabel(branch)} className="relative z-10" />
                   </div>
                 </div>
@@ -534,6 +550,9 @@ export default function EAPCETPage() {
             </div>
             <div className="mt-4 bg-amber-50 rounded-lg px-4 py-2.5 text-[11px] text-amber-700">
               Data from official APSCHE &amp; TSCHE &quot;Last Rank Details&quot; PDFs. {gender === "girls" ? "Girls-specific data available for select colleges." : ""} Actual cutoffs vary year to year.
+              <span className="block mt-1">
+                <strong>&ldquo;~% est.&rdquo;</strong> is a rough chance estimate based only on how your rank compares to past closing ranks for that branch &amp; category — shown only where at least two years of data exist. It is <strong>not a guarantee</strong>: real allotment depends on this year&rsquo;s seat matrix, the number of applicants, and the order you list your options.
+              </span>
             </div>
             <LeadCapture rank={parseInt(rank)} examState={state} branch={branch} category={category} />
           </div>

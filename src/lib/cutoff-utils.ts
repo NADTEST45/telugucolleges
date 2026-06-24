@@ -59,6 +59,69 @@ export function getHistoricalCutoff(
   return { avg: weighted, years: ranks, dataYears };
 }
 
+/**
+ * Rough seat-allotment probability estimate for a single college+branch+
+ * category+gender, given the candidate rank and the set of historical closing
+ * ranks (the `years` array from a HistoricalCutoffResult — one closing rank per
+ * available year/phase, any order).
+ *
+ * THIS IS AN ESTIMATE, NOT A GUARANTEE. It is derived purely from how the
+ * candidate's rank sits relative to past closing ranks; it cannot know this
+ * year's seat matrix, reservation shifts, or option-order effects. We therefore:
+ *   - require at least MIN_POINTS historical closes, else return null (show no %)
+ *   - cap the output to [LOW_FLOOR, HIGH_CAP] so we never claim certainty
+ *
+ * Model (lower rank = better):
+ *   - Let beaten = fraction of historical closes whose rank >= candidate rank
+ *     (i.e. the candidate would have made it in those years).
+ *   - Anchor probability on `beaten`, then nudge by how far inside/outside the
+ *     historical spread the rank sits (margin), so being far clear of every
+ *     close trends toward HIGH_CAP and being well past the worst close trends
+ *     toward LOW_FLOOR.
+ *
+ * Returns an integer percentage, or null when there isn't enough data.
+ */
+const PROB_MIN_POINTS = 2;
+const PROB_LOW_FLOOR = 8;
+const PROB_HIGH_CAP = 92;
+
+export function estimateAllotmentChance(
+  rank: number,
+  historicalCloses: number[]
+): number | null {
+  const closes = historicalCloses.filter(v => Number.isFinite(v) && v > 0);
+  if (rank <= 0 || closes.length < PROB_MIN_POINTS) return null;
+
+  const min = Math.min(...closes);
+  const max = Math.max(...closes);
+
+  // Fraction of years the candidate's rank would have been within the close.
+  const beaten = closes.filter(c => c >= rank).length / closes.length;
+
+  // Position of rank within [min, max] spread (0 = at best close, 1 = at worst).
+  // Clamped; used to smooth the step function that `beaten` alone would give.
+  let pos: number;
+  if (max === min) {
+    pos = rank <= min ? 0 : 1;
+  } else {
+    pos = (rank - min) / (max - min);
+  }
+  pos = Math.max(0, Math.min(1, pos));
+
+  // Base from `beaten` (0..1 → floor..cap), then blend the within-spread
+  // position so closely-bunched closes still produce a sensible gradient.
+  const base = PROB_LOW_FLOOR + beaten * (PROB_HIGH_CAP - PROB_LOW_FLOOR);
+  const spreadAdj = (1 - pos) * (PROB_HIGH_CAP - PROB_LOW_FLOOR);
+  let pct = 0.65 * base + 0.35 * (PROB_LOW_FLOOR + spreadAdj);
+
+  // Hard tails: clearly better than every close → near cap; clearly worse than
+  // the worst close (with a small buffer) → near floor.
+  if (rank <= min) pct = Math.max(pct, PROB_HIGH_CAP - 4);
+  if (rank > max * 1.1) pct = Math.min(pct, PROB_LOW_FLOOR + 6);
+
+  return Math.round(Math.max(PROB_LOW_FLOOR, Math.min(PROB_HIGH_CAP, pct)));
+}
+
 // ─── Phase-wise predictor support (TGEAPCET only — APSCHE publishes final-phase PDFs only) ───
 
 export type PredictorPhase = "final" | "phase1" | "phase2" | "special";
