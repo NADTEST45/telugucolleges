@@ -89,7 +89,7 @@ export default function APCutoff2026HubPage() {
             <div className="font-bold text-sm text-gray-900 mb-1">{b.label} Cutoff 2026</div>
             <div className="text-xs text-gray-500">
               {b.count} colleges with official last-rank data
-              {b.top?.oc2023 ? <> · tightest OC close: {b.top.oc2023.toLocaleString("en-IN")}</> : null}
+              {(() => { const t = b.top && (b.top.oc2024 || b.top.oc2023 || b.top.oc2022); return t ? <> · tightest OC close: {t.toLocaleString("en-IN")}</> : null; })()}
             </div>
           </Link>
         ))}

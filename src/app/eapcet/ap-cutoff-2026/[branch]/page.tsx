@@ -115,10 +115,11 @@ export default async function APCutoffBranchPage({
             <tr className="bg-brand text-white text-left">
               <th className="px-3 py-2.5 text-xs font-semibold w-10">#</th>
               <th className="px-3 py-2.5 text-xs font-semibold">College</th>
+              <th className="px-3 py-2.5 text-xs font-semibold text-right">OC 2024-25</th>
               <th className="px-3 py-2.5 text-xs font-semibold text-right">OC 2023-24</th>
               <th className="px-3 py-2.5 text-xs font-semibold text-right">OC 2022-23</th>
-              <th className="px-3 py-2.5 text-xs font-semibold text-right">SC 2023-24</th>
-              <th className="px-3 py-2.5 text-xs font-semibold text-right">EWS 2023-24</th>
+              <th className="px-3 py-2.5 text-xs font-semibold text-right">SC 2024-25</th>
+              <th className="px-3 py-2.5 text-xs font-semibold text-right">EWS 2024-25</th>
               <th className="px-3 py-2.5 text-xs font-semibold text-right">Annual fee</th>
             </tr>
           </thead>
@@ -135,16 +136,19 @@ export default async function APCutoffBranchPage({
                   </div>
                 </td>
                 <td className="px-3 py-2.5 text-right font-mono font-semibold">
+                  {r.oc2024 > 0 ? r.oc2024.toLocaleString("en-IN") : "—"}
+                </td>
+                <td className="px-3 py-2.5 text-right font-mono text-gray-600">
                   {r.oc2023 > 0 ? r.oc2023.toLocaleString("en-IN") : "—"}
                 </td>
                 <td className="px-3 py-2.5 text-right font-mono text-gray-600">
                   {r.oc2022 > 0 ? r.oc2022.toLocaleString("en-IN") : "—"}
                 </td>
                 <td className="px-3 py-2.5 text-right font-mono text-gray-600">
-                  {r.sc2023 > 0 ? r.sc2023.toLocaleString("en-IN") : "—"}
+                  {r.sc2024 > 0 ? r.sc2024.toLocaleString("en-IN") : "—"}
                 </td>
                 <td className="px-3 py-2.5 text-right font-mono text-gray-600">
-                  {r.ews2023 > 0 ? r.ews2023.toLocaleString("en-IN") : "—"}
+                  {r.ews2024 > 0 ? r.ews2024.toLocaleString("en-IN") : "—"}
                 </td>
                 <td className="px-3 py-2.5 text-right text-xs">
                   {r.college.fee > 0 ? fmtFee(r.college.fee) : "—"}

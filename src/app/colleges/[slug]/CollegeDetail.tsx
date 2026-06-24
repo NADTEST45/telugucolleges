@@ -862,7 +862,11 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
         });
 
         const yearCols: { label: string; key: string }[] = [];
-        if (hasCurrentCutoffs) yearCols.push({ label: "2024-25", key: "current" });
+        // The hand-maintained summary column is labelled "2024-25". Once official
+        // 2024 last-rank data exists it is the authoritative 2024-25 source, so skip
+        // the summary column to avoid a duplicate "2024-25" header.
+        const hasOfficial2024 = !!(hasHistorical && historicalCutoffs!["2024"]);
+        if (hasCurrentCutoffs && !hasOfficial2024) yearCols.push({ label: "2024-25", key: "current" });
         if (hasHistorical) {
           cutoffYears.forEach(y => {
             if (historicalCutoffs![y]) yearCols.push({ label: `${y}-${String(Number(y) + 1).slice(-2)}`, key: y });
