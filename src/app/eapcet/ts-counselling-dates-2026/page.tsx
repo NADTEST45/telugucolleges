@@ -1,6 +1,12 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
+import {
+  COUNSELLING_PHASES,
+  type CounsellingPhase,
+} from "@/lib/counselling-schedule";
+import { AddMilestoneButton, AddPhaseButton } from "@/components/AddToCalendar";
+import CounsellingReminderSignup from "@/components/CounsellingReminderSignup";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 const url = `${SITE_URL}/eapcet/ts-counselling-dates-2026`;
@@ -31,43 +37,6 @@ export const metadata: Metadata = {
   },
 };
 
-interface PhaseEvent {
-  event: string;
-  dates: string;
-}
-
-const PHASE_1: PhaseEvent[] = [
-  { event: "Registration, fee payment & slot booking", dates: "June 19 – 28, 2026" },
-  { event: "Certificate verification", dates: "June 22 – 29, 2026" },
-  { event: "Web options entry", dates: "June 25 – July 1, 2026" },
-  { event: "Freezing of web options", dates: "July 1, 2026" },
-  { event: "Mock seat allotment", dates: "On or before July 4, 2026" },
-  { event: "Change of options after mock allotment", dates: "July 5 – 7, 2026" },
-  { event: "Final freezing of options", dates: "July 7, 2026" },
-  { event: "Seat allotment result", dates: "On or before July 10, 2026" },
-  { event: "Fee payment & self-reporting", dates: "July 10 – 14, 2026" },
-];
-
-const PHASE_2: PhaseEvent[] = [
-  { event: "Registration, fee payment & slot booking (new candidates)", dates: "July 17, 2026" },
-  { event: "Certificate verification", dates: "July 18, 2026" },
-  { event: "Web options entry", dates: "July 18 – 19, 2026" },
-  { event: "Freezing of web options", dates: "July 19, 2026" },
-  { event: "Seat allotment result", dates: "On or before July 22, 2026" },
-  { event: "Fee payment & self-reporting", dates: "July 22 – 24, 2026" },
-  { event: "Physical reporting at allotted colleges", dates: "July 25 – 28, 2026" },
-  { event: "Last date to cancel allotted seat", dates: "July 28, 2026" },
-];
-
-const FINAL_PHASE: PhaseEvent[] = [
-  { event: "Registration, fee payment & slot booking", dates: "July 31, 2026" },
-  { event: "Certificate verification", dates: "August 1, 2026" },
-  { event: "Web options entry", dates: "August 1 – 2, 2026" },
-  { event: "Freezing of web options", dates: "August 2, 2026" },
-  { event: "Seat allotment result", dates: "On or before August 5, 2026" },
-  { event: "Fee payment, self-reporting & physical reporting", dates: "August 5 – 7, 2026" },
-];
-
 const FAQS: { q: string; a: string }[] = [
   {
     q: "When does TS EAPCET 2026 counselling start?",
@@ -92,6 +61,10 @@ const FAQS: { q: string; a: string }[] = [
   {
     q: "Can I join Phase 2 if I missed Phase 1 registration?",
     a: "Yes — Phase 2 has a registration window (July 17, 2026) for fresh candidates. But Phase 1 has the widest seat availability; later phases mostly redistribute leftover and cancelled seats.",
+  },
+  {
+    q: "Can I get reminders for the TS EAPCET 2026 counselling deadlines?",
+    a: "Yes. Use the calendar icon next to any milestone above to add that deadline to your phone's calendar (Google, Apple or Outlook) — it sets an all-day event with an alert the day before. You can also add a whole phase at once with the 'Add all deadlines' button. To get a WhatsApp ping when web options open and when allotment results are out, enter your number in the alerts box near the top of the page.",
   },
   {
     q: "What documents do I need for TG EAPCET certificate verification?",
@@ -140,23 +113,36 @@ function buildFaqJsonLd() {
   };
 }
 
-function PhaseTable({ title, events }: { title: string; events: PhaseEvent[] }) {
+function PhaseTable({ phase }: { phase: CounsellingPhase }) {
   return (
     <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
-      <h2 className="text-base sm:text-lg font-bold mb-3">{title}</h2>
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h2 className="text-base sm:text-lg font-bold">{phase.title}</h2>
+        <AddPhaseButton
+          milestones={phase.milestones}
+          phaseTag={phase.tag}
+          phaseLabel={phase.title}
+        />
+      </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="text-left text-gray-500 border-b">
               <th className="py-2 pr-3 font-semibold">Event</th>
               <th className="py-2 font-semibold whitespace-nowrap">Dates</th>
+              <th className="py-2 pl-2 font-semibold w-px">
+                <span className="sr-only">Add to calendar</span>
+              </th>
             </tr>
           </thead>
           <tbody>
-            {events.map(e => (
-              <tr key={e.event} className="border-b last:border-0 align-top">
-                <td className="py-2.5 pr-3 text-gray-700 leading-relaxed">{e.event}</td>
-                <td className="py-2.5 text-gray-800 font-medium whitespace-nowrap">{e.dates}</td>
+            {phase.milestones.map(m => (
+              <tr key={m.id} className="border-b last:border-0 align-top">
+                <td className="py-2.5 pr-3 text-gray-700 leading-relaxed">{m.event}</td>
+                <td className="py-2.5 text-gray-800 font-medium whitespace-nowrap">{m.dates}</td>
+                <td className="py-2.5 pl-2 text-right">
+                  <AddMilestoneButton milestone={m} phaseTag={phase.tag} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -207,11 +193,12 @@ export default function TsCounsellingDates2026Page() {
           <li><strong>By July 4</strong> — Mock allotment → reshuffle options July 5–7</li>
           <li><strong>By July 10</strong> — Seat allotment → pay fee & self-report by July 14</li>
         </ul>
+        <CounsellingReminderSignup />
       </section>
 
-      <PhaseTable title="Phase 1 — June 19 to July 14, 2026" events={PHASE_1} />
-      <PhaseTable title="Phase 2 — July 17 to 28, 2026" events={PHASE_2} />
-      <PhaseTable title="Final Phase — July 31 to August 7, 2026" events={FINAL_PHASE} />
+      {COUNSELLING_PHASES.map(phase => (
+        <PhaseTable key={phase.id} phase={phase} />
+      ))}
 
       {/* Fee + documents */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">

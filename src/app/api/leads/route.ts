@@ -22,6 +22,11 @@ const MAX_NAME = 100;
 const MAX_FIELD = 50;
 const MAX_URL = 300;
 
+// Capture surfaces. Upsert key is (phone, source), so each surface keeps its
+// own row per phone instead of overwriting another surface's opt-in.
+const ALLOWED_SOURCES = ["predictor", "counselling-dates"] as const;
+const DEFAULT_SOURCE = "predictor";
+
 // Indian mobile: 10 digits starting 6-9, after stripping +91/0 prefix and separators.
 function normalizePhone(raw: unknown): string | null {
   if (typeof raw !== "string") return null;
@@ -35,7 +40,7 @@ function normalizePhone(raw: unknown): string | null {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { phone, name, exam_state, rank, branch, category, page_url, website } = body;
+    const { phone, name, exam_state, rank, branch, category, page_url, website, source } = body;
 
     // Honeypot: hidden field humans never fill. Pretend success for bots.
     if (typeof website === "string" && website.length > 0) {
@@ -64,6 +69,7 @@ export async function POST(req: NextRequest) {
       typeof category === "string" && category.length <= MAX_FIELD ? category : null;
     const cleanUrl =
       typeof page_url === "string" && page_url.length <= MAX_URL ? page_url : null;
+    const cleanSource = ALLOWED_SOURCES.includes(source) ? source : DEFAULT_SOURCE;
 
     const sb = getServiceClient();
     const { error } = await sb.from("counselling_leads").upsert(
@@ -74,7 +80,7 @@ export async function POST(req: NextRequest) {
         rank: numRank,
         branch: cleanBranch,
         category: cleanCategory,
-        source: "predictor",
+        source: cleanSource,
         page_url: cleanUrl,
       },
       { onConflict: "phone,source" }
