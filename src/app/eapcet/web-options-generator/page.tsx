@@ -13,6 +13,7 @@ import {
   parseBranches,
   type Safety,
 } from "@/lib/predictor";
+import WebOptionsExport, { type ExportRow } from "./WebOptionsExport";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
@@ -196,6 +197,24 @@ export default async function WebOptionsGeneratorPage({
                 <span className="hidden print:inline">Generated on telugucolleges.com.</span>
                 <span className="print:hidden">Tip: press Ctrl/Cmd&nbsp;+&nbsp;P to print or save this list.</span>
               </p>
+
+              <WebOptionsExport
+                rows={matches.map((m): ExportRow => ({
+                  slug: m.college.slug,
+                  collegeName: m.college.name,
+                  branchLabel: m.branch.label,
+                  district: m.college.district,
+                  state: m.college.state,
+                  closingRank: m.closingRank,
+                  safety: m.safety,
+                }))}
+                meta={{
+                  rank,
+                  category: catLabel,
+                  gender: gender === "girls" ? "Girls" : "Boys/All",
+                  stateShort: state.short,
+                }}
+              />
 
               <ol className="mt-4 flex flex-col gap-2">
                 {matches.map((m, i) => {
