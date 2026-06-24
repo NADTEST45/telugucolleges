@@ -5,6 +5,7 @@ import { getAllProgramSlugs } from "@/lib/program-data";
 import { getAllBranchSlugs } from "@/lib/branch-data";
 import { getAllPairSlugs } from "@/lib/comparison-pairs";
 import { getAllCitySlugs } from "@/lib/city-data";
+import { getAllRegionSlugs } from "@/lib/region-data";
 import { getAllRankBandSlugs } from "@/lib/rank-band-data";
 import { AP_CUTOFF_BRANCHES } from "@/lib/ap-cutoff-2026";
 import { TS_CUTOFF_BRANCHES } from "@/lib/ts-cutoff-2026";
@@ -133,6 +134,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const city of getAllCitySlugs()) {
     entries.push({
       url: `${BASE}/best-colleges/${city}`,
+      changeFrequency: "monthly",
+      priority: 0.75,
+      lastModified: BUILD_DATE,
+    });
+  }
+
+  // Region best-colleges landing pages (multi-district aggregates)
+  for (const slug of getAllRegionSlugs()) {
+    entries.push({
+      url: `${BASE}/best-colleges/region/${slug}`,
       changeFrequency: "monthly",
       priority: 0.75,
       lastModified: BUILD_DATE,

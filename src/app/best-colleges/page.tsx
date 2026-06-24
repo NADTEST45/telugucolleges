@@ -1,6 +1,7 @@
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { getCitiesByState } from "@/lib/city-data";
+import { REGIONS, getRegionCollegeCount } from "@/lib/region-data";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
@@ -47,6 +48,10 @@ function BreadcrumbSchema() {
 
 export default function BestCollegesIndexPage() {
   const citiesByState = getCitiesByState();
+  const regions = REGIONS.map((r) => ({
+    ...r,
+    collegeCount: getRegionCollegeCount(r.slug),
+  })).filter((r) => r.collegeCount > 0);
 
   return (
     <>
@@ -75,6 +80,56 @@ export default function BestCollegesIndexPage() {
 
         {/* Content */}
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+          {regions.length > 0 && (
+            <section className="mb-12 sm:mb-16">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-2 text-gray-900">
+                By Region
+              </h2>
+              <p className="text-sm text-gray-600 mb-6">
+                Browse top engineering colleges across an entire region, spanning
+                multiple districts.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                {regions.map((r) => (
+                  <Link
+                    key={r.slug}
+                    href={`/best-colleges/region/${r.slug}`}
+                    className="group block bg-white rounded-lg shadow-sm hover:shadow-lg transition-all border border-gray-100 hover:border-accent overflow-hidden"
+                  >
+                    <div className="p-5 sm:p-6">
+                      <div className="flex items-start justify-between gap-3 mb-3">
+                        <div>
+                          <h3 className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-brand transition-colors">
+                            {r.name}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
+                            {r.state} · {r.districts.length} districts
+                          </p>
+                        </div>
+                        <div className="shrink-0">
+                          <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-brand text-sm font-semibold">
+                            {r.collegeCount}
+                          </span>
+                        </div>
+                      </div>
+
+                      <p className="text-sm text-gray-600 mb-4">
+                        {r.collegeCount} engineering colleges across the{" "}
+                        {r.name} region
+                      </p>
+
+                      <div className="inline-flex items-center gap-1 text-accent font-semibold text-sm group-hover:gap-2 transition-all">
+                        <span>Explore region</span>
+                        <span className="text-lg">→</span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
           {citiesByState.map(({ state, cities }) => (
             <section key={state} className="mb-12 sm:mb-16">
               <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-gray-900">
