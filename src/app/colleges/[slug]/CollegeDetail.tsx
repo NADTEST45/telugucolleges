@@ -11,6 +11,7 @@ import { isMedicalCollege, getMedicalAdmission } from "@/lib/medical-admission";
 import { getPlacementData, branchDisplayName } from "@/lib/placement-data";
 import AdSlot from "@/components/ads/AdSlot";
 import ShortlistButton from "@/components/ShortlistButton";
+import CutoffSparkline from "@/components/CutoffSparkline";
 import ShareButtons from "./components/ShareButtons";
 import FAQAccordion from "./components/FAQAccordion";
 import ReportDataButton from "./components/ReportDataButton";
@@ -1047,9 +1048,12 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                     <thead>
                       <tr className="bg-brand text-white">
                         <th className="px-4 py-2.5 text-left rounded-tl-lg">Branch</th>
-                        {yearCols.map((y, i) => (
-                          <th key={y.key} className={`px-4 py-2.5 text-right ${i === yearCols.length - 1 ? "rounded-tr-lg" : ""}`}>{y.label}</th>
+                        {yearCols.map(y => (
+                          <th key={y.key} className="px-4 py-2.5 text-right">{y.label}</th>
                         ))}
+                        {yearCols.length >= 2 && (
+                          <th className="px-4 py-2.5 text-right rounded-tr-lg whitespace-nowrap">Trend</th>
+                        )}
                       </tr>
                     </thead>
                     <tbody>
@@ -1083,12 +1087,19 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                                 </td>
                               );
                             })}
+                            {yearCols.length >= 2 && (
+                              <td className="px-4 py-2.5 text-right align-middle">
+                                <div className="inline-flex justify-end">
+                                  <CutoffSparkline ranks={ranks} labels={yearCols.map(y => y.label)} />
+                                </div>
+                              </td>
+                            )}
                           </tr>
                         );
                       })}
                     </tbody>
                   </table>
-                  <p className="text-[11px] sm:text-xs text-gray-500 mt-2">↑ = getting harder · ↓ = getting easier · Source: {c.state === "Telangana" ? "TSCHE" : "APSCHE"} official last rank details PDFs{c.state === "Telangana" ? ". From 2025, the SC quota is split into SC-I/II/III; for earlier years those options show the combined SC rank." : ""}</p>
+                  <p className="text-[11px] sm:text-xs text-gray-500 mt-2">↑ = getting harder · ↓ = getting easier · Trend sparkline reads oldest→newest (<span className="text-red-500 font-semibold">red</span> = more competitive over time, <span className="text-green-500 font-semibold">green</span> = easing) · Source: {c.state === "Telangana" ? "TSCHE" : "APSCHE"} official last rank details PDFs{c.state === "Telangana" ? ". From 2025, the SC quota is split into SC-I/II/III; for earlier years those options show the combined SC rank." : ""}</p>
                 </div>
               ) : (
                 <div className="text-center py-8 text-gray-500">
