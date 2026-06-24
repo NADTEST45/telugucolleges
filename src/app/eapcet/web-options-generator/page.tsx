@@ -149,7 +149,7 @@ export default async function WebOptionsGeneratorPage({
               return (
                 <label
                   key={b.slug}
-                  className={`inline-flex items-center gap-2 h-9 px-3 rounded-full border cursor-pointer text-sm font-medium ${on ? "bg-brand text-white border-brand" : "bg-white text-gray-700 border-gray-200"}`}
+                  className="inline-flex items-center gap-2 h-9 px-3 rounded-full border cursor-pointer select-none text-sm font-medium bg-white text-gray-700 border-gray-200 transition-colors has-[:checked]:bg-brand has-[:checked]:text-white has-[:checked]:border-brand"
                 >
                   <input type="checkbox" name="branch" value={b.slug} defaultChecked={on} className="sr-only" />
                   {b.label}
