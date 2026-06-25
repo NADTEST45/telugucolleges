@@ -119,7 +119,7 @@ export default async function RankBandPage({
     },
     {
       q: `When is ${state.exam} 2026 counselling?`,
-      a: `${state.exam === "AP EAPCET" ? "AP EAPCET 2026 results are confirmed for July 2, 2026, with counselling registration expected shortly after." : "TG EAPCET 2026 counselling Phase 1 is underway (Jun 19 – Jul 14, 2026), run by TGCHE."} Official closing ranks for 2026 are published after each allotment round.`,
+      a: `${state.exam === "AP EAPCET" ? "AP EAPCET 2026 results are expected by the end of June 2026, with counselling registration likely from early July." : "TG EAPCET 2026 counselling (conducted by TGCHE) is already underway — phase-1 web options opened June 25, 2026."} Official closing ranks for 2026 are published after each allotment round.`,
     },
   ];
   const faqJsonLd = {

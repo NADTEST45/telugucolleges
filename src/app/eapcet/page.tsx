@@ -10,6 +10,7 @@ import ShortlistButton from "@/components/ShortlistButton";
 import LeadCapture from "@/components/LeadCapture";
 import { EapcetStructuredData, PREDICTOR_FAQS } from "./structured-data";
 import { readStatePref, writeStatePref } from "@/lib/state-pref";
+import { AP_EAPCET_2026_RESULT, apResultDateCell } from "@/lib/ap-result-status";
 
 export default function EAPCETPage() {
   const [rank, setRank] = useState("");
@@ -182,8 +183,8 @@ export default function EAPCETPage() {
         { label: "Admit card download",date: "Apr 28",             highlight: false },
         { label: "Engineering Exam",   date: "May 12–15, 18 ✓",    highlight: true  },
         { label: "Agri / Pharmacy",    date: "May 19–20",          highlight: true  },
-        { label: "Results",            date: "July 2, 2026",       highlight: true },
-        { label: "Counselling Reg.",   date: "TBA (after results)",   highlight: false },
+        { label: AP_EAPCET_2026_RESULT.declared ? "Results" : "Results (Expected)", date: apResultDateCell(), highlight: true },
+        { label: "Counselling Reg.",   date: "Early July 2026 (expected)",   highlight: false },
         { label: "Counselling Rounds", date: "Jul–Aug 2026 (3 rds + spot)", highlight: false },
       ],
     },
@@ -274,7 +275,7 @@ export default function EAPCETPage() {
           </div>
         </div>
         <div className="px-4 sm:px-6 pb-3 sm:pb-4 text-[11px] text-blue-200/50">
-          * Dates based on official notifications as of July 1, 2026. TG EAPCET results declared May 17, 2026; TG counselling Phase 1 web options closed July 1, seat allotment expected by July 10. AP EAPCET results postponed to July 2, 2026; counselling notification awaited. Check APSCHE / TGCHE websites for latest updates.
+          * Dates based on official notifications as of June 25, 2026. TG EAPCET results declared May 17, 2026; TG counselling web options open June 25 – July 1. {AP_EAPCET_2026_RESULT.declared ? `AP EAPCET results declared — rank cards live at cets.apsche.ap.gov.in.` : `AP EAPCET results still awaited — now expected by ${AP_EAPCET_2026_RESULT.expectedWindow}.`} Check APSCHE / TGCHE websites for latest updates.
         </div>
       </section>
 
@@ -290,7 +291,7 @@ export default function EAPCETPage() {
           tag: "AP" | "TS" | "Both";
           isNew?: boolean;
         }[] = [
-          { href: "/eapcet/ap-results-2026", tag: "AP", title: "AP EAPCET Results 2026 — Live Updates", desc: "Why results were delayed, the confirmed date (July 2), and rank card download steps." },
+          { href: "/eapcet/ap-results-2026", tag: "AP", title: "AP EAPCET Results 2026 — Live Updates", desc: "Why results are delayed, the latest expected date (end-June), and rank card download steps." },
           { href: "/eapcet/ap-cutoff-2026", tag: "AP", title: "AP EAPCET 2026 Cutoff — Branch-wise", desc: "Expected college-wise closing ranks for CSE, ECE, EEE, Civil, Mech, IT & AI branches." },
           { href: "/eapcet/ap-web-options", tag: "AP", title: "AP Web Options Entry — Step-by-Step", desc: "The exact entry process and the priority-order strategy that decides your seat." },
           { href: "/eapcet/tg-cutoff-2026", tag: "TS", title: "TG EAPCET 2026 Cutoff — Branch-wise", desc: "College-wise closing ranks from official TSCHE 2024-25 & 2023-24 last-rank data, plus Phase-1 reference." },

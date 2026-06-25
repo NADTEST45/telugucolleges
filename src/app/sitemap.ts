@@ -61,7 +61,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/eapcet/web-options-generator`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE}/eapcet/certificate-verification-documents`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/eapcet/ts-counselling-dates-2026`, changeFrequency: "weekly", priority: 0.8 },
-    // AP EAPCET 2026 cutoff landing pages — pre-built ahead of the June 22–23
+    // AP EAPCET 2026 cutoff landing pages — pre-built ahead of the end-June
     // result spike; updated as official 2026 rounds conclude.
     { url: `${BASE}/eapcet/ap-cutoff-2026`, changeFrequency: "weekly", priority: 0.9 },
     // TG EAPCET 2026 cutoff landing pages — pre-built ahead of counselling

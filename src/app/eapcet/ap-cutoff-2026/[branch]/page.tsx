@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import { fmtFee } from "@/lib/colleges";
 import { AP_CUTOFF_BRANCHES, getCutoffBranch, getCutoffRows } from "@/lib/ap-cutoff-2026";
+import { apResultExpectedPhrase } from "@/lib/ap-result-status";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
@@ -24,7 +25,7 @@ export async function generateMetadata({
   if (!b) return { title: "Not found" };
   const rows = getCutoffRows(branch);
   const title = `AP EAPCET 2026 Cutoff for ${b.keyword} — Expected College-wise Closing Ranks`;
-  const description = `AP EAPCET 2026 ${b.keyword} cutoff: expected closing ranks for ${rows.length} Andhra Pradesh engineering colleges, based on official APSCHE 2023-24 & 2022-23 last-rank statements. Results confirmed for July 2; counselling to follow.`;
+  const description = `AP EAPCET 2026 ${b.keyword} cutoff: expected closing ranks for ${rows.length} Andhra Pradesh engineering colleges, based on official APSCHE 2023-24 & 2022-23 last-rank statements. Results expected end-June 2026, counselling from early July.`;
   const url = `${SITE_URL}/eapcet/ap-cutoff-2026/${branch}`;
   return {
     title,
@@ -63,7 +64,7 @@ export default async function APCutoffBranchPage({
     },
     {
       q: "When will AP EAPCET 2026 results and cutoffs be released?",
-      a: "AP EAPCET 2026 results are confirmed for July 2, 2026 (postponed from an original June 1 date, pending Intermediate supplementary results). Counselling registration is expected shortly after, and the official 2026 closing ranks appear after each allotment round.",
+      a: "AP EAPCET 2026 results are expected by the end of June 2026 (postponed from June 1, now pending CBSE revised Class XII marks). Counselling registration is expected in early July, and the official 2026 closing ranks appear after each allotment round.",
     },
     {
       q: "Do cutoffs differ by category and gender?",
@@ -99,7 +100,7 @@ export default async function APCutoffBranchPage({
         Expected AP EAPCET 2026 cutoff ranks for <strong>{b.label}</strong> across{" "}
         <strong>{rows.length} Andhra Pradesh engineering colleges</strong>, based on official
         APSCHE last-rank statements from 2023–24 and 2022–23 convener-quota counselling.
-        Results are confirmed for <strong>July 2, 2026</strong>; official 2026 cutoffs appear
+        Results <strong>{apResultExpectedPhrase()}</strong>; official 2026 cutoffs appear
         after each counselling round (from July). Bookmark this page — it will be updated as
         2026 rounds conclude.
       </p>

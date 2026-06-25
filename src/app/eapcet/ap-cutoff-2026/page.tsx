@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import { AP_CUTOFF_BRANCHES, getCutoffRows } from "@/lib/ap-cutoff-2026";
+import { apResultExpectedPhrase } from "@/lib/ap-result-status";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 const url = `${SITE_URL}/eapcet/ap-cutoff-2026`;
@@ -10,7 +11,7 @@ export const revalidate = 86400;
 
 const title = "AP EAPCET 2026 Cutoff — Expected Branch-wise & College-wise Closing Ranks";
 const description =
-  "AP EAPCET 2026 cutoff ranks for CSE, ECE, EEE, Civil, Mechanical, IT, AI/ML and more — expected college-wise closing ranks based on official APSCHE 2023-24 & 2022-23 last-rank data. Results confirmed for July 2; counselling to follow.";
+  "AP EAPCET 2026 cutoff ranks for CSE, ECE, EEE, Civil, Mechanical, IT, AI/ML and more — expected college-wise closing ranks based on official APSCHE 2023-24 & 2022-23 last-rank data. Results expected end-June 2026; counselling from early July.";
 
 export const metadata: Metadata = {
   title,
@@ -39,7 +40,7 @@ export default function APCutoff2026HubPage() {
   const faqs = [
     {
       q: "When will the official AP EAPCET 2026 cutoff be released?",
-      a: "Official closing ranks appear after each counselling round. With results confirmed for July 2, 2026, round-1 closing ranks should appear later in July, and final-phase cutoffs by August 2026.",
+      a: "Official closing ranks appear after each counselling round. With results expected by the end of June 2026 and registration in early July, round-1 closing ranks should appear in late July, and final-phase cutoffs by August 2026.",
     },
     {
       q: "What is a good rank in AP EAPCET 2026?",
@@ -75,8 +76,8 @@ export default function APCutoff2026HubPage() {
       </h1>
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
         Branch-wise expected cutoffs for AP EAPCET 2026 counselling, built from official APSCHE
-        last-rank statements (2023–24 and 2022–23). Results are confirmed for{" "}
-        <strong>July 2, 2026</strong>, with counselling registration to follow. Pick a
+        last-rank statements (2023–24 and 2022–23). Results{" "}
+        <strong>{apResultExpectedPhrase()}</strong> and counselling registration in early July. Pick a
         branch below for the full college-wise table, or use the{" "}
         <Link href="/eapcet" className="text-accent font-semibold underline">College Predictor</Link>{" "}
         for a category- and gender-specific list once you have your rank.
