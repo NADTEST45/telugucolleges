@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
+import LeadCapture from "@/components/LeadCapture";
 import { AP_EAPCET_2026_RESULT } from "@/lib/ap-result-status";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
@@ -231,6 +232,29 @@ export default function ApResults2026Page() {
             some press reports floated passed without a release. No exact official date has
             been notified yet.
           </p>
+        </section>
+      )}
+
+      {/* Result-day alert opt-in — only while awaited (a refreshing visitor is
+          the highest-intent lead we get all season). */}
+      {!AP_EAPCET_2026_RESULT.declared && (
+        <section className="rounded-xl mb-6 p-4 sm:p-5 bg-white border border-gray-200 shadow-sm">
+          <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-0.5">
+            Get an instant alert when the result drops
+          </h2>
+          <p className="text-sm text-gray-600 leading-relaxed">
+            Stop refreshing. Drop your WhatsApp number and we&rsquo;ll message you the
+            moment AP EAPCET 2026 rank cards go live at cets.apsche.ap.gov.in — plus the
+            counselling dates that follow.
+          </p>
+          <LeadCapture
+            examState="Andhra Pradesh"
+            source="ap-result-alert"
+            heading="WhatsApp me when AP EAPCET results are out"
+            subtext="One free alert the moment rank cards go live, then the counselling schedule. No spam — counselling season only."
+            buttonLabel="Alert me"
+            doneLabel="✓ Done — we'll WhatsApp you the moment AP EAPCET 2026 rank cards go live."
+          />
         </section>
       )}
 
