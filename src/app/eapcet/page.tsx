@@ -340,7 +340,7 @@ export default function EAPCETPage() {
       {/* Overview */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
         <h2 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">About EAPCET</h2>
-        <div className="gap-6">
+        <div>
           {(state === "Telangana") && (
             <div>
               <h3 className="font-semibold text-sm text-accent mb-3">TS EAPCET (Telangana)</h3>
@@ -394,7 +394,7 @@ export default function EAPCETPage() {
       {/* College Predictor */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
         <h2 className="text-base sm:text-lg font-bold mb-1">College Predictor</h2>
-        <p className="text-[11px] sm:text-xs text-gray-500 mb-4 sm:mb-5">Weighted prediction using official TSCHE closing ranks (2023-24 & 2024-25) and APSCHE closing ranks (2022-23 & 2023-24) — 70% latest year, 30% previous year. Category & gender-wise. For Telangana, you can also predict by counselling phase (Phase 1 / Phase 2 / Special) — the only calculator with official first-phase data.</p>
+        <p className="text-[11px] sm:text-xs text-gray-500 mb-4 sm:mb-5">Enter your rank to see colleges where you have a chance, by category &amp; gender. Built on official TSCHE/APSCHE closing ranks (weighted, latest 2 years). For Telangana you can also predict by counselling phase.</p>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3 mb-4 sm:mb-6">
           <div>
@@ -503,7 +503,7 @@ export default function EAPCETPage() {
                 const ocVintage = col.state === "Telangana" ? "TSCHE 2024" : "APSCHE 2023";
                 return (
                 <div key={col.id}
-                  className="relative flex flex-col sm:flex-row sm:flex-wrap sm:items-center justify-between gap-2 sm:gap-3 px-3 sm:px-4 py-3 rounded-lg bg-gray-50 hover:bg-blue-50 transition-colors">
+                  className="relative flex items-center justify-between gap-2 sm:gap-3 px-3 sm:px-4 py-3 rounded-lg bg-gray-50 hover:bg-blue-50 transition-colors">
                   {/* Stretched link makes the whole card navigate while keeping
                       the heart button (relative z-10) independently clickable. */}
                   <Link href={`/colleges/${col.slug}`} aria-label={`View ${col.name}`}
@@ -511,37 +511,35 @@ export default function EAPCETPage() {
                   <div className="flex-1 min-w-0">
                     <div className="font-semibold text-xs sm:text-sm leading-tight">{col.name}</div>
                     <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5 truncate">
-                      {col.district}, {col.state} · {fmtFee(col.fee)}/yr
+                      {col.district} · {fmtFee(col.fee)}/yr
                       {isHistorical && (
-                        <span className="ml-1.5 text-blue-500">· {catLabel.split(" ")[0]} weighted ({dataYears.join(", ")})</span>
+                        <span className="ml-1.5 text-blue-500 hidden sm:inline">· {catLabel.split(" ")[0]} weighted ({dataYears.join(", ")})</span>
                       )}
                       {!isHistorical && (
                         <span className={`ml-1.5 ${ocMismatch ? "text-amber-600" : "text-gray-400"}`}>
-                          · OC reference{ocMismatch ? ` — no ${catLabel.split(" ")[0]}${gender === "girls" ? "/Girls" : ""} data` : ""} ({ocVintage})
+                          · OC ref{ocMismatch ? ` — no ${catLabel.split(" ")[0]}${gender === "girls" ? "/Girls" : ""} data` : ""}<span className="hidden sm:inline"> ({ocVintage})</span>
                         </span>
                       )}
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 sm:gap-4 text-sm">
-                    <div className="text-center">
-                      <div className="text-[11px] text-gray-500">{isHistorical ? `${catLabel.split(" ")[0]} Cutoff` : "OC Cutoff"}</div>
-                      <div className="font-bold text-xs sm:text-sm">{cutoff.toLocaleString()}</div>
-                    </div>
-                    <div className="flex flex-col items-center gap-0.5">
-                      <span className={`px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold ${
-                        chance === "Safe" ? "bg-green-100 text-green-700" :
-                        chance === "Moderate" ? "bg-amber-100 text-amber-700" :
-                        "bg-red-100 text-red-600"
-                      }`}>{chance}</span>
+                  <div className="flex items-center gap-3 sm:gap-4 text-sm shrink-0">
+                    <div className="text-right sm:text-center leading-tight">
+                      <div className="text-[10px] sm:text-[11px] text-gray-500">{isHistorical ? `${catLabel.split(" ")[0]} Cutoff` : "OC Cutoff"}</div>
+                      <div className="font-bold text-xs sm:text-sm tabular-nums">{cutoff.toLocaleString()}</div>
                       {estPct !== null && (
-                        <span
+                        <div
                           title={`Rough estimate from ${dataYears.length} year${dataYears.length !== 1 ? "s" : ""} of closing ranks (${dataYears.join(", ")}). Not a guarantee — actual allotment depends on this year's seats and your option order.`}
-                          className="text-[10px] sm:text-[11px] font-semibold text-gray-400 tabular-nums leading-none"
+                          className="text-[10px] sm:text-[11px] font-semibold text-gray-400 tabular-nums leading-none mt-0.5"
                         >
-                          ~{estPct}% est.
-                        </span>
+                          ~{estPct}% chance
+                        </div>
                       )}
                     </div>
+                    <span className={`shrink-0 px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold ${
+                      chance === "Safe" ? "bg-green-100 text-green-700" :
+                      chance === "Moderate" ? "bg-amber-100 text-amber-700" :
+                      "bg-red-100 text-red-600"
+                    }`}>{chance}</span>
                     <ShortlistButton collegeSlug={col.slug} program={branchLabel(branch)} className="relative z-10" />
                   </div>
                 </div>
