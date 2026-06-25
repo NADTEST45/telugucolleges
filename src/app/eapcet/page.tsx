@@ -69,36 +69,47 @@ export default function EAPCETPage() {
   const predictions = useMemo(() => {
     const r = parseInt(debouncedRank);
     if (!r || r <= 0) return [];
-    return COLLEGES
-      .filter(c => {
-        if (state && c.state !== state) return false;
-        const hist = lookupCutoff(c.code, c.state);
-        if (hist.avg > 0) return r <= hist.avg * 1.3;
-        if (usePhaseData) return false; // no fallback when a specific phase is chosen
-        const cutoff = staticCutoff(c);
-        return cutoff > 0 && r <= cutoff * 1.3;
-      })
-      .map(c => {
-        let cutoff = 0;
-        let isHistorical = false;
-        let dataYears: string[] = [];
-        const hist = lookupCutoff(c.code, c.state);
-        if (hist.avg > 0) { cutoff = hist.avg; isHistorical = true; dataYears = hist.dataYears; }
-        if (!isHistorical) cutoff = staticCutoff(c);
+    // Single pass per college: lookupCutoff probes the large AP/TS cutoff
+    // tables, so resolve each college's cutoff once (not once in filter + once
+    // in map) — this runs on every debounced keystroke across ~849 colleges.
+    const out: {
+      college: College;
+      cutoff: number;
+      chance: "Safe" | "Moderate" | "Reach";
+      isHistorical: boolean;
+      dataYears: string[];
+      estPct: number | null;
+    }[] = [];
+    for (const c of COLLEGES) {
+      if (state && c.state !== state) continue;
+      const hist = lookupCutoff(c.code, c.state);
+      let cutoff = 0;
+      let isHistorical = false;
+      let dataYears: string[] = [];
+      if (hist.avg > 0) {
+        cutoff = hist.avg;
+        isHistorical = true;
+        dataYears = hist.dataYears;
+      } else if (usePhaseData) {
+        continue; // no fallback when a specific phase is chosen
+      } else {
+        cutoff = staticCutoff(c);
+      }
+      if (cutoff <= 0 || r > cutoff * 1.3) continue;
 
-        const ratio = r / cutoff;
-        let chance: "Safe" | "Moderate" | "Reach" = "Safe";
-        if (ratio > 1) chance = "Reach";
-        else if (ratio > 0.7) chance = "Moderate";
+      const ratio = r / cutoff;
+      const chance: "Safe" | "Moderate" | "Reach" =
+        ratio > 1 ? "Reach" : ratio > 0.7 ? "Moderate" : "Safe";
 
-        // Rough allotment-probability estimate — only when we have ≥2 real
-        // category/gender closing ranks to back it (returns null otherwise).
-        // Deliberately not shown for OC-reference fallbacks.
-        const estPct = isHistorical ? estimateAllotmentChance(r, hist.years) : null;
+      // Rough allotment-probability estimate — only when we have ≥2 real
+      // category/gender closing ranks to back it (returns null otherwise).
+      // Deliberately not shown for OC-reference fallbacks.
+      const estPct = isHistorical ? estimateAllotmentChance(r, hist.years) : null;
 
-        return { college: c, cutoff, chance, isHistorical, dataYears, estPct };
-      })
-      .sort((a, b) => a.cutoff - b.cutoff);
+      out.push({ college: c, cutoff, chance, isHistorical, dataYears, estPct });
+    }
+    out.sort((a, b) => a.cutoff - b.cutoff);
+    return out;
   }, [debouncedRank, state, usePhaseData, lookupCutoff, staticCutoff]);
 
   const predictorCatList = state === "Telangana" ? TS_CATEGORIES : CATEGORIES;
