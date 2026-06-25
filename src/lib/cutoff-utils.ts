@@ -52,11 +52,17 @@ export function getHistoricalCutoff(
   }
 
   if (ranks.length === 0) return { avg: 0, years: [], dataYears: [] };
+  return { avg: weightedCutoff(ranks), years: ranks, dataYears };
+}
 
-  // Weighted average: 70% most recent, 30% older (yearsToCheck is newest-first)
-  if (ranks.length === 1) return { avg: ranks[0], years: ranks, dataYears };
-  const weighted = Math.round(ranks[0] * 0.7 + ranks[1] * 0.3);
-  return { avg: weighted, years: ranks, dataYears };
+/** Recency-weighted closing-rank estimate (ranks are newest-first).
+ *  1 yr → that year; 2 yrs → 70/30; 3+ yrs → 50/30/20 over the latest three.
+ *  Using a third year (when available) hardens the estimate against a single
+ *  anomalous phase instead of discarding it as the old 70/30 blend did. */
+export function weightedCutoff(ranks: number[]): number {
+  if (ranks.length === 1) return ranks[0];
+  if (ranks.length === 2) return Math.round(ranks[0] * 0.7 + ranks[1] * 0.3);
+  return Math.round(ranks[0] * 0.5 + ranks[1] * 0.3 + ranks[2] * 0.2);
 }
 
 /**
@@ -180,7 +186,5 @@ export function getTSPhaseHistoricalCutoff(
   }
 
   if (ranks.length === 0) return { avg: 0, years: [], dataYears: [] };
-  if (ranks.length === 1) return { avg: ranks[0], years: ranks, dataYears };
-  const weighted = Math.round(ranks[0] * 0.7 + ranks[1] * 0.3);
-  return { avg: weighted, years: ranks, dataYears };
+  return { avg: weightedCutoff(ranks), years: ranks, dataYears };
 }

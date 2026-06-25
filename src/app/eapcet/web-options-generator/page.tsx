@@ -88,10 +88,10 @@ export default async function WebOptionsGeneratorPage({
       </h1>
       <p className="text-sm sm:text-base text-gray-600 mt-2 max-w-2xl leading-relaxed">
         Pick every branch you&rsquo;d accept and get one ready-to-enter preference list across
-        all Telangana &amp; Andhra Pradesh colleges — ordered best-first, each option tagged{" "}
-        <span className="font-semibold text-green-700">safe</span>,{" "}
-        <span className="font-semibold text-amber-700">moderate</span> or{" "}
-        <span className="font-semibold text-rose-700">reach</span>. This is the order you can
+        all Telangana &amp; Andhra Pradesh colleges — ambitious{" "}
+        <span className="font-semibold text-rose-700">reach</span> options first, then{" "}
+        <span className="font-semibold text-amber-700">moderate</span>, then{" "}
+        <span className="font-semibold text-green-700">safe</span> fallbacks. This is the order you can
         mirror in the official counselling web-options screen.
       </p>
       <p className="text-xs text-gray-500 mt-2">
@@ -185,14 +185,18 @@ export default async function WebOptionsGeneratorPage({
                   <span className="font-medium text-gray-500 text-sm"> · rank {rank.toLocaleString("en-IN")} · {catLabel} · {gender === "girls" ? "Girls" : "Boys/All"} · {state.short}</span>
                 </h2>
                 <div className="flex gap-2 text-xs font-semibold print:hidden">
-                  <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-green-50 text-green-700"><span className="w-2 h-2 rounded-full bg-green-500" />{counts.safe} safe</span>
-                  <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-amber-50 text-amber-700"><span className="w-2 h-2 rounded-full bg-amber-500" />{counts.moderate} moderate</span>
                   <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-rose-50 text-rose-700"><span className="w-2 h-2 rounded-full bg-rose-500" />{counts.reach} reach</span>
+                  <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-amber-50 text-amber-700"><span className="w-2 h-2 rounded-full bg-amber-500" />{counts.moderate} moderate</span>
+                  <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-green-50 text-green-700"><span className="w-2 h-2 rounded-full bg-green-500" />{counts.safe} safe</span>
                 </div>
               </div>
               <p className="text-xs text-gray-500 mt-1.5">
-                Ordered best-college-first. Enter them in this priority on the counselling web-options
-                screen (you can drop any you don&rsquo;t want). &ldquo;Closing rank&rdquo; is the {catLabel}{" "}
+                Ordered ambitious-first: your <span className="font-semibold text-rose-700">reach</span> options
+                lead, then <span className="font-semibold text-amber-700">moderate</span>, with{" "}
+                <span className="font-semibold text-green-700">safe</span> fallbacks last — the order counselling
+                guides recommend, since the engine allots your highest feasible choice and a safe option only
+                backstops it. Enter them in this priority on the web-options screen (drop any you don&rsquo;t
+                want). &ldquo;Closing rank&rdquo; is the {catLabel}{" "}
                 {gender === "girls" ? "girls" : "boys"} last rank, weighted across available years.{" "}
                 <span className="hidden print:inline">Generated on telugucolleges.com.</span>
                 <span className="print:hidden">Tip: press Ctrl/Cmd&nbsp;+&nbsp;P to print or save this list.</span>
@@ -222,16 +226,16 @@ export default async function WebOptionsGeneratorPage({
                   return (
                     <li key={`${m.college.slug}-${m.branch.slug}`} className="relative bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                       <Link href={`/colleges/${m.college.slug}`} className="absolute inset-0 rounded-xl" aria-label={m.college.name} />
-                      <div className="relative pointer-events-none flex items-center gap-3 px-3 sm:px-4 py-3">
-                        <span className="shrink-0 w-7 text-center font-bold text-gray-400 tabular-nums text-sm">{i + 1}</span>
+                      <div className="relative pointer-events-none flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-3">
+                        <span className="shrink-0 w-6 sm:w-7 text-center font-bold text-gray-400 tabular-nums text-sm">{i + 1}</span>
                         <div className="min-w-0 flex-1">
                           <div className="font-bold text-sm sm:text-[15px] leading-tight truncate">{m.college.name}</div>
                           <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5 truncate">
-                            {m.branch.label} · {m.college.district}, {m.college.state} · {m.college.type}
+                            {m.branch.label} · {m.college.district}<span className="hidden sm:inline">, {m.college.state} · {m.college.type}</span>
                           </div>
                         </div>
                         <div className="shrink-0 text-right">
-                          <div className="text-[11px] text-gray-500">Closing</div>
+                          <div className="text-[10px] sm:text-[11px] text-gray-500 leading-none">Closing</div>
                           <div className="font-bold text-brand text-sm tabular-nums">{m.closingRank.toLocaleString("en-IN")}</div>
                         </div>
                         <div className="shrink-0 text-right w-16 hidden sm:block">

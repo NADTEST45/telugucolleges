@@ -43,23 +43,45 @@ export interface PredictInput {
 }
 
 /**
- * Classification factors (lower rank = better):
- *  - safe:     candidate rank is at least 15% better than last closing rank
- *  - moderate: candidate rank is at or just within the closing rank
- *  - reach:    candidate rank is up to 15% beyond — plausible in later phases
- *  - excluded: more than 15% beyond the closing rank
+ * Classification factors (lower rank = better closing rank).
+ *
+ * Closing ranks drift *outward* across counselling phases and from year to
+ * year (more seats open up, candidates above you take other options), so the
+ * "reach" window is deliberately wider than the "safe" margin — a rank a third
+ * past last year's published close is still realistically allottable in a later
+ * phase, and every major EAMCET/EAPCET predictor keeps those on the list rather
+ * than dropping them. Bands (relative to the reference closing rank):
+ *
+ *  - safe:     rank is comfortably inside the close (≤ 80% of it) — should hold
+ *              even if the cutoff tightens next phase.
+ *  - moderate: rank is at or just inside the close (≤ 105%) — competitive but
+ *              the usual outward drift makes it likely.
+ *  - reach:    rank is up to 35% beyond the close — plausible only in later
+ *              phases / a softer year; the "ambitious" tier.
+ *  - excluded: more than 35% beyond — out of realistic range, omitted.
  */
-const SAFE_FACTOR = 0.85;
-const REACH_FACTOR = 1.15;
-const MAX_RESULTS = 120;
+const SAFE_FACTOR = 0.8;
+const MODERATE_FACTOR = 1.05;
+const REACH_FACTOR = 1.35;
+
+// No artificial cap: counselling lets you submit an unlimited preference list,
+// and the safe tail is exactly the backstop you don't want truncated. We only
+// guard against a pathological payload size.
+const MAX_RESULTS = 400;
 
 export function classify(rank: number, closing: number): Safety | null {
   if (closing <= 0) return null;
   if (rank > closing * REACH_FACTOR) return null;
   if (rank <= closing * SAFE_FACTOR) return "safe";
-  if (rank <= closing) return "moderate";
+  if (rank <= closing * MODERATE_FACTOR) return "moderate";
   return "reach";
 }
+
+// Web-options ordering: enter your most ambitious reachable options FIRST, then
+// moderate, then safe fallbacks last — the order every counselling guide
+// recommends, because the engine allots your highest feasible preference and
+// you want a safe option only as a backstop. Lower = listed earlier.
+const SAFETY_ORDER: Record<Safety, number> = { reach: 0, moderate: 1, safe: 2 };
 
 export function predict(input: PredictInput): PredictMatch[] {
   const { rank, state, category, gender, branches } = input;
@@ -87,10 +109,16 @@ export function predict(input: PredictInput): PredictMatch[] {
     }
   }
 
-  // Best (most competitive = lowest closing rank) first. This ordering is the
-  // suggested web-options preference order: list your strongest reachable
-  // options at the top of your counselling preference list.
-  out.sort((a, b) => a.closingRank - b.closingRank);
+  // Suggested web-options preference order: ambitious (reach) tier first, then
+  // moderate, then safe — and within each tier the most competitive
+  // (lowest closing rank) college first. This is the order to mirror on the
+  // counselling screen so the allotment engine reaches for your best feasible
+  // option before falling back to a safe one.
+  out.sort(
+    (a, b) =>
+      SAFETY_ORDER[a.safety] - SAFETY_ORDER[b.safety] ||
+      a.closingRank - b.closingRank,
+  );
   return out.slice(0, MAX_RESULTS);
 }
 

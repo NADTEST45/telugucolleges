@@ -38,9 +38,21 @@ export interface WebOptionsExportProps {
   };
 }
 
-// Don't save the entire 120-long list to an account in one burst.
+// Don't save the entire list to an account in one burst.
 const MAX_SAVE = 25;
 const SAVE_CONCURRENCY = 4;
+
+/** The list is ordered reach → moderate → safe. Naively saving the first
+ *  MAX_SAVE rows would store only the most ambitious options and drop every
+ *  safe fallback — the opposite of a useful shortlist. Instead keep the list's
+ *  reach-first order but sample across it so safe backstops are included. */
+function pickForSave(rows: ExportRow[], limit: number): ExportRow[] {
+  if (rows.length <= limit) return rows;
+  const step = rows.length / limit;
+  const picked: ExportRow[] = [];
+  for (let i = 0; i < limit; i++) picked.push(rows[Math.floor(i * step)]);
+  return picked;
+}
 
 function buildPlainText(rows: ExportRow[], meta: WebOptionsExportProps["meta"]): string {
   const header =
@@ -101,7 +113,7 @@ export default function WebOptionsExport({ rows, meta }: WebOptionsExportProps) 
     setSavedCount(0);
     await ensureLoaded();
 
-    const toSave = rows.slice(0, MAX_SAVE);
+    const toSave = pickForSave(rows, MAX_SAVE);
     let ok = 0;
     let failed = 0;
 
