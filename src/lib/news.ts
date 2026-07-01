@@ -13,6 +13,33 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  // ── New: July 1, 2026 ─────────────────────────────────────────
+  {
+    id: "ap-eapcet-2026-result-confirmed-july-2",
+    date: "2026-07-01",
+    title: "AP EAPCET 2026 Result Date Confirmed — July 2, 2026 at ~11 AM",
+    summary: "APSCHE has confirmed the AP EAPCET 2026 rank card release for July 2, 2026 at approximately 11:00 AM, at cets.apsche.ap.gov.in — later than the June 22–23 window reported earlier in the month. Counselling has not yet been notified and is expected to follow shortly after results.",
+    body: "The Andhra Pradesh State Council of Higher Education (APSCHE) has confirmed that AP EAPCET 2026 rank cards will be released on July 2, 2026 at approximately 11:00 AM. The result had already slipped past its original June 1 date, then a June 18–21 window, then a June 22–23 window — each time held up by the 25% Intermediate (Class XII) marks weightage in the final rank formula.\n\nHow to check your result on July 2:\n1. Visit cets.apsche.ap.gov.in and open EAPCET 2026 → Results / Rank Card\n2. Log in with your hall ticket number and date of birth (or registration number)\n3. Download and save the PDF rank card; take 2–3 printouts for counselling\n\nExpect the portal to be slow in the first hour after release — retry after a few minutes rather than resubmitting repeatedly.\n\nWhat's next: AP EAPCET counselling has not yet been notified by APSCHE. The schedule — registration, certificate verification, web options and seat allotment — is expected to be released shortly after results, on eapcet-sche.aptonline.in. Counselling processing fee: ₹1,200 (OC/BC), ₹600 (SC/ST).\n\nWhat to do now: Keep SSC, Intermediate memos, Transfer Certificate, study certificates, caste/income/EWS certificates (if applicable) and Aadhaar ready for certificate verification. Build your college preference list in advance using your expected rank so you can enter web options quickly once counselling opens.",
+    category: "eapcet",
+    state: "AP",
+    priority: "high",
+    source: "APSCHE — AP EAPCET 2026 Result Notification",
+    sourceUrl: "https://cets.apsche.ap.gov.in/EAPCET/",
+    tags: ["AP EAPCET", "Result", "Confirmed", "July 2", "2026"],
+  },
+  {
+    id: "tg-eapcet-2026-web-options-closed-july-1",
+    date: "2026-07-01",
+    title: "TG EAPCET 2026 Counselling — Phase 1 Web Options Closed; Mock Allotment by July 4",
+    summary: "TG EAPCET 2026 Phase 1 web option entry (open since June 25) closed today, July 1, 2026. Mock seat allotment is due on/before July 4, with a reshuffle window July 5–7, and the final Phase 1 seat allotment on/before July 10. Phase 1 self-reporting runs through July 14.",
+    body: "The Telangana Council of Higher Education (TGCHE) counselling for TG EAPCET 2026 has reached the end of its web-option window. Web options (college/branch preference entry) — open since June 25, 2026 — closed today, July 1, 2026, at tgeapcet.nic.in / eapcet.tgche.ac.in.\n\nWhat happens next in Phase 1:\n• Mock seat allocation: on or before July 4, 2026\n• Web option modification (after reviewing the mock): July 5 – July 7, 2026\n• Final Phase 1 seat allotment: on or before July 10, 2026\n• Tuition-fee payment + online self-reporting: July 10 – July 14, 2026\n\nWhat to do now: Watch for the mock allotment by July 4 — it shows where you'd currently land based on your submitted preferences. Candidates who want to reorder their branch/college priorities get a short window (July 5–7) to revise before the list is frozen for final allotment. Use the college predictor to sanity-check the mock result against official closing-rank data.\n\nLooking ahead: After Phase 1 concludes July 14, TGCHE will open Phase 2 (July 17–28) and a Final Phase (July 31 – Aug 7) plus internal sliding and spot rounds, to fill any seats left vacant after Phase 1.",
+    category: "counselling",
+    state: "TS",
+    priority: "high",
+    source: "TGCHE / JNTU Hyderabad — TG EAPCET 2026 Counselling Schedule",
+    sourceUrl: "https://eapcet.tgche.ac.in/",
+    tags: ["TG EAPCET", "TS EAMCET", "Counselling", "Web Options", "Seat Allotment", "2026"],
+  },
   // ── New: June 24, 2026 ───────────────────────────────────────
   {
     id: "tg-eapcet-2026-counselling-live-web-options-june-25",

@@ -6,17 +6,17 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com
 const url = `${SITE_URL}/eapcet/ap-results-2026`;
 
 // Bump this (and the update log below) whenever the page content changes.
-const LAST_UPDATED = "2026-06-21";
+const LAST_UPDATED = "2026-07-01";
 
 export const metadata: Metadata = {
   title: "AP EAPCET Results 2026 — Live Updates: New Date, Why Delayed, Rank Card Steps",
   description:
-    "AP EAPCET 2026 results still awaited: the Inter supplementary results are out (June 18) and rank cards are now expected around June 22–23. Why the delay happened, how to download your rank card at cets.apsche.ap.gov.in, and what to do next.",
+    "AP EAPCET 2026 results postponed to July 2, 2026 (~11 AM). Why the delay happened, how to download your rank card at cets.apsche.ap.gov.in, and what to do next.",
   alternates: { canonical: url },
   openGraph: {
     title: "AP EAPCET Results 2026 — Live Updates: New Date & Rank Card Steps",
     description:
-      "Results now expected around June 22–23, 2026. Reason for the delay, rank card download steps, and counselling next steps.",
+      "Results postponed to July 2, 2026. Reason for the delay, rank card download steps, and counselling next steps.",
     url,
     siteName: "TeluguColleges.com",
     type: "article",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "AP EAPCET Results 2026 — Live Updates",
     description:
-      "Results now expected around June 22–23, 2026. Why, and how to download your rank card.",
+      "Results postponed to July 2, 2026. Why, and how to download your rank card.",
   },
 };
 
@@ -39,6 +39,12 @@ export const metadata: Metadata = {
  * Each entry also feeds the LiveBlogPosting JSON-LD below.
  */
 const UPDATES: { date: string; time: string; title: string; body: string }[] = [
+  {
+    date: "2026-07-01",
+    time: "09:00",
+    title: "Result postponed to July 2, 2026 — official date now confirmed",
+    body: "APSCHE has confirmed that AP EAPCET 2026 rank cards will be declared on July 2, 2026 at approximately 11:00 AM, at cets.apsche.ap.gov.in — later than the June 22–23 window reported earlier in the month. Candidates can download their rank card using their hall ticket number and date of birth once the result goes live. AP EAPCET counselling has not yet been notified and is expected to follow shortly after results, on eapcet-sche.aptonline.in.",
+  },
   {
     date: "2026-06-21",
     time: "09:00",
@@ -77,8 +83,8 @@ const FAQS: { q: string; a: string }[] = [
     a: "The final EAPCET rank is computed with 75% weightage to the EAPCET score and 25% weightage to Intermediate (Class 12) marks. Around 1.5 lakh students wrote the Inter second-year supplementary/improvement exams in 2026 — including nearly 1 lakh for the Mathematics paper alone — so APSCHE is waiting for those results before computing final ranks. Declaring ranks earlier would make them provisional for lakhs of candidates.",
   },
   {
-    q: "What is the new expected date for AP EAPCET 2026 results?",
-    a: "The Intermediate supplementary results — the dependency for the final rank — were declared on June 18, 2026, and AP EAPCET rank cards are now expected around June 22–23, 2026. APSCHE has not yet notified an exact official date — treat all dates as expected until the official announcement on cets.apsche.ap.gov.in.",
+    q: "What is the new confirmed date for AP EAPCET 2026 results?",
+    a: "APSCHE has confirmed AP EAPCET 2026 rank cards will be declared on July 2, 2026 at approximately 11:00 AM, at cets.apsche.ap.gov.in — later than the June 22–23 window reported earlier in the month.",
   },
   {
     q: "Where do I check my AP EAPCET 2026 result and download the rank card?",
@@ -94,7 +100,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "When will AP EAPCET 2026 counselling start?",
-    a: "The counselling schedule is announced only after results. Based on the expected result around June 22–23, round-1 registration is expected to begin in early July 2026 on eapcet-sche.aptonline.in. Telangana's TG EAPCET counselling schedule is already out, with phase 1 starting June 19, 2026.",
+    a: "The counselling schedule is announced only after results. With results confirmed for July 2, 2026, round-1 registration is expected to begin shortly after on eapcet-sche.aptonline.in — no official date yet. Telangana's TG EAPCET counselling is already underway, with Phase 1 running June 19 – July 14, 2026.",
   },
 ];
 
@@ -127,7 +133,7 @@ function buildLiveBlogJsonLd() {
     datePublished: "2026-06-01T10:00:00+05:30",
     dateModified: `${LAST_UPDATED}T09:00:00+05:30`,
     coverageStartTime: "2026-06-01T00:00:00+05:30",
-    coverageEndTime: "2026-06-30T23:59:59+05:30",
+    coverageEndTime: "2026-07-05T23:59:59+05:30",
     author: { "@type": "Organization", name: "TeluguColleges Editorial", url: SITE_URL },
     publisher: { "@type": "Organization", name: "TeluguColleges", url: SITE_URL },
     liveBlogUpdate: UPDATES.map(u => ({
@@ -177,9 +183,8 @@ export default function ApResults2026Page() {
         AP EAPCET Results 2026 — Live Updates
       </h1>
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
-        Last updated: <strong>{formatDate(LAST_UPDATED)}</strong>. Results are{" "}
-        <strong>still awaited</strong> — rank cards are now expected{" "}
-        <strong>around June 22–23, 2026</strong> on{" "}
+        Last updated: <strong>{formatDate(LAST_UPDATED)}</strong>. Results have been{" "}
+        <strong>postponed to July 2, 2026</strong> (~11 AM) on{" "}
         <a
           href="https://cets.apsche.ap.gov.in"
           target="_blank"
@@ -194,14 +199,14 @@ export default function ApResults2026Page() {
       {/* Status banner */}
       <section className="rounded-xl mb-6 p-4 sm:p-6 bg-amber-50 border border-amber-200">
         <h2 className="text-base sm:text-lg font-bold text-amber-900 mb-1">
-          Current status: Awaited — expected around June 22–23
+          Current status: Postponed to July 2, 2026 (~11 AM)
         </h2>
         <p className="text-sm text-amber-900 leading-relaxed">
-          APSCHE is holding the result until Intermediate supplementary/improvement
-          exam evaluation finishes, because Inter marks carry{" "}
+          APSCHE held the result until Intermediate supplementary/improvement
+          exam evaluation finished, because Inter marks carry{" "}
           <strong>25% weightage</strong> in your final EAPCET rank. About 1.5 lakh
-          students wrote improvement exams this year. No exact official date has
-          been notified yet.
+          students wrote improvement exams this year. The official date is now
+          confirmed as July 2, 2026.
         </p>
       </section>
 
@@ -235,8 +240,8 @@ export default function ApResults2026Page() {
         </p>
         <p className="text-sm text-gray-700 leading-relaxed">
           Intermediate supplementary results were declared on <strong>June 18,
-          2026</strong>, with EAPCET rank cards following within days — now
-          expected around June 22–23.
+          2026</strong>, with EAPCET rank cards now officially confirmed for{" "}
+          <strong>July 2, 2026</strong>.
         </p>
       </section>
 
@@ -315,8 +320,8 @@ export default function ApResults2026Page() {
           </a>{" "}
           — registration and fee payment (₹1,200 OC/BC, ₹600 SC/ST), certificate
           verification, web options entry, seat allotment, and self-reporting. The
-          schedule is notified after results; round 1 is expected from late June /
-          early July 2026.
+          schedule is notified after results, which are confirmed for July 2, 2026;
+          round 1 is expected shortly after.
         </p>
         <ul className="text-sm text-gray-700 space-y-1.5">
           <li>

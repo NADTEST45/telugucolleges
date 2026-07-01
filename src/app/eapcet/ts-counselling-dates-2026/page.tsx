@@ -11,7 +11,7 @@ import CounsellingReminderSignup from "@/components/CounsellingReminderSignup";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 const url = `${SITE_URL}/eapcet/ts-counselling-dates-2026`;
 
-const LAST_UPDATED = "2026-06-10";
+const LAST_UPDATED = "2026-07-01";
 
 export const metadata: Metadata = {
   title: "TS EAPCET Counselling Dates 2026 — Full Phase-Wise Schedule (TG EAPCET) | TeluguColleges",
@@ -171,7 +171,7 @@ export default function TsCounsellingDates2026Page() {
       </h1>
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
         TGCHE released the TG EAPCET 2026 counselling schedule on June 9, 2026.{" "}
-        <strong>Phase 1 registration opens June 19</strong> on{" "}
+        <strong>Phase 1 web options closed July 1</strong> on{" "}
         <a
           href="https://eapcet.tgche.ac.in"
           target="_blank"
@@ -180,8 +180,9 @@ export default function TsCounsellingDates2026Page() {
         >
           eapcet.tgche.ac.in
         </a>{" "}
-        (also tgeapcet.nic.in). Three phases run through August 2026. Last updated:
-        June 10, 2026.
+        (also tgeapcet.nic.in) — mock allotment is due by July 4 and the final
+        Phase 1 seat allotment by July 10. Three phases run through August 2026.
+        Last updated: July 1, 2026.
       </p>
 
       {/* Key dates banner */}
@@ -226,12 +227,12 @@ export default function TsCounsellingDates2026Page() {
       >
         <div className="p-4 sm:p-6">
           <h2 className="text-base sm:text-xl font-bold text-white mb-1">
-            Web options open June 25 — build your list now
+            Web options closed today — mock allotment lands by July 4
           </h2>
           <p className="text-sm text-blue-100 mb-3 leading-relaxed">
             The predictor shows every Telangana college where the official TGCHE
             closing rank for your category × gender covered your rank — across the
-            last two counselling years.
+            last two counselling years. Use it to sanity-check your mock allotment.
           </p>
           <Link
             href="/eapcet"

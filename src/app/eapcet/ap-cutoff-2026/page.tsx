@@ -10,7 +10,7 @@ export const revalidate = 86400;
 
 const title = "AP EAPCET 2026 Cutoff — Expected Branch-wise & College-wise Closing Ranks";
 const description =
-  "AP EAPCET 2026 cutoff ranks for CSE, ECE, EEE, Civil, Mechanical, IT, AI/ML and more — expected college-wise closing ranks based on official APSCHE 2023-24 & 2022-23 last-rank data. Results June 22–23; counselling from early July 2026.";
+  "AP EAPCET 2026 cutoff ranks for CSE, ECE, EEE, Civil, Mechanical, IT, AI/ML and more — expected college-wise closing ranks based on official APSCHE 2023-24 & 2022-23 last-rank data. Results confirmed for July 2; counselling to follow.";
 
 export const metadata: Metadata = {
   title,
@@ -39,7 +39,7 @@ export default function APCutoff2026HubPage() {
   const faqs = [
     {
       q: "When will the official AP EAPCET 2026 cutoff be released?",
-      a: "Official closing ranks appear after each counselling round. With results expected June 22–23, 2026 and registration in early July, round-1 closing ranks should appear in late July, and final-phase cutoffs by August 2026.",
+      a: "Official closing ranks appear after each counselling round. With results confirmed for July 2, 2026, round-1 closing ranks should appear later in July, and final-phase cutoffs by August 2026.",
     },
     {
       q: "What is a good rank in AP EAPCET 2026?",
@@ -75,8 +75,8 @@ export default function APCutoff2026HubPage() {
       </h1>
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
         Branch-wise expected cutoffs for AP EAPCET 2026 counselling, built from official APSCHE
-        last-rank statements (2023–24 and 2022–23). Results are expected{" "}
-        <strong>June 22–23, 2026</strong> and counselling registration in early July. Pick a
+        last-rank statements (2023–24 and 2022–23). Results are confirmed for{" "}
+        <strong>July 2, 2026</strong>, with counselling registration to follow. Pick a
         branch below for the full college-wise table, or use the{" "}
         <Link href="/eapcet" className="text-accent font-semibold underline">College Predictor</Link>{" "}
         for a category- and gender-specific list once you have your rank.
