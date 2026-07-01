@@ -27,6 +27,19 @@ export const NEWS_ITEMS: NewsItem[] = [
     sourceUrl: "https://cets.apsche.ap.gov.in/EAPCET/",
     tags: ["AP EAPCET", "AP EAMCET", "Result", "Rank Card", "Declared", "July 1", "2026"],
   },
+  {
+    id: "tg-eapcet-2026-web-options-closed-july-1",
+    date: "2026-07-01",
+    title: "TG EAPCET 2026 Counselling — Phase 1 Web Options Closed; Mock Allotment by July 4",
+    summary: "TG EAPCET 2026 Phase 1 web option entry (open since June 25) closed today, July 1, 2026. Mock seat allotment is due on/before July 4, with a reshuffle window July 5–7, and the final Phase 1 seat allotment on/before July 10. Phase 1 self-reporting runs through July 14.",
+    body: "The Telangana Council of Higher Education (TGCHE) counselling for TG EAPCET 2026 has reached the end of its web-option window. Web options (college/branch preference entry) — open since June 25, 2026 — closed today, July 1, 2026, at tgeapcet.nic.in / eapcet.tgche.ac.in.\n\nWhat happens next in Phase 1:\n• Mock seat allocation: on or before July 4, 2026\n• Web option modification (after reviewing the mock): July 5 – July 7, 2026\n• Final Phase 1 seat allotment: on or before July 10, 2026\n• Tuition-fee payment + online self-reporting: July 10 – July 14, 2026\n\nWhat to do now: Watch for the mock allotment by July 4 — it shows where you'd currently land based on your submitted preferences. Candidates who want to reorder their branch/college priorities get a short window (July 5–7) to revise before the list is frozen for final allotment. Use the college predictor to sanity-check the mock result against official closing-rank data.\n\nLooking ahead: After Phase 1 concludes July 14, TGCHE will open Phase 2 (July 17–28) and a Final Phase (July 31 – Aug 7) plus internal sliding and spot rounds, to fill any seats left vacant after Phase 1.",
+    category: "counselling",
+    state: "TS",
+    priority: "high",
+    source: "TGCHE / JNTU Hyderabad — TG EAPCET 2026 Counselling Schedule",
+    sourceUrl: "https://eapcet.tgche.ac.in/",
+    tags: ["TG EAPCET", "TS EAMCET", "Counselling", "Web Options", "Seat Allotment", "2026"],
+  },
   // ── New: June 24, 2026 ───────────────────────────────────────
   {
     id: "tg-eapcet-2026-counselling-live-web-options-june-25",
