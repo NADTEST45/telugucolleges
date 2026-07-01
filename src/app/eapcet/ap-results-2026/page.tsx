@@ -286,7 +286,7 @@ export default function ApResults2026Page() {
               <span className="text-[11px] font-normal text-blue-100">Official portal · cets.apsche.ap.gov.in</span>
             </a>
             <Link
-              href="/eapcet"
+              href="/eapcet/web-options-generator"
               className="flex flex-col items-center justify-center text-center rounded-lg border-2 border-accent text-accent px-4 py-3 font-semibold text-sm hover:bg-accent/5"
             >
               Predict my colleges
