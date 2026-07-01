@@ -65,7 +65,7 @@ const STEPS: { name: string; text: string }[] = [
 const FAQS: { q: string; a: string }[] = [
   {
     q: "When does AP EAPCET 2026 web options entry start?",
-    a: "The schedule is announced with the counselling notification after results (results are expected by the end of June 2026). Round-1 web options entry is expected in July 2026. Dates are published on eapcet-sche.aptonline.in and cets.apsche.ap.gov.in.",
+    a: "AP EAPCET 2026 results were declared on July 1, 2026. The web options schedule is announced with the counselling notification, expected within about a week of the result. Round-1 web options entry is expected in July 2026. Dates are published on eapcet-sche.aptonline.in and cets.apsche.ap.gov.in.",
   },
   {
     q: "What do I need to log in for web options entry?",

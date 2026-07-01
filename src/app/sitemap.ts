@@ -57,6 +57,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // EAPCET 2026 season pages — results tracker changes near-daily until the
     // result drops; counselling guides update as schedules are notified.
     { url: `${BASE}/eapcet/ap-results-2026`, changeFrequency: "daily", priority: 0.9 },
+    // Telugu-language edition of the AP results tracker (hreflang alt of above).
+    { url: `${BASE}/eapcet/ap-results-2026-telugu`, changeFrequency: "daily", priority: 0.8 },
     { url: `${BASE}/eapcet/ap-web-options`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/eapcet/web-options-generator`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE}/eapcet/certificate-verification-documents`, changeFrequency: "weekly", priority: 0.8 },

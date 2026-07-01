@@ -17,10 +17,10 @@
  * │   5. commit + push — the rebuild flips every page automatically             │
  * └──────────────────────────────────────────────────────────────────────────┘
  *
- * Sourcing for the "awaited" window: as of 2026-06-25 APSCHE has still not
- * notified an official date; press reports (Eenadu, June 21) point to release
- * by the end of June 2026, held up by CBSE revised Class XII marks (Inter marks
- * carry 25% weightage in the final rank). Treat as expected, not official.
+ * RESULT DECLARED: APSCHE (via JNTU Kakinada) declared the AP EAPCET 2026
+ * result on 2026-07-01 at cets.apsche.ap.gov.in. 1,82,317 qualified in
+ * Engineering (70.52%) and 63,546 in Agriculture & Pharmacy (89.59%) of
+ * 2,58,545 who appeared. See news.ts id "ap-eapcet-2026-result-declared-july-1".
  */
 
 export interface ApResultStatus {
@@ -43,15 +43,73 @@ export interface ApResultStatus {
 }
 
 export const AP_EAPCET_2026_RESULT: ApResultStatus = {
-  declared: false,
-  asOf: "2026-06-25",
+  declared: true,
+  asOf: "2026-07-01",
   expectedWindow: "the end of June 2026",
-  expectedShort: "End-June 2026 (expected)",
-  declaredAt: null,
+  expectedShort: "Declared 1 July 2026",
+  declaredAt: "2026-07-01",
   resultUrl: "https://cets.apsche.ap.gov.in",
   counsellingPortal: "https://eapcet-sche.aptonline.in",
-  counsellingExpected: "early July 2026",
+  counsellingExpected: "within about a week of the result (early-to-mid July 2026)",
 };
+
+/**
+ * Official AP EAPCET 2026 result statistics, kept stream-split so the numbers
+ * stay unambiguous. Source: APSCHE result declaration, 2026-07-01.
+ *   - Engineering: 2,76,572 registered → 2,58,545 appeared → 1,82,317
+ *     qualified (70.52%).  (182317 / 258545 = 0.7052, exact.)
+ *   - Agriculture & Pharmacy: 63,546 qualified (89.59% of those who appeared).
+ * Total qualified across both streams: 2,45,863.
+ */
+export interface ApResultStats {
+  engRegistered: number;
+  engAppeared: number;
+  engQualified: number;
+  engPassPct: number;
+  agriQualified: number;
+  agriPassPct: number;
+}
+
+export const AP_EAPCET_2026_STATS: ApResultStats = {
+  engRegistered: 276572,
+  engAppeared: 258545,
+  engQualified: 182317,
+  engPassPct: 70.52,
+  agriQualified: 63546,
+  agriPassPct: 89.59,
+};
+
+/** Total candidates qualified across Engineering + Agriculture & Pharmacy. */
+export const AP_EAPCET_2026_TOTAL_QUALIFIED =
+  AP_EAPCET_2026_STATS.engQualified + AP_EAPCET_2026_STATS.agriQualified;
+
+export interface ApTopper {
+  rank: number;
+  name: string;
+  district: string;
+  /** Combined final score out of 100; APSCHE published it only for ranks 1–2. */
+  score?: number;
+}
+
+/**
+ * Officially announced AP EAPCET 2026 STATE TOPPERS — Agriculture & Pharmacy
+ * stream. APSCHE released this top-10 at the result press meet on 2026-07-01;
+ * individual engineering-stream toppers were NOT part of that announcement, so
+ * they are deliberately omitted rather than guessed. Ranks 1–2 carry the
+ * published combined scores; names for 3–10 are as announced (districts noted).
+ */
+export const AP_EAPCET_2026_TOPPERS_AGRI: ApTopper[] = [
+  { rank: 1, name: "Sambangi Jaswanth Naidu", district: "Vizianagaram", score: 92.5398 },
+  { rank: 2, name: "Kudumula Venkata Mahant Akshaj Reddy", district: "Medchal–Malkajgiri", score: 91.8114 },
+  { rank: 3, name: "Kondreddy Haricadevi Sri Anuhya", district: "Krishna" },
+  { rank: 4, name: "Karri Satyanarayana", district: "Kakinada" },
+  { rank: 5, name: "Bantu Dhathrika", district: "Anakapalli" },
+  { rank: 6, name: "Pallikonda Darshiteja", district: "Kakinada" },
+  { rank: 7, name: "Vallepu Dheeraj Krishna", district: "Guntur" },
+  { rank: 8, name: "Dandamudi Jagruthi", district: "Guntur" },
+  { rank: 9, name: "Allam Srilakshmi Satyasai Nikhithareddy", district: "Palnadu" },
+  { rank: 10, name: "Relangi Jaya Shanmukhi", district: "Vizianagaram" },
+];
 
 function fmt(date: string): string {
   return new Date(date + "T00:00:00").toLocaleDateString("en-IN", {

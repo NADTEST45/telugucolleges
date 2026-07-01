@@ -40,7 +40,7 @@ export default function APCutoff2026HubPage() {
   const faqs = [
     {
       q: "When will the official AP EAPCET 2026 cutoff be released?",
-      a: "Official closing ranks appear after each counselling round. With results expected by the end of June 2026 and registration in early July, round-1 closing ranks should appear in late July, and final-phase cutoffs by August 2026.",
+      a: "Official closing ranks appear after each counselling round. AP EAPCET 2026 results were declared on July 1, 2026, with counselling registration expected within about a week; round-1 closing ranks should appear in late July, and final-phase cutoffs by August 2026.",
     },
     {
       q: "What is a good rank in AP EAPCET 2026?",

@@ -2,23 +2,39 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import LeadCapture from "@/components/LeadCapture";
-import { AP_EAPCET_2026_RESULT } from "@/lib/ap-result-status";
+import {
+  AP_EAPCET_2026_RESULT,
+  AP_EAPCET_2026_STATS,
+  AP_EAPCET_2026_TOPPERS_AGRI,
+  AP_EAPCET_2026_TOTAL_QUALIFIED,
+} from "@/lib/ap-result-status";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 const url = `${SITE_URL}/eapcet/ap-results-2026`;
+const teUrl = `${SITE_URL}/eapcet/ap-results-2026-telugu`;
 
 // Bump this (and the update log below) whenever the page content changes.
-const LAST_UPDATED = "2026-06-25";
+const LAST_UPDATED = "2026-07-01";
+
+const S = AP_EAPCET_2026_STATS;
+const inr = (n: number) => n.toLocaleString("en-IN");
 
 export const metadata: Metadata = {
-  title: "AP EAPCET Results 2026 — Live Updates: New Date, Why Delayed, Rank Card Steps",
+  title: "AP EAPCET Results 2026 Declared — Download Rank Card, Toppers, What's Next",
   description:
-    "AP EAPCET 2026 results still awaited as of June 25: rank cards are now expected by the end of June, held up by CBSE revised Class XII marks. Why the delay happened, how to download your rank card at cets.apsche.ap.gov.in, and what to do next.",
-  alternates: { canonical: url },
+    "AP EAPCET 2026 results were declared on July 1, 2026. 1,82,317 qualified in Engineering (70.52%) and 63,546 in Agriculture & Pharmacy (89.59%). Download your rank card at cets.apsche.ap.gov.in, see the state toppers, and what to do before counselling.",
+  alternates: {
+    canonical: url,
+    languages: {
+      "en-IN": url,
+      "te-IN": teUrl,
+      "x-default": url,
+    },
+  },
   openGraph: {
-    title: "AP EAPCET Results 2026 — Live Updates: New Date & Rank Card Steps",
+    title: "AP EAPCET Results 2026 Declared — Rank Card, Toppers, Next Steps",
     description:
-      "Results now expected by the end of June 2026. Reason for the delay, rank card download steps, and counselling next steps.",
+      "Declared July 1, 2026. 1,82,317 qualified in Engineering, 63,546 in Agriculture & Pharmacy. Rank card download steps, state toppers, and counselling next steps.",
     url,
     siteName: "TeluguColleges.com",
     type: "article",
@@ -29,9 +45,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AP EAPCET Results 2026 — Live Updates",
+    title: "AP EAPCET Results 2026 Declared",
     description:
-      "Results now expected by the end of June 2026. Why, and how to download your rank card.",
+      "Declared July 1, 2026 — download your rank card, see the state toppers, and what's next for counselling.",
   },
 };
 
@@ -41,6 +57,12 @@ export const metadata: Metadata = {
  * Each entry also feeds the LiveBlogPosting JSON-LD below.
  */
 const UPDATES: { date: string; time: string; title: string; body: string }[] = [
+  {
+    date: "2026-07-01",
+    time: "15:00",
+    title: "Declared — AP EAPCET 2026 rank cards are live",
+    body: "APSCHE, through JNTU Kakinada, declared the AP EAPCET 2026 result today at 3:00 PM. In the Engineering stream, 2,76,572 registered and 2,58,545 appeared, of whom 1,82,317 qualified — a 70.52% pass rate. In Agriculture & Pharmacy, 63,546 qualified (89.59%). Sambangi Jaswanth Naidu of Vizianagaram topped the Agriculture & Pharmacy stream with a combined score of 92.5398, followed by Kudumula Venkata Mahant Akshaj Reddy at 91.8114. Rank cards are downloadable now at cets.apsche.ap.gov.in using your hall ticket number and date of birth. Counselling registration is expected to open within about a week.",
+  },
   {
     date: "2026-06-25",
     time: "10:00",
@@ -81,28 +103,28 @@ const UPDATES: { date: string; time: string; title: string; body: string }[] = [
 
 const FAQS: { q: string; a: string }[] = [
   {
-    q: "Why are AP EAPCET 2026 results delayed?",
-    a: "The final EAPCET rank is computed with 75% weightage to the EAPCET score and 25% weightage to Intermediate (Class 12) marks. Around 1.5 lakh students wrote the Inter second-year supplementary/improvement exams in 2026 — including nearly 1 lakh for the Mathematics paper alone — so APSCHE is waiting for those results before computing final ranks. Declaring ranks earlier would make them provisional for lakhs of candidates.",
-  },
-  {
-    q: "What is the new expected date for AP EAPCET 2026 results?",
-    a: "As of June 25, 2026, rank cards are still awaited. The AP Intermediate supplementary results were declared on June 18, but APSCHE is now waiting on CBSE revised (re-evaluation) Class XII results before locking ranks (Inter marks carry 25% weightage). The June 22–23 window some press reports floated passed without a release; the latest reporting points to the end of June 2026. APSCHE has not notified an exact official date — treat all dates as expected until the official announcement on cets.apsche.ap.gov.in.",
+    q: "When were AP EAPCET 2026 results declared?",
+    a: "APSCHE, through JNTU Kakinada, declared the AP EAPCET 2026 result on July 1, 2026 at 3:00 PM. In the Engineering stream, 1,82,317 of 2,58,545 candidates who appeared qualified (a 70.52% pass rate); in Agriculture & Pharmacy, 63,546 qualified (89.59%). The result had earlier been delayed past its original June 1 date because the final rank blends 75% EAPCET score with 25% Intermediate (Class 12) marks, and APSCHE waited for Inter supplementary and CBSE revised results to be finalised first.",
   },
   {
     q: "Where do I check my AP EAPCET 2026 result and download the rank card?",
     a: "On the official APSCHE CETs portal: cets.apsche.ap.gov.in. Go to EAPCET 2026 → Results / Rank Card, log in with your hall ticket number and date of birth (or registration number), and download the PDF rank card. Keep printed copies — you will need the rank card at every counselling step.",
   },
   {
+    q: "Who topped AP EAPCET 2026?",
+    a: "In the Agriculture & Pharmacy stream — the toppers APSCHE announced at the result press meet — Sambangi Jaswanth Naidu of Vizianagaram secured the state 1st rank with a combined score of 92.5398, followed by Kudumula Venkata Mahant Akshaj Reddy (91.8114) in 2nd and Kondreddy Haricadevi Sri Anuhya (Krishna) in 3rd. Individual engineering-stream toppers were not part of the official topper announcement.",
+  },
+  {
     q: "What details does the AP EAPCET rank card contain?",
     a: "Your combined final rank, EAPCET marks and normalized score, Intermediate weightage marks, category (local area, caste category, gender) details, and qualification status. Verify every field immediately — errors must be raised with APSCHE before counselling begins.",
   },
   {
-    q: "What should I do while waiting for the result?",
-    a: "Two things: (1) keep your counselling documents ready — income certificate, caste certificate, study certificates and Transfer Certificate take time to obtain; (2) build your college priority list now using your expected rank, so you can enter web options quickly when counselling opens.",
+    q: "What should I do now that the result is out?",
+    a: "Three things: (1) download and save your rank card immediately; (2) keep your counselling documents ready — income certificate, caste certificate, study certificates and Transfer Certificate; (3) build your college priority list now using your actual rank, so you can enter web options quickly once counselling opens. Our free EAPCET predictor shows which colleges matched your rank in official counselling.",
   },
   {
     q: "When will AP EAPCET 2026 counselling start?",
-    a: "The counselling schedule is announced only after results. With the result now expected by the end of June 2026, round-1 registration is likely to begin in early July 2026 on eapcet-sche.aptonline.in. Telangana's TG EAPCET counselling is already underway — phase-1 web options opened June 25, 2026.",
+    a: "APSCHE is expected to open counselling registration within about a week of the July 1 result, at eapcet-sche.aptonline.in. The process covers registration and fee payment, certificate verification, web options entry, and phase-wise seat allotment. Telangana's TG EAPCET counselling is already underway — phase-1 web options opened June 25, 2026.",
   },
 ];
 
@@ -128,14 +150,14 @@ function buildLiveBlogJsonLd() {
     "@context": "https://schema.org",
     "@type": "LiveBlogPosting",
     "@id": url,
-    headline: "AP EAPCET Results 2026 — Live Updates: New Date, Delay Reason, Rank Card Steps",
+    headline: "AP EAPCET Results 2026 — Live Updates: Declared, Rank Card, Toppers, Next Steps",
     description:
-      "Live tracking of AP EAPCET 2026 result declaration: postponement, new expected date, and rank card download steps.",
+      "Live tracking of AP EAPCET 2026 result declaration: pass statistics, state toppers, rank card download steps, and counselling next steps.",
     url,
     datePublished: "2026-06-01T10:00:00+05:30",
     dateModified: `${LAST_UPDATED}T09:00:00+05:30`,
     coverageStartTime: "2026-06-01T00:00:00+05:30",
-    coverageEndTime: "2026-07-05T23:59:59+05:30",
+    coverageEndTime: "2026-07-01T23:59:59+05:30",
     author: { "@type": "Organization", name: "TeluguColleges Editorial", url: SITE_URL },
     publisher: { "@type": "Organization", name: "TeluguColleges", url: SITE_URL },
     liveBlogUpdate: UPDATES.map(u => ({
@@ -168,28 +190,37 @@ function formatDate(dateStr: string): string {
 }
 
 export default function ApResults2026Page() {
+  const declared = AP_EAPCET_2026_RESULT.declared;
+
   return (
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
       <JsonLd data={[buildBreadcrumbJsonLd(), buildLiveBlogJsonLd(), buildFaqJsonLd()]} />
 
-      {/* Breadcrumb */}
-      <nav className="text-sm text-gray-500 mb-4 flex items-center gap-1.5 flex-wrap">
-        <Link href="/" className="hover:text-accent">Home</Link>
-        <span>/</span>
-        <Link href="/eapcet" className="hover:text-accent">EAPCET</Link>
-        <span>/</span>
-        <span className="text-gray-700 font-medium">AP Results 2026 — Live Updates</span>
-      </nav>
+      {/* Breadcrumb + language toggle */}
+      <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
+        <nav className="text-sm text-gray-500 flex items-center gap-1.5 flex-wrap">
+          <Link href="/" className="hover:text-accent">Home</Link>
+          <span>/</span>
+          <Link href="/eapcet" className="hover:text-accent">EAPCET</Link>
+          <span>/</span>
+          <span className="text-gray-700 font-medium">AP Results 2026</span>
+        </nav>
+        <Link
+          href="/eapcet/ap-results-2026-telugu"
+          hrefLang="te"
+          className="text-sm font-medium text-accent border border-accent/30 rounded-full px-3 py-1 hover:bg-accent/5 whitespace-nowrap"
+        >
+          తెలుగులో చదవండి →
+        </Link>
+      </div>
 
       <h1 className="text-2xl sm:text-3xl font-bold mb-2">
-        AP EAPCET Results 2026 — Live Updates
+        AP EAPCET Results 2026 — Declared, Download Rank Card
       </h1>
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
         Last updated: <strong>{formatDate(LAST_UPDATED)}</strong>.{" "}
-        {AP_EAPCET_2026_RESULT.declared ? (
-          <>
-            Results are <strong>out</strong> — download your rank card on{" "}
-          </>
+        {declared ? (
+          <>Results are <strong>out</strong> — download your rank card on{" "}</>
         ) : (
           <>
             Results are <strong>still awaited</strong> — rank cards are now expected{" "}
@@ -208,7 +239,7 @@ export default function ApResults2026Page() {
       </p>
 
       {/* Status banner */}
-      {AP_EAPCET_2026_RESULT.declared ? (
+      {declared ? (
         <section className="rounded-xl mb-6 p-4 sm:p-6 bg-green-50 border border-green-200">
           <h2 className="text-base sm:text-lg font-bold text-green-900 mb-1">
             Current status: Declared — rank cards are live
@@ -235,9 +266,59 @@ export default function ApResults2026Page() {
         </section>
       )}
 
+      {/* PRIMARY ACTION — check result + predict colleges. On result day this is
+          the whole intent of the page, so it sits directly under the status. */}
+      {declared && (
+        <section className="rounded-xl mb-6 p-4 sm:p-6 bg-white border-2 border-accent/40 shadow-sm">
+          <h2 className="text-lg sm:text-xl font-bold mb-1">Check your AP EAPCET 2026 result</h2>
+          <p className="text-sm text-gray-600 leading-relaxed mb-4">
+            Download your official rank card from the APSCHE portal, then see which colleges
+            your rank can win before counselling opens.
+          </p>
+          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+            <a
+              href="https://cets.apsche.ap.gov.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center justify-center text-center rounded-lg bg-brand text-white px-4 py-3 font-semibold text-sm hover:opacity-95"
+            >
+              Download rank card
+              <span className="text-[11px] font-normal text-blue-100">Official portal · cets.apsche.ap.gov.in</span>
+            </a>
+            <Link
+              href="/eapcet"
+              className="flex flex-col items-center justify-center text-center rounded-lg border-2 border-accent text-accent px-4 py-3 font-semibold text-sm hover:bg-accent/5"
+            >
+              Predict my colleges
+              <span className="text-[11px] font-normal text-gray-500">Free · category &amp; gender-wise cutoffs</span>
+            </Link>
+          </div>
+          <details className="group">
+            <summary className="cursor-pointer text-sm font-semibold text-gray-800 select-none">
+              How to download your rank card (6 steps)
+            </summary>
+            <ol className="list-decimal pl-5 space-y-2 text-sm text-gray-700 leading-relaxed mt-3">
+              <li>
+                Open <a href="https://cets.apsche.ap.gov.in" target="_blank" rel="noopener noreferrer" className="text-accent underline">cets.apsche.ap.gov.in</a>{" "}
+                and select <strong>EAPCET 2026</strong>.
+              </li>
+              <li>Click the <strong>Results / Rank Card download</strong> link.</li>
+              <li>Log in with your <strong>hall ticket number</strong> and <strong>date of birth</strong> (or registration number).</li>
+              <li>Your result opens with the combined final rank. Click <strong>Download Rank Card</strong>.</li>
+              <li>Save the PDF and take <strong>2–3 printouts</strong> — the rank card is required at certificate verification, web options and college reporting.</li>
+              <li>Verify name, hall ticket number, category, local area and marks immediately. Report any mismatch to APSCHE helplines before counselling.</li>
+            </ol>
+            <p className="text-xs text-gray-500 mt-3">
+              The portal slows down in the first hours after release — if it doesn&rsquo;t
+              load, retry after some time instead of re-submitting repeatedly.
+            </p>
+          </details>
+        </section>
+      )}
+
       {/* Result-day alert opt-in — only while awaited (a refreshing visitor is
           the highest-intent lead we get all season). */}
-      {!AP_EAPCET_2026_RESULT.declared && (
+      {!declared && (
         <section className="rounded-xl mb-6 p-4 sm:p-5 bg-white border border-gray-200 shadow-sm">
           <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-0.5">
             Get an instant alert when the result drops
@@ -258,79 +339,74 @@ export default function ApResults2026Page() {
         </section>
       )}
 
-      {/* Update log */}
-      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
-        <h2 className="text-base sm:text-lg font-bold mb-4">Updates</h2>
-        <ol className="space-y-4">
-          {UPDATES.map(u => (
-            <li key={`${u.date}-${u.time}`} className="border-l-2 border-accent pl-4">
-              <div className="text-xs text-gray-500 mb-0.5">
-                {formatDate(u.date)} · {u.time} IST
-              </div>
-              <div className="font-semibold text-sm sm:text-base">{u.title}</div>
-              <p className="text-sm text-gray-600 leading-relaxed">{u.body}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
+      {/* Statistics — scannable scorecard, split by stream so the numbers are
+          unambiguous. */}
+      {declared && (
+        <section className="mb-6">
+          <h2 className="text-base sm:text-lg font-bold mb-3">AP EAPCET 2026 result statistics</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="rounded-xl bg-white border border-gray-200 p-4 text-center">
+              <div className="text-xl sm:text-2xl font-bold text-brand">{inr(S.engAppeared)}</div>
+              <div className="text-xs text-gray-500 mt-1">Engineering appeared</div>
+            </div>
+            <div className="rounded-xl bg-white border border-gray-200 p-4 text-center">
+              <div className="text-xl sm:text-2xl font-bold text-brand">{inr(S.engQualified)}</div>
+              <div className="text-xs text-gray-500 mt-1">Engineering qualified · {S.engPassPct}%</div>
+            </div>
+            <div className="rounded-xl bg-white border border-gray-200 p-4 text-center">
+              <div className="text-xl sm:text-2xl font-bold text-brand">{inr(S.agriQualified)}</div>
+              <div className="text-xs text-gray-500 mt-1">Agri &amp; Pharmacy qualified · {S.agriPassPct}%</div>
+            </div>
+            <div className="rounded-xl bg-white border border-gray-200 p-4 text-center">
+              <div className="text-xl sm:text-2xl font-bold text-brand">{inr(AP_EAPCET_2026_TOTAL_QUALIFIED)}</div>
+              <div className="text-xs text-gray-500 mt-1">Total qualified (both streams)</div>
+            </div>
+          </div>
+          <p className="text-xs text-gray-500 mt-2 leading-relaxed">
+            Engineering: {inr(S.engRegistered)} registered, {inr(S.engAppeared)} appeared,{" "}
+            {inr(S.engQualified)} qualified ({S.engPassPct}% pass). Agriculture &amp; Pharmacy:{" "}
+            {inr(S.agriQualified)} qualified ({S.agriPassPct}% pass). Source: APSCHE, July 1, 2026.
+          </p>
+        </section>
+      )}
 
-      {/* Why delayed */}
-      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
-        <h2 className="text-base sm:text-lg font-bold mb-3">Why the result is delayed — the 25% weightage rule</h2>
-        <p className="text-sm text-gray-700 leading-relaxed mb-3">
-          Your AP EAPCET rank is not just your entrance exam score. The final rank is
-          computed as <strong>75% EAPCET marks + 25% Intermediate (Class 12) group
-          subject marks</strong>. Roughly 1.5 lakh candidates appeared for the Inter
-          second-year supplementary and improvement exams in May–June 2026 — including
-          close to 1 lakh for Mathematics alone. Until those marks are finalised,
-          APSCHE cannot compute final ranks for a large share of candidates, so the
-          government chose to wait rather than publish provisional ranks.
-        </p>
-        <p className="text-sm text-gray-700 leading-relaxed">
-          AP Intermediate supplementary results were declared on <strong>June 18,
-          2026</strong>, but the final ranks are now held up by{" "}
-          <strong>CBSE revised (re-evaluation) Class XII results</strong> for CBSE-stream
-          candidates. The latest press reporting points to rank cards by the{" "}
-          <strong>end of June 2026</strong>.
-        </p>
-      </section>
-
-      {/* Rank card steps */}
-      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
-        <h2 className="text-base sm:text-lg font-bold mb-3">How to download your rank card (when released)</h2>
-        <ol className="list-decimal pl-5 space-y-2 text-sm text-gray-700 leading-relaxed">
-          <li>
-            Open the official APSCHE CETs portal:{" "}
-            <a
-              href="https://cets.apsche.ap.gov.in"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent underline"
-            >
-              cets.apsche.ap.gov.in
-            </a>{" "}
-            and select <strong>EAPCET 2026</strong>.
-          </li>
-          <li>Click the <strong>Results / Rank Card download</strong> link.</li>
-          <li>
-            Log in with your <strong>hall ticket number</strong> and{" "}
-            <strong>date of birth</strong> (or registration number).
-          </li>
-          <li>Your result opens with the combined final rank. Click <strong>Download Rank Card</strong>.</li>
-          <li>
-            Save the PDF and take <strong>2–3 printouts</strong> — the rank card is
-            required at certificate verification, web options and college reporting.
-          </li>
-          <li>
-            Verify name, hall ticket number, category, local area and marks
-            immediately. Report any mismatch to APSCHE helplines before counselling.
-          </li>
-        </ol>
-        <p className="text-xs text-gray-500 mt-3">
-          The portal slows down in the first hours after release — if it doesn&rsquo;t
-          load, retry after some time instead of re-submitting repeatedly.
-        </p>
-      </section>
+      {/* State toppers */}
+      {declared && (
+        <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
+          <h2 className="text-base sm:text-lg font-bold mb-1">
+            AP EAPCET 2026 state toppers — Agriculture &amp; Pharmacy
+          </h2>
+          <p className="text-xs text-gray-500 leading-relaxed mb-3">
+            The top rankers APSCHE announced at the result press meet. Combined scores were
+            published for the top two. (Individual engineering-stream toppers were not part
+            of the official topper announcement.)
+          </p>
+          <div className="overflow-x-auto -mx-1">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="text-left text-xs text-gray-500 border-b border-gray-200">
+                  <th className="py-2 pr-3 font-semibold">Rank</th>
+                  <th className="py-2 pr-3 font-semibold">Name</th>
+                  <th className="py-2 pr-3 font-semibold">District</th>
+                  <th className="py-2 pr-1 font-semibold text-right">Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                {AP_EAPCET_2026_TOPPERS_AGRI.map(t => (
+                  <tr key={t.rank} className="border-b border-gray-100 last:border-0">
+                    <td className="py-2 pr-3 font-semibold text-brand">{t.rank}</td>
+                    <td className="py-2 pr-3 text-gray-800">{t.name}</td>
+                    <td className="py-2 pr-3 text-gray-600">{t.district}</td>
+                    <td className="py-2 pr-1 text-right text-gray-600 tabular-nums">
+                      {t.score ? t.score.toFixed(4) : "—"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
 
       {/* Predictor funnel */}
       <section
@@ -339,12 +415,12 @@ export default function ApResults2026Page() {
       >
         <div className="p-4 sm:p-6">
           <h2 className="text-base sm:text-xl font-bold text-white mb-1">
-            Don&rsquo;t wait for the rank card to plan
+            Got your rank? See your colleges now
           </h2>
           <p className="text-sm text-blue-100 mb-3 leading-relaxed">
-            Enter your expected rank in our free predictor to see which B.Tech
-            colleges matched that rank in official APSCHE counselling — category and
-            gender-wise. Have your web options list ready before counselling opens.
+            Enter your rank in our free predictor to see which B.Tech colleges matched that
+            rank in official APSCHE counselling — category and gender-wise. Have your web
+            options list ready before counselling opens.
           </p>
           <Link
             href="/eapcet"
@@ -354,6 +430,28 @@ export default function ApResults2026Page() {
           </Link>
         </div>
       </section>
+
+      {/* WhatsApp counselling alerts (declared state) */}
+      {declared && (
+        <section className="rounded-xl mb-6 p-4 sm:p-5 bg-white border border-gray-200 shadow-sm">
+          <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-0.5">
+            Get counselling dates on WhatsApp
+          </h2>
+          <p className="text-sm text-gray-600 leading-relaxed">
+            Now that the result is out, counselling is next. Drop your WhatsApp number and
+            we&rsquo;ll message you the AP EAPCET 2026 registration and web-options dates the
+            moment APSCHE notifies them.
+          </p>
+          <LeadCapture
+            examState="Andhra Pradesh"
+            source="ap-result-alert"
+            heading="WhatsApp me the AP EAPCET counselling dates"
+            subtext="Registration, web-options and seat-allotment dates the moment they're notified. No spam — counselling season only."
+            buttonLabel="Notify me"
+            doneLabel="✓ Done — we'll WhatsApp you the AP EAPCET 2026 counselling dates the moment they're out."
+          />
+        </section>
+      )}
 
       {/* What happens next */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
@@ -369,9 +467,9 @@ export default function ApResults2026Page() {
             eapcet-sche.aptonline.in
           </a>{" "}
           — registration and fee payment (₹1,200 OC/BC, ₹600 SC/ST), certificate
-          verification, web options entry, seat allotment, and self-reporting. The
-          schedule is notified after results, which are confirmed for July 2, 2026;
-          round 1 is expected shortly after.
+          verification, web options entry, seat allotment, and self-reporting. With
+          the result out, APSCHE is expected to notify the counselling schedule
+          within about a week; round 1 is expected to begin in July 2026.
         </p>
         <ul className="text-sm text-gray-700 space-y-1.5">
           <li>
@@ -389,6 +487,41 @@ export default function ApResults2026Page() {
         </ul>
       </section>
 
+      {/* Update log */}
+      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
+        <h2 className="text-base sm:text-lg font-bold mb-4">Updates</h2>
+        <ol className="space-y-4">
+          {UPDATES.map(u => (
+            <li key={`${u.date}-${u.time}`} className="border-l-2 border-accent pl-4">
+              <div className="text-xs text-gray-500 mb-0.5">
+                {formatDate(u.date)} · {u.time} IST
+              </div>
+              <div className="font-semibold text-sm sm:text-base">{u.title}</div>
+              <p className="text-sm text-gray-600 leading-relaxed">{u.body}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* Why it was delayed */}
+      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
+        <h2 className="text-base sm:text-lg font-bold mb-3">Why the result was delayed — the 25% weightage rule</h2>
+        <p className="text-sm text-gray-700 leading-relaxed mb-3">
+          Your AP EAPCET rank is not just your entrance exam score. The final rank is
+          computed as <strong>75% EAPCET marks + 25% Intermediate (Class 12) group
+          subject marks</strong>. Roughly 1.5 lakh candidates appeared for the Inter
+          second-year supplementary and improvement exams in May–June 2026 — including
+          close to 1 lakh for Mathematics alone — so APSCHE waited for those marks,
+          and later for CBSE revised (re-evaluation) Class XII marks, before computing
+          final ranks rather than publish provisional ones.
+        </p>
+        <p className="text-sm text-gray-700 leading-relaxed">
+          AP Intermediate supplementary results were declared on <strong>June 18,
+          2026</strong>; with all inputs finalised, APSCHE declared the AP EAPCET 2026
+          result on <strong>July 1, 2026</strong>.
+        </p>
+      </section>
+
       {/* FAQs */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
         <h2 className="text-base sm:text-lg font-bold mb-4">Frequently asked questions</h2>
@@ -403,10 +536,10 @@ export default function ApResults2026Page() {
       </section>
 
       <p className="text-xs text-gray-500 leading-relaxed">
-        Dates marked &ldquo;expected&rdquo; are based on education department
-        statements reported in the press and are not official until APSCHE notifies
-        them on cets.apsche.ap.gov.in. Always confirm on the official portal before
-        acting.
+        Statistics and toppers are as declared by APSCHE on July 1, 2026. Dates marked
+        &ldquo;expected&rdquo; are based on education department statements reported in the
+        press and are not official until APSCHE notifies them on cets.apsche.ap.gov.in.
+        Always confirm on the official portal before acting.
       </p>
     </main>
   );

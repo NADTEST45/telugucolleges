@@ -64,7 +64,7 @@ export default async function APCutoffBranchPage({
     },
     {
       q: "When will AP EAPCET 2026 results and cutoffs be released?",
-      a: "AP EAPCET 2026 results are expected by the end of June 2026 (postponed from June 1, now pending CBSE revised Class XII marks). Counselling registration is expected in early July, and the official 2026 closing ranks appear after each allotment round.",
+      a: "AP EAPCET 2026 results were declared on July 1, 2026. Counselling registration is expected to open within about a week, and the official 2026 closing ranks appear after each allotment round — round 1 is likely in late July, with final-phase cutoffs by August 2026.",
     },
     {
       q: "Do cutoffs differ by category and gender?",

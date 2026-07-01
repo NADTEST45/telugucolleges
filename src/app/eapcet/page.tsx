@@ -286,7 +286,7 @@ export default function EAPCETPage() {
           </div>
         </div>
         <div className="px-4 sm:px-6 pb-3 sm:pb-4 text-[11px] text-blue-200/50">
-          * Dates based on official notifications as of June 25, 2026. TG EAPCET results declared May 17, 2026; TG counselling web options open June 25 – July 1. {AP_EAPCET_2026_RESULT.declared ? `AP EAPCET results declared — rank cards live at cets.apsche.ap.gov.in.` : `AP EAPCET results still awaited — now expected by ${AP_EAPCET_2026_RESULT.expectedWindow}.`} Check APSCHE / TGCHE websites for latest updates.
+          * Dates based on official notifications as of July 1, 2026. TG EAPCET results declared May 17, 2026; TG counselling web options open June 25 – July 1. {AP_EAPCET_2026_RESULT.declared ? `AP EAPCET results declared — rank cards live at cets.apsche.ap.gov.in.` : `AP EAPCET results still awaited — now expected by ${AP_EAPCET_2026_RESULT.expectedWindow}.`} Check APSCHE / TGCHE websites for latest updates.
         </div>
       </section>
 
