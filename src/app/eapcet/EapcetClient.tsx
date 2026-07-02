@@ -29,6 +29,29 @@ const WEB_OPTIONS_BRANCH: Record<string, string> = {
   cse_aiml: "csm", cse_ds: "csd", ai_ds: "aid", cse_cys: "csc",
 };
 
+/* Tap-to-open explanations for the Safe/Moderate/Reach bands. Mirrors the
+   canonical thresholds documented in predictor-core.ts — keep in sync. Shown
+   in a bottom sheet because title-attribute tooltips are invisible on touch,
+   and most visitors are on phones. */
+const BAND_INFO: Record<"Safe" | "Moderate" | "Reach", { title: string; body: string }> = {
+  Safe: {
+    title: "Safe — well inside last close",
+    body: "Your rank is comfortably inside this college's reference closing rank (at or better than 80% of it). Allotment should hold even if the cutoff tightens this year. Counselling guides recommend listing a few of these last, as backstops.",
+  },
+  Moderate: {
+    title: "Moderate — near the close",
+    body: "Your rank is at or just inside the reference closing rank (within 105% of it). Competitive, but closing ranks usually drift outward across phases, which works in your favour.",
+  },
+  Reach: {
+    title: "Reach — beyond last close",
+    body: "Your rank is up to 35% beyond the reference closing rank. Realistic mainly in later counselling phases or a softer year — the ambitious tier. List these first; the allotment engine picks your highest feasible option.",
+  },
+};
+
+/** How many result rows render before the "Show all" expander. Keeps the page
+ *  a single scroll on mobile instead of a nested scroll region. */
+const INITIAL_ROWS = 15;
+
 export interface EapcetStateStats {
   colleges: number;
   lowestFee: string;
@@ -56,7 +79,9 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
   // Debounced rank for the predictor API call (P2)
   const [debouncedRank, setDebouncedRank] = useState("");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const userTypedRef = useRef(false);
   const handleRankChange = useCallback((value: string) => {
+    userTypedRef.current = true; // real interaction — enables auto-scroll to results
     setRank(value);
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => setDebouncedRank(value), 300);
@@ -71,6 +96,23 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
      canonical thresholds. CDN-cached by query string, aborted on re-type. */
   const [predictions, setPredictions] = useState<PredictApiRow[]>([]);
   const [predicting, setPredicting] = useState(false);
+  // Expand-collapse for the result list (no nested scroll region on mobile).
+  const [showAll, setShowAll] = useState(false);
+  // Touch-friendly explainer sheet (band meanings, ~% chance disclaimer).
+  const [infoSheet, setInfoSheet] = useState<{ title: string; body: string } | null>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
+  const autoScrolledRef = useRef(false);
+  // Collapse back to the short list whenever the inputs change.
+  useEffect(() => { setShowAll(false); }, [debouncedRank, state, branch, category, gender, phase]);
+  // On the FIRST typed prediction, bring the results into view — on 390px
+  // screens the 3-step form pushes them below the fold. Once only; never on
+  // URL-hydrated loads (no typing happened).
+  useEffect(() => {
+    if (predictions.length > 0 && userTypedRef.current && !autoScrolledRef.current && resultsRef.current) {
+      autoScrolledRef.current = true;
+      resultsRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [predictions]);
   useEffect(() => {
     const r = parseInt(debouncedRank);
     if (!r || r <= 0) { setPredictions([]); setPredicting(false); return; }
@@ -356,10 +398,10 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
 
         {/* How to read the results */}
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] text-gray-500 mb-4">
-          <span className="font-semibold text-gray-400">How to read results:</span>
-          <span><span className="px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 font-bold">Safe</span> well inside last close</span>
-          <span><span className="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-bold">Moderate</span> near the close</span>
-          <span><span className="px-1.5 py-0.5 rounded-full bg-red-100 text-red-600 font-bold">Reach</span> beyond it — possible in later phases</span>
+          <span className="font-semibold text-gray-500">How to read results:</span>
+          <button onClick={() => setInfoSheet(BAND_INFO.Safe)} className="cursor-pointer"><span className="px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 font-bold">Safe</span> well inside last close</button>
+          <button onClick={() => setInfoSheet(BAND_INFO.Moderate)} className="cursor-pointer"><span className="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-bold">Moderate</span> near the close</button>
+          <button onClick={() => setInfoSheet(BAND_INFO.Reach)} className="cursor-pointer"><span className="px-1.5 py-0.5 rounded-full bg-red-100 text-red-600 font-bold">Reach</span> beyond it — possible in later phases</button>
         </div>
 
         {usePhaseData && (
@@ -394,21 +436,37 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
         )}
 
         {rank && predicting && predictions.length === 0 && (
-          <div className="rounded-xl border border-dashed border-gray-200 p-5 text-center text-sm text-gray-400" role="status">
-            Finding colleges for rank {parseInt(rank) > 0 ? parseInt(rank).toLocaleString() : rank}…
+          <div role="status" aria-live="polite">
+            <span className="sr-only">Finding colleges for rank {parseInt(rank) > 0 ? parseInt(rank).toLocaleString() : rank}…</span>
+            {/* Skeleton rows sized like real result rows — prevents the list
+                "popping" in and reserves layout so nothing shifts. */}
+            <div className="space-y-2" aria-hidden>
+              {[0, 1, 2, 3].map(i => (
+                <div key={i} className="flex items-center justify-between gap-3 px-3 sm:px-4 py-3 rounded-lg bg-gray-50 animate-pulse">
+                  <div className="flex-1 min-w-0">
+                    <div className="h-3.5 bg-gray-200 rounded w-3/4 mb-2" />
+                    <div className="h-2.5 bg-gray-200 rounded w-1/2" />
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <div className="h-8 w-14 bg-gray-200 rounded" />
+                    <div className="h-6 w-16 bg-gray-200 rounded-full" />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
         {rank && predictions.length > 0 && (
           <div>
-            <div className="flex items-center justify-between mb-3">
+            <div ref={resultsRef} className="flex items-center justify-between mb-3 scroll-mt-20">
               <div className="text-sm font-semibold text-gray-600">
                 {predictions.length} college{predictions.length !== 1 ? "s" : ""} for rank {parseInt(rank).toLocaleString()}
               </div>
               <div className="text-[11px] text-gray-500">{catLabel} · {gender === "girls" ? "Girls" : "Boys"} · {branchLabel(branch)}{usePhaseData ? ` · ${PREDICTOR_PHASES.find(p => p.key === phase)?.label}` : ""}</div>
             </div>
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-[11px] text-gray-400 font-medium">Share these results:</span>
+              <span className="text-[11px] text-gray-500 font-medium">Share these results:</span>
               <button onClick={handleWhatsApp}
                 className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-green-50 text-green-700 hover:bg-green-100 transition-colors active:scale-95">
                 <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.59 5.39l-.999 3.648 3.908-1.039zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
@@ -419,8 +477,10 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
                 {copied ? "Link copied ✓" : "Copy link"}
               </button>
             </div>
-            <div className="space-y-2 max-h-[500px] overflow-y-auto -mx-1 px-1">
-              {predictions.map(({ id, slug, name, district, fee, cutoff, chance, isHistorical, dataYears, estPct }) => {
+            {/* Single page scroll (no nested scroll region): first INITIAL_ROWS
+                rows render, the rest expand via "Show all". */}
+            <div className="space-y-2 -mx-1 px-1">
+              {(showAll ? predictions : predictions.slice(0, INITIAL_ROWS)).map(({ id, slug, name, district, fee, cutoff, chance, isHistorical, dataYears, estPct }) => {
                 // When there's no category/gender-specific history, the value
                 // is the static OC closing rank (TSCHE 2024 / APSCHE 2023).
                 // Flag that clearly so an SC/Girls selection never reads as if
@@ -442,7 +502,7 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
                         <span className="ml-1.5 text-blue-500 hidden sm:inline">· {catLabel.split(" ")[0]} weighted ({dataYears.join(", ")})</span>
                       )}
                       {!isHistorical && (
-                        <span className={`ml-1.5 ${ocMismatch ? "text-amber-600" : "text-gray-400"}`}>
+                        <span className={`ml-1.5 ${ocMismatch ? "text-amber-600" : "text-gray-500"}`}>
                           · OC ref{ocMismatch ? ` — no ${catLabel.split(" ")[0]}${gender === "girls" ? "/Girls" : ""} data` : ""}<span className="hidden sm:inline"> ({ocVintage})</span>
                         </span>
                       )}
@@ -453,12 +513,18 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
                       <div className="text-[10px] sm:text-[11px] text-gray-500">{isHistorical ? `${catLabel.split(" ")[0]} Cutoff` : "OC Cutoff"}</div>
                       <div className="font-bold text-xs sm:text-sm tabular-nums">{cutoff.toLocaleString()}</div>
                       {estPct !== null && (
-                        <div
-                          title={`Rough estimate from ${dataYears.length} year${dataYears.length !== 1 ? "s" : ""} of closing ranks (${dataYears.join(", ")}). Not a guarantee — actual allotment depends on this year's seats and your option order.`}
-                          className="text-[10px] sm:text-[11px] font-semibold text-gray-400 tabular-nums leading-none mt-0.5"
+                        // Button (not title-tooltip): the disclaimer must be
+                        // reachable on touch, where most visitors are.
+                        <button
+                          onClick={() => setInfoSheet({
+                            title: `~${estPct}% chance — what this means`,
+                            body: `A rough estimate from ${dataYears.length} year${dataYears.length !== 1 ? "s" : ""} of closing ranks (${dataYears.join(", ")}) for this branch and category. It is not a guarantee — actual allotment depends on this year's seat matrix, the number of applicants, and the order you list your options.`,
+                          })}
+                          title={`Rough estimate from ${dataYears.length} year${dataYears.length !== 1 ? "s" : ""} of closing ranks (${dataYears.join(", ")}). Tap for details.`}
+                          className="relative z-10 text-[10px] sm:text-[11px] font-semibold text-gray-500 tabular-nums leading-none mt-0.5 underline decoration-dotted underline-offset-2 cursor-pointer"
                         >
                           ~{estPct}% chance
-                        </div>
+                        </button>
                       )}
                     </div>
                     <span className={`shrink-0 px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold ${
@@ -472,6 +538,15 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
                 );
               })}
             </div>
+
+            {!showAll && predictions.length > INITIAL_ROWS && (
+              <button
+                onClick={() => setShowAll(true)}
+                className="mt-3 w-full py-3 rounded-lg border border-gray-200 bg-white text-sm font-semibold text-accent hover:bg-blue-50 transition-colors active:scale-[0.99]"
+              >
+                Show all {predictions.length} colleges ↓
+              </button>
+            )}
 
             {/* Next step — hand off to the web-options generator with the same inputs */}
             <div className="mt-4 rounded-xl border border-accent/30 bg-blue-50 p-4 sm:flex sm:items-center sm:justify-between sm:gap-4">
@@ -758,6 +833,34 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
           );
         })()}
       </section>
+
+      {/* Touch-friendly explainer sheet — bottom sheet on mobile, centered
+          dialog on desktop. Replaces title-attribute tooltips, which are
+          invisible on touch devices. */}
+      {infoSheet && (
+        <div
+          className="fixed inset-0 z-[70] flex items-end sm:items-center sm:justify-center"
+          role="dialog"
+          aria-modal="true"
+          aria-label={infoSheet.title}
+        >
+          <button
+            className="absolute inset-0 bg-black/40 cursor-default"
+            aria-label="Close explanation"
+            onClick={() => setInfoSheet(null)}
+          />
+          <div className="relative w-full sm:max-w-sm bg-white rounded-t-2xl sm:rounded-2xl p-5 shadow-xl">
+            <div className="font-bold text-sm text-gray-900 mb-1.5">{infoSheet.title}</div>
+            <p className="text-sm text-gray-600 leading-relaxed">{infoSheet.body}</p>
+            <button
+              onClick={() => setInfoSheet(null)}
+              className="mt-4 w-full py-2.5 rounded-lg bg-gray-100 text-sm font-semibold text-gray-700 hover:bg-gray-200 transition-colors"
+            >
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
