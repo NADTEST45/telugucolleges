@@ -7,6 +7,7 @@ import { CATEGORIES, TS_CATEGORIES, getRankForGender, type CollegeCutoffs, type 
 import type { CourseInfo } from "@/lib/university-courses";
 import AdSlot from "@/components/ads/AdSlot";
 import ShortlistButton from "@/components/ShortlistButton";
+import CollegeMonogram from "@/components/CollegeMonogram";
 import CutoffSparkline from "@/components/CutoffSparkline";
 import FAQAccordion from "./components/FAQAccordion";
 import ReportDataButton from "./components/ReportDataButton";
@@ -117,8 +118,16 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           {c.nba && <span className="px-2.5 py-1 rounded text-xs font-semibold bg-purple-50 text-purple-600">NBA Accredited</span>}
           {c.nirf > 0 && <span className="px-2.5 py-1 rounded text-xs font-semibold bg-rose-50 text-rose-600">NIRF 2025 {nirfBand(c.nirf)}</span>}
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold mb-2">{c.name}</h1>
-        <p className="text-gray-500 text-sm mb-3">{c.district}, {c.state} · {c.affiliation} · Established {c.year} · Code: {c.code}</p>
+        <div className="flex items-start gap-3 sm:gap-4 mb-3">
+          <CollegeMonogram name={c.name} code={c.code} size="lg" />
+          <div className="min-w-0 flex-1">
+            <h1 className="text-2xl sm:text-3xl font-extrabold mb-2">{c.name}</h1>
+            <div className="mb-2">
+              <span className="inline-flex items-center rounded-full bg-gray-100 border border-gray-200 px-2.5 py-1 text-xs font-bold text-gray-700 tracking-wide">Code: {c.code}</span>
+            </div>
+            <p className="text-gray-500 text-sm">{c.district}, {c.state} · {c.affiliation} · Established {c.year}</p>
+          </div>
+        </div>
         {/* Google Reviews + Share */}
         <div className="flex flex-wrap items-center gap-3">
           <a
@@ -144,24 +153,45 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
         </div>
       </div>
 
-      {/* Quick Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 mb-6">
+      {/* At a glance — the four decision-critical facts (verdict card) */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-3">
         {([
-          ["B.Tech Fee", btechFeeLabel, c.type === "Deemed University" || c.type === "Private University" ? `University fee${feeAY ? ` · AY ${feeAY}` : ""}` : c.state === "Telangana" ? "GO.Ms.06 · 2025-28" : "APHERMC · 2023-26", "text-brand"],
-          ...(medical ? [["Admission", "NEET-UG", `Via ${medical.authority} counselling`, "text-gray-900"]] : c.type !== "Deemed University" ? [["CSE Cutoff", cseClosing > 0 ? cseClosing.toLocaleString("en-IN") : "—", cseClosing > 0 ? "EAPCET final OC" : "Data pending", "text-gray-900"]] : [["Admission", "Own Exam", "Not via EAPCET", "text-gray-900"]]),
+          ["Annual Fee", c.fee > 0 ? btechFeeLabel : "—", c.type === "Deemed University" || c.type === "Private University" ? `University fee${feeAY ? ` · AY ${feeAY}` : ""}` : c.state === "Telangana" ? "GO.Ms.06 · 2025-28" : "APHERMC · 2023-26", "text-brand"],
+          ...(medical ? [["Admission", "NEET-UG", `Via ${medical.authority} counselling`, "text-gray-900"]] : c.type !== "Deemed University" ? [["CSE Closing Rank", cseClosing > 0 ? cseClosing.toLocaleString("en-IN") : "—", cseClosing > 0 ? "EAPCET final OC" : "Data pending", "text-gray-900"]] : [["Admission", "Own Exam", "Not via EAPCET", "text-gray-900"]]),
           ["Avg Package", c.placements.avg > 0 ? `₹${c.placements.avg} LPA` : "—", "Placements", "text-green-600"],
-          ["Highest Pkg", c.placements.highest > 0 ? `₹${c.placements.highest}L` : "—", "Top offer", "text-amber-600"],
-          ...(c.nirf > 0
-            ? [["NIRF 2025", nirfBand(c.nirf), "Engineering", "text-rose-600"]]
-            : [["Companies", c.placements.companies > 0 ? `${c.placements.companies}+` : "—", "Recruiting", "text-accent"]]),
-        ] as [string, string, string, string][]).map(([label, value, sub, color], idx, arr) => (
-          <div key={label} className={`bg-white rounded-xl p-3 sm:p-4 shadow-sm text-center ${idx === arr.length - 1 && arr.length % 2 === 1 ? "col-span-2 sm:col-span-1" : ""}`}>
+          ["NAAC Grade", c.naac && c.naac !== "-" ? c.naac : "—", c.naac && c.naac !== "-" ? "Accreditation" : "Not rated", "text-amber-600"],
+        ] as [string, string, string, string][]).map(([label, value, sub, color]) => (
+          <div key={label} className="bg-white rounded-xl p-3 sm:p-4 shadow-sm text-center">
             <div className="text-xs text-gray-500 mb-1">{label}</div>
             <div className={`text-lg sm:text-2xl font-extrabold ${color} truncate`}>{value}</div>
             <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5">{sub}</div>
           </div>
         ))}
       </div>
+
+      {/* Data sources & freshness strip */}
+      {(() => {
+        const isUni = c.type === "Deemed University" || c.type === "Private University";
+        const sourceParts: string[] = [
+          ...(!medical && c.type !== "Deemed University"
+            ? [`Cutoffs from official ${c.state === "Telangana" ? "TGCHE/TSCHE" : "APSCHE"} Last Rank Statements`]
+            : []),
+          ...(!medical && !isUni
+            ? [`fees from ${c.state === "Telangana" ? "TS AFRC" : "APHERMC"}-regulated government orders`]
+            : []),
+          ...((c.naac && c.naac !== "-") || c.nirf > 0 ? ["NAAC/NIRF from official listings"] : []),
+        ];
+        return (
+          <div className="bg-white rounded-xl px-4 py-2.5 shadow-sm mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 text-[11px] sm:text-xs text-gray-500">
+            {sourceParts.length > 0 ? (
+              <p><span className="font-semibold text-gray-600">Data sources:</span> {sourceParts.join(" · ")}.</p>
+            ) : (
+              <p><span className="font-semibold text-gray-600">Data sources:</span> compiled from official publications.</p>
+            )}
+            <span className="shrink-0"><ReportDataButton collegeCode={c.code} variant="link" /></span>
+          </div>
+        );
+      })()}
 
       {/* Tabs */}
       <div className="flex gap-1 mb-6 bg-gray-100 p-1 rounded-xl overflow-x-auto scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-1">
@@ -515,23 +545,24 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                 <p className="text-xs text-gray-500 mb-3">B.Tech branches have a <span className="font-semibold text-green-700">uniform convener fee of {fmtCourseFee(c.goFee)}/yr</span> through {c.state === "Telangana" ? "TS EAMCET" : "AP EAPCET"} counseling. Switch to &ldquo;Direct Admission&rdquo; tab for branch-wise university fees.</p>
               )}
               <div className="overflow-x-auto -mx-6 px-6">
-                <table className="w-full text-sm">
+                <table className="w-full text-sm border-collapse">
+                  <caption className="sr-only">{group.label} at {c.name} — program-wise annual fee, duration and total cost</caption>
                   <thead>
                     <tr className={`${headerBg} text-white`}>
-                      <th className="px-4 py-2.5 text-left rounded-tl-lg">Program</th>
-                      <th className="px-4 py-2.5 text-right">{feeLabel}</th>
-                      <th className="px-4 py-2.5 text-right hidden sm:table-cell">Duration</th>
-                      <th className="px-4 py-2.5 text-right rounded-tr-lg">Total Cost</th>
+                      <th scope="col" className="px-4 py-2.5 text-left rounded-tl-lg">Program</th>
+                      <th scope="col" className="px-4 py-2.5 text-right">{feeLabel}</th>
+                      <th scope="col" className="px-4 py-2.5 text-right hidden sm:table-cell">Duration</th>
+                      <th scope="col" className="px-4 py-2.5 text-right rounded-tr-lg">Total Cost</th>
                     </tr>
                   </thead>
                   <tbody>
                     {group.items.map((co, i) => (
                       <tr key={`${co.program}-${co.specialization || ""}-${i}`} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                        <td className="px-4 py-3">
+                        <th scope="row" className="px-4 py-3 text-left font-normal">
                           <div className="font-semibold">{co.program}</div>
                           {co.specialization && <div className="text-xs text-gray-500 mt-0.5">{co.specialization}</div>}
                           <div className="text-xs text-gray-500 mt-0.5 sm:hidden">{co.duration} {co.duration === 1 ? "yr" : "yrs"}</div>
-                        </td>
+                        </th>
                         <td className={`px-4 py-3 text-right font-bold ${feeColor}`}>{fmtCourseFee(getFee(co))}</td>
                         <td className="px-4 py-3 text-right text-gray-500 hidden sm:table-cell">{co.duration} {co.duration === 1 ? "year" : "years"}</td>
                         <td className="px-4 py-3 text-right font-semibold">{fmtCourseFee(getTotal(co))}</td>
@@ -781,12 +812,15 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                   </div>
                 </div>
                 <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
+                  <table className="w-full text-sm border-collapse">
+                    <caption className="sr-only">
+                      Phase-wise TS EAMCET cutoff closing ranks for {c.name} by branch and counselling phase ({selectedCatLabel}, {gender === "girls" ? "Girls" : "Boys"})
+                    </caption>
                     <thead>
                       <tr className="bg-brand text-white">
-                        <th className="px-3 py-2.5 text-left rounded-tl-lg">Branch</th>
+                        <th scope="col" className="px-3 py-2.5 text-left rounded-tl-lg">Branch</th>
                         {phases!.map((p, i) => (
-                          <th key={p.key} className={`px-3 py-2.5 text-right whitespace-nowrap ${i === phases!.length - 1 ? "rounded-tr-lg" : ""}`}>
+                          <th scope="col" key={p.key} className={`px-3 py-2.5 text-right whitespace-nowrap ${i === phases!.length - 1 ? "rounded-tr-lg" : ""}`}>
                             {p.label}
                           </th>
                         ))}
@@ -799,7 +833,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                         if (!hasAnyData) return null;
                         return (
                           <tr key={branch} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                            <td className="px-3 py-2.5 font-semibold text-sm sm:whitespace-nowrap break-words">{branchLabel(branch)}</td>
+                            <th scope="row" className="px-3 py-2.5 font-semibold text-sm text-left sm:whitespace-nowrap break-words">{branchLabel(branch)}</th>
                             {ranks.map((rank, ri) => {
                               // Color code: earlier phases (tighter) = red-ish, later (relaxed) = green-ish
                               const prevRank = ri > 0 ? ranks[ri - 1] : 0;
@@ -865,15 +899,18 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
               </div>
               {!noCutoffData ? (
                 <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
+                  <table className="w-full text-sm border-collapse">
+                    <caption className="sr-only">
+                      Year-wise {c.state === "Telangana" ? "TS EAMCET" : "AP EAPCET"} cutoff closing ranks for {c.name} by branch and year ({selectedCatLabel}, {gender === "girls" ? "Girls" : "Boys"})
+                    </caption>
                     <thead>
                       <tr className="bg-brand text-white">
-                        <th className="px-4 py-2.5 text-left rounded-tl-lg">Branch</th>
+                        <th scope="col" className="px-4 py-2.5 text-left rounded-tl-lg">Branch</th>
                         {yearCols.map(y => (
-                          <th key={y.key} className="px-4 py-2.5 text-right">{y.label}</th>
+                          <th scope="col" key={y.key} className="px-4 py-2.5 text-right">{y.label}</th>
                         ))}
                         {yearCols.length >= 2 && (
-                          <th className="px-4 py-2.5 text-right rounded-tr-lg whitespace-nowrap">Trend</th>
+                          <th scope="col" className="px-4 py-2.5 text-right rounded-tr-lg whitespace-nowrap">Trend</th>
                         )}
                       </tr>
                     </thead>
@@ -890,7 +927,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                         }
                         return (
                           <tr key={branch} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                            <td className="px-4 py-2.5 font-semibold text-sm break-words">{branchLabel(branch)}</td>
+                            <th scope="row" className="px-4 py-2.5 font-semibold text-sm text-left break-words">{branchLabel(branch)}</th>
                             {yearCols.map((y, yi) => {
                               const rank = getRank(branch, y.key);
                               return (

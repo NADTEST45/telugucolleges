@@ -16,7 +16,7 @@ const FIELD_OPTIONS = [
  * Posts anonymous accuracy reports to /api/report (rate-limited 5/hr/IP,
  * stored in Supabase `data_reports` for manual triage).
  */
-export default function ReportDataButton({ collegeCode }: { collegeCode: string }) {
+export default function ReportDataButton({ collegeCode, variant = "default" }: { collegeCode: string; variant?: "default" | "link" }) {
   const [open, setOpen] = useState(false);
   const [field, setField] = useState(FIELD_OPTIONS[0]);
   const [message, setMessage] = useState("");
@@ -68,16 +68,25 @@ export default function ReportDataButton({ collegeCode }: { collegeCode: string 
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-gray-500 hover:text-amber-700 hover:bg-amber-50 border border-transparent hover:border-amber-200 transition-colors"
-      >
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
-          <line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
-        </svg>
-        Report incorrect data
-      </button>
+      {variant === "link" ? (
+        <button
+          onClick={() => setOpen(true)}
+          className="font-semibold text-gray-500 underline underline-offset-2 hover:text-amber-700 transition-colors whitespace-nowrap"
+        >
+          Report incorrect data
+        </button>
+      ) : (
+        <button
+          onClick={() => setOpen(true)}
+          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-gray-500 hover:text-amber-700 hover:bg-amber-50 border border-transparent hover:border-amber-200 transition-colors"
+        >
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+          Report incorrect data
+        </button>
+      )}
 
       {open && (
         <div
@@ -129,7 +138,7 @@ export default function ReportDataButton({ collegeCode }: { collegeCode: string 
                 </select>
 
                 <label className="block text-xs font-semibold text-gray-700 mb-1" htmlFor="report-message">
-                  Details <span className="text-gray-400 font-normal">(what&apos;s wrong, and the correct value if you know it)</span>
+                  Details <span className="text-gray-500 font-normal">(what&apos;s wrong, and the correct value if you know it)</span>
                 </label>
                 <textarea
                   id="report-message"
@@ -144,7 +153,7 @@ export default function ReportDataButton({ collegeCode }: { collegeCode: string 
                 />
 
                 <label className="block text-xs font-semibold text-gray-700 mb-1" htmlFor="report-email">
-                  Email <span className="text-gray-400 font-normal">(optional — only if you want a reply)</span>
+                  Email <span className="text-gray-500 font-normal">(optional — only if you want a reply)</span>
                 </label>
                 <input
                   id="report-email"
