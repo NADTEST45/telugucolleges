@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { type College, fmtFee } from "@/lib/colleges";
 import ShortlistButton from "@/components/ShortlistButton";
+import CollegeMonogram from "@/components/CollegeMonogram";
 
 /**
  * Server-rendered college card. The only client portion is the
@@ -31,7 +32,9 @@ export default function CollegeCard({ c, borderClass }: { c: College; borderClas
       </div>
       {/* Desktop: side-by-side | Mobile: stacked */}
       <div className="relative z-[1] pointer-events-none flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 flex items-start gap-2.5 sm:gap-3">
+          <CollegeMonogram name={c.name} code={c.code} size="sm" />
+          <div className="flex-1 min-w-0">
           <div className="font-bold text-sm sm:text-[15px] leading-tight pr-10">{c.name}</div>
           <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5 truncate">{c.district}, {c.state} · {c.affiliation} · Est. {c.year}</div>
           <div className="flex gap-1 sm:gap-1.5 mt-1.5 sm:mt-2 flex-wrap">
@@ -41,6 +44,7 @@ export default function CollegeCard({ c, borderClass }: { c: College; borderClas
             {c.nba && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[11px] font-semibold bg-purple-50 text-purple-600">NBA</span>}
             {c.branches.includes("B.Pharm") && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[11px] sm:text-xs font-semibold bg-teal-50 text-teal-600">Pharmacy</span>}
             {c.branches.includes("MBBS") && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[11px] sm:text-xs font-semibold bg-rose-50 text-rose-600">Medical</span>}
+          </div>
           </div>
         </div>
         {/* Stats: 3-col (Tuition · Avg Pkg · Highest), full-width row on mobile, fixed-width right side on desktop */}

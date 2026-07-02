@@ -73,6 +73,8 @@ export default function CollegeFilterBar({
       if (v === "" || v == null) next.delete(k);
       else next.set(k, String(v));
     }
+    // Any filter/sort change invalidates the current page — reset to page 1.
+    next.delete("page");
     const qs = next.toString();
     return qs ? `${pathname}?${qs}` : pathname;
   }
