@@ -388,26 +388,6 @@ export function getPlacementData(code: string): CollegePlacementData | null {
   return PLACEMENT_DATA[code] ?? null;
 }
 
-// ── Branch display name helper ──────────────────────────────────────────
-const BRANCH_NAMES: Record<string, string> = {
-  CSE: "Computer Science",
-  IT: "Information Technology",
-  ECE: "Electronics & Comm.",
-  EEE: "Electrical & Electronics",
-  EIE: "Electronics & Instr.",
-  MECH: "Mechanical",
-  CIVIL: "Civil",
-  CSSE: "CS & Systems",
-  AIDS: "AI & Data Science",
-  AIML: "AI & Machine Learning",
-  CYS: "Cyber Security",
-  CSD: "CS (Data Science)",
-  ECM: "Electronics & Computer",
-  CSBS: "CS & Business Systems",
-  CHEM: "Chemical",
-  ALL: "All Branches",
-};
-
-export function branchDisplayName(code: string): string {
-  return BRANCH_NAMES[code] ?? code;
-}
+// branchDisplayName moved to placement-branch-names.ts (client-safe);
+// re-exported here for backwards compatibility.
+export { branchDisplayName } from "./placement-branch-names";

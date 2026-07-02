@@ -1,20 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export default function ShareButtons({ collegeName, district, state }: { collegeName: string; district: string; state: string }) {
   const [copied, setCopied] = useState(false);
+  const copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+  // Derived from the pathname (not window.location) so the share hrefs are
+  // correct in the server-rendered HTML too, not just after hydration.
+  const pathname = usePathname();
+  const shareUrl = `${SITE_URL}${pathname}`;
   const shareText = `Check out ${collegeName}, ${district} (${state}) — fees, cutoffs, placements & more on TeluguColleges.com`;
+
+  // Clear any pending "copied" reset timer on unmount.
+  useEffect(() => {
+    return () => {
+      if (copyTimer.current) clearTimeout(copyTimer.current);
+    };
+  }, []);
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
-      const timer = setTimeout(() => setCopied(false), 2000);
-      // Cleanup handled by short-lived timeout; no unmount risk for this component
-      return () => clearTimeout(timer);
+      if (copyTimer.current) clearTimeout(copyTimer.current);
+      copyTimer.current = setTimeout(() => setCopied(false), 2000);
     } catch { /* fallback: do nothing */ }
   };
 

@@ -1,19 +1,20 @@
-import { COLLEGES, getCollegeBySlug, fmtFee } from "@/lib/colleges";
+import { COLLEGES } from "@/lib/colleges";
 import { isIndexable } from "@/lib/cutoff-presence";
 import { getCollegeBySlugMerged, getCollegesMerged } from "@/lib/colleges-merged";
-import { AP_CUTOFFS, AP_CUTOFF_YEARS, CollegeCutoffs, YearCutoffs } from "@/lib/ap-cutoffs";
-import { TS_CUTOFFS, TS_CUTOFF_YEARS } from "@/lib/ts-cutoffs";
-import { TS_PHASES, getTSPhaseCutoffs, type PhaseKey } from "@/lib/ts-cutoffs-phases";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
 import CollegeDetail from "../CollegeDetail";
+import { buildCollegeJsonLd, generateCollegeFAQs, buildFaqJsonLd, buildCollegeBreadcrumbLd } from "../college-structured-data";
+import { getCutoffProps, getCollegeDetailData } from "../college-detail-data";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
-export type FAQItem = { question: string; answer: string };
-
 export const revalidate = 3600; // ISR: revalidate every hour
-export const dynamicParams = true; // Allow pages not in generateStaticParams
+// dynamicParams=false → unknown slugs return a framework-level HTTP 404,
+// matching the main /colleges/[slug] page. Safe because generateStaticParams
+// enumerates the full COLLEGES slug set (same as the parent page) and
+// colleges-merged never adds new slugs. Renamed slugs 301 via next.config.ts.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return COLLEGES.map(c => ({ slug: c.slug }));
@@ -62,119 +63,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-/** Build JSON-LD EducationalOrganization schema for a college */
-function buildJsonLd(c: ReturnType<typeof getCollegeBySlug>) {
-  if (!c) return null;
-  const url = `${SITE_URL}/colleges/${c.slug}`;
-
-  const schema: Record<string, unknown> = {
-    "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    name: c.name,
-    alternateName: c.code,
-    url,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: c.district,
-      addressRegion: c.state,
-      addressCountry: "IN",
-    },
-    foundingDate: String(c.year),
-  };
-
-  // Add cutoff information
-  const cutoffs = Object.entries(c.cutoff).filter(([, v]) => v > 0);
-  if (cutoffs.length > 0) {
-    schema.cutoffRanks = {
-      "@type": "Thing",
-      branches: cutoffs.map(([branch, rank]) => ({
-        branch,
-        closingRank: rank,
-      })),
-    };
-  }
-
-  // Accreditation
-  if (c.naac && c.naac !== "-") {
-    schema.hasCredential = {
-      "@type": "EducationalOccupationalCredential",
-      credentialCategory: "NAAC Accreditation",
-      name: `NAAC Grade ${c.naac}`,
-    };
-  }
-
-  return schema;
-}
-
-/** Generate FAQ items from college data */
-function generateFAQs(c: NonNullable<ReturnType<typeof getCollegeBySlug>>): FAQItem[] {
-  const faqs: FAQItem[] = [];
-  const exam = c.state === "Telangana" ? "TS EAPCET" : "AP EAPCET";
-  const council = c.state === "Telangana" ? "TSCHE" : "APSCHE";
-  const isDeemed = c.type === "Deemed University";
-  const isPvtUni = c.type === "Private University";
-
-  // Cutoff
-  if (c.cutoff.cse > 0 && !isDeemed) {
-    const cseCutoff = c.cutoff.cse.toLocaleString("en-IN");
-    faqs.push({
-      question: `What is the ${exam} cutoff rank for CSE at ${c.name}?`,
-      answer: `The last available final-phase OC closing rank for CSE at ${c.name} is ${cseCutoff}. This means students with a ${exam} rank of ${cseCutoff} or better (lower number) were admitted to CSE in the most recent counselling.`,
-    });
-  }
-
-  // Branches offered
-  if (c.branches.length > 0) {
-    faqs.push({
-      question: `What branches are available at ${c.name}?`,
-      answer: isDeemed
-        ? `${c.name} offers ${c.branches.length} branches: ${c.branches.join(", ")}. As a deemed university, admissions are conducted by the university through its own entrance exam and counselling process.`
-        : isPvtUni
-        ? `${c.name} offers ${c.branches.length} branches: ${c.branches.join(", ")}. Some seats are filled through ${exam} counselling conducted by ${council}, while the university also admits students through its own process.`
-        : `${c.name} offers ${c.branches.length} branches: ${c.branches.join(", ")}. ${c.type === "Government" ? `Admissions to all seats are through ${exam} counselling conducted by ${council}.` : `70% of seats (Category-A) are filled through ${exam} counselling by ${council}. The remaining 30% (Category-B) are management quota seats where admissions are controlled by the college management.`}`,
-    });
-  }
-
-  // Fee
-  if (c.fee > 0) {
-    const feeBlock = c.state === "Telangana" ? "G.O.Ms.No.06 (2025–28)" : "APHERMC block (2023–26)";
-    faqs.push({
-      question: `What is the B.Tech fee at ${c.name}?`,
-      answer: isDeemed
-        ? `The B.Tech tuition fee at ${c.name} (${c.code}) is approximately ${fmtFee(c.fee)} per year. As a deemed university, fees are set by the university and may vary by programme. Check the official website for the latest fee structure.`
-        : isPvtUni
-        ? `The B.Tech tuition fee at ${c.name} (${c.code}) is ${fmtFee(c.fee)} per year for students admitted through ${exam} counselling, as regulated by the government. Students admitted directly by the university may have different fees set by the institution.`
-        : `The B.Tech tuition fee at ${c.name} (${c.code}) is ${fmtFee(c.fee)} per year for the convener quota (Category-A), as per ${feeBlock}. ${c.type === "Government" ? "As a government college, this is among the lowest fees in " + c.state + "." : "For management quota (Category-B, 30% of seats), fees are set by the college management and may be higher."}`,
-    });
-  }
-
-  // NAAC Accreditation
-  faqs.push({
-    question: `Is ${c.name} NAAC accredited?`,
-    answer: c.naac && c.naac !== "-"
-      ? `Yes, ${c.name} holds NAAC Grade ${c.naac} accreditation${c.nba ? " and also has NBA-accredited programmes" : ""}. NAAC accreditation indicates the institution meets national quality standards.`
-      : `${c.name} does not currently have a NAAC accreditation grade on record.${c.nba ? " However, it does have NBA-accredited programmes." : ""} Students should check the official NAAC website for the latest status.`,
-  });
-
-  return faqs;
-}
-
-/** Build FAQPage JSON-LD schema */
-function buildFaqJsonLd(faqs: FAQItem[]) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map(faq => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  };
-}
-
 export default async function CutoffPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const mergedColleges = await getCollegesMerged();
@@ -182,53 +70,25 @@ export default async function CutoffPage({ params }: { params: Promise<{ slug: s
   if (!c) notFound();
 
   const similar = mergedColleges.filter(s => s.id !== c.id && s.state === c.state && s.cutoff.cse > 0 && c.cutoff.cse > 0 && Math.abs(s.cutoff.cse - c.cutoff.cse) < 5000).slice(0, 4);
-  const historicalCutoffs = (c.state === "Telangana" ? TS_CUTOFFS[c.code] : AP_CUTOFFS[c.code]) || null;
-  const cutoffYears = c.state === "Telangana" ? TS_CUTOFF_YEARS : AP_CUTOFF_YEARS;
-
-  // Build phase-wise cutoff map for TS colleges
-  let phaseCutoffs: Record<string, YearCutoffs> | null = null;
-  let phases: { key: string; label: string }[] | null = null;
-  if (c.state === "Telangana") {
-    const phaseMap: Record<string, YearCutoffs> = {};
-    for (const phase of TS_PHASES) {
-      const data = phase.key === "2024"
-        ? (TS_CUTOFFS[c.code]?.["2024"] || null)
-        : phase.key === "2023"
-        ? (TS_CUTOFFS[c.code]?.["2023"] || null)
-        : getTSPhaseCutoffs(c.code, phase.key as PhaseKey);
-      if (data) phaseMap[phase.key] = data;
-    }
-    if (Object.keys(phaseMap).length > 0) {
-      phaseCutoffs = phaseMap;
-      phases = TS_PHASES.filter(p => phaseMap[p.key]).map(p => ({ key: p.key, label: p.label }));
-    }
-  }
+  const { historicalCutoffs, cutoffYears, phaseCutoffs, phases } = getCutoffProps(c);
+  const detail = getCollegeDetailData(c);
 
   // Mirror generateMetadata's noindex decision: skip rich JSON-LD (org +
   // FAQ) on placeholder rows that emit `noindex, follow` — structured data
   // on noindexed pages reads as a mismatch to Google. Visible FAQ content
   // still renders in the DOM.
   const indexable = isIndexable(c);
-  const jsonLd = indexable ? buildJsonLd(c) : null;
-  const faqs = generateFAQs(c);
+  const jsonLd = indexable ? buildCollegeJsonLd(c, "cutoff") : null;
+  const faqs = generateCollegeFAQs(c, "cutoff");
   const faqJsonLd = indexable ? buildFaqJsonLd(faqs) : null;
-  const breadcrumbLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}` },
-      { "@type": "ListItem", position: 2, name: "Colleges", item: `${SITE_URL}/colleges` },
-      { "@type": "ListItem", position: 3, name: c.name, item: `${SITE_URL}/colleges/${c.slug}` },
-      { "@type": "ListItem", position: 4, name: "Cutoff Ranks", item: `${SITE_URL}/colleges/${c.slug}/cutoff` },
-    ],
-  };
+  const breadcrumbLd = buildCollegeBreadcrumbLd(c, "cutoff");
 
   return (
     <>
       {jsonLd && <JsonLd data={jsonLd} />}
       {faqJsonLd && <JsonLd data={faqJsonLd} />}
       <JsonLd data={breadcrumbLd} />
-      <CollegeDetail c={c} similar={similar} historicalCutoffs={historicalCutoffs} cutoffYears={cutoffYears} phaseCutoffs={phaseCutoffs} phases={phases} faqs={faqs} initialTab="cutoffs" />
+      <CollegeDetail c={c} similar={similar} historicalCutoffs={historicalCutoffs} cutoffYears={cutoffYears} phaseCutoffs={phaseCutoffs} phases={phases} faqs={faqs} initialTab="cutoffs" detail={detail} />
     </>
   );
 }

@@ -1,94 +1,22 @@
 "use client";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
-import { College, fmtFee } from "@/lib/colleges";
-import { CATEGORIES, TS_CATEGORIES, getRankForGender, type CollegeCutoffs, type YearCutoffs, type Category, type Gender } from "@/lib/ap-cutoffs";
-import { getCourses, getAffiliatedCourses, fmtCourseFee, UNIVERSITY_FEE_AY, type CourseInfo } from "@/lib/university-courses";
-import { getReviewsByCollege, getAverageRating, type Review } from "@/lib/reviews";
-import { getScholarships } from "@/lib/scholarships";
-import { getExamByCollegeCode } from "@/lib/admission-exams";
-import { isMedicalCollege, getMedicalAdmission } from "@/lib/medical-admission";
-import { getPlacementData, branchDisplayName } from "@/lib/placement-data";
+import type { College } from "@/lib/colleges";
+import { fmtFee, fmtCourseFee } from "@/lib/format";
+import { CATEGORIES, TS_CATEGORIES, getRankForGender, type CollegeCutoffs, type YearCutoffs, type Category, type Gender } from "@/lib/categories";
+import type { CourseInfo } from "@/lib/university-courses";
 import AdSlot from "@/components/ads/AdSlot";
 import ShortlistButton from "@/components/ShortlistButton";
 import CutoffSparkline from "@/components/CutoffSparkline";
-import ShareButtons from "./components/ShareButtons";
 import FAQAccordion from "./components/FAQAccordion";
 import ReportDataButton from "./components/ReportDataButton";
-
-/* ─── Download Cutoff Table as PDF ─── */
-function DownloadCutoffPDF({ collegeName, tableRef, category, gender }: { collegeName: string; tableRef: React.RefObject<HTMLDivElement | null>; category: string; gender: string }) {
-  const [downloading, setDownloading] = useState(false);
-
-  const handleDownload = useCallback(async () => {
-    if (!tableRef.current) return;
-    setDownloading(true);
-    try {
-      const { default: html2canvas } = await import("html2canvas-pro");
-      const { jsPDF } = await import("jspdf");
-
-      const canvas = await html2canvas(tableRef.current, {
-        scale: 2,
-        backgroundColor: "#ffffff",
-        useCORS: true,
-      });
-      const imgData = canvas.toDataURL("image/png");
-      const imgWidth = 190;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-      const pdf = new jsPDF("p", "mm", "a4");
-      // Title
-      pdf.setFontSize(14);
-      pdf.setFont("helvetica", "bold");
-      pdf.text(collegeName, 10, 15);
-      pdf.setFontSize(10);
-      pdf.setFont("helvetica", "normal");
-      pdf.setTextColor(100);
-      pdf.text(`EAPCET Cutoff Ranks — ${category}, ${gender === "girls" ? "Girls" : "Boys"}`, 10, 22);
-      pdf.text(`Downloaded from TeluguColleges.com on ${new Date().toLocaleDateString("en-IN")}`, 10, 28);
-
-      // Table image
-      const startY = 34;
-      if (imgHeight + startY > 280) {
-        // Multi-page handling for large tables
-        let yPos = startY;
-        const pageHeight = 280;
-        const sliceHeight = pageHeight - startY;
-        const totalPages = Math.ceil(imgHeight / sliceHeight);
-        for (let page = 0; page < totalPages; page++) {
-          if (page > 0) { pdf.addPage(); yPos = 10; }
-          pdf.addImage(imgData, "PNG", 10, yPos - (page * sliceHeight), imgWidth, imgHeight);
-        }
-      } else {
-        pdf.addImage(imgData, "PNG", 10, startY, imgWidth, imgHeight);
-      }
-
-      // Footer
-      const pageCount = pdf.getNumberOfPages();
-      for (let i = 1; i <= pageCount; i++) {
-        pdf.setPage(i);
-        pdf.setFontSize(8);
-        pdf.setTextColor(150);
-        pdf.text("Source: Official APSCHE/TSCHE Last Rank Statement PDFs · TeluguColleges.com", 10, 290);
-      }
-
-      const safeName = collegeName.replace(/[^a-zA-Z0-9]/g, "_").substring(0, 40);
-      pdf.save(`${safeName}_Cutoffs.pdf`);
-    } catch (err) {
-      // PDF generation failed — error details omitted for security
-    } finally {
-      setDownloading(false);
-    }
-  }, [collegeName, tableRef, category, gender]);
-
-  return (
-    <button onClick={handleDownload} disabled={downloading}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand/10 text-brand text-xs font-semibold hover:bg-brand/20 transition-colors disabled:opacity-50">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      {downloading ? "Generating..." : "Download PDF"}
-    </button>
-  );
-}
+import DownloadCutoffPDF from "./components/DownloadCutoffPDF";
+import PlacementsTab from "./components/PlacementsTab";
+import ReviewsTab from "./components/ReviewsTab";
+import AdmissionTab from "./components/AdmissionTab";
+import ScholarshipsTab from "./components/ScholarshipsTab";
+import type { FAQItem } from "./college-structured-data";
+import type { CollegeDetailData } from "./college-detail-data";
 
 const BASE_TABS = [
   { key: "overview", label: "Overview" },
@@ -106,9 +34,7 @@ function nirfBand(rank: number): string {
   return "201-300";
 }
 
-import type { FAQItem } from "./page";
-
-export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYears, phaseCutoffs, phases, faqs, initialTab }: { c: College; similar: College[]; historicalCutoffs: CollegeCutoffs | null; cutoffYears: readonly string[]; phaseCutoffs?: Record<string, YearCutoffs> | null; phases?: { key: string; label: string }[] | null; faqs?: FAQItem[]; initialTab?: string }) {
+export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYears, phaseCutoffs, phases, faqs, initialTab, detail }: { c: College; similar: College[]; historicalCutoffs: CollegeCutoffs | null; cutoffYears: readonly string[]; phaseCutoffs?: Record<string, YearCutoffs> | null; phases?: { key: string; label: string }[] | null; faqs?: FAQItem[]; initialTab?: string; detail: CollegeDetailData }) {
   const [tab, setTab] = useState(initialTab || "overview");
   const [category, setCategory] = useState<Category>("OC");
   const [gender, setGender] = useState<Gender>("boys");
@@ -116,6 +42,11 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
   const [feeTab, setFeeTab] = useState(0); // 0 = primary tab, 1 = secondary tab
   const cutoffTableRef = useRef<HTMLDivElement>(null);
   const cutoffs = Object.entries(c.cutoff).filter(([, v]) => v > 0).sort((a, b) => a[1] - b[1]);
+
+  // Per-college datasets (courses, scholarships, exams, placements, reviews)
+  // are looked up server-side in college-detail-data.ts and passed down, so
+  // this client component never bundles those data files.
+  const { courses, scholarshipInfo, admissionExam, medical, feeAY } = detail;
 
   // Resolve the CSE OC closing rank for the summary card / About paragraph.
   // The static summary (c.cutoff.cse) is 0 for many colleges that DO have
@@ -144,7 +75,6 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
     return 0;
   })();
 
-  const courses = getCourses(c.code) || getAffiliatedCourses(c);
   // Use actual total from course data when available (handles variable yearly fees)
   const btechCourse = courses?.find(co => (co.program === "B.Tech" || co.program === "B.E.") && co.fee === c.fee);
   const btechTotalFee = btechCourse?.totalFee ?? c.fee * 4;
@@ -159,11 +89,6 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
   const btechFeeLabel = btechFeeMin !== btechFeeMax && btechFeeMin > 0
     ? `₹${fmtL(btechFeeMin)} – ${fmtL(btechFeeMax)}L`
     : fmtFee(c.fee);
-
-  const scholarshipInfo = getScholarships(c.code);
-  const admissionExam = getExamByCollegeCode(c.code);
-  const isMedical = isMedicalCollege(c.branches);
-  const medical = isMedical ? getMedicalAdmission(c) : null;
 
   let TABS = scholarshipInfo
     ? [...BASE_TABS.slice(0, 2), { key: "scholarships", label: "Scholarships" }, ...BASE_TABS.slice(2)]
@@ -222,7 +147,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
       {/* Quick Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 mb-6">
         {([
-          ["B.Tech Fee", btechFeeLabel, c.type === "Deemed University" || c.type === "Private University" ? `University fee${UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}` : c.state === "Telangana" ? "GO.Ms.06 · 2025-28" : "APHERMC · 2023-26", "text-brand"],
+          ["B.Tech Fee", btechFeeLabel, c.type === "Deemed University" || c.type === "Private University" ? `University fee${feeAY ? ` · AY ${feeAY}` : ""}` : c.state === "Telangana" ? "GO.Ms.06 · 2025-28" : "APHERMC · 2023-26", "text-brand"],
           ...(medical ? [["Admission", "NEET-UG", `Via ${medical.authority} counselling`, "text-gray-900"]] : c.type !== "Deemed University" ? [["CSE Cutoff", cseClosing > 0 ? cseClosing.toLocaleString("en-IN") : "—", cseClosing > 0 ? "EAPCET final OC" : "Data pending", "text-gray-900"]] : [["Admission", "Own Exam", "Not via EAPCET", "text-gray-900"]]),
           ["Avg Package", c.placements.avg > 0 ? `₹${c.placements.avg} LPA` : "—", "Placements", "text-green-600"],
           ["Highest Pkg", c.placements.highest > 0 ? `₹${c.placements.highest}L` : "—", "Top offer", "text-amber-600"],
@@ -376,15 +301,15 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           <section className="bg-white rounded-xl p-6 shadow-sm">
             <div className="flex items-center justify-between mb-1">
               <h2 className="text-lg font-bold">Fee Structure</h2>
-              {isDeemedOrPrivateUni && UNIVERSITY_FEE_AY[c.code] && (
+              {isDeemedOrPrivateUni && feeAY && (
                 <span className="px-2.5 py-1 rounded-full bg-blue-50 text-brand text-xs font-bold">
-                  AY {UNIVERSITY_FEE_AY[c.code]}
+                  AY {feeAY}
                 </span>
               )}
             </div>
             <p className="text-xs text-gray-500 mb-4">
               {isDeemedOrPrivateUni
-                ? `Annual tuition fee as declared by the university${UNIVERSITY_FEE_AY[c.code] ? ` for AY ${UNIVERSITY_FEE_AY[c.code]}` : ""} — not regulated by state fee fixation committee`
+                ? `Annual tuition fee as declared by the university${feeAY ? ` for AY ${feeAY}` : ""} — not regulated by state fee fixation committee`
                 : isGovt
                 ? "Government college — nominal tuition fee as per state norms"
                 : "Annual tuition fee as per official government order"}
@@ -485,21 +410,21 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                   {hasConvenerQuota && feeTab === 1 && (
                     <div className="bg-blue-50 rounded-lg px-5 py-4">
                       <div className="text-sm text-brand font-semibold">Direct Admission (University Quota)</div>
-                      <div className="text-xs text-gray-500 mt-0.5">{c.state === "Andhra Pradesh" ? `${isBrownfield ? "30%" : "65%"} of seats · ` : ""}University entrance · Fee set by university{UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}</div>
+                      <div className="text-xs text-gray-500 mt-0.5">{c.state === "Andhra Pradesh" ? `${isBrownfield ? "30%" : "65%"} of seats · ` : ""}University entrance · Fee set by university{feeAY ? ` · AY ${feeAY}` : ""}</div>
                       <div className="text-2xl font-extrabold text-brand mt-2">{fmtFee(c.fee)}<span className="text-xs font-normal text-gray-500">/yr (CSE — varies by branch)</span></div>
                     </div>
                   )}
                   {hasDualCategory && feeTab === 0 && (
                     <div className="bg-blue-50 rounded-lg px-5 py-4">
                       <div className="text-sm text-brand font-semibold">Category-B (Direct Admission)</div>
-                      <div className="text-xs text-gray-500 mt-0.5">For students admitted without entrance exam (60%+ in intermediate){UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}</div>
+                      <div className="text-xs text-gray-500 mt-0.5">For students admitted without entrance exam (60%+ in intermediate){feeAY ? ` · AY ${feeAY}` : ""}</div>
                       <div className="text-2xl font-extrabold text-brand mt-2">{fmtFee(c.fee)}<span className="text-xs font-normal text-gray-500">/yr (CSE — varies by branch)</span></div>
                     </div>
                   )}
                   {hasDualCategory && feeTab === 1 && (
                     <div className="bg-green-50 rounded-lg px-5 py-4">
                       <div className="text-sm text-green-700 font-semibold">Category-A (With Entrance Exam)</div>
-                      <div className="text-xs text-gray-500 mt-0.5">For students admitted through V-SAT / EAMCET / JEE{UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}</div>
+                      <div className="text-xs text-gray-500 mt-0.5">For students admitted through V-SAT / EAMCET / JEE{feeAY ? ` · AY ${feeAY}` : ""}</div>
                       <div className="text-2xl font-extrabold text-green-700 mt-2">
                         {courses && courses.find(co => co.mgmtFee && co.mgmtFee < co.fee) ? fmtFee(courses.find(co => co.mgmtFee && co.mgmtFee < co.fee)!.mgmtFee!) : "—"}
                         <span className="text-xs font-normal text-gray-500">/yr (CSE — varies by branch)</span>
@@ -519,7 +444,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                         {medical
                           ? `Competent-authority quota fee · ${c.type === "Government" ? "Government medical college" : "Per " + medical.authority + " notification"}`
                           : isDeemedOrPrivateUni
-                          ? `${c.type} · Fee set by university${UNIVERSITY_FEE_AY[c.code] ? ` · AY ${UNIVERSITY_FEE_AY[c.code]}` : ""}`
+                          ? `${c.type} · Fee set by university${feeAY ? ` · AY ${feeAY}` : ""}`
                           : isGovt
                           ? "Government college — nominal fee per state norms"
                           : "70% of seats · Government-regulated fee"}
@@ -531,7 +456,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                   {/* Source note */}
                   {isDeemedOrPrivateUni && (
                     <div className="mt-3 bg-amber-50 rounded-lg px-4 py-2.5 text-xs text-amber-700">
-                      {`${c.type} fees are set by the institution${UNIVERSITY_FEE_AY[c.code] ? ` (sourced from official website for AY ${UNIVERSITY_FEE_AY[c.code]})` : ""}. Contact admissions for exact, up-to-date fee details.`}
+                      {`${c.type} fees are set by the institution${feeAY ? ` (sourced from official website for AY ${feeAY})` : ""}. Contact admissions for exact, up-to-date fee details.`}
                     </div>
                   )}
                   {medical && (
@@ -645,7 +570,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           {/* Fee disclaimer */}
           <div className="bg-amber-50 rounded-xl px-5 py-3 text-xs text-amber-700">
             {isDeemedOrPrivateUni
-              ? `Fees shown are approximate annual tuition for AY ${UNIVERSITY_FEE_AY[c.code] || "2025-26"}. Actual fees may vary by admission category, scholarship, or merit slab. Hostel, exam, and miscellaneous charges are extra. Contact the university admissions office for exact figures.`
+              ? `Fees shown are approximate annual tuition for AY ${feeAY || "2025-26"}. Actual fees may vary by admission category, scholarship, or merit slab. Hostel, exam, and miscellaneous charges are extra. Contact the university admissions office for exact figures.`
               : "Fees are from official government orders for the current block period. Hostel, transport, exam fees, and miscellaneous charges are extra. Actual costs may vary."}
           </div>
 
@@ -675,111 +600,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
         );
       })()}
 
-      {tab === "scholarships" && scholarshipInfo && (
-        <div className="space-y-6">
-          {/* Scholarship tables grouped by exam */}
-          {(() => {
-            // Group tables by examName
-            const grouped = new Map<string, typeof scholarshipInfo.tables>();
-            scholarshipInfo.tables.forEach(t => {
-              const key = t.examName;
-              if (!grouped.has(key)) grouped.set(key, []);
-              grouped.get(key)!.push(t);
-            });
-
-            return [...grouped.entries()].map(([examName, tables]) => (
-              <section key={examName} className="bg-white rounded-xl p-6 shadow-sm">
-                <h2 className="text-lg font-bold mb-1">{examName}</h2>
-                <p className="text-xs text-gray-500 mb-4">Merit-based tuition fee waiver</p>
-
-                {tables.map((table, ti) => (
-                  <div key={ti} className={ti > 0 ? "mt-5" : ""}>
-                    {table.branchGroup && (
-                      <div className="mb-2">
-                        <span className="text-xs font-bold text-brand bg-blue-50 px-2.5 py-1 rounded-lg">{table.branchGroup}</span>
-                      </div>
-                    )}
-                    <div className="overflow-x-auto">
-                      <table className="w-full text-sm">
-                        <thead>
-                          <tr className="bg-brand text-white">
-                            <th className="px-4 py-2.5 text-left rounded-tl-lg">Fee Concession</th>
-                            <th className="px-4 py-2.5 text-left rounded-tr-lg">Eligibility Criteria</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {table.slabs.map((slab, si) => {
-                            // Determine badge color based on content
-                            const p = slab.percent;
-                            const isNoDiscount = p.includes("No concession") || p.includes("no concession") || p.includes("Regular");
-                            const isFull = p.startsWith("100%");
-                            const isHigh = /^(7[05]|8[0]|~80|~75)%/.test(p);
-                            const isMid = /^(5[0]|6[0]|~60|~50)%/.test(p);
-                            const isModerate = /^(3[0]|4[0]|~30|~40)%/.test(p);
-                            const isLow = /^(1[0-9]|2[0-5]|~2[0-5]|~1[0-9])%/.test(p);
-                            const badgeColor = isNoDiscount
-                              ? "bg-gray-100 text-gray-500"
-                              : isFull ? "bg-green-100 text-green-800"
-                              : isHigh ? "bg-emerald-50 text-emerald-700"
-                              : isMid ? "bg-blue-50 text-blue-700"
-                              : isModerate ? "bg-violet-50 text-violet-700"
-                              : isLow ? "bg-amber-50 text-amber-700"
-                              : p.includes("Pay") ? "bg-blue-50 text-blue-700"
-                              : "bg-gray-100 text-gray-700";
-
-                            return (
-                              <tr key={si} className={si % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                                <td className="px-4 py-3">
-                                  <span className={`inline-block px-2.5 py-1.5 rounded-lg text-xs font-bold leading-tight ${badgeColor}`}>{p}</span>
-                                </td>
-                                <td className="px-4 py-3 text-gray-700 text-sm">{slab.criteria}</td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                ))}
-              </section>
-            ));
-          })()}
-
-          {/* Continuation Requirements */}
-          <section className="bg-white rounded-xl p-6 shadow-sm">
-            <h2 className="text-lg font-bold mb-3">Continuation Requirements</h2>
-            <div className="bg-amber-50 rounded-lg px-5 py-4">
-              <p className="text-sm text-amber-800 font-semibold">{scholarshipInfo.maintenance}</p>
-            </div>
-          </section>
-
-          {/* Additional Notes */}
-          {scholarshipInfo.notes && scholarshipInfo.notes.length > 0 && (
-            <section className="bg-white rounded-xl p-6 shadow-sm">
-              <h2 className="text-lg font-bold mb-3">Important Notes</h2>
-              <div className="space-y-2">
-                {scholarshipInfo.notes.map((note, i) => (
-                  <div key={i} className="flex gap-2 text-sm text-gray-600">
-                    <span className="text-accent mt-0.5 shrink-0">•</span>
-                    <span>{note}</span>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* Source Attribution */}
-          <div className="bg-blue-50 rounded-xl px-5 py-3 flex items-center justify-between">
-            <div className="text-xs text-blue-700">
-              <span className="font-semibold">Data source:</span> {scholarshipInfo.sourceLabel}
-            </div>
-            <a href={scholarshipInfo.source} target="_blank" rel="noopener noreferrer"
-              className="text-xs font-semibold text-accent hover:underline shrink-0 ml-3">
-              Verify on official site →
-            </a>
-          </div>
-        </div>
-      )}
+      {tab === "scholarships" && scholarshipInfo && <ScholarshipsTab scholarshipInfo={scholarshipInfo} />}
 
       {tab === "cutoffs" && (() => {
         const isDeemedUni = c.type === "Deemed University";
@@ -1113,458 +934,12 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
         );
       })()}
 
-      {tab === "placements" && (() => {
-        const pd = getPlacementData(c.code);
-        const latestYear = pd?.years[0] ?? null;
-        return (
-        <div className="space-y-6">
-          {/* ── Placement Highlights (always shown) ── */}
-          <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
-            <h2 className="text-lg font-bold mb-1">Placement Highlights</h2>
-            <p className="text-xs text-gray-500 mb-4">{c.placements.avg > 0 ? "Based on NIRF 2025 submission data (median salary, AY 2023-24)" : "Placement data not available — college did not participate in NIRF or data not published"}</p>
-            <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6">
-              <div className="bg-green-50 rounded-xl p-3 sm:p-5 text-center">
-                <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Average Package</div>
-                <div className="text-lg sm:text-2xl font-extrabold text-green-700">{c.placements.avg > 0 ? `₹${c.placements.avg} LPA` : "—"}</div>
-              </div>
-              <div className="bg-amber-50 rounded-xl p-3 sm:p-5 text-center">
-                <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Highest Package</div>
-                <div className="text-lg sm:text-2xl font-extrabold text-amber-700">{c.placements.highest > 0 ? `₹${c.placements.highest} LPA` : "—"}</div>
-              </div>
-              <div className="bg-blue-50 rounded-xl p-3 sm:p-5 text-center">
-                <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Recruiting Companies</div>
-                <div className="text-lg sm:text-2xl font-extrabold text-accent">{c.placements.companies > 0 ? `${c.placements.companies}+` : "—"}</div>
-              </div>
-            </div>
-
-            {/* ROI section removed */}
-          </section>
-
-          {/* ── NIRF / institutional placement summary (college-level) ── */}
-          {pd?.summary && (
-            <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
-              <h2 className="text-lg font-bold mb-1">Placement Summary · {pd.summary.year}</h2>
-              <p className="text-xs text-gray-500 mb-4">
-                {pd.source === "NIRF" ? "Official NIRF 2025 submission / report figures" : "Institutional data"}
-              </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
-                {pd.summary.medianPackage != null && (
-                  <div className="bg-green-50 rounded-xl p-3 sm:p-4 text-center">
-                    <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Median Package</div>
-                    <div className="text-base sm:text-xl font-extrabold text-green-700">₹{pd.summary.medianPackage} LPA</div>
-                  </div>
-                )}
-                {pd.summary.avgPackage != null && (
-                  <div className="bg-emerald-50 rounded-xl p-3 sm:p-4 text-center">
-                    <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Average Package</div>
-                    <div className="text-base sm:text-xl font-extrabold text-emerald-700">₹{pd.summary.avgPackage} LPA</div>
-                  </div>
-                )}
-                {pd.summary.maxPackage != null && (
-                  <div className="bg-amber-50 rounded-xl p-3 sm:p-4 text-center">
-                    <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Highest Package</div>
-                    <div className="text-base sm:text-xl font-extrabold text-amber-700">₹{pd.summary.maxPackage} LPA</div>
-                  </div>
-                )}
-                {pd.summary.placed != null && (
-                  <div className="bg-blue-50 rounded-xl p-3 sm:p-4 text-center">
-                    <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Students Placed</div>
-                    <div className="text-base sm:text-xl font-extrabold text-accent">{pd.summary.placed.toLocaleString("en-IN")}</div>
-                  </div>
-                )}
-                {pd.summary.graduated != null && (
-                  <div className="bg-indigo-50 rounded-xl p-3 sm:p-4 text-center">
-                    <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Graduated</div>
-                    <div className="text-base sm:text-xl font-extrabold text-indigo-700">{pd.summary.graduated.toLocaleString("en-IN")}</div>
-                  </div>
-                )}
-                {pd.summary.placed != null && pd.summary.graduated != null && pd.summary.graduated > 0 && (
-                  <div className="bg-purple-50 rounded-xl p-3 sm:p-4 text-center">
-                    <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Placement Rate</div>
-                    <div className="text-base sm:text-xl font-extrabold text-purple-700">{Math.round((pd.summary.placed / pd.summary.graduated) * 100)}%</div>
-                  </div>
-                )}
-              </div>
-              {pd.summary.note && <p className="text-[11px] sm:text-xs text-gray-500 mt-3">{pd.summary.note}</p>}
-              {pd.sourceUrl && (
-                <p className="text-[11px] sm:text-xs text-gray-500 mt-2">Source: <a href={pd.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-accent">{pd.source === "NIRF" ? "NIRF India Rankings 2025" : "Institution"}</a></p>
-              )}
-            </section>
-          )}
-
-          {/* ── Branch-wise Placement Data (only if detailed data exists) ── */}
-          {latestYear && Object.keys(latestYear.branches).length > 0 && (
-            <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
-              <h2 className="text-lg font-bold mb-1">Branch-wise Placement Data</h2>
-              <p className="text-xs text-gray-500 mb-4">Detailed placements by department · {latestYear.year}</p>
-              <div className="overflow-x-auto -mx-4 sm:mx-0">
-                <table className="w-full text-sm min-w-[280px] sm:min-w-[500px]">
-                  <thead>
-                    <tr className="border-b border-gray-200 text-left">
-                      <th className="py-2 px-3 text-gray-500 font-medium text-xs sticky left-0 bg-white">Branch</th>
-                      <th className="py-2 px-3 text-gray-500 font-medium text-xs text-right">Intake</th>
-                      <th className="py-2 px-3 text-gray-500 font-medium text-xs text-right">Placed</th>
-                      <th className="py-2 px-3 text-gray-500 font-medium text-xs text-right">%</th>
-                      <th className="py-2 px-3 text-gray-500 font-medium text-xs text-right">Avg Pkg</th>
-                      {Object.values(latestYear.branches).some(b => b.maxPackage) && (
-                        <th className="py-2 px-3 text-gray-500 font-medium text-xs text-right">Max Pkg</th>
-                      )}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {Object.entries(latestYear.branches)
-                      .sort((a, b) => b[1].avgPackage - a[1].avgPackage)
-                      .map(([branch, data]) => {
-                        const pct = data.intake > 0 && data.placed > 0 ? Math.round((data.placed / data.intake) * 100) : 0;
-                        return (
-                          <tr key={branch} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                            <td className="py-2.5 px-3 font-semibold sticky left-0 bg-white break-words">{branchDisplayName(branch)}</td>
-                            <td className="py-2.5 px-3 text-right text-gray-600">{data.intake || "—"}</td>
-                            <td className="py-2.5 px-3 text-right font-semibold">{data.placed || "—"}</td>
-                            <td className="py-2.5 px-3 text-right">
-                              {pct > 0 ? (
-                                <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-bold ${pct >= 80 ? "bg-green-100 text-green-700" : pct >= 50 ? "bg-amber-100 text-amber-700" : "bg-red-100 text-red-600"}`}>
-                                  {pct}%
-                                </span>
-                              ) : "—"}
-                            </td>
-                            <td className="py-2.5 px-3 text-right font-bold text-green-700">₹{data.avgPackage}L</td>
-                            {Object.values(latestYear.branches).some(b => b.maxPackage) && (
-                              <td className="py-2.5 px-3 text-right font-bold text-amber-600">{data.maxPackage ? `₹${data.maxPackage}L` : "—"}</td>
-                            )}
-                          </tr>
-                        );
-                      })}
-                  </tbody>
-                </table>
-              </div>
-              {pd?.sourceUrl && (
-                <p className="text-[11px] sm:text-xs text-gray-500 mt-3">Source: <a href={pd.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-accent">AICTE Mandatory Disclosure</a></p>
-              )}
-            </section>
-          )}
-
-          {/* ── Top Recruiters ── */}
-          {latestYear?.topRecruiters && latestYear.topRecruiters.length > 0 && (
-            <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
-              <h2 className="text-lg font-bold mb-1">Top Recruiters</h2>
-              <p className="text-xs text-gray-500 mb-4">Companies that recruited from this college · {latestYear.year}</p>
-              <div className="grid gap-2">
-                {latestYear.topRecruiters
-                  .sort((a, b) => b.offers - a.offers)
-                  .slice(0, 15)
-                  .map((r, i) => (
-                    <div key={r.name} className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors">
-                      <span className="w-6 h-6 rounded-full bg-brand text-white text-xs font-bold flex items-center justify-center shrink-0">{i + 1}</span>
-                      <span className="font-semibold text-sm flex-1 min-w-0 truncate">{r.name}</span>
-                      <span className="text-xs text-gray-500 shrink-0">{r.offers} offers</span>
-                      <span className="text-xs font-bold text-green-700 shrink-0 w-16 text-right">₹{r.avgPackage}L</span>
-                    </div>
-                  ))}
-              </div>
-            </section>
-          )}
-
-          {/* ── Year-over-Year Trends (if multiple years available) ── */}
-          {pd && pd.years.length > 1 && (
-            <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
-              <h2 className="text-lg font-bold mb-1">Placement Trends</h2>
-              <p className="text-xs text-gray-500 mb-4">Year-over-year placement performance</p>
-              <div className="overflow-x-auto -mx-4 sm:mx-0">
-                <table className="w-full text-sm min-w-[280px] sm:min-w-[400px]">
-                  <thead>
-                    <tr className="border-b border-gray-200 text-left">
-                      <th className="py-2 px-3 text-gray-500 font-medium text-xs">Year</th>
-                      {Object.keys(pd.years[0].branches).map(br => (
-                        <th key={br} className="py-2 px-3 text-gray-500 font-medium text-xs text-center" colSpan={2}>{br}</th>
-                      ))}
-                    </tr>
-                    <tr className="border-b border-gray-100 text-left">
-                      <th className="py-1 px-3"></th>
-                      {Object.keys(pd.years[0].branches).map(br => (
-                        <>{/* eslint-disable-next-line react/jsx-key */}
-                          <th key={`${br}-p`} className="py-1 px-2 text-[11px] sm:text-xs text-gray-500 font-medium text-right">Placed</th>
-                          <th key={`${br}-a`} className="py-1 px-2 text-[11px] sm:text-xs text-gray-500 font-medium text-right">Avg ₹</th>
-                        </>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {pd.years.map(yr => (
-                      <tr key={yr.year} className="border-b border-gray-50 hover:bg-gray-50">
-                        <td className="py-2.5 px-3 font-semibold text-brand">{yr.year}</td>
-                        {Object.keys(pd.years[0].branches).map(br => {
-                          const d = yr.branches[br];
-                          return (
-                            <>{/* eslint-disable-next-line react/jsx-key */}
-                              <td key={`${yr.year}-${br}-p`} className="py-2.5 px-2 text-right text-gray-700">{d?.placed || "—"}</td>
-                              <td key={`${yr.year}-${br}-a`} className="py-2.5 px-2 text-right font-bold text-green-700">{d ? `${d.avgPackage}L` : "—"}</td>
-                            </>
-                          );
-                        })}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          )}
-
-          {/* ── Data source note ── */}
-          <section className="bg-blue-50 rounded-xl p-4 sm:p-5">
-            <div className="flex gap-3 items-start">
-              <svg className="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-              <div>
-                <p className="text-sm font-semibold text-brand mb-1">About this data</p>
-                <p className="text-xs text-gray-600 leading-relaxed">
-                  {pd
-                    ? "This placement data is sourced from the college's AICTE Mandatory Disclosure document. All AICTE-approved colleges are required to publish this data annually. Figures represent actual placements reported by the institution."
-                    : "Overall placement data is based on NIRF 2025 submissions. Detailed branch-wise data from AICTE Mandatory Disclosures will be added as it becomes available. If you represent this college, you can submit detailed data through our College Admin portal."}
-                </p>
-              </div>
-            </div>
-          </section>
-        </div>
-        );
-      })()}
+      {tab === "placements" && <PlacementsTab c={c} pd={detail.placementData} />}
 
       {/* ─── Admission Tab ─── */}
-      {tab === "admission" && medical && (
-        <div className="space-y-6">
-          {/* NEET Overview */}
-          <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
-            <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
-              <div>
-                <h2 className="text-lg font-bold">{medical.exam} — {medical.examFullName}</h2>
-                <p className="text-sm text-gray-500 mt-1">Admission to {c.name} is through NEET-UG, not EAPCET/EAMCET</p>
-              </div>
-              <a href={medical.primaryUrl} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand text-white text-xs font-semibold hover:bg-brand-dark transition-colors shrink-0">
-                Counselling Portal
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              </a>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm">
-              {[
-                ["Qualifying Exam", "NEET-UG (single national exam)"],
-                ["Counselling Authority", medical.primaryCounsellor],
-                ["All India Quota (15%)", medical.aiqAuthority],
-                ["Eligibility", "10+2 with Physics, Chemistry, Biology + qualified NEET-UG"],
-              ].map(([label, value]) => (
-                <div key={label} className="flex justify-between py-2 border-b border-gray-50">
-                  <span className="text-gray-500">{label}</span>
-                  <span className="font-semibold text-right max-w-[60%]">{value}</span>
-                </div>
-              ))}
-            </div>
-          </section>
+      {tab === "admission" && <AdmissionTab collegeName={c.name} medical={medical} admissionExam={admissionExam} />}
 
-          {/* EAPCET clarification */}
-          <section className="bg-amber-50 border border-amber-200 rounded-xl p-4 sm:p-6">
-            <p className="font-semibold text-amber-800 mb-1">MBBS is filled through NEET, not EAPCET</p>
-            <p className="text-sm text-amber-700">
-              AP/TS EAPCET (EAMCET) is only for engineering, pharmacy, and agriculture courses. MBBS seats are allotted
-              solely on a valid NEET-UG score and rank. Do not register on EAPCET counselling portals for an MBBS seat.
-            </p>
-          </section>
-
-          {/* Seat Quotas */}
-          <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
-            <h2 className="text-lg font-bold mb-4">How Seats Are Filled</h2>
-            <div className="space-y-3">
-              {medical.quotas.map(q => (
-                <div key={q.label} className="border-l-4 border-brand bg-blue-50/50 rounded-r-lg px-4 py-3">
-                  <div className="text-sm font-semibold text-brand">{q.label}</div>
-                  <div className="text-sm text-gray-600 mt-0.5">{q.detail}</div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Counselling Process */}
-          <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm space-y-4">
-            <div>
-              <h3 className="font-semibold text-sm text-gray-700 mb-1">Counselling Process</h3>
-              <p className="text-sm text-gray-600 bg-blue-50 rounded-lg px-4 py-2.5">{medical.counsellingSummary}</p>
-            </div>
-            <p className="text-xs text-gray-500">
-              NEET-UG and counselling schedules are set by NTA, MCC, and {medical.authority}. Dates and seat matrices change each year —
-              always verify on the official portal ({medical.officialUrl}) before registering.
-            </p>
-          </section>
-        </div>
-      )}
-
-      {tab === "admission" && admissionExam && !medical && (
-        <div className="space-y-6">
-          {/* Exam Overview */}
-          <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
-            <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
-              <div>
-                <h2 className="text-lg font-bold">{admissionExam.examName} — {admissionExam.examFullName}</h2>
-                <p className="text-sm text-gray-500 mt-1">Entrance exam for {c.name}</p>
-              </div>
-              <a href={admissionExam.officialUrl} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand text-white text-xs font-semibold hover:bg-brand-dark transition-colors shrink-0">
-                Official Website
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              </a>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm">
-              {[
-                ["Exam Mode", admissionExam.mode],
-                ["Duration", admissionExam.duration],
-                ["Application Fee", admissionExam.applicationFee],
-                ["Subjects", admissionExam.subjects],
-                ["Eligibility", admissionExam.eligibility],
-              ].map(([label, value]) => (
-                <div key={label} className="flex justify-between py-2 border-b border-gray-50">
-                  <span className="text-gray-500">{label}</span>
-                  <span className="font-semibold text-right max-w-[60%]">{value}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Exam Schedule */}
-          <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
-            <h2 className="text-lg font-bold mb-4">2026 Exam Schedule</h2>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-gray-200">
-                    <th className="text-left py-2 px-3 text-gray-500 font-medium">Phase</th>
-                    <th className="text-left py-2 px-3 text-gray-500 font-medium">Exam Dates</th>
-                    <th className="text-left py-2 px-3 text-gray-500 font-medium">Last Date to Apply</th>
-                    {admissionExam.phases.some(p => p.resultDate) && (
-                      <th className="text-left py-2 px-3 text-gray-500 font-medium">Result</th>
-                    )}
-                  </tr>
-                </thead>
-                <tbody>
-                  {admissionExam.phases.map((phase, i) => (
-                    <tr key={i} className="border-b border-gray-50">
-                      <td className="py-3 px-3 font-semibold">{phase.phase}</td>
-                      <td className="py-3 px-3 text-brand font-semibold">{phase.examDates}</td>
-                      <td className="py-3 px-3">{phase.lastDateToApply}</td>
-                      {admissionExam.phases.some(p => p.resultDate) && (
-                        <td className="py-3 px-3">{phase.resultDate || "—"}</td>
-                      )}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section>
-
-          {/* Additional Info */}
-          <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm space-y-4">
-            {admissionExam.alternateEntry && (
-              <div>
-                <h3 className="font-semibold text-sm text-gray-700 mb-1">Alternative Entry</h3>
-                <p className="text-sm text-gray-600 bg-green-50 rounded-lg px-4 py-2.5">{admissionExam.alternateEntry}</p>
-              </div>
-            )}
-            {admissionExam.counsellingNote && (
-              <div>
-                <h3 className="font-semibold text-sm text-gray-700 mb-1">Counselling Process</h3>
-                <p className="text-sm text-gray-600 bg-blue-50 rounded-lg px-4 py-2.5">{admissionExam.counsellingNote}</p>
-              </div>
-            )}
-            <p className="text-xs text-gray-500">Dates and details are sourced from official notifications and may change. Always verify on the official website before applying.</p>
-          </section>
-        </div>
-      )}
-
-      {tab === "reviews" && (() => {
-        const reviews = getReviewsByCollege(c.code);
-        const { avg, count } = getAverageRating(c.code);
-
-        return (
-          <div className="space-y-6">
-            <section className="bg-white rounded-xl p-6 shadow-sm">
-              <h2 className="text-lg font-bold mb-1">Student Reviews</h2>
-              <p className="text-xs text-gray-500 mb-4">Verified reviews from students and alumni of {c.name}</p>
-
-              {count > 0 ? (
-                <>
-                  {/* Rating Summary */}
-                  <div className="bg-gray-50 rounded-xl p-5 mb-6 flex items-center gap-6">
-                    <div className="text-center">
-                      <div className="text-4xl font-extrabold text-brand">{avg}</div>
-                      <div className="text-amber-500 text-lg mt-0.5">{"★".repeat(Math.round(avg))}{"☆".repeat(5 - Math.round(avg))}</div>
-                      <div className="text-xs text-gray-500 mt-1">{count} review{count !== 1 ? "s" : ""}</div>
-                    </div>
-                    <div className="flex-1">
-                      {[5, 4, 3, 2, 1].map(star => {
-                        const starCount = reviews.filter(r => r.rating === star).length;
-                        const pct = count > 0 ? (starCount / count) * 100 : 0;
-                        return (
-                          <div key={star} className="flex items-center gap-2 text-xs mb-1">
-                            <span className="w-3 text-right text-gray-500">{star}</span>
-                            <span className="text-amber-500 text-[11px] sm:text-xs">★</span>
-                            <div className="flex-1 bg-gray-200 rounded-full h-2 overflow-hidden">
-                              <div className="bg-amber-400 h-full rounded-full transition-all" style={{ width: `${pct}%` }} />
-                            </div>
-                            <span className="w-6 text-gray-500 text-right">{starCount}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Individual Reviews */}
-                  <div className="space-y-4">
-                    {reviews.map(review => (
-                      <div key={review.id} className="border border-gray-100 rounded-xl p-5">
-                        <div className="flex items-start justify-between mb-2">
-                          <div>
-                            <div className="font-semibold text-sm">{review.author}</div>
-                            <div className="text-xs text-gray-500">{review.branch ? `${review.branch} · ` : ""}Class of {review.year}</div>
-                          </div>
-                          <div className="text-amber-500 text-sm">{"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}</div>
-                        </div>
-                        <h4 className="font-semibold text-sm mb-1">{review.title}</h4>
-                        <p className="text-sm text-gray-600 leading-relaxed mb-3">{review.body}</p>
-                        {review.pros.length > 0 && (
-                          <div className="mb-2">
-                            <span className="text-[11px] sm:text-xs font-bold text-green-600 uppercase tracking-wide">Pros</span>
-                            <div className="flex flex-wrap gap-1.5 mt-1">
-                              {review.pros.map((p, i) => <span key={i} className="bg-green-50 text-green-700 px-2 py-0.5 rounded text-xs">{p}</span>)}
-                            </div>
-                          </div>
-                        )}
-                        {review.cons.length > 0 && (
-                          <div>
-                            <span className="text-[11px] sm:text-xs font-bold text-red-500 uppercase tracking-wide">Cons</span>
-                            <div className="flex flex-wrap gap-1.5 mt-1">
-                              {review.cons.map((p, i) => <span key={i} className="bg-red-50 text-red-600 px-2 py-0.5 rounded text-xs">{p}</span>)}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <div className="text-center py-12">
-                  <div className="text-5xl mb-4">💬</div>
-                  <p className="font-bold text-gray-700 text-lg mb-2">No Reviews Yet</p>
-                  <p className="text-sm text-gray-500 max-w-md mx-auto mb-6">
-                    Be the first to share your experience at {c.name}. Your review helps thousands of students make better decisions.
-                  </p>
-                  <div className="bg-blue-50 rounded-xl p-5 max-w-sm mx-auto text-left">
-                    <p className="text-sm font-semibold text-brand mb-2">How to submit a review:</p>
-                    <p className="text-xs text-gray-600 leading-relaxed">
-                      Email your review to <span className="font-semibold text-accent">reviews@telugucolleges.com</span> with your college name, branch, graduation year, and your honest experience. We verify and publish all genuine reviews.
-                    </p>
-                  </div>
-                </div>
-              )}
-            </section>
-          </div>
-        );
-      })()}
+      {tab === "reviews" && <ReviewsTab collegeName={c.name} reviews={detail.reviews} avg={detail.rating.avg} count={detail.rating.count} />}
 
       {/* Ad: Bottom of detail page */}
       <div className="mt-8">

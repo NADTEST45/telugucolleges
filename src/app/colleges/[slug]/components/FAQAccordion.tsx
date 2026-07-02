@@ -42,7 +42,7 @@ function FAQAccordionItem({ question, answer }: { question: string; answer: stri
   );
 }
 
-export type { FAQItem } from "../page";
+export type { FAQItem } from "../college-structured-data";
 
 interface FAQItem {
   question: string;

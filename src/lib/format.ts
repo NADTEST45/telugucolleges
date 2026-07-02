@@ -4,3 +4,9 @@
  * full COLLEGES dataset into the browser bundle.
  */
 export const fmtFee = (n: number) => n ? `₹${n.toLocaleString("en-IN")}` : "—";
+
+/** Format course fee (moved from university-courses.ts so client components
+ * can use it without pulling the course dataset into the bundle). */
+export const fmtCourseFee = (fee: number): string => {
+  return `₹${fee.toLocaleString("en-IN")}`;
+};

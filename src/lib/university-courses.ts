@@ -741,7 +741,5 @@ export function getAffiliatedCourses(c: { code?: string; type: string; state: st
   return generateAffiliateCourses(c);
 }
 
-/** Format fee */
-export const fmtCourseFee = (fee: number): string => {
-  return `₹${fee.toLocaleString("en-IN")}`;
-};
+// fmtCourseFee moved to format.ts (client-safe); re-exported for compatibility.
+export { fmtCourseFee } from "./format";
