@@ -4,14 +4,14 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com
 const url = `${SITE_URL}/eapcet`;
 
 export const metadata: Metadata = {
-  title: "EAPCET Rank Predictor — College Cutoff Finder | TeluguColleges",
+  title: "EAPCET 2026 College Predictor — Rank-wise Cutoffs & Counselling | TeluguColleges",
   description:
-    "Enter your AP or TS EAPCET rank to find matching B.Tech colleges. Weighted prediction using official TSCHE & APSCHE closing ranks, category & gender-wise.",
+    "Enter your AP or TS EAPCET 2026 rank to find matching B.Tech colleges, then build your web-options list. Official TSCHE & APSCHE closing ranks, category & gender-wise, with live counselling dates.",
   alternates: { canonical: url },
   openGraph: {
-    title: "EAPCET Rank Predictor — College Cutoff Finder | TeluguColleges",
+    title: "EAPCET 2026 College Predictor — Rank-wise Cutoffs & Counselling | TeluguColleges",
     description:
-      "Enter your AP or TS EAPCET rank to find matching B.Tech colleges. Weighted prediction using official TSCHE & APSCHE closing ranks.",
+      "Enter your AP or TS EAPCET 2026 rank to find matching B.Tech colleges, then build your web-options list. Official TSCHE & APSCHE closing ranks, with live counselling dates.",
     url,
     siteName: "TeluguColleges.com",
     type: "website",
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "EAPCET Rank Predictor — College Cutoff Finder | TeluguColleges",
+    title: "EAPCET 2026 College Predictor — Rank-wise Cutoffs & Counselling | TeluguColleges",
     description:
-      "Enter your AP or TS EAPCET rank to find matching B.Tech colleges with official cutoff data.",
+      "Enter your AP or TS EAPCET 2026 rank to find matching B.Tech colleges with official cutoff data and live counselling dates.",
   },
 };
 

@@ -75,9 +75,9 @@ export default function TGCutoff2026HubPage() {
       </h1>
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
         Branch-wise cutoffs for TG EAPCET 2026 counselling, built from official TSCHE
-        last-rank statements (2024–25 and 2023–24) — not a prediction. Counselling
-        registration runs <strong>June 19–28</strong>, web options{" "}
-        <strong>June 25–July 1</strong>, and Phase-1 allotment is due by{" "}
+        last-rank statements (2024–25 and 2023–24) — not a prediction. Phase-1 web options
+        closed <strong>July 1</strong>; mock allotment is due by <strong>July 4</strong>{" "}
+        (revise options July 5–7) and the final Phase-1 allotment by{" "}
         <strong>July 10, 2026</strong>. Pick a branch below for the full college-wise table,
         or use the{" "}
         <Link href="/eapcet" className="text-accent font-semibold underline">College Predictor</Link>{" "}
