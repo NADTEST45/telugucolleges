@@ -92,7 +92,7 @@ if (p1.length === 0) fail("Phase-1 returned 0 colleges at rank 40000 — data wi
 let tighter = 0, looser = 0;
 for (const a of p1) {
   const b = fin.find(x => x.code === a.code);
-  if (b) (a.cutoff <= b.cutoff ? tighter++ : looser++);
+  if (b) { if (a.cutoff <= b.cutoff) tighter++; else looser++; }
 }
 console.log(`   Phase-1 tighter-or-equal vs Final: ${tighter}, looser: ${looser} (some looseness OK — different years)`);
 

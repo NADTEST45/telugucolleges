@@ -108,6 +108,7 @@ export default function LeadCapture({
           type="tel"
           inputMode="numeric"
           autoComplete="tel"
+          aria-label="10-digit WhatsApp number"
           value={phone}
           onChange={e => setPhone(e.target.value)}
           placeholder="10-digit WhatsApp number"

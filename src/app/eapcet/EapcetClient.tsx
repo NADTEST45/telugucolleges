@@ -137,7 +137,8 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
     if (ph && PREDICTOR_PHASES.some(x => x.key === ph)) setPhase(ph as PredictorPhase);
     hydratedFromUrl.current = true;
     // Run once on mount; whitelists referenced are stable for the page's life.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // (If eslint-plugin-react-hooks is added later, re-add its
+    // exhaustive-deps disable comment here.)
   }, []);
 
   useEffect(() => {

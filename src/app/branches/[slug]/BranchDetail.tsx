@@ -99,6 +99,7 @@ export default function BranchDetail({ branch, colleges }: { branch: BranchInfo;
         {/* Dropdowns — side by side on mobile */}
         <div className="flex gap-2 w-full sm:w-auto">
           <select value={typeFilter} onChange={e => setTypeFilter(e.target.value as typeof typeFilter)}
+            aria-label="Filter by college type"
             className="flex-1 sm:flex-none px-3 py-2 sm:py-1.5 rounded-lg border border-gray-200 text-xs font-semibold cursor-pointer bg-white">
             <option value="all">All Types</option>
             <option value="Government">Govt</option>
@@ -108,6 +109,7 @@ export default function BranchDetail({ branch, colleges }: { branch: BranchInfo;
           </select>
 
           <select value={sortBy} onChange={e => setSortBy(e.target.value as typeof sortBy)}
+            aria-label="Sort colleges"
             className="flex-1 sm:flex-none px-3 py-2 sm:py-1.5 rounded-lg border border-gray-200 text-xs font-semibold cursor-pointer bg-white">
             <option value="fee">Fee ↑</option>
             <option value="cutoff">Cutoff (best)</option>

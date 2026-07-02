@@ -5,41 +5,22 @@
  * the shared client bundle — CLAUDE.md bundle rule). Instead it lazily
  * fetches the slim /api/search-index on first focus and filters client-side.
  */
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import type { SearchIndexEntry } from "@/app/api/search-index/route";
+import { useCollegeSearch } from "@/lib/useCollegeSearch";
 
 export default function SearchBar() {
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
   const [focused, setFocused] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [index, setIndex] = useState<SearchIndexEntry[] | null>(null);
-  const loadingRef = useRef(false);
+  const [activeIdx, setActiveIdx] = useState(-1);
   const ref = useRef<HTMLDivElement>(null);
   const mobileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-
-  // Lazy-load the slim index once, the first time the user shows intent.
-  const ensureIndex = () => {
-    if (index || loadingRef.current) return;
-    loadingRef.current = true;
-    fetch("/api/search-index")
-      .then(res => (res.ok ? res.json() : { colleges: [] }))
-      .then((d: { colleges?: SearchIndexEntry[] }) => setIndex(d.colleges ?? []))
-      .catch(() => { loadingRef.current = false; }); // allow retry on next focus
-  };
-
-  const results = useMemo(() => {
-    if (q.length < 2 || !index) return [];
-    const needle = q.toLowerCase();
-    return index.filter(c =>
-      c.name.toLowerCase().includes(needle) ||
-      c.code.toLowerCase().includes(needle) ||
-      c.district.toLowerCase().includes(needle)
-    ).slice(0, 8);
-  }, [q, index]);
+  // Shared hook: lazily fetches the slim index once, filters by name/code/district.
+  const { results, ensureIndex } = useCollegeSearch(q);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -53,17 +34,62 @@ export default function SearchBar() {
     if (mobileOpen && mobileInputRef.current) mobileInputRef.current.focus();
   }, [mobileOpen]);
 
-  const go = (slug: string) => { setOpen(false); setMobileOpen(false); setQ(""); router.push(`/colleges/${slug}`); };
+  const go = (slug: string) => { setOpen(false); setMobileOpen(false); setQ(""); setActiveIdx(-1); router.push(`/colleges/${slug}`); };
 
-  const dropdown = open && results.length > 0 && (
-    <div className="absolute top-full mt-1 left-0 right-0 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50">
-      {results.map(c => (
+  // Reset the active option whenever the result set changes.
+  useEffect(() => { setActiveIdx(-1); }, [q]);
+
+  const expanded = open && results.length > 0;
+
+  /** Shared combobox keyboard handling (WAI-ARIA combobox pattern). */
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Escape") {
+      setOpen(false);
+      setActiveIdx(-1);
+      return;
+    }
+    if (!results.length) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setOpen(true);
+      setActiveIdx(i => (i + 1) % results.length);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setOpen(true);
+      setActiveIdx(i => (i <= 0 ? results.length - 1 : i - 1));
+    } else if (e.key === "Enter" && expanded && activeIdx >= 0 && activeIdx < results.length) {
+      e.preventDefault();
+      go(results[activeIdx].slug);
+    }
+  };
+
+  /** ARIA attributes for each combobox input; ids differ so desktop/mobile stay unique. */
+  const comboProps = (idPrefix: string) => ({
+    role: "combobox" as const,
+    "aria-expanded": expanded,
+    "aria-controls": `${idPrefix}-listbox`,
+    "aria-autocomplete": "list" as const,
+    "aria-activedescendant": expanded && activeIdx >= 0 ? `${idPrefix}-option-${activeIdx}` : undefined,
+    onKeyDown,
+  });
+
+  const renderOptions = (idPrefix: string, optionClass: string) => (
+    <div role="listbox" id={`${idPrefix}-listbox`} aria-label="College search results">
+      {results.map((c, i) => (
         <button key={c.id} onClick={() => go(c.slug)}
-          className="w-full text-left px-4 py-2.5 hover:bg-blue-50 transition-colors border-b border-gray-50 last:border-0">
+          role="option" id={`${idPrefix}-option-${i}`} aria-selected={i === activeIdx} tabIndex={-1}
+          onMouseEnter={() => setActiveIdx(i)}
+          className={`w-full text-left ${optionClass} transition-colors border-b border-gray-50 last:border-0 ${i === activeIdx ? "bg-blue-50" : "hover:bg-blue-50"}`}>
           <div className="font-semibold text-sm text-gray-900">{c.name}</div>
           <div className="text-xs text-gray-500">{c.code} · {c.district}, {c.state} · {c.type}</div>
         </button>
       ))}
+    </div>
+  );
+
+  const dropdown = expanded && (
+    <div className="absolute top-full mt-1 left-0 right-0 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50">
+      {renderOptions("search-desktop", "px-4 py-2.5")}
       <Link href="/colleges" onClick={() => { setOpen(false); setMobileOpen(false); setQ(""); }}
         className="block w-full text-center px-4 py-2 text-xs text-accent font-semibold hover:bg-blue-50">
         View all colleges →
@@ -81,6 +107,7 @@ export default function SearchBar() {
           onFocus={() => { setFocused(true); setOpen(true); ensureIndex(); }}
           placeholder="Search colleges / universities..."
           aria-label="Search colleges"
+          {...comboProps("search-desktop")}
           className={`w-full px-4 py-1.5 rounded-lg text-sm outline-none transition-all ${focused ? "bg-white text-gray-900 shadow-lg" : "bg-white/20 text-white placeholder-white/80"}`}
         />
         {dropdown}
@@ -103,21 +130,16 @@ export default function SearchBar() {
                 onFocus={() => { setFocused(true); setOpen(true); ensureIndex(); }}
                 placeholder="Search colleges / universities..."
                 aria-label="Search colleges"
+                {...comboProps("search-mobile")}
                 className="flex-1 px-3 py-2 rounded-lg text-sm bg-white text-gray-900 outline-none"
               />
               <button onClick={() => { setMobileOpen(false); setQ(""); setOpen(false); }} className="p-2 text-white shrink-0" aria-label="Close search">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
-            {open && results.length > 0 && (
+            {expanded && (
               <div className="mx-3 bg-white rounded-b-xl shadow-xl border border-gray-100 overflow-hidden max-h-[60vh] overflow-y-auto">
-                {results.map(c => (
-                  <button key={c.id} onClick={() => go(c.slug)}
-                    className="w-full text-left px-4 py-3 hover:bg-blue-50 transition-colors border-b border-gray-50 last:border-0">
-                    <div className="font-semibold text-sm text-gray-900">{c.name}</div>
-                    <div className="text-xs text-gray-500">{c.code} · {c.district}, {c.state} · {c.type}</div>
-                  </button>
-                ))}
+                {renderOptions("search-mobile", "px-4 py-3")}
                 <Link href="/colleges" onClick={() => { setOpen(false); setMobileOpen(false); setQ(""); }}
                   className="block w-full text-center px-4 py-2.5 text-xs text-accent font-semibold hover:bg-blue-50">
                   View all colleges →

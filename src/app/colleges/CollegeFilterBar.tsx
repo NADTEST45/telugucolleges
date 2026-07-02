@@ -187,6 +187,7 @@ export default function CollegeFilterBar({
             <select
               value={filters.sort}
               onChange={e => update({ sort: e.target.value })}
+              aria-label="Sort colleges"
               className={`${sel} font-semibold flex-1 sm:flex-none text-xs sm:text-sm`}
             >
               <option value="name">Sort: Name</option>
@@ -210,8 +211,9 @@ export default function CollegeFilterBar({
           <div className="mt-4 pt-4 border-t border-gray-100">
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
               <div>
-                <label className="text-[11px] text-gray-500 font-semibold mb-1 block">State</label>
+                <label htmlFor="filter-state" className="text-[11px] text-gray-500 font-semibold mb-1 block">State</label>
                 <select
+                  id="filter-state"
                   value={filters.state}
                   onChange={e => update({ state: e.target.value, district: "" })}
                   className={`${sel} w-full`}
@@ -222,8 +224,9 @@ export default function CollegeFilterBar({
                 </select>
               </div>
               <div>
-                <label className="text-[11px] text-gray-500 font-semibold mb-1 block">District</label>
+                <label htmlFor="filter-district" className="text-[11px] text-gray-500 font-semibold mb-1 block">District</label>
                 <select
+                  id="filter-district"
                   value={filters.district}
                   onChange={e => update({ district: e.target.value })}
                   className={`${sel} w-full`}
@@ -233,8 +236,9 @@ export default function CollegeFilterBar({
                 </select>
               </div>
               <div>
-                <label className="text-[11px] text-gray-500 font-semibold mb-1 block">University</label>
+                <label htmlFor="filter-affiliation" className="text-[11px] text-gray-500 font-semibold mb-1 block">University</label>
                 <select
+                  id="filter-affiliation"
                   value={filters.affiliation}
                   onChange={e => update({ affiliation: e.target.value })}
                   className={`${sel} w-full`}
@@ -244,8 +248,9 @@ export default function CollegeFilterBar({
                 </select>
               </div>
               <div>
-                <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Max Fee</label>
+                <label htmlFor="filter-maxfee" className="text-[11px] text-gray-500 font-semibold mb-1 block">Max Fee</label>
                 <select
+                  id="filter-maxfee"
                   value={filters.maxFee}
                   onChange={e => update({ maxFee: e.target.value })}
                   className={`${sel} w-full`}
@@ -261,8 +266,9 @@ export default function CollegeFilterBar({
                 </select>
               </div>
               <div>
-                <label className="text-[11px] text-gray-500 font-semibold mb-1 block">NAAC</label>
+                <label htmlFor="filter-naac" className="text-[11px] text-gray-500 font-semibold mb-1 block">NAAC</label>
                 <select
+                  id="filter-naac"
                   value={filters.naac}
                   onChange={e => update({ naac: e.target.value })}
                   className={`${sel} w-full`}

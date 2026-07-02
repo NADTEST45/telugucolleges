@@ -1,6 +1,7 @@
 import nextPlugin from "@next/eslint-plugin-next";
 import reactPlugin from "eslint-plugin-react";
 import tsParser from "@typescript-eslint/parser";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
 
 /**
  * Minimal ESLint config for TeluguColleges.
@@ -67,6 +68,24 @@ export default [
     rules: {
       ...pickNextRules(nextPlugin.configs.recommended.rules),
       ...pickNextRules(nextPlugin.configs["core-web-vitals"].rules),
+    },
+  },
+  {
+    // TypeScript rules — the recommended (non-type-checked) preset so lint
+    // stays fast and runnable without a full type-check pass. Rules that
+    // currently fire across the codebase are downgraded to "warn" so
+    // `npm run lint` (run in CI) still passes while surfacing the debt.
+    files: ["**/*.{ts,tsx}"],
+    plugins: { "@typescript-eslint": tsPlugin },
+    rules: {
+      ...tsPlugin.configs.recommended.rules,
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_", caughtErrors: "none" },
+      ],
+      // `require()` appears in a couple of node-side scripts/config helpers.
+      "@typescript-eslint/no-require-imports": "warn",
     },
   },
 ];

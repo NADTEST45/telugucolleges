@@ -31,6 +31,21 @@ const LEAD_COLUMNS = [
 
 type LeadRow = Record<(typeof LEAD_COLUMNS)[number], string | number | null>;
 
+/**
+ * Narrow an unknown Supabase row to the LeadRow shape at runtime. The select
+ * uses a dynamic column string, so supabase-js can't infer the row type —
+ * validate each expected column instead of blind-casting.
+ */
+function toLeadRow(raw: unknown): LeadRow {
+  const obj = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
+  const row = {} as LeadRow;
+  for (const col of LEAD_COLUMNS) {
+    const v = obj[col];
+    row[col] = typeof v === "string" || typeof v === "number" ? v : null;
+  }
+  return row;
+}
+
 /** RFC 4180 CSV field: quote if it contains comma, quote, CR or LF; double inner quotes. */
 function csvField(value: string | number | null): string {
   if (value === null || value === undefined) return "";
@@ -78,7 +93,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Failed to fetch leads" }, { status: 500 });
     }
 
-    const rows = (data ?? []) as unknown as LeadRow[];
+    const rows: LeadRow[] = (data ?? []).map(toLeadRow);
 
     if (format === "csv") {
       const today = new Date().toISOString().slice(0, 10);
