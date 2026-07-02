@@ -8,9 +8,20 @@ import { getHistoricalCutoff, getTSPhaseHistoricalCutoff, estimateAllotmentChanc
 import { CANONICAL_BRANCHES, branchLabel, codesForBranch, canonicalIdForCode } from "@/lib/branch-taxonomy";
 import ShortlistButton from "@/components/ShortlistButton";
 import LeadCapture from "@/components/LeadCapture";
+import CounsellingToolkit from "@/components/CounsellingToolkit";
 import { EapcetStructuredData, PREDICTOR_FAQS } from "./structured-data";
 import { readStatePref, writeStatePref } from "@/lib/state-pref";
 import { AP_EAPCET_2026_RESULT, apResultDateCell } from "@/lib/ap-result-status";
+import { TG_COUNSELLING_NOW, AP_COUNSELLING_NOW, COUNSELLING_STATUS_AS_OF } from "@/lib/counselling-status";
+
+/* Canonical branch id -> /eapcet/web-options-generator branch slug, for the
+   "build web options" hand-off. Only the branches the generator supports are
+   mapped; anything else omits the param and the generator's sensible default
+   (CSE-family spread) kicks in. */
+const WEB_OPTIONS_BRANCH: Record<string, string> = {
+  cse: "cse", ece: "ece", eee: "eee", mech: "mech", civil: "civil", it: "it",
+  cse_aiml: "csm", cse_ds: "csd", ai_ds: "aid", cse_cys: "csc",
+};
 
 export default function EAPCETPage() {
   const [rank, setRank] = useState("");
@@ -182,6 +193,21 @@ export default function EAPCETPage() {
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener");
   };
 
+  /* Hand-off to the web-options generator, carrying the student's inputs so
+     they don't re-enter them. Branch maps to the generator's slug where
+     supported; otherwise the generator's default branch spread applies. */
+  const webOptionsHref = useMemo(() => {
+    const p = new URLSearchParams();
+    const r = parseInt(rank);
+    if (r > 0) p.set("rank", String(r));
+    p.set("state", state === "Telangana" ? "telangana" : "andhra-pradesh");
+    p.set("cat", category);
+    p.set("gender", gender);
+    const slug = WEB_OPTIONS_BRANCH[branch];
+    if (slug) p.append("branch", slug);
+    return `/eapcet/web-options-generator?${p.toString()}`;
+  }, [rank, state, category, gender, branch]);
+
   // ── EAPCET 2026 Key Dates ─────────────────────────────────────────────────
   // Update ONLY this object when dates change — the UI renders from it automatically.
   const EAPCET_DATES = {
@@ -216,6 +242,8 @@ export default function EAPCETPage() {
     },
   } as const;
 
+  const now = state === "Telangana" ? TG_COUNSELLING_NOW : AP_COUNSELLING_NOW;
+
   return (
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
       <nav className="text-sm text-gray-500 mb-4 flex items-center gap-1.5">
@@ -224,244 +252,136 @@ export default function EAPCETPage() {
         <span className="text-gray-600 font-medium">EAPCET</span>
       </nav>
 
-      <h1 className="text-2xl sm:text-3xl font-bold mb-2">TS & AP EAPCET 2026</h1>
-      <p className="text-sm text-gray-500 mb-4">Engineering, Agriculture & Pharmacy Common Entrance Test — your gateway to B.Tech admissions in Telangana & Andhra Pradesh</p>
+      <h1 className="text-2xl sm:text-3xl font-bold mb-2">EAPCET 2026 College Predictor — TS &amp; AP</h1>
+      <p className="text-sm text-gray-500 mb-4">Check which B.Tech colleges you can get with your rank, build your web-options list, and track counselling — Telangana &amp; Andhra Pradesh.</p>
 
-      {/* State Toggle */}
-      <div className="flex gap-2 mb-6 sm:mb-8">
-        <button onClick={() => setState("Telangana")}
-          className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all active:scale-95 ${state === "Telangana" ? "bg-accent text-white" : "bg-blue-50 text-accent hover:bg-blue-100"}`}>
-          TS EAPCET
-        </button>
-        <button onClick={() => setState("Andhra Pradesh")}
-          className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all active:scale-95 ${state === "Andhra Pradesh" ? "bg-green-600 text-white" : "bg-green-50 text-green-700 hover:bg-green-100"}`}>
-          AP EAPCET
-        </button>
+      {/* State Toggle — the ONE place you pick your exam; everything below follows it */}
+      <div className="mb-5 sm:mb-6">
+        <div className="text-xs font-semibold text-gray-500 mb-1.5">Which exam did you write?</div>
+        <div className="flex gap-2">
+          <button onClick={() => setState("Telangana")} aria-pressed={state === "Telangana"}
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-sm font-bold transition-all active:scale-95 ${state === "Telangana" ? "bg-accent text-white shadow-md" : "bg-blue-50 text-accent hover:bg-blue-100"}`}>
+            TG EAPCET
+            <span className={`block text-[10px] font-medium ${state === "Telangana" ? "text-blue-100" : "text-accent/70"}`}>Telangana</span>
+          </button>
+          <button onClick={() => setState("Andhra Pradesh")} aria-pressed={state === "Andhra Pradesh"}
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-sm font-bold transition-all active:scale-95 ${state === "Andhra Pradesh" ? "bg-green-600 text-white shadow-md" : "bg-green-50 text-green-700 hover:bg-green-100"}`}>
+            AP EAPCET
+            <span className={`block text-[10px] font-medium ${state === "Andhra Pradesh" ? "text-green-100" : "text-green-700/70"}`}>Andhra Pradesh</span>
+          </button>
+        </div>
       </div>
 
-      {/* Key Dates at a Glance */}
-      <section className="rounded-xl sm:rounded-2xl mb-6 overflow-hidden" style={{ background: "linear-gradient(135deg, #0f2b46 0%, #1a5276 40%, #2e86c1 100%)" }}>
-        <div className="px-4 sm:px-6 pt-4 sm:pt-5 pb-1">
-          <h2 className="text-base sm:text-xl font-bold text-white">EAPCET 2026 — Key Dates</h2>
+      {/* Happening now — season status for the selected state (single source:
+          counselling-status.ts). Kept above the predictor so the page answers
+          "what should I do today?" before anything else. */}
+      <section aria-live="polite" className="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4 sm:p-5">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="relative flex h-2.5 w-2.5" aria-hidden>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
+          </span>
+          <span className="text-[11px] font-bold uppercase tracking-wide text-amber-700">
+            Happening now · {state === "Telangana" ? "TS" : "AP"} · {now.stage}
+          </span>
+          <a href="#dates" className="ml-auto text-[11px] font-semibold text-amber-700 hover:underline">Full schedule ↓</a>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 p-3 sm:p-6">
-          {/* AP EAPCET */}
-          <div className="rounded-xl p-4 sm:p-5" style={{ background: "rgba(255,255,255,0.07)", backdropFilter: "blur(8px)" }}>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-green-500 text-white">AP</span>
-              <span className="text-white font-bold text-sm">{EAPCET_DATES.ap.label}</span>
-            </div>
-            <div className="space-y-2.5">
-              {EAPCET_DATES.ap.rows.map(({ label, date, highlight }) => (
-                <div key={label} className="flex justify-between items-center">
-                  <span className="text-sm text-blue-100/80">{label}</span>
-                  <span className={`text-sm font-semibold ${highlight ? "text-green-400" : "text-white"}`}>{date}</span>
-                </div>
-              ))}
-            </div>
-            <a href={EAPCET_DATES.ap.applyUrl} target="_blank" rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-white/70 hover:bg-white/20 hover:text-white transition-all">
-              Apply Now <span aria-hidden>→</span>
-            </a>
-          </div>
-
-          {/* TG EAPCET */}
-          <div className="rounded-xl p-4 sm:p-5" style={{ background: "rgba(255,255,255,0.07)", backdropFilter: "blur(8px)" }}>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-accent text-white">TS</span>
-              <span className="text-white font-bold text-sm">{EAPCET_DATES.tg.label}</span>
-            </div>
-            <div className="space-y-2.5">
-              {EAPCET_DATES.tg.rows.map(({ label, date, highlight }) => (
-                <div key={label} className="flex justify-between items-center">
-                  <span className="text-sm text-blue-100/80">{label}</span>
-                  <span className={`text-sm font-semibold ${highlight ? "text-emerald-400" : "text-white"}`}>{date}</span>
-                </div>
-              ))}
-            </div>
-            <a href={EAPCET_DATES.tg.applyUrl} target="_blank" rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-white/70 hover:bg-white/20 hover:text-white transition-all">
-              Apply Now <span aria-hidden>→</span>
-            </a>
-          </div>
-        </div>
-        <div className="px-4 sm:px-6 pb-3 sm:pb-4 text-[11px] text-blue-200/50">
-          * Dates based on official notifications as of July 1, 2026. TG EAPCET results declared May 17, 2026; TG counselling web options open June 25 – July 1. {AP_EAPCET_2026_RESULT.declared ? `AP EAPCET results declared — rank cards live at cets.apsche.ap.gov.in.` : `AP EAPCET results still awaited — now expected by ${AP_EAPCET_2026_RESULT.expectedWindow}.`} Check APSCHE / TGCHE websites for latest updates.
-        </div>
+        <p className="mt-1.5 text-sm sm:text-[15px] font-bold text-gray-900">{now.headline}</p>
+        <p className="mt-1 text-xs sm:text-sm text-gray-700 leading-relaxed">
+          {now.next}{" "}
+          <span className="whitespace-nowrap">
+            Official portal:{" "}
+            <a href={now.portalUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-accent hover:underline">{now.portalLabel}</a>
+          </span>
+        </p>
+        <p className="mt-1.5 text-[10px] text-amber-700/60">Status as of {COUNSELLING_STATUS_AS_OF}.</p>
       </section>
 
-      {/* 2026 season guides — every card stays rendered (crawlable internal
-          links), but we tag each by state and order the selected state + shared
-          guides first so an AP user isn't led to TS-only pages and vice versa. */}
-      {(() => {
-        const selectedTag = state === "Telangana" ? "TS" : "AP";
-        const guides: {
-          href: string;
-          title: string;
-          desc: string;
-          tag: "AP" | "TS" | "Both";
-          isNew?: boolean;
-        }[] = [
-          { href: "/eapcet/ap-results-2026", tag: "AP", title: "AP EAPCET Results 2026 — Live Updates", desc: "Why results are delayed, the latest expected date (end-June), and rank card download steps." },
-          { href: "/eapcet/ap-cutoff-2026", tag: "AP", title: "AP EAPCET 2026 Cutoff — Branch-wise", desc: "Expected college-wise closing ranks for CSE, ECE, EEE, Civil, Mech, IT & AI branches." },
-          { href: "/eapcet/ap-web-options", tag: "AP", title: "AP Web Options Entry — Step-by-Step", desc: "The exact entry process and the priority-order strategy that decides your seat." },
-          { href: "/eapcet/tg-cutoff-2026", tag: "TS", title: "TG EAPCET 2026 Cutoff — Branch-wise", desc: "College-wise closing ranks from official TSCHE 2024-25 & 2023-24 last-rank data, plus Phase-1 reference." },
-          { href: "/eapcet/ts-counselling-dates-2026", tag: "TS", title: "TS Counselling Dates 2026", desc: "Full TGCHE phase-wise schedule — Phase 1 registration June 19–28, allotment by July 10." },
-          { href: "/eapcet/web-options-generator", tag: "Both", isNew: true, title: "Web Options Generator", desc: "Enter your rank, category & branches to auto-build a best-first preference list across all colleges — tagged safe / moderate / reach." },
-          { href: "/eapcet/certificate-verification-documents", tag: "Both", title: "Certificate Verification Documents", desc: "Complete checklist for AP & TS — including income certificate validity rules." },
-        ];
-        // Selected state first, then shared ("Both"), then the other state.
-        const rank = (t: "AP" | "TS" | "Both") => (t === selectedTag ? 0 : t === "Both" ? 1 : 2);
-        const ordered = guides
-          .map((g, i) => ({ g, i }))
-          .sort((a, b) => rank(a.g.tag) - rank(b.g.tag) || a.i - b.i)
-          .map(({ g }) => g);
-        const tagStyle: Record<"AP" | "TS" | "Both", string> = {
-          AP: "bg-green-100 text-green-700",
-          TS: "bg-blue-100 text-accent",
-          Both: "bg-gray-100 text-gray-500",
-        };
-        return (
-          <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
-            <h2 className="text-base sm:text-lg font-bold mb-3">EAPCET 2026 — Results & Counselling Guides</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {ordered.map(g => {
-                const dimmed = g.tag !== "Both" && g.tag !== selectedTag;
-                return (
-                  <Link
-                    key={g.href}
-                    href={g.href}
-                    className={`block rounded-lg border p-3 hover:border-accent hover:shadow-sm transition-all ${
-                      g.tag === "Both" ? "border-accent/40 bg-blue-50/40" : "border-gray-200"
-                    } ${dimmed ? "opacity-60 hover:opacity-100" : ""}`}
-                  >
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${tagStyle[g.tag]}`}>{g.tag === "Both" ? "AP & TS" : g.tag}</span>
-                      <span className="font-semibold text-sm">{g.title}</span>
-                      {g.isNew && <span className="text-[10px] font-bold text-accent align-middle">NEW</span>}
-                    </div>
-                    <p className="text-xs text-gray-600 leading-relaxed">{g.desc}</p>
-                  </Link>
-                );
-              })}
-            </div>
-          </section>
-        );
-      })()}
-
-      {/* Overview */}
-      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
-        <h2 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">About EAPCET</h2>
-        <div>
-          {(state === "Telangana") && (
-            <div>
-              <h3 className="font-semibold text-sm text-accent mb-3">TS EAPCET (Telangana)</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">Conducted by JNTU Hyderabad on behalf of TGCHE. Required for B.E./B.Tech admissions into all engineering colleges in Telangana through convener quota counselling.</p>
-              <div className="mt-3 space-y-1 text-xs text-gray-500">
-                <div>Convener Quota: 70% of seats filled via TGCHE web counselling</div>
-                <div>Fee regulation: TS AFRC (block period system, currently 2025-28)</div>
-                <div>Conducting body: JNTUH for TGCHE</div>
-              </div>
-              <div className="mt-3 text-xs text-gray-500">Official website: eapcet.tgche.ac.in</div>
-            </div>
-          )}
-          {(state === "Andhra Pradesh") && (
-            <div>
-              <h3 className="font-semibold text-sm text-green-600 mb-3">AP EAPCET (Andhra Pradesh)</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">Conducted by JNTU Kakinada on behalf of APSCHE (the conducting university rotates among JNTUs). Required for B.E./B.Tech admissions into all engineering colleges in Andhra Pradesh through convener quota counselling.</p>
-              <div className="mt-3 space-y-1 text-xs text-gray-500">
-                <div>Category-A (Convener Quota): 70% of seats via APSCHE counselling</div>
-                <div>Category-B (Management Quota): 30% — fees regulated by APHERMC</div>
-                <div>Conducting body: JNTUK (on rotation) for APSCHE</div>
-              </div>
-              <div className="mt-3 text-xs text-gray-500">Official website: cets.apsche.ap.gov.in</div>
-            </div>
-          )}
-        </div>
-        <div className="mt-4 bg-blue-50 rounded-lg px-4 py-2.5 text-xs text-blue-700">
-          Check the official TGCHE / APSCHE websites for confirmed dates, notifications, and registration links.
-        </div>
-      </section>
-
-      {/* Exam Pattern */}
-      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
-        <h2 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">Exam Pattern (Engineering Stream)</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 text-center">
-          {[
-            ["Duration", "3 Hours", "Single session"],
-            ["Questions", "160", "MCQs"],
-            ["Marks", "160", "No negative marking"],
-            ["Subjects", "M / P / C", "80 + 40 + 40"],
-          ].map(([label, value, sub]) => (
-            <div key={label} className="bg-gray-50 rounded-xl p-3 sm:p-4">
-              <div className="text-[11px] sm:text-xs text-gray-500 mb-1">{label}</div>
-              <div className="text-lg sm:text-xl font-extrabold text-gray-900">{value}</div>
-              <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5">{sub}</div>
-            </div>
-          ))}
-        </div>
-        <p className="text-[11px] text-gray-500 mt-3">Mathematics: 80 marks, Physics: 40 marks, Chemistry: 40 marks. Based on Intermediate (11th & 12th) syllabus.</p>
-      </section>
-
-      {/* College Predictor */}
-      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
+      {/* College Predictor — the page's main tool, now first */}
+      <section id="predictor" className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6 scroll-mt-20">
         <h2 className="text-base sm:text-lg font-bold mb-1">College Predictor</h2>
-        <p className="text-[11px] sm:text-xs text-gray-500 mb-4 sm:mb-5">Enter your rank to see colleges where you have a chance, by category &amp; gender. Built on official TSCHE/APSCHE closing ranks (weighted, latest 2 years). For Telangana you can also predict by counselling phase.</p>
+        <p className="text-[11px] sm:text-xs text-gray-500 mb-4 sm:mb-5">Built on official TSCHE/APSCHE closing ranks (weighted, latest 2 years), category &amp; gender-wise. For Telangana you can also predict by counselling phase.</p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3 mb-4 sm:mb-6">
+        <div className="space-y-4 sm:space-y-5 mb-4">
+          {/* Step 1 — rank */}
           <div>
-            <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Your EAPCET Rank</label>
-            <input type="number" value={rank} onChange={e => handleRankChange(e.target.value)}
-              placeholder="e.g. 15000" className="w-full px-3 sm:px-4 py-2.5 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-blue-200 font-semibold" />
+            <label htmlFor="eapcet-rank" className="flex items-center gap-2 text-xs font-semibold text-gray-600 mb-1.5">
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-brand text-white text-[11px] font-bold" aria-hidden>1</span>
+              Enter your {state === "Telangana" ? "TG EAPCET" : "AP EAPCET"} rank
+            </label>
+            <input id="eapcet-rank" type="number" inputMode="numeric" min={1} value={rank}
+              onChange={e => handleRankChange(e.target.value)} placeholder="e.g. 15000"
+              className="w-full sm:max-w-xs px-4 h-14 rounded-xl border-2 border-gray-200 text-xl font-bold tabular-nums outline-none focus:border-accent focus:ring-4 focus:ring-blue-100" />
+            <p className="text-[11px] text-gray-400 mt-1">The rank on your rank card — results update as you type.</p>
           </div>
-          <div>
-            <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Category / Caste</label>
-            <select value={category} onChange={e => setCategory(e.target.value as Category)}
-              className="w-full px-3 sm:px-4 py-2.5 rounded-lg border border-gray-200 text-sm cursor-pointer font-semibold">
-              {predictorCatList.map(ct => (
-                <option key={ct.key} value={ct.key}>{ct.label}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Gender</label>
-            <div className="flex gap-1 bg-gray-100 p-1 rounded-lg h-[42px]">
-              <button onClick={() => setGender("boys")}
-                className={`flex-1 rounded-md text-xs font-semibold transition-all ${gender === "boys" ? "bg-white text-brand shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
-                Boys
-              </button>
-              <button onClick={() => setGender("girls")}
-                className={`flex-1 rounded-md text-xs font-semibold transition-all ${gender === "girls" ? "bg-white text-pink-600 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
-                Girls
-              </button>
-            </div>
-          </div>
-          <div>
-            <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Branch</label>
-            <select value={branch} onChange={e => setBranch(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm cursor-pointer uppercase">
-              {allBranches.map(b => <option key={b.id} value={b.id}>{b.label}</option>)}
-            </select>
-          </div>
-          <div>
-            <label className="text-[11px] text-gray-500 font-semibold mb-1 block">State</label>
-            <select value={state} onChange={e => setState(e.target.value as typeof state)}
-              className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm cursor-pointer">
-              <option value="Telangana">Telangana</option>
-              <option value="Andhra Pradesh">Andhra Pradesh</option>
-            </select>
-          </div>
-          {state === "Telangana" && (
+
+          {/* Steps 2 & 3 — details & preference */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div>
-              <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Counselling Phase</label>
-              <select value={phase} onChange={e => setPhase(e.target.value as PredictorPhase)}
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm cursor-pointer font-semibold">
-                {PREDICTOR_PHASES.map(p => (
-                  <option key={p.key} value={p.key}>{p.label}</option>
-                ))}
-              </select>
+              <div className="flex items-center gap-2 text-xs font-semibold text-gray-600 mb-1.5">
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-brand text-white text-[11px] font-bold" aria-hidden>2</span>
+                Your category &amp; gender
+              </div>
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                <div>
+                  <label htmlFor="predictor-category" className="text-[11px] text-gray-500 font-semibold mb-1 block">Category / Caste</label>
+                  <select id="predictor-category" value={category} onChange={e => setCategory(e.target.value as Category)}
+                    className="w-full px-3 sm:px-4 h-11 rounded-lg border border-gray-200 text-sm cursor-pointer font-semibold bg-white">
+                    {predictorCatList.map(ct => (
+                      <option key={ct.key} value={ct.key}>{ct.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <span className="text-[11px] text-gray-500 font-semibold mb-1 block">Gender</span>
+                  <div className="flex gap-1 bg-gray-100 p-1 rounded-lg h-11">
+                    <button onClick={() => setGender("boys")} aria-pressed={gender === "boys"}
+                      className={`flex-1 rounded-md text-xs font-semibold transition-all ${gender === "boys" ? "bg-white text-brand shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
+                      Boys
+                    </button>
+                    <button onClick={() => setGender("girls")} aria-pressed={gender === "girls"}
+                      className={`flex-1 rounded-md text-xs font-semibold transition-all ${gender === "girls" ? "bg-white text-pink-600 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
+                      Girls
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-          )}
+            <div>
+              <div className="flex items-center gap-2 text-xs font-semibold text-gray-600 mb-1.5">
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-brand text-white text-[11px] font-bold" aria-hidden>3</span>
+                Branch to check
+              </div>
+              <div className={`grid gap-2 sm:gap-3 ${state === "Telangana" ? "grid-cols-2" : "grid-cols-1"}`}>
+                <div>
+                  <label htmlFor="predictor-branch" className="text-[11px] text-gray-500 font-semibold mb-1 block">Branch</label>
+                  <select id="predictor-branch" value={branch} onChange={e => setBranch(e.target.value)}
+                    className="w-full px-3 sm:px-4 h-11 rounded-lg border border-gray-200 text-sm cursor-pointer uppercase bg-white">
+                    {allBranches.map(b => <option key={b.id} value={b.id}>{b.label}</option>)}
+                  </select>
+                </div>
+                {state === "Telangana" && (
+                  <div>
+                    <label htmlFor="predictor-phase" className="text-[11px] text-gray-500 font-semibold mb-1 block">Counselling Phase</label>
+                    <select id="predictor-phase" value={phase} onChange={e => setPhase(e.target.value as PredictorPhase)}
+                      className="w-full px-3 sm:px-4 h-11 rounded-lg border border-gray-200 text-sm cursor-pointer font-semibold bg-white">
+                      {PREDICTOR_PHASES.map(p => (
+                        <option key={p.key} value={p.key}>{p.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* How to read the results */}
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] text-gray-500 mb-4">
+          <span className="font-semibold text-gray-400">How to read results:</span>
+          <span><span className="px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 font-bold">Safe</span> well inside last close</span>
+          <span><span className="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-bold">Moderate</span> near the close</span>
+          <span><span className="px-1.5 py-0.5 rounded-full bg-red-100 text-red-600 font-bold">Reach</span> beyond it — possible in later phases</span>
         </div>
 
         {usePhaseData && (
@@ -482,6 +402,16 @@ export default function EAPCETPage() {
         {gender === "girls" && (
           <div className="bg-pink-50 rounded-lg px-4 py-2 text-[11px] text-pink-700 mb-4">
             Girls cutoff data is available for select AP colleges (2023-24). For colleges without girls-specific data, results use Boys cutoffs as reference. Girls cutoffs are typically similar or slightly higher.
+          </div>
+        )}
+
+        {!rank && (
+          <div className="rounded-xl border border-dashed border-gray-300 p-5 text-center text-sm text-gray-400">
+            Type your rank above — matching colleges appear instantly.
+            <span className="block text-xs mt-1">
+              Don&apos;t have your rank yet?{" "}
+              <a href="#rank-bands" className="text-accent font-semibold hover:underline">Browse ready-made lists by rank band ↓</a>
+            </span>
           </div>
         )}
 
@@ -558,6 +488,21 @@ export default function EAPCETPage() {
                 );
               })}
             </div>
+
+            {/* Next step — hand off to the web-options generator with the same inputs */}
+            <div className="mt-4 rounded-xl border border-accent/30 bg-blue-50 p-4 sm:flex sm:items-center sm:justify-between sm:gap-4">
+              <div>
+                <div className="font-bold text-sm text-gray-900">Next step: turn this into your web-options list</div>
+                <p className="text-xs text-gray-600 mt-0.5 leading-relaxed">
+                  Add every branch you&apos;d accept and get one ready-to-enter preference order across all colleges — your rank, category &amp; gender carry over.
+                </p>
+              </div>
+              <Link href={webOptionsHref}
+                className="mt-3 sm:mt-0 inline-flex shrink-0 items-center gap-1.5 px-4 py-2.5 rounded-lg bg-brand text-white text-sm font-semibold hover:bg-brand-dark transition-colors active:scale-95">
+                Build web options <span aria-hidden>→</span>
+              </Link>
+            </div>
+
             <div className="mt-4 bg-amber-50 rounded-lg px-4 py-2.5 text-[11px] text-amber-700">
               Data from official APSCHE &amp; TSCHE &quot;Last Rank Details&quot; PDFs. {gender === "girls" ? "Girls-specific data available for select colleges." : ""} Actual cutoffs vary year to year.
               <span className="block mt-1">
@@ -575,10 +520,123 @@ export default function EAPCETPage() {
             <p className="text-xs mt-1">
               {usePhaseData
                 ? "Phase-specific data covers fewer college-branch combinations. Try Final Phase, or a different branch or category."
-                : "Try a different branch, category, or remove the state filter"}
+                : "Try a different branch or category — or check the other state above"}
             </p>
           </div>
         )}
+      </section>
+
+      {/* Every counselling tool, one tap away */}
+      <CounsellingToolkit current="/eapcet" className="mb-6" />
+
+      {/* 2026 season guides — every card stays rendered (crawlable internal
+          links), but we tag each by state and order the selected state + shared
+          guides first so an AP user isn't led to TS-only pages and vice versa. */}
+      {(() => {
+        const selectedTag = state === "Telangana" ? "TS" : "AP";
+        const guides: {
+          href: string;
+          title: string;
+          desc: string;
+          tag: "AP" | "TS" | "Both";
+          isNew?: boolean;
+        }[] = [
+          { href: "/eapcet/ap-results-2026", tag: "AP", title: "AP EAPCET Results 2026 — Live Updates", desc: "Why results are delayed, the latest expected date (end-June), and rank card download steps." },
+          { href: "/eapcet/ap-cutoff-2026", tag: "AP", title: "AP EAPCET 2026 Cutoff — Branch-wise", desc: "Expected college-wise closing ranks for CSE, ECE, EEE, Civil, Mech, IT & AI branches." },
+          { href: "/eapcet/ap-web-options", tag: "AP", title: "AP Web Options Entry — Step-by-Step", desc: "The exact entry process and the priority-order strategy that decides your seat." },
+          { href: "/eapcet/tg-cutoff-2026", tag: "TS", title: "TG EAPCET 2026 Cutoff — Branch-wise", desc: "College-wise closing ranks from official TSCHE 2024-25 & 2023-24 last-rank data, plus Phase-1 reference." },
+          { href: "/eapcet/ts-counselling-dates-2026", tag: "TS", title: "TS Counselling Dates 2026", desc: "Full TGCHE phase-wise schedule — Phase 1 registration June 19–28, allotment by July 10." },
+          { href: "/eapcet/web-options-generator", tag: "Both", isNew: true, title: "Web Options Generator", desc: "Enter your rank, category & branches to auto-build a best-first preference list across all colleges — tagged safe / moderate / reach." },
+          { href: "/eapcet/certificate-verification-documents", tag: "Both", title: "Certificate Verification Documents", desc: "Complete checklist for AP & TS — including income certificate validity rules." },
+        ];
+        // Selected state first, then shared ("Both"), then the other state.
+        const rank = (t: "AP" | "TS" | "Both") => (t === selectedTag ? 0 : t === "Both" ? 1 : 2);
+        const ordered = guides
+          .map((g, i) => ({ g, i }))
+          .sort((a, b) => rank(a.g.tag) - rank(b.g.tag) || a.i - b.i)
+          .map(({ g }) => g);
+        const tagStyle: Record<"AP" | "TS" | "Both", string> = {
+          AP: "bg-green-100 text-green-700",
+          TS: "bg-blue-100 text-accent",
+          Both: "bg-gray-100 text-gray-500",
+        };
+        return (
+          <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
+            <h2 className="text-base sm:text-lg font-bold mb-3">EAPCET 2026 — Results & Counselling Guides</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {ordered.map(g => {
+                const dimmed = g.tag !== "Both" && g.tag !== selectedTag;
+                return (
+                  <Link
+                    key={g.href}
+                    href={g.href}
+                    className={`block rounded-lg border p-3 hover:border-accent hover:shadow-sm transition-all ${
+                      g.tag === "Both" ? "border-accent/40 bg-blue-50/40" : "border-gray-200"
+                    } ${dimmed ? "opacity-60 hover:opacity-100" : ""}`}
+                  >
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${tagStyle[g.tag]}`}>{g.tag === "Both" ? "AP & TS" : g.tag}</span>
+                      <span className="font-semibold text-sm">{g.title}</span>
+                      {g.isNew && <span className="text-[10px] font-bold text-accent align-middle">NEW</span>}
+                    </div>
+                    <p className="text-xs text-gray-600 leading-relaxed">{g.desc}</p>
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        );
+      })()}
+
+      {/* Key Dates at a Glance */}
+      <section id="dates" className="rounded-xl sm:rounded-2xl mb-6 overflow-hidden scroll-mt-20" style={{ background: "linear-gradient(135deg, #0f2b46 0%, #1a5276 40%, #2e86c1 100%)" }}>
+        <div className="px-4 sm:px-6 pt-4 sm:pt-5 pb-1">
+          <h2 className="text-base sm:text-xl font-bold text-white">EAPCET 2026 — Key Dates</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 p-3 sm:p-6">
+          {/* AP EAPCET */}
+          <div className="rounded-xl p-4 sm:p-5" style={{ background: "rgba(255,255,255,0.07)", backdropFilter: "blur(8px)" }}>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-green-500 text-white">AP</span>
+              <span className="text-white font-bold text-sm">{EAPCET_DATES.ap.label}</span>
+            </div>
+            <div className="space-y-2.5">
+              {EAPCET_DATES.ap.rows.map(({ label, date, highlight }) => (
+                <div key={label} className="flex justify-between items-center">
+                  <span className="text-sm text-blue-100/80">{label}</span>
+                  <span className={`text-sm font-semibold ${highlight ? "text-green-400" : "text-white"}`}>{date}</span>
+                </div>
+              ))}
+            </div>
+            <a href={EAPCET_DATES.ap.applyUrl} target="_blank" rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-white/70 hover:bg-white/20 hover:text-white transition-all">
+              Official portal <span aria-hidden>→</span>
+            </a>
+          </div>
+
+          {/* TG EAPCET */}
+          <div className="rounded-xl p-4 sm:p-5" style={{ background: "rgba(255,255,255,0.07)", backdropFilter: "blur(8px)" }}>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-accent text-white">TS</span>
+              <span className="text-white font-bold text-sm">{EAPCET_DATES.tg.label}</span>
+            </div>
+            <div className="space-y-2.5">
+              {EAPCET_DATES.tg.rows.map(({ label, date, highlight }) => (
+                <div key={label} className="flex justify-between items-center">
+                  <span className="text-sm text-blue-100/80">{label}</span>
+                  <span className={`text-sm font-semibold ${highlight ? "text-emerald-400" : "text-white"}`}>{date}</span>
+                </div>
+              ))}
+            </div>
+            <a href={EAPCET_DATES.tg.applyUrl} target="_blank" rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-white/70 hover:bg-white/20 hover:text-white transition-all">
+              Official portal <span aria-hidden>→</span>
+            </a>
+          </div>
+        </div>
+        <div className="px-4 sm:px-6 pb-3 sm:pb-4 text-[11px] text-blue-200/50">
+          * Dates based on official notifications as of July 1, 2026. TG EAPCET results declared May 17, 2026; TG counselling web options open June 25 – July 1. {AP_EAPCET_2026_RESULT.declared ? `AP EAPCET results declared — rank cards live at cets.apsche.ap.gov.in.` : `AP EAPCET results still awaited — now expected by ${AP_EAPCET_2026_RESULT.expectedWindow}.`} Check APSCHE / TGCHE websites for latest updates.
+        </div>
       </section>
 
       {/* Browse-by-rank hub — links to /eapcet/rank/[slug] static pages.
@@ -586,7 +644,7 @@ export default function EAPCETPage() {
           landing surfaces from the predictor without relying on sitemap-
           only discovery. Built statically from a small constant so this
           stays SSR-friendly even though the parent page is "use client". */}
-      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
+      <section id="rank-bands" className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6 scroll-mt-20">
         <h2 className="text-base sm:text-lg font-bold mb-1">Browse colleges by rank</h2>
         <p className="text-xs text-gray-500 mb-4">
           Pre-built lists for popular EAPCET rank bands — useful before you have your final score.
@@ -637,6 +695,61 @@ export default function EAPCETPage() {
       </section>
 
       <EapcetStructuredData />
+
+      {/* About the exam — reference content, kept below the tools now that the
+          2026 exams are over (pre-exam visitors still reach it via scroll/search). */}
+      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
+        <h2 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">About EAPCET</h2>
+        <div>
+          {(state === "Telangana") && (
+            <div>
+              <h3 className="font-semibold text-sm text-accent mb-3">TS EAPCET (Telangana)</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">Conducted by JNTU Hyderabad on behalf of TGCHE. Required for B.E./B.Tech admissions into all engineering colleges in Telangana through convener quota counselling.</p>
+              <div className="mt-3 space-y-1 text-xs text-gray-500">
+                <div>Convener Quota: 70% of seats filled via TGCHE web counselling</div>
+                <div>Fee regulation: TS AFRC (block period system, currently 2025-28)</div>
+                <div>Conducting body: JNTUH for TGCHE</div>
+              </div>
+              <div className="mt-3 text-xs text-gray-500">Official website: eapcet.tgche.ac.in</div>
+            </div>
+          )}
+          {(state === "Andhra Pradesh") && (
+            <div>
+              <h3 className="font-semibold text-sm text-green-600 mb-3">AP EAPCET (Andhra Pradesh)</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">Conducted by JNTU Kakinada on behalf of APSCHE (the conducting university rotates among JNTUs). Required for B.E./B.Tech admissions into all engineering colleges in Andhra Pradesh through convener quota counselling.</p>
+              <div className="mt-3 space-y-1 text-xs text-gray-500">
+                <div>Category-A (Convener Quota): 70% of seats via APSCHE counselling</div>
+                <div>Category-B (Management Quota): 30% — fees regulated by APHERMC</div>
+                <div>Conducting body: JNTUK (on rotation) for APSCHE</div>
+              </div>
+              <div className="mt-3 text-xs text-gray-500">Official website: cets.apsche.ap.gov.in</div>
+            </div>
+          )}
+        </div>
+        <div className="mt-4 bg-blue-50 rounded-lg px-4 py-2.5 text-xs text-blue-700">
+          Check the official TGCHE / APSCHE websites for confirmed dates, notifications, and registration links.
+        </div>
+      </section>
+
+      {/* Exam Pattern */}
+      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
+        <h2 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">Exam Pattern (Engineering Stream)</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 text-center">
+          {[
+            ["Duration", "3 Hours", "Single session"],
+            ["Questions", "160", "MCQs"],
+            ["Marks", "160", "No negative marking"],
+            ["Subjects", "M / P / C", "80 + 40 + 40"],
+          ].map(([label, value, sub]) => (
+            <div key={label} className="bg-gray-50 rounded-xl p-3 sm:p-4">
+              <div className="text-[11px] sm:text-xs text-gray-500 mb-1">{label}</div>
+              <div className="text-lg sm:text-xl font-extrabold text-gray-900">{value}</div>
+              <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5">{sub}</div>
+            </div>
+          ))}
+        </div>
+        <p className="text-[11px] text-gray-500 mt-3">Mathematics: 80 marks, Physics: 40 marks, Chemistry: 40 marks. Based on Intermediate (11th & 12th) syllabus.</p>
+      </section>
 
       {/* Quick Stats */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">

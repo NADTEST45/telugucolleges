@@ -14,6 +14,7 @@ import {
   type Safety,
 } from "@/lib/predictor";
 import WebOptionsExport, { type ExportRow } from "./WebOptionsExport";
+import CounsellingToolkit from "@/components/CounsellingToolkit";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
@@ -251,7 +252,11 @@ export default async function WebOptionsGeneratorPage({
                 })}
               </ol>
 
-              <p className="text-[11px] text-gray-400 mt-4 leading-relaxed">
+              <p className="text-xs text-gray-500 mt-4 print:hidden">
+                Budget check: estimate the full 4-year cost (tuition + hostel) of your top choices with the{" "}
+                <Link href="/fee-calculator" className="text-accent font-semibold hover:underline">Fee Calculator →</Link>
+              </p>
+              <p className="text-[11px] text-gray-400 mt-3 leading-relaxed">
                 Guidance only, not a guarantee of admission. Closing ranks are official last-phase
                 figures from prior counselling years and can shift between phases and years. Always
                 confirm against the official TGCHE / APSCHE counselling portal before locking your options.
@@ -260,6 +265,8 @@ export default async function WebOptionsGeneratorPage({
           )}
         </section>
       )}
+
+      <CounsellingToolkit current="/eapcet/web-options-generator" className="mt-8 print:hidden" />
     </main>
   );
 }

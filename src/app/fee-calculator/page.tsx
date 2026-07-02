@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
+import CounsellingToolkit from "@/components/CounsellingToolkit";
 import FeeCalculatorClient, { type SlimCollege } from "./FeeCalculatorClient";
 import { COLLEGES } from "@/lib/colleges";
 
@@ -117,6 +118,8 @@ export default function FeeCalculatorPage() {
           <a href="mailto:contact@telugucolleges.com" className="hover:underline">contact@telugucolleges.com</a>
         </p>
       </section>
+
+      <CounsellingToolkit current="/fee-calculator" className="mt-10" />
     </main>
   );
 }

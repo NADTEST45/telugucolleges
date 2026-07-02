@@ -9,6 +9,7 @@ import ts_mba from "@/lib/mba_data.json";
 import ap_mba from "@/lib/ap_mba_data.json";
 import ts_mca from "@/lib/mca_data.json";
 import ap_mca from "@/lib/ap_mca_data.json";
+import { TG_COUNSELLING_NOW, AP_COUNSELLING_NOW } from "@/lib/counselling-status";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
@@ -96,6 +97,32 @@ export default function Home() {
             </Link>
             <Link href="/eapcet" className="inline-block bg-white/15 text-white font-bold px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl text-base sm:text-lg border border-white/30 active:scale-[0.98] transition-all">
               EAPCET Predictor
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* EAPCET counselling-season banner — status strings live in
+          counselling-status.ts (single source, one-file update as the season
+          progresses). Remove this block after counselling ends. */}
+      <section className="bg-amber-50 border-b border-amber-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-4">
+          <div className="flex items-start sm:items-center gap-2 min-w-0">
+            <span className="relative flex h-2.5 w-2.5 shrink-0 mt-1 sm:mt-0" aria-hidden>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
+            </span>
+            <p className="text-xs sm:text-sm text-gray-800 min-w-0">
+              <span className="font-bold">EAPCET 2026 counselling is on:</span>{" "}
+              {AP_COUNSELLING_NOW.short} · {TG_COUNSELLING_NOW.short}
+            </p>
+          </div>
+          <div className="flex gap-2 sm:ml-auto shrink-0 pl-4 sm:pl-0">
+            <Link href="/eapcet" className="px-3 py-1.5 rounded-lg bg-brand text-white text-xs font-semibold hover:bg-brand-dark transition-colors active:scale-95">
+              Predict my colleges
+            </Link>
+            <Link href="/eapcet/web-options-generator" className="px-3 py-1.5 rounded-lg bg-white border border-amber-200 text-gray-700 text-xs font-semibold hover:border-accent hover:text-accent transition-colors active:scale-95">
+              Build web options
             </Link>
           </div>
         </div>
@@ -242,6 +269,9 @@ export default function Home() {
             ["Telangana Colleges", `${stats.ts} colleges with fees, cutoffs & placements`, "border-l-accent", "/colleges?state=Telangana"],
             ["Andhra Pradesh Colleges", `${stats.ap} colleges with fees, cutoffs & placements`, "border-l-green-600", "/colleges?state=Andhra+Pradesh"],
             ["Compare Colleges", "Pick 2–4 colleges and compare side by side", "border-l-amber-500", "/compare"],
+            ["Web Options Generator", "Auto-build your counselling preference list from your rank", "border-l-rose-500", "/eapcet/web-options-generator"],
+            ["Fee Calculator", "Estimate the full 4-year B.Tech cost — hostel included", "border-l-violet-500", "/fee-calculator"],
+            ["Documents Checklist", "Every certificate needed for AP & TS verification", "border-l-teal-500", "/eapcet/certificate-verification-documents"],
           ].map(([title, desc, border, href]) => (
             <Link key={title as string} href={href as string} className={`block bg-white rounded-xl p-4 sm:p-6 shadow-sm border-l-4 ${border} hover:shadow-md hover:-translate-y-0.5 transition-all active:scale-[0.98]`}>
               <div className="font-bold text-base sm:text-lg mb-1">{title as string}</div>

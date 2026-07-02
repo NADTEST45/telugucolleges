@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
+import CounsellingToolkit from "@/components/CounsellingToolkit";
 import { fmtFee } from "@/lib/colleges";
 import {
   RANK_BANDS,
@@ -310,6 +311,9 @@ export default async function RankBandPage({
           Use the full EAPCET College Predictor →
         </Link>
       </div>
+
+      {/* Counselling toolset cross-links */}
+      <CounsellingToolkit className="mb-8" />
 
       {/* FAQs (visible content matching FAQPage JSON-LD) */}
       <section className="mb-8">
