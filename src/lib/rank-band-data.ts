@@ -64,8 +64,13 @@ export interface StateOption {
   short: "TS" | "AP";
   /** Exam name */
   exam: "TG EAPCET" | "AP EAPCET";
-  /** Most-recent cutoff year string used for closing-rank lookup */
-  refYear: "2024" | "2023";
+  /** Most-recent cutoff year string used for closing-rank lookup.
+   *  MUST track the newest year present in TS_CUTOFFS / AP_CUTOFFS —
+   *  a stale value here makes every /eapcet/rank/[slug] page quote
+   *  older closing ranks than the main predictor. */
+  refYear: "2025" | "2024";
+  /** Older years to fall back to (newest first) when refYear has no data. */
+  fallbackYears: string[];
 }
 
 export const STATE_OPTIONS: StateOption[] = [
@@ -74,16 +79,29 @@ export const STATE_OPTIONS: StateOption[] = [
     full: "Telangana",
     short: "TS",
     exam: "TG EAPCET",
-    refYear: "2024",
+    refYear: "2025", // TS_CUTOFFS years: 2025 / 2024 / 2023
+    fallbackYears: ["2024", "2023"],
   },
   {
     slug: "andhra-pradesh",
     full: "Andhra Pradesh",
     short: "AP",
     exam: "AP EAPCET",
-    refYear: "2023",
+    refYear: "2024", // AP_CUTOFFS years: 2024 / 2023 / 2022
+    fallbackYears: ["2023", "2022"],
   },
 ];
+
+/** "2025" → "2025–26" — the counselling-season label for a data year. */
+export function yearLabel(y: string): string {
+  const n = parseInt(y, 10);
+  return `${n}–${String((n + 1) % 100).padStart(2, "0")}`;
+}
+
+/** Display label for a state's reference cutoff year, e.g. "2025–26". */
+export function refYearLabel(state: StateOption): string {
+  return yearLabel(state.refYear);
+}
 
 /**
  * Parse a rank-band slug. Format: `<rank>-<branch>-<state>`
@@ -155,21 +173,16 @@ export function getOcClosingRank(
   branch: BranchOption,
   state: StateOption,
 ): number {
-  if (state.full === "Telangana") {
-    const college = TS_CUTOFFS[collegeCode];
-    if (!college) return 0;
-    const branchKey = branch.tsCode;
-    const yearData = college[state.refYear] || college["2023"];
-    const branchData = yearData?.[branchKey];
-    return branchData?.OC || 0;
-  } else {
-    const college = AP_CUTOFFS[collegeCode];
-    if (!college) return 0;
-    const branchKey = branch.apCode;
-    const yearData = college[state.refYear] || college["2022"];
-    const branchData = yearData?.[branchKey];
-    return branchData?.OC || 0;
+  const isTS = state.full === "Telangana";
+  const college = isTS ? TS_CUTOFFS[collegeCode] : AP_CUTOFFS[collegeCode];
+  if (!college) return 0;
+  const branchKey = isTS ? branch.tsCode : branch.apCode;
+  // Newest year first, then fall back through older published years.
+  for (const year of [state.refYear, ...state.fallbackYears]) {
+    const rank = college[year]?.[branchKey]?.OC;
+    if (rank) return rank;
   }
+  return 0;
 }
 
 export interface RankBandMatch {

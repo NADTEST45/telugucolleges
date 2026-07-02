@@ -895,4 +895,5 @@ export const COLLEGES: College[] = [
 ];
 
 export const getCollegeBySlug = (slug: string) => COLLEGES.find(c => c.slug === slug);
-export const fmtFee = (n: number) => n ? `₹${n.toLocaleString("en-IN")}` : "—";
+// fmtFee moved to format.ts (client-safe); re-exported for compatibility.
+export { fmtFee } from "./format";

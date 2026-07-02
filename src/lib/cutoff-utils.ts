@@ -130,14 +130,10 @@ export function estimateAllotmentChance(
 
 // ─── Phase-wise predictor support (TGEAPCET only — APSCHE publishes final-phase PDFs only) ───
 
-export type PredictorPhase = "final" | "phase1" | "phase2" | "special";
-
-export const PREDICTOR_PHASES: { key: PredictorPhase; label: string }[] = [
-  { key: "final", label: "Final Phase" },
-  { key: "phase1", label: "Phase 1" },
-  { key: "phase2", label: "Phase 2" },
-  { key: "special", label: "Special Phase" },
-];
+// PredictorPhase / PREDICTOR_PHASES live in predictor-core.ts (client-safe);
+// re-exported here for backwards compatibility with server-side importers.
+import type { PredictorPhase } from "./predictor-core";
+export { PREDICTOR_PHASES, type PredictorPhase } from "./predictor-core";
 
 /** Phase-specific data sources, newest-first. "final" uses TS_CUTOFFS (handled separately). */
 const TS_PHASE_SOURCES: Record<

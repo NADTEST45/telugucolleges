@@ -12,6 +12,7 @@ import {
   getAllRankBandSlugs,
   getCollegesForBand,
   buildRankBandSlug,
+  refYearLabel,
 } from "@/lib/rank-band-data";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
@@ -35,7 +36,7 @@ export async function generateMetadata({
   const { rank, branch, state } = parsed;
   const rankFmt = rank.toLocaleString("en-IN");
   const title = `${rankFmt} Rank in ${state.exam} — Best ${branch.label} Colleges in ${state.full}`;
-  const description = `What ${branch.label} engineering colleges can you get with rank ${rankFmt} in ${state.exam} 2026? Top ${state.full} colleges where the official OC closing rank covers your score, with fees, NAAC and placements. Updated for ${state.refYear === "2024" ? "2024-25" : "2023-24"} cutoffs.`;
+  const description = `What ${branch.label} engineering colleges can you get with rank ${rankFmt} in ${state.exam} 2026? Top ${state.full} colleges where the official OC closing rank covers your score, with fees, NAAC and placements. Updated for ${refYearLabel(state)} cutoffs.`;
   const url = `${SITE_URL}/eapcet/rank/${slug}`;
 
   return {
@@ -99,7 +100,7 @@ export default async function RankBandPage({
   const rankFmt = rank.toLocaleString("en-IN");
   const matches = getCollegesForBand(parsed);
   const breadcrumbLabel = `${rankFmt} rank · ${branch.label} · ${state.short}`;
-  const refYearLabel = state.refYear === "2024" ? "2024–25" : "2023–24";
+  const refYearLbl = refYearLabel(state);
 
   // FAQ content (rendered visibly below AND emitted as FAQPage JSON-LD —
   // Google requires the schema text to match on-page content).
@@ -107,12 +108,12 @@ export default async function RankBandPage({
     {
       q: `Which ${branch.label} colleges can I get with ${rankFmt} rank in ${state.exam}?`,
       a: matches.length > 0
-        ? `Based on official ${refYearLabel} convener-quota closing ranks, ${matches.length} ${state.full} college${matches.length === 1 ? "" : "s"} closed ${branch.label} at or beyond rank ${rankFmt} for OC — including ${matches.slice(0, 3).map(m => m.college.name).join(", ")}. Cutoffs shift every year, so treat these as realistic targets rather than guarantees.`
-        : `In the ${refYearLabel} reference data, no ${state.full} college in our dataset had an OC closing rank of ${rankFmt} or beyond for ${branch.label}. Consider nearby branches or use the full predictor with your exact category.`,
+        ? `Based on official ${refYearLbl} convener-quota closing ranks, ${matches.length} ${state.full} college${matches.length === 1 ? "" : "s"} closed ${branch.label} at or beyond rank ${rankFmt} for OC — including ${matches.slice(0, 3).map(m => m.college.name).join(", ")}. Cutoffs shift every year, so treat these as realistic targets rather than guarantees.`
+        : `In the ${refYearLbl} reference data, no ${state.full} college in our dataset had an OC closing rank of ${rankFmt} or beyond for ${branch.label}. Consider nearby branches or use the full predictor with your exact category.`,
     },
     {
       q: `Is ${rankFmt} a good rank in ${state.exam} 2026?`,
-      a: `It depends on the branch and category. For ${branch.label}, ${matches.length > 0 ? `${matches.length} college${matches.length === 1 ? " was" : "s were"} reachable at this rank for OC candidates in ${refYearLabel}` : "options for OC candidates were limited at this rank in the reference year"}. Reserved-category (BC, SC, ST, EWS) closing ranks are substantially higher than OC, so the same rank reaches more colleges in those categories.`,
+      a: `It depends on the branch and category. For ${branch.label}, ${matches.length > 0 ? `${matches.length} college${matches.length === 1 ? " was" : "s were"} reachable at this rank for OC candidates in ${refYearLbl}` : "options for OC candidates were limited at this rank in the reference year"}. Reserved-category (BC, SC, ST, EWS) closing ranks are substantially higher than OC, so the same rank reaches more colleges in those categories.`,
     },
     {
       q: `Do these cutoffs apply to all categories?`,
@@ -149,7 +150,7 @@ export default async function RankBandPage({
       </h1>
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
         Colleges in {state.full} where the official OC closing rank
-        ({state.refYear === "2024" ? "2024–25" : "2023–24"} counselling) covered rank{" "}
+        ({refYearLabel(state)} counselling) covered rank{" "}
         <strong>{rankFmt}</strong> for{" "}
         <strong>{branch.label}</strong>. If your {state.exam} rank is around {rankFmt},
         the colleges below are realistic — admission isn&rsquo;t guaranteed (cutoffs
@@ -171,7 +172,7 @@ export default async function RankBandPage({
         <div className="bg-white rounded-lg border border-gray-200 p-3 text-center">
           <div className="text-xs text-gray-500">Reference year</div>
           <div className="text-xl font-bold text-gray-900 mt-0.5">
-            {state.refYear === "2024" ? "2024–25" : "2023–24"}
+            {refYearLabel(state)}
           </div>
         </div>
         <div className="bg-white rounded-lg border border-gray-200 p-3 text-center">
@@ -334,7 +335,7 @@ export default async function RankBandPage({
       <p className="text-xs text-gray-500 leading-relaxed">
         Methodology: closing ranks are sourced from official{" "}
         {state.exam === "TG EAPCET" ? "TSCHE / JNTU Hyderabad" : "APSCHE / JNTU Kakinada"}{" "}
-        last-rank statements for {state.refYear === "2024" ? "2024–25" : "2023–24"}.
+        last-rank statements for {refYearLabel(state)}.
         Reference data is OC (boys) — actual cutoffs vary by category and gender,
         and the convenor-quota cutoffs in 2026 may shift higher or lower than
         the reference year. Use this list as a shortlist for further research,

@@ -1,26 +1,45 @@
 "use client";
+/**
+ * Global header search. Rendered on EVERY page via the root layout, so it
+ * must never import COLLEGES directly (that would ship the full dataset in
+ * the shared client bundle — CLAUDE.md bundle rule). Instead it lazily
+ * fetches the slim /api/search-index on first focus and filters client-side.
+ */
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { COLLEGES } from "@/lib/colleges";
+import type { SearchIndexEntry } from "@/app/api/search-index/route";
 
 export default function SearchBar() {
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
   const [focused, setFocused] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [index, setIndex] = useState<SearchIndexEntry[] | null>(null);
+  const loadingRef = useRef(false);
   const ref = useRef<HTMLDivElement>(null);
   const mobileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
+  // Lazy-load the slim index once, the first time the user shows intent.
+  const ensureIndex = () => {
+    if (index || loadingRef.current) return;
+    loadingRef.current = true;
+    fetch("/api/search-index")
+      .then(res => (res.ok ? res.json() : { colleges: [] }))
+      .then((d: { colleges?: SearchIndexEntry[] }) => setIndex(d.colleges ?? []))
+      .catch(() => { loadingRef.current = false; }); // allow retry on next focus
+  };
+
   const results = useMemo(() => {
-    if (q.length < 2) return [];
-    return COLLEGES.filter(c =>
-      c.name.toLowerCase().includes(q.toLowerCase()) ||
-      c.code.toLowerCase().includes(q.toLowerCase()) ||
-      c.district.toLowerCase().includes(q.toLowerCase())
+    if (q.length < 2 || !index) return [];
+    const needle = q.toLowerCase();
+    return index.filter(c =>
+      c.name.toLowerCase().includes(needle) ||
+      c.code.toLowerCase().includes(needle) ||
+      c.district.toLowerCase().includes(needle)
     ).slice(0, 8);
-  }, [q]);
+  }, [q, index]);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -47,7 +66,7 @@ export default function SearchBar() {
       ))}
       <Link href="/colleges" onClick={() => { setOpen(false); setMobileOpen(false); setQ(""); }}
         className="block w-full text-center px-4 py-2 text-xs text-accent font-semibold hover:bg-blue-50">
-        View all {COLLEGES.length} colleges →
+        View all colleges →
       </Link>
     </div>
   );
@@ -58,8 +77,8 @@ export default function SearchBar() {
       <div className="hidden md:block relative">
         <input
           value={q}
-          onChange={e => { setQ(e.target.value); setOpen(true); }}
-          onFocus={() => { setFocused(true); setOpen(true); }}
+          onChange={e => { setQ(e.target.value); setOpen(true); ensureIndex(); }}
+          onFocus={() => { setFocused(true); setOpen(true); ensureIndex(); }}
           placeholder="Search colleges / universities..."
           aria-label="Search colleges"
           className={`w-full px-4 py-1.5 rounded-lg text-sm outline-none transition-all ${focused ? "bg-white text-gray-900 shadow-lg" : "bg-white/20 text-white placeholder-white/80"}`}
@@ -70,7 +89,7 @@ export default function SearchBar() {
       {/* Mobile search — toggle button + full-width overlay */}
       <div className="md:hidden flex justify-end">
         {!mobileOpen ? (
-          <button onClick={() => setMobileOpen(true)} className="p-2.5 rounded-lg hover:bg-white/15 transition-colors" aria-label="Search">
+          <button onClick={() => { setMobileOpen(true); ensureIndex(); }} className="p-2.5 rounded-lg hover:bg-white/15 transition-colors" aria-label="Search">
             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
           </button>
         ) : (
@@ -80,8 +99,8 @@ export default function SearchBar() {
               <input
                 ref={mobileInputRef}
                 value={q}
-                onChange={e => { setQ(e.target.value); setOpen(true); }}
-                onFocus={() => { setFocused(true); setOpen(true); }}
+                onChange={e => { setQ(e.target.value); setOpen(true); ensureIndex(); }}
+                onFocus={() => { setFocused(true); setOpen(true); ensureIndex(); }}
                 placeholder="Search colleges / universities..."
                 aria-label="Search colleges"
                 className="flex-1 px-3 py-2 rounded-lg text-sm bg-white text-gray-900 outline-none"
@@ -101,7 +120,7 @@ export default function SearchBar() {
                 ))}
                 <Link href="/colleges" onClick={() => { setOpen(false); setMobileOpen(false); setQ(""); }}
                   className="block w-full text-center px-4 py-2.5 text-xs text-accent font-semibold hover:bg-blue-50">
-                  View all {COLLEGES.length} colleges →
+                  View all colleges →
                 </Link>
               </div>
             )}
