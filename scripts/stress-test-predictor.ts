@@ -14,6 +14,7 @@ import {
   type PredictorPhase,
 } from "../src/lib/cutoff-utils";
 import { parseRankBandSlug, getAllRankBandSlugs, getCollegesForBand } from "../src/lib/rank-band-data";
+import { classify } from "../src/lib/predictor-core";
 
 let failures = 0;
 const fail = (msg: string) => { failures++; console.error("  FAIL:", msg); };
@@ -29,10 +30,13 @@ function predict(rankStr: string, state: string, branch: string, cat: Category, 
       const hist = c.state === "Telangana"
         ? getTSPhaseHistoricalCutoff(c.code, branch, cat, gen, phase)
         : getHistoricalCutoff(c.code, branch, cat, gen, c.state);
-      if (hist.avg > 0) return r <= hist.avg * 1.3;
+      // Inclusion window comes from predictor-core's classify() — the single
+      // source of truth for safe/moderate/reach thresholds. classify() returns
+      // null for excluded (rank too far past close) or invalid closing ranks.
+      if (hist.avg > 0) return classify(r, hist.avg) !== null;
       if (usePhaseData) return false;
       const cutoff = c.cutoff[branch];
-      return cutoff && cutoff > 0 && r <= cutoff * 1.3;
+      return !!cutoff && cutoff > 0 && classify(r, cutoff) !== null;
     })
     .map(c => {
       const hist = c.state === "Telangana"

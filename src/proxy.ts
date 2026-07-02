@@ -14,15 +14,31 @@ import { Redis } from "@upstash/redis";
  * failing open. The fallback is per-instance and best-effort, NOT a
  * replacement for Upstash, but it prevents unlimited login brute force.
  */
-type LimiterName = "login" | "createUser" | "editSubmit" | "editReview" | "auditLog" | "shortlist" | "report" | "leads";
+type LimiterName =
+  | "login" | "createUser" | "editSubmit" | "editReview" | "auditLog"
+  | "shortlist" | "report" | "leads"
+  // Read-side limiters (GET endpoints). Generous where the route is
+  // CDN-cached or crawler-facing — the limit only protects the origin.
+  | "og" | "shortlistRead" | "editsRead" | "adminUsersRead" | "adminLeadsRead"
+  | "authMe" | "predict" | "searchIndex";
 
 function createUpstashLimiters(): Record<LimiterName, Ratelimit> | null {
   const url = process.env.UPSTASH_REDIS_REST_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN;
   if (!url || !token) {
     if (process.env.NODE_ENV === "production") {
-      // Surfaces in Vercel logs — we never want production running without limits.
-      console.error("[middleware] Upstash env vars missing — rate limiting DISABLED");
+      // Fires ONCE per boot (module scope, not per-request) and surfaces in
+      // Vercel logs. We keep serving via the in-process fallback below rather
+      // than failing closed (a misconfig must not take down public GETs or
+      // lock admins out of login), but this state is a misconfiguration:
+      // limits are PER-INSTANCE and reset on every cold start, so the
+      // effective global limit is N× the configured value across the fleet.
+      console.error(
+        "[middleware] MISCONFIGURATION: UPSTASH_REDIS_REST_URL/_TOKEN missing in production — " +
+        "rate limiting is falling back to a per-instance in-memory limiter. " +
+        "Limits are NOT enforced fleet-wide (each serverless instance counts separately " +
+        "and resets on cold start). Configure Upstash immediately."
+      );
     } else {
       console.warn("[middleware] Upstash not configured — rate limiting disabled in dev");
     }
@@ -40,6 +56,19 @@ function createUpstashLimiters(): Record<LimiterName, Ratelimit> | null {
     shortlist:   mk(60, "1 m",  "rl:shortlist"),
     report:      mk(5,  "1 h",  "rl:report"),
     leads:       mk(5,  "1 h",  "rl:leads"),
+    // GET-side limits. `og` is deliberately generous: robots.txt allows
+    // /api/og/ and Googlebot/social crawlers fetch it in bursts — 60/min per
+    // IP never throttles a legitimate crawler but caps a CPU-exhaustion loop
+    // (each image render is Satori work). `predict`/`searchIndex` sit behind
+    // CDN caching, so the limit only shields the origin from cache-busting.
+    og:             mk(60,  "1 m", "rl:og"),
+    shortlistRead:  mk(60,  "1 m", "rl:shortlistRead"),
+    editsRead:      mk(30,  "1 m", "rl:editsRead"),
+    adminUsersRead: mk(30,  "1 m", "rl:adminUsersRead"),
+    adminLeadsRead: mk(30,  "1 m", "rl:adminLeadsRead"),
+    authMe:         mk(60,  "1 m", "rl:authMe"),
+    predict:        mk(120, "1 m", "rl:predict"),
+    searchIndex:    mk(60,  "1 m", "rl:searchIndex"),
   };
 }
 
@@ -62,6 +91,14 @@ const FALLBACK_LIMITS: Record<LimiterName, { tokens: number; windowMs: number }>
   shortlist:  { tokens: 60, windowMs: 60 * 1000 },
   report:     { tokens: 5,  windowMs: 60 * 60 * 1000 },
   leads:      { tokens: 5,  windowMs: 60 * 60 * 1000 },
+  og:             { tokens: 60,  windowMs: 60 * 1000 },
+  shortlistRead:  { tokens: 60,  windowMs: 60 * 1000 },
+  editsRead:      { tokens: 30,  windowMs: 60 * 1000 },
+  adminUsersRead: { tokens: 30,  windowMs: 60 * 1000 },
+  adminLeadsRead: { tokens: 30,  windowMs: 60 * 1000 },
+  authMe:         { tokens: 60,  windowMs: 60 * 1000 },
+  predict:        { tokens: 120, windowMs: 60 * 1000 },
+  searchIndex:    { tokens: 60,  windowMs: 60 * 1000 },
 };
 
 // Map of "name:key" -> recent request timestamps (ms). Module-level so it
@@ -205,6 +242,30 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
+  /* ── Defense-in-depth gate for /admin, /college-admin, /marketing ──
+   * Cookie-PRESENCE check only — we deliberately do NOT verify the token
+   * here. Admin identity lives in the httpOnly `tc_admin_token` cookie and
+   * is verified server-side by getAuthUser() (Supabase service client) in
+   * every API route those pages call; that remains the authoritative check.
+   * Verifying in middleware would add a service-client round-trip to every
+   * admin request and pull heavy Supabase code into the edge bundle. This
+   * gate only stops unauthenticated visitors from loading the admin page
+   * shells at all. Login pages live UNDER these prefixes, so they are
+   * excluded to avoid a redirect loop. */
+  const adminArea = ["/admin", "/college-admin", "/marketing"].find(
+    (p) => pathname === p || pathname.startsWith(`${p}/`)
+  );
+  if (adminArea) {
+    const isLoginPage = pathname === `${adminArea}/login`;
+    const hasAdminCookie = Boolean(request.cookies.get("tc_admin_token")?.value);
+    if (!isLoginPage && !hasAdminCookie) {
+      const loginUrl = request.nextUrl.clone();
+      loginUrl.pathname = `${adminArea}/login`;
+      loginUrl.searchParams.set("next", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+  }
+
   /* ── CSRF Protection on API POST/PUT/DELETE/PATCH ── */
   if (pathname.startsWith("/api/") && ["POST", "PUT", "DELETE", "PATCH"].includes(request.method)) {
     const origin = request.headers.get("origin");
@@ -323,39 +384,118 @@ export async function proxy(request: NextRequest) {
     }
   }
 
+  /* ── Rate limiting: OG images (60 per min per IP — generous, crawler-facing) ── */
+  if (pathname.startsWith("/api/og/") && request.method === "GET") {
+    const ip = getClientIp(request);
+    if (await isRateLimited("og", ip)) {
+      return NextResponse.json(
+        { error: "Too many requests. Please slow down." },
+        { status: 429 }
+      );
+    }
+  }
+
+  /* ── Rate limiting: shortlist reads (60 per min per IP) ── */
+  if (pathname === "/api/shortlist" && request.method === "GET") {
+    const ip = getClientIp(request);
+    if (await isRateLimited("shortlistRead", ip)) {
+      return NextResponse.json(
+        { error: "Too many requests. Please slow down." },
+        { status: 429 }
+      );
+    }
+  }
+
+  /* ── Rate limiting: edit-request reads (30 per min per IP) ── */
+  if (pathname === "/api/edits" && request.method === "GET") {
+    const ip = getClientIp(request);
+    if (await isRateLimited("editsRead", ip)) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again later." },
+        { status: 429 }
+      );
+    }
+  }
+
+  /* ── Rate limiting: admin user listing (30 per min per IP) ── */
+  if (pathname === "/api/admin/users" && request.method === "GET") {
+    const ip = getClientIp(request);
+    if (await isRateLimited("adminUsersRead", ip)) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again later." },
+        { status: 429 }
+      );
+    }
+  }
+
+  /* ── Rate limiting: counselling-lead reads (30 per min per IP) ── */
+  if (pathname === "/api/admin/leads" && request.method === "GET") {
+    const ip = getClientIp(request);
+    if (await isRateLimited("adminLeadsRead", ip)) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again later." },
+        { status: 429 }
+      );
+    }
+  }
+
+  /* ── Rate limiting: auth session check (60 per min per IP — admin UIs poll this on mount) ── */
+  if (pathname === "/api/auth/me" && request.method === "GET") {
+    const ip = getClientIp(request);
+    if (await isRateLimited("authMe", ip)) {
+      return NextResponse.json(
+        { error: "Too many requests. Please slow down." },
+        { status: 429 }
+      );
+    }
+  }
+
+  /* ── Rate limiting: predictor API (120 per min per IP — CDN-cached, origin shield only) ── */
+  if (pathname === "/api/predict" && request.method === "GET") {
+    const ip = getClientIp(request);
+    if (await isRateLimited("predict", ip)) {
+      return NextResponse.json(
+        { error: "Too many requests. Please slow down." },
+        { status: 429 }
+      );
+    }
+  }
+
+  /* ── Rate limiting: search index (60 per min per IP — CDN-cached, origin shield only) ── */
+  if (pathname === "/api/search-index" && request.method === "GET") {
+    const ip = getClientIp(request);
+    if (await isRateLimited("searchIndex", ip)) {
+      return NextResponse.json(
+        { error: "Too many requests. Please slow down." },
+        { status: 429 }
+      );
+    }
+  }
+
   return response;
 }
 
-/* ── Matcher scope: why /admin, /college-admin, /marketing are NOT listed ──
- * An audit flagged that these admin areas aren't in the middleware matcher.
- * This is intentional and safe given the architecture:
- *
- *   - All pages under /admin, /college-admin and /marketing are CLIENT
- *     components ("use client"). On mount they call /api/auth/me and redirect
- *     to their login page unless it returns an authenticated admin. They hold
- *     NO server-rendered sensitive data.
- *   - Every byte of sensitive data they show comes from API routes
- *     (/api/edits, /api/admin/users, /api/edits/review, ...), each of which
- *     calls getAuthUser() server-side and returns 401/403 when unauthenticated.
- *     Those API routes ARE covered by the matcher's "/api/:path*". So an
- *     unauthenticated visitor to /admin sees only an empty shell — no leak.
- *
- *   - A middleware-level gate would NOT be a cheap win here. Admin identity
- *     lives in the httpOnly `tc_admin_token` cookie, verified via the Supabase
- *     SERVICE client in getAuthUser() — a different auth system from the public
- *     anon-key SSR session this middleware refreshes. Gating these paths would
- *     mean a service-client token round-trip on every admin request, and the
- *     login pages (/admin/login, /college-admin/login, /marketing/login) live
- *     UNDER these prefixes, so a redirect-to-login guard risks a redirect loop
- *     and could break the admin login flow. Per the security review we leave
- *     the robust server-side checks (getAuthUser in every API route) as the
- *     source of truth rather than add a fragile middleware gate before the
- *     results-season traffic spike.
- *
- *   A proper defense-in-depth fix would be a small server component / layout
- *     for each area that calls getAuthUser() and redirect()s — done in the App
- *     Router layer that already has cookie access, not in middleware.
+/* ── Matcher scope: /admin, /college-admin, /marketing ──
+ * These admin areas are now matched for a LIGHTWEIGHT defense-in-depth gate
+ * (see the cookie-presence check in proxy() above). The gate only checks
+ * that the httpOnly `tc_admin_token` cookie EXISTS — it does not verify it.
+ * Verification stays where it always was: getAuthUser() (Supabase service
+ * client) inside every API route those pages call, which returns 401/403 to
+ * unauthenticated callers. The pages themselves are client components that
+ * hold no server-rendered sensitive data, so the cookie-presence check adds
+ * a shell-level barrier at zero network cost without importing any Supabase
+ * code into the middleware path. Login pages (/admin/login,
+ * /college-admin/login, /marketing/login) are excluded from the redirect to
+ * avoid a loop.
  */
 export const config = {
-  matcher: ["/api/:path*", "/account/:path*", "/login", "/auth/:path*"],
+  matcher: [
+    "/api/:path*",
+    "/account/:path*",
+    "/login",
+    "/auth/:path*",
+    "/admin/:path*",
+    "/college-admin/:path*",
+    "/marketing/:path*",
+  ],
 };

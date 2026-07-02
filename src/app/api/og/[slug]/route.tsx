@@ -1,5 +1,8 @@
 import { ImageResponse } from "next/og";
-import { getCollegeBySlug, fmtFee } from "@/lib/colleges";
+import { fmtFee } from "@/lib/colleges";
+import { getCollegeBySlugMerged } from "@/lib/colleges-merged";
+import { hasCutoffData } from "@/lib/cutoff-presence";
+import { getHistoricalCutoff } from "@/lib/cutoff-utils";
 
 /**
  * Per-college OG image (1200×630) as a plain route handler.
@@ -13,10 +16,16 @@ import { getCollegeBySlug, fmtFee } from "@/lib/colleges";
  * (Verified in production 2026-06-12.)
  *
  * Cached at the CDN for 24h (s-maxage); college data changes at most
- * with a deploy, and a stale share card for a few hours is harmless.
+ * with a deploy or an approved override, and a stale share card for a
+ * few hours is harmless.
  *
- * Uses ONLY static COLLEGES data — no Supabase call. Satori supports
- * flexbox only; every multi-child div needs display:flex.
+ * Data: getCollegeBySlugMerged() so approved Supabase overrides (fee,
+ * naac, placements…) show on share cards, not just stale static values —
+ * the override fetch is ISR-cached (60s) so this stays cheap. The cutoff
+ * stat is table-aware: `cutoff.cse === 0` is common for colleges whose
+ * real ranks live only in the historical tables (server-only imports —
+ * this is a server route, so that's fine). Satori supports flexbox only;
+ * every multi-child div needs display:flex.
  */
 
 export const dynamic = "force-dynamic";
@@ -32,7 +41,7 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const c = getCollegeBySlug(slug);
+  const c = await getCollegeBySlugMerged(slug);
 
   if (!c) {
     return new ImageResponse(
@@ -48,11 +57,24 @@ export async function GET(
   // Scale the headline down for long college names
   const nameSize = c.name.length > 70 ? 38 : c.name.length > 45 ? 46 : 56;
 
+  // Table-aware CSE cutoff: the summary `cutoff.cse` field is 0 for many
+  // colleges whose genuine ranks live only in the historical tables. Fall
+  // back to the recency-weighted OC/boys closing rank from those tables; if
+  // the tables have entries but not for CSE specifically, point at the
+  // cutoff page rather than showing a misleading "—".
+  let cseCutoffValue = "—";
+  if (c.cutoff.cse > 0) {
+    cseCutoffValue = c.cutoff.cse.toLocaleString("en-IN");
+  } else if (hasCutoffData(c)) {
+    const hist = getHistoricalCutoff(c.code, "cse", "OC", "boys", c.state);
+    cseCutoffValue = hist.avg > 0 ? hist.avg.toLocaleString("en-IN") : "See cutoffs";
+  }
+
   const stats: { label: string; value: string }[] = [
     { label: "B.Tech Fee / yr", value: c.fee > 0 ? fmtFee(c.fee) : "—" },
     {
       label: c.type === "Deemed University" ? "Admission" : "CSE Cutoff (OC)",
-      value: c.type === "Deemed University" ? "Own Exam" : c.cutoff.cse > 0 ? c.cutoff.cse.toLocaleString("en-IN") : "—",
+      value: c.type === "Deemed University" ? "Own Exam" : cseCutoffValue,
     },
     { label: "Avg Package", value: c.placements.avg > 0 ? `₹${c.placements.avg} LPA` : "—" },
     { label: "NAAC", value: c.naac && c.naac !== "-" ? c.naac : "—" },

@@ -108,10 +108,13 @@ CREATE POLICY "College admins can insert own edits"
     submitted_by IN (SELECT id FROM admin_users WHERE auth_id = auth.uid() AND is_active = true)
   );
 
--- college_overrides: read-only for authenticated users
-CREATE POLICY "Authenticated users can read overrides"
+-- college_overrides: no direct anon/authenticated reads — service role only.
+-- The sole reader is getCollegesMerged() (src/lib/colleges-merged.ts), which
+-- uses SUPABASE_SERVICE_ROLE_KEY and bypasses RLS. Matches the live DB state
+-- after migrations/005_tighten_overrides_rls.sql — keep the two in sync.
+CREATE POLICY "No anon read of overrides"
   ON college_overrides FOR SELECT
-  USING (auth.role() = 'authenticated');
+  USING (false);
 
 -- audit_log: only super admins via service role (no direct access)
 CREATE POLICY "No direct access to audit log"
