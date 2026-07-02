@@ -14,6 +14,46 @@ const nextConfig: NextConfig = {
   // Next.js's 404 page for that path, which IndexNow treats as a
   // verification failure. The rewrite preserves the standard path
   // search engines expect while routing through code we control.
+  // Permanent redirects for college slugs that were fixed (typos in the
+  // slug only — the underlying college is unchanged). Old URLs were live
+  // and indexed, so 301 them to the corrected slugs across all
+  // /colleges/[slug] sub-routes.
+  async redirects() {
+    const slugFixes: [string, string][] = [
+      [
+        "balaji-institute-of-technology-and-socience-bitn",
+        "balaji-institute-of-technology-and-science-bitn",
+      ],
+      [
+        "brilliant-grammer-school-educational-society-brig",
+        "brilliant-grammar-school-educational-society-brig",
+      ],
+      [
+        "sri-chaitanya-technocal-campus-chet",
+        "sri-chaitanya-technical-campus-chet",
+      ],
+      [
+        "avanthis-scientific-technological-and-research-aca-asra",
+        "avanthis-scientific-technological-and-research-academy-asra",
+      ],
+      [
+        "auroras-scientific-technological-and-research-aca-aurc",
+        "auroras-scientific-technological-and-research-academy-aurc",
+      ],
+    ];
+    return slugFixes.flatMap(([oldSlug, newSlug]) => [
+      {
+        source: `/colleges/${oldSlug}`,
+        destination: `/colleges/${newSlug}`,
+        permanent: true,
+      },
+      {
+        source: `/colleges/${oldSlug}/:sub`,
+        destination: `/colleges/${newSlug}/:sub`,
+        permanent: true,
+      },
+    ]);
+  },
   async rewrites() {
     return [
       {

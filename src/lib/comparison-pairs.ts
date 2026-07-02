@@ -1,4 +1,5 @@
 import { COLLEGES, College } from '@/lib/colleges';
+import { CUTOFF_TABLE_CODES } from '@/lib/cutoff-table-codes';
 
 /**
  * Represents a comparison pair of colleges
@@ -56,10 +57,21 @@ export function qualityScore(c: College): number {
   return score;
 }
 
+/**
+ * Table-aware cutoff signal. `cutoff.cse === 0` is common even for colleges
+ * with real data — their ranks live only in the historical/phase tables.
+ * This module is imported by a client page (/compare), so we can't import
+ * cutoff-presence.ts (it would pull the multi-MB tables into the client
+ * bundle); we use the generated, codes-only CUTOFF_TABLE_CODES instead.
+ */
+function hasCutoffSignal(c: College): boolean {
+  return c.cutoff.cse > 0 || CUTOFF_TABLE_CODES.has(c.code);
+}
+
 /** Has at least *some* real data (not a placeholder row). */
 function hasSignal(c: College): boolean {
   let dims = 0;
-  if (c.cutoff.cse > 0) dims++;
+  if (hasCutoffSignal(c)) dims++;
   if (c.placements.avg > 0) dims++;
   if (c.nirf > 0) dims++;
   if (c.naac && c.naac !== "-" && c.naac !== "") dims++;

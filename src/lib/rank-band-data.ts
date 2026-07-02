@@ -36,6 +36,13 @@ export interface BranchOption {
   tsCode: string;
   /** Branch code in AP_CUTOFFS (lowercase) */
   apCode: string;
+  /**
+   * Alternate AP_CUTOFFS keys used by some colleges for the same branch
+   * (branch-taxonomy.ts is the canonical source — e.g. cyber security is
+   * keyed "csc" at most AP colleges but "ccc" at a few). Tried in order
+   * after `apCode` fails.
+   */
+  apAltCodes?: string[];
 }
 
 // NOTE: branch slugs MUST be a single lowercase token ([a-z]+) — parseRankBandSlug's
@@ -52,7 +59,7 @@ export const BRANCH_OPTIONS: BranchOption[] = [
   { slug: "csm",   label: "CSE (AI & ML)",        tsCode: "CSM",  apCode: "cse_aiml" },
   { slug: "csd",   label: "CSE (Data Science)",   tsCode: "CSD",  apCode: "cse_ds" },
   { slug: "aid",   label: "AI & Data Science",    tsCode: "AID",  apCode: "ai_ds" },
-  { slug: "csc",   label: "CSE (Cyber Security)", tsCode: "CSC",  apCode: "csc" },
+  { slug: "csc",   label: "CSE (Cyber Security)", tsCode: "CSC",  apCode: "csc", apAltCodes: ["ccc"] },
 ];
 
 export interface StateOption {
@@ -176,11 +183,17 @@ export function getOcClosingRank(
   const isTS = state.full === "Telangana";
   const college = isTS ? TS_CUTOFFS[collegeCode] : AP_CUTOFFS[collegeCode];
   if (!college) return 0;
-  const branchKey = isTS ? branch.tsCode : branch.apCode;
+  // AP data keys the same branch under alternate codes at a few colleges
+  // (see BranchOption.apAltCodes) — try the primary code first, then alternates.
+  const branchKeys = isTS
+    ? [branch.tsCode]
+    : [branch.apCode, ...(branch.apAltCodes ?? [])];
   // Newest year first, then fall back through older published years.
   for (const year of [state.refYear, ...state.fallbackYears]) {
-    const rank = college[year]?.[branchKey]?.OC;
-    if (rank) return rank;
+    for (const branchKey of branchKeys) {
+      const rank = college[year]?.[branchKey]?.OC;
+      if (rank) return rank;
+    }
   }
   return 0;
 }
