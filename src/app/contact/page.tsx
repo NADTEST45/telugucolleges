@@ -4,6 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Contact Us | TeluguColleges",
   description: "Get in touch with TeluguColleges.com for data corrections, partnerships, or general inquiries.",
+  alternates: { canonical: "/contact" },
   openGraph: {
     title: "Contact Us | TeluguColleges",
     description: "Get in touch with TeluguColleges.com for data corrections, partnerships, or general inquiries.",

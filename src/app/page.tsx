@@ -1,5 +1,8 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { COLLEGES, fmtFee } from "@/lib/colleges";
+// Server-only (pulls the cutoff tables) — page.tsx is a server component.
+import { hasCutoffData } from "@/lib/cutoff-presence";
 import { getLatestNews } from "@/lib/news";
 import AdSlot from "@/components/ads/AdSlot";
 import JsonLd from "@/components/JsonLd";
@@ -12,6 +15,12 @@ import ap_mca from "@/lib/ap_mca_data.json";
 import { TG_COUNSELLING_NOW, AP_COUNSELLING_NOW } from "@/lib/counselling-status";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
+
+// Homepage self-canonical. Title/description/OG inherit from the root
+// layout (which intentionally no longer sets a canonical — see layout.tsx).
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   const stats = {
@@ -32,8 +41,19 @@ export default function Home() {
   };
 
   const latestNews = getLatestNews(3);
-  const topTS = COLLEGES.filter(c => c.state === "Telangana" && c.cutoff.cse > 0).sort((a, b) => a.cutoff.cse - b.cutoff.cse).slice(0, 5);
-  const topAP = COLLEGES.filter(c => c.state === "Andhra Pradesh" && c.cutoff.cse > 0).sort((a, b) => a.cutoff.cse - b.cutoff.cse).slice(0, 5);
+  // Top-5 lists need a numeric rank to sort by, which only the summary
+  // cutoff.cse provides — but don't EXCLUDE colleges whose ranks live only
+  // in the historical tables (cutoff.cse === 0 is common for real colleges):
+  // they get a fallback ordering after the numerically-ranked ones. This is
+  // a server component, so importing the table-aware helper is safe here.
+  const topByCse = (state: string) => {
+    const inState = COLLEGES.filter(c => c.state === state);
+    const ranked = inState.filter(c => c.cutoff.cse > 0).sort((a, b) => a.cutoff.cse - b.cutoff.cse);
+    const tableOnly = inState.filter(c => c.cutoff.cse === 0 && hasCutoffData(c));
+    return [...ranked, ...tableOnly].slice(0, 5);
+  };
+  const topTS = topByCse("Telangana");
+  const topAP = topByCse("Andhra Pradesh");
   const cheapest = [...COLLEGES].filter(c => c.fee > 0 && c.branches.some(b => ["CSE","ECE","EEE","MECH","CIVIL"].includes(b))).sort((a, b) => a.fee - b.fee).slice(0, 6);
 
   const jsonLd = [
@@ -231,7 +251,7 @@ export default function Home() {
                     <span className="font-semibold text-xs sm:text-sm truncate" title={c.name}>{c.name}</span>
                   </div>
                   <div className="text-right shrink-0">
-                    <div className="font-bold text-brand text-xs sm:text-sm tabular-nums">Rank {c.cutoff.cse.toLocaleString()}</div>
+                    <div className="font-bold text-brand text-xs sm:text-sm tabular-nums">{c.cutoff.cse > 0 ? `Rank ${c.cutoff.cse.toLocaleString()}` : "See cutoffs"}</div>
                     <div className="text-xs text-gray-500 tabular-nums">{fmtFee(c.fee)}/yr</div>
                   </div>
                 </Link>

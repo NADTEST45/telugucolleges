@@ -198,9 +198,14 @@ export default async function PlacementPage({ params }: { params: Promise<{ slug
     }
   }
 
-  const jsonLd = buildJsonLd(c);
+  // Mirror generateMetadata's noindex decision: skip rich JSON-LD (org +
+  // FAQ) on placeholder rows that emit `noindex, follow` — structured data
+  // on noindexed pages reads as a mismatch to Google. Visible FAQ content
+  // still renders in the DOM.
+  const indexable = isIndexable(c);
+  const jsonLd = indexable ? buildJsonLd(c) : null;
   const faqs = generateFAQs(c);
-  const faqJsonLd = buildFaqJsonLd(faqs);
+  const faqJsonLd = indexable ? buildFaqJsonLd(faqs) : null;
   const breadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -215,7 +220,7 @@ export default async function PlacementPage({ params }: { params: Promise<{ slug
   return (
     <>
       {jsonLd && <JsonLd data={jsonLd} />}
-      <JsonLd data={faqJsonLd} />
+      {faqJsonLd && <JsonLd data={faqJsonLd} />}
       <JsonLd data={breadcrumbLd} />
       <CollegeDetail c={c} similar={similar} historicalCutoffs={historicalCutoffs} cutoffYears={cutoffYears} phaseCutoffs={phaseCutoffs} phases={phases} faqs={faqs} initialTab="placements" />
     </>

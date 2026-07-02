@@ -1,4 +1,5 @@
 import { getComparisonPair, getAllPairSlugs } from "@/lib/comparison-pairs";
+import { isIndexable } from "@/lib/cutoff-presence"; // SERVER-only — never import from client code
 import { buildCompareFaqs, buildFaqJsonLd } from "@/lib/compare-faq";
 import { fmtFee } from "@/lib/colleges";
 import { notFound } from "next/navigation";
@@ -75,9 +76,16 @@ export async function generateMetadata({
   const description = `${college1.name} (${college1.code}) vs ${college2.name} (${college2.code}) — ${locality} ${tierBit} side-by-side.${feeBit}${cutoffBit}${placementBit} Which is better for B.Tech 2026?`;
   const url = `${SITE_URL}/compare/${pair}`;
 
+  // dynamicParams=true means ad-hoc pairs (both colleges valid, but outside
+  // the curated list) also render — including pairs of placeholder rows.
+  // If either college fails the indexability bar the page is thin content:
+  // emit noindex, mirroring the per-college pages' gating.
+  const noindex = !isIndexable(college1) || !isIndexable(college2);
+
   return {
     title,
     description,
+    robots: noindex ? "noindex, follow" : undefined,
     alternates: {
       canonical: url,
       languages: {
@@ -180,6 +188,9 @@ export default async function ComparePairPage({
   const { college1, college2 } = comparisonPair;
   const branches = ["cse", "ece", "eee", "mech", "civil"];
   const faqs = buildCompareFaqs(college1, college2);
+  // Same gate as generateMetadata: noindexed pair pages skip structured
+  // data (visible content, incl. FAQ answers, stays in the DOM).
+  const indexable = isIndexable(college1) && isIndexable(college2);
 
   // Helper to determine which college is better for a metric
   const getBetterIdx = (values: number[]): number => {
@@ -516,14 +527,11 @@ export default async function ComparePairPage({
         </Link>
       </div>
 
-      {/* JSON-LD Schema (BreadcrumbList) */}
-      <JsonLd data={buildBreadcrumbJsonLd(pair, college1.name, college2.name)} />
-
-      {/* JSON-LD Schema (ItemList — the two colleges being compared) */}
-      <JsonLd data={buildPairItemListJsonLd(pair, college1, college2)} />
-
-      {/* JSON-LD Schema (FAQPage — only emit if we generated FAQs) */}
-      {faqs.length > 0 && <JsonLd data={buildFaqJsonLd(faqs)} />}
+      {/* JSON-LD (Breadcrumb + ItemList + FAQPage) — only on indexable pairs;
+          structured data on noindexed pages is a mismatch signal to Google. */}
+      {indexable && <JsonLd data={buildBreadcrumbJsonLd(pair, college1.name, college2.name)} />}
+      {indexable && <JsonLd data={buildPairItemListJsonLd(pair, college1, college2)} />}
+      {indexable && faqs.length > 0 && <JsonLd data={buildFaqJsonLd(faqs)} />}
     </main>
   );
 }

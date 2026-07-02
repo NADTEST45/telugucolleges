@@ -10,6 +10,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com
 export const metadata: Metadata = {
   title: "Engineering Branches — CSE, ECE, EEE & More | TeluguColleges",
   description: "Explore all B.Tech branches offered in AP & Telangana colleges — fees, scope, placements, and top colleges for each branch.",
+  alternates: { canonical: `${SITE_URL}/branches` },
   openGraph: {
     title: "Engineering Branches — CSE, ECE, EEE & More | TeluguColleges",
     description: "Explore all B.Tech branches offered in AP & Telangana colleges — fees, scope, placements, and top colleges for each branch.",

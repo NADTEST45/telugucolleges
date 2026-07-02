@@ -333,9 +333,27 @@ export default async function CollegePage({ params }: { params: Promise<{ slug: 
     return "private";
   };
   const NAAC_BONUS: Record<string, number> = { "A++": 25, "A+": 18, "A": 12, "B++": 6, "B+": 4, "B": 2 };
+  // Table-aware CSE closing rank: the summary cutoff.cse is 0 for many
+  // colleges whose real ranks live only in the historical tables. This is a
+  // server component that already imports AP_CUTOFFS/TS_CUTOFFS, so we can
+  // resolve a numeric OC rank from the newest available year as a fallback.
+  const cseRankOf = (col: typeof c): number => {
+    if (col.cutoff.cse > 0) return col.cutoff.cse;
+    const isTS = col.state === "Telangana";
+    const table = (isTS ? TS_CUTOFFS[col.code] : AP_CUTOFFS[col.code]) as CollegeCutoffs | undefined;
+    if (!table) return 0;
+    const years: readonly string[] = isTS ? TS_CUTOFF_YEARS : AP_CUTOFF_YEARS;
+    const branchKey = isTS ? "CSE" : "cse";
+    for (const y of years) {
+      const rank = table[y]?.[branchKey]?.OC;
+      if (rank) return rank;
+    }
+    return 0;
+  };
   const qScore = (col: typeof c): number => {
     let s = 0;
-    if (col.cutoff.cse > 0) s += Math.min(40, 100000 / col.cutoff.cse);
+    const cse = cseRankOf(col);
+    if (cse > 0) s += Math.min(40, 100000 / cse);
     s += Math.min(40, col.placements.avg * 2.5);
     if (col.nirf > 0) s += Math.min(20, 400 / col.nirf);
     s += NAAC_BONUS[col.naac?.trim?.() ?? ""] ?? 0;
@@ -344,13 +362,12 @@ export default async function CollegePage({ params }: { params: Promise<{ slug: 
   };
   const cTier = tierOf(c);
 
-  const layer1 = mergedColleges.filter(s =>
-    s.id !== c.id &&
-    s.state === c.state &&
-    s.cutoff.cse > 0 &&
-    c.cutoff.cse > 0 &&
-    Math.abs(s.cutoff.cse - c.cutoff.cse) < 5000,
-  );
+  const cRank = cseRankOf(c);
+  const layer1 = mergedColleges.filter(s => {
+    if (s.id === c.id || s.state !== c.state || cRank <= 0) return false;
+    const sRank = cseRankOf(s);
+    return sRank > 0 && Math.abs(sRank - cRank) < 5000;
+  });
   const seenIds = new Set<number>([c.id, ...layer1.map(s => s.id)]);
 
   const layer2 = mergedColleges
@@ -385,9 +402,14 @@ export default async function CollegePage({ params }: { params: Promise<{ slug: 
     }
   }
 
-  const jsonLd = buildJsonLd(c);
+  // Mirror generateMetadata's noindex decision: placeholder rows emit
+  // `noindex, follow`, and Google flags structured data on noindexed pages
+  // as a mismatch. Skip the rich JSON-LD (org + FAQ) there; the visible
+  // FAQ content still renders in the DOM.
+  const indexable = isIndexable(c);
+  const jsonLd = indexable ? buildJsonLd(c) : null;
   const faqs = generateFAQs(c);
-  const faqJsonLd = buildFaqJsonLd(faqs);
+  const faqJsonLd = indexable ? buildFaqJsonLd(faqs) : null;
   const breadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -401,7 +423,7 @@ export default async function CollegePage({ params }: { params: Promise<{ slug: 
   return (
     <>
       {jsonLd && <JsonLd data={jsonLd} />}
-      <JsonLd data={faqJsonLd} />
+      {faqJsonLd && <JsonLd data={faqJsonLd} />}
       <JsonLd data={breadcrumbLd} />
       <CollegeDetail c={c} similar={similar} historicalCutoffs={historicalCutoffs} cutoffYears={cutoffYears} phaseCutoffs={phaseCutoffs} phases={phases} faqs={faqs} initialTab="overview" />
     </>

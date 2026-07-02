@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { COLLEGES } from "@/lib/colleges";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 import { isIndexable } from "@/lib/cutoff-presence";
 import { getAllProgramSlugs } from "@/lib/program-data";
 import { getAllBranchSlugs } from "@/lib/branch-data";
@@ -41,8 +41,18 @@ const BUILD_DATE = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
  * convention, to avoid the build-time route conflict we hit before.
  */
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
+
+  // Use the MERGED college list (static COLLEGES + approved Supabase
+  // overrides) so the sitemap judges indexability on the same data the
+  // page metadata does (generateMetadata uses getCollegeBySlugMerged).
+  // Overrides can flip isIndexable() — e.g. an approved naac or
+  // placements.avg edit promotes a placeholder row — and iterating the
+  // static list here would leave such pages indexable-but-unlisted.
+  // getCollegesMerged() falls back to static COLLEGES when Supabase env
+  // vars are absent or the fetch fails, so builds never break on it.
+  const colleges = await getCollegesMerged();
 
   // Static top-level pages — no `lastModified`. These pages are templates
   // whose user-visible content changes on every dataset refresh, so claiming
@@ -52,6 +62,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: BASE, changeFrequency: "weekly", priority: 1.0 },
     { url: `${BASE}/colleges`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE}/branches`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/programs`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/universities`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/eapcet`, changeFrequency: "monthly", priority: 0.8 },
     // EAPCET 2026 season pages — results tracker changes near-daily until the
@@ -110,7 +121,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // pages were diluting crawl budget and getting flagged "Crawled —
   // currently not indexed". As college data is populated, those rows
   // auto-promote into the sitemap on the next deploy.
-  for (const c of COLLEGES) {
+  for (const c of colleges) {
     if (!isIndexable(c)) continue;
     const base = `${BASE}/colleges/${c.slug}`;
     entries.push(

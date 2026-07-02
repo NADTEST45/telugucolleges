@@ -52,9 +52,11 @@ export const metadata: Metadata = {
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION || "MWdRc-SU5_3OG1p0oDuzC9a544o9kBjzLqIsMuU9wUA",
   },
-  alternates: {
-    canonical: "/",
-  },
+  // NOTE: no `alternates.canonical` here — a canonical set in the root
+  // layout is inherited by every page that doesn't define its own, which
+  // silently canonicalised un-annotated pages to "/". The homepage's
+  // canonical lives in src/app/page.tsx; every other public page must
+  // declare its own.
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

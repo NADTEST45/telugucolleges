@@ -1,4 +1,16 @@
+import type { Metadata } from "next";
 import { COLLEGES } from "@/lib/colleges";
+
+export const metadata: Metadata = {
+  title: "About Us | TeluguColleges",
+  description: "About TeluguColleges.com — how we source verified fee, cutoff, and accreditation data for professional colleges in AP & Telangana.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About Us | TeluguColleges",
+    description: "About TeluguColleges.com — how we source verified fee, cutoff, and accreditation data for professional colleges in AP & Telangana.",
+    images: [{ url: "https://telugucolleges.com/og-image.png", width: 1200, height: 630 }],
+  },
+};
 
 export default function AboutPage() {
   // Render the actual count — not a marketing-rounded number. This is a

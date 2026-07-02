@@ -4,6 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Terms of Use | TeluguColleges",
   description: "Terms and conditions for using TeluguColleges.com — data accuracy, intellectual property, limitation of liability, and user conduct.",
+  alternates: { canonical: "/terms" },
   openGraph: {
     title: "Terms of Use | TeluguColleges",
     description: "Terms and conditions for using TeluguColleges.com.",

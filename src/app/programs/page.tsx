@@ -1,5 +1,17 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getAllPrograms, fmtFee } from "@/lib/program-data";
+
+export const metadata: Metadata = {
+  title: "All Programs & Courses — B.Tech, MBA, Pharmacy & More | TeluguColleges",
+  description: "Browse every program offered by professional colleges in AP & Telangana — engineering, pharmacy, medical, management, and science. Compare colleges and fees for each program.",
+  alternates: { canonical: "/programs" },
+  openGraph: {
+    title: "All Programs & Courses — B.Tech, MBA, Pharmacy & More | TeluguColleges",
+    description: "Browse every program offered by professional colleges in AP & Telangana — engineering, pharmacy, medical, management, and science.",
+    images: [{ url: "https://telugucolleges.com/og-image.png", width: 1200, height: 630 }],
+  },
+};
 
 const CATEGORY_STYLES: Record<string, { bg: string; text: string; border: string; icon: string }> = {
   Engineering: { bg: "bg-indigo-50", text: "text-indigo-700", border: "border-l-indigo-500", icon: "⚙️" },

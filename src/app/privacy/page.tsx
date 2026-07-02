@@ -4,6 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Privacy Policy | TeluguColleges",
   description: "Privacy policy for TeluguColleges.com — how we collect, use, store, and protect your data.",
+  alternates: { canonical: "/privacy" },
   openGraph: {
     title: "Privacy Policy | TeluguColleges",
     description: "Privacy policy for TeluguColleges.com — how we collect, use, store, and protect your data.",

@@ -15,6 +15,7 @@ import {
   TOTAL_ALL,
 } from "./filtering";
 import { COLLEGES, type College } from "@/lib/colleges";
+import { isIndexable } from "@/lib/cutoff-presence"; // SERVER-only — this page is a Server Component
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
@@ -121,7 +122,10 @@ export default async function CollegesPage({ searchParams }: PageProps) {
   };
   const isCanonicalView =
     !filters.state && !filters.section && !filters.district && !filters.affiliation && !filters.q;
-  const topColleges = isCanonicalView ? filtered.slice(0, 50) : [];
+  // Only indexable colleges belong in the ItemList — pointing structured
+  // data at noindexed placeholder profiles wastes crawl budget and creates
+  // an indexing-signal mismatch.
+  const topColleges = isCanonicalView ? filtered.filter(isIndexable).slice(0, 50) : [];
   const itemListLd = topColleges.length > 0
     ? {
         "@context": "https://schema.org",
