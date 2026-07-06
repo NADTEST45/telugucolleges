@@ -1,9 +1,9 @@
+import { SITE_URL } from "@/lib/site";
 import { NEWS_ITEMS, NEWS_CATEGORIES, type NewsItem } from "@/lib/news";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export const revalidate = 3600;
 // dynamicParams=false → any slug not in NEWS_ITEMS returns a real HTTP 404,

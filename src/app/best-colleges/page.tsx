@@ -1,9 +1,9 @@
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { getCitiesByState } from "@/lib/city-data";
 import { REGIONS, getRegionCollegeCount } from "@/lib/region-data";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export const metadata = {
   title: "Best Engineering Colleges by City — AP & Telangana | TeluguColleges",

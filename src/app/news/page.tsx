@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 /**
  * /news — Server Component shell.
  *
@@ -12,7 +13,6 @@ import JsonLd from "@/components/JsonLd";
 import { NEWS_ITEMS, NEWS_CATEGORIES } from "@/lib/news";
 import NewsList from "./NewsList";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 /**
  * Build an ItemList of NewsArticle objects for the news index page.

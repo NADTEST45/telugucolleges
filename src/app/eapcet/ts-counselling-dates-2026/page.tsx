@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
@@ -8,7 +9,6 @@ import {
 import { AddMilestoneButton, AddPhaseButton } from "@/components/AddToCalendar";
 import CounsellingReminderSignup from "@/components/CounsellingReminderSignup";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 const url = `${SITE_URL}/eapcet/ts-counselling-dates-2026`;
 
 const LAST_UPDATED = "2026-07-01";

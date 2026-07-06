@@ -1,7 +1,7 @@
+import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export const metadata: Metadata = {
   title: "Compare Colleges — Fee, Cutoff & Placements | TeluguColleges",

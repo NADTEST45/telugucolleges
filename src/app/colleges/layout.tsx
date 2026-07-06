@@ -1,7 +1,8 @@
+import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
 import { COLLEGES } from "@/lib/colleges";
 
-const url = `${process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com"}/colleges`;
+const url = `${SITE_URL}/colleges`;
 
 // Generated dynamically from COLLEGES so the count claim always matches
 // reality. The /colleges page lists engineering, pharmacy, medical and

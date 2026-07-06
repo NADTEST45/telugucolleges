@@ -1,9 +1,9 @@
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import { TS_CUTOFF_BRANCHES, getTSCutoffRows } from "@/lib/ts-cutoff-2026";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 const url = `${SITE_URL}/eapcet/tg-cutoff-2026`;
 
 export const revalidate = 86400;

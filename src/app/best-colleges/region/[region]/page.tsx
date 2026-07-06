@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
@@ -9,7 +10,6 @@ import {
 } from "@/lib/region-data";
 import { fmtFee, type College } from "@/lib/colleges";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export const revalidate = 3600; // ISR: revalidate every hour
 // dynamicParams=false → unknown region slugs return a real HTTP 404 instead

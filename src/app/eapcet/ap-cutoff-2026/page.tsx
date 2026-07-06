@@ -1,10 +1,10 @@
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import { AP_CUTOFF_BRANCHES, getCutoffRows } from "@/lib/ap-cutoff-2026";
 import { apResultExpectedPhrase } from "@/lib/ap-result-status";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 const url = `${SITE_URL}/eapcet/ap-cutoff-2026`;
 
 export const revalidate = 86400;

@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import type { Metadata } from "next";
 import AdSlot from "@/components/ads/AdSlot";
@@ -18,7 +19,6 @@ import {
 import { COLLEGES, type College } from "@/lib/colleges";
 import { isIndexable } from "@/lib/cutoff-presence"; // SERVER-only — this page is a Server Component
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 /**
  * Cards rendered per page. The full ~849-card render produced ~3.9 MB of

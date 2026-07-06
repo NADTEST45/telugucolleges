@@ -1,9 +1,9 @@
+import { SITE_URL } from "@/lib/site";
 import { notFound } from "next/navigation";
 import { getAllBranchSlugs, getBranchBySlug, getCollegesForBranch } from "@/lib/branch-data";
 import JsonLd from "@/components/JsonLd";
 import BranchDetail from "./BranchDetail";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export function generateStaticParams() {
   return getAllBranchSlugs().map(slug => ({ slug }));

@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
@@ -5,7 +6,6 @@ import CounsellingToolkit from "@/components/CounsellingToolkit";
 import FeeCalculatorClient, { type SlimCollege } from "./FeeCalculatorClient";
 import { COLLEGES } from "@/lib/colleges";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export const metadata: Metadata = {
   title: "B.Tech Fee Calculator — 4-Year Cost Estimator for AP & Telangana | TeluguColleges",

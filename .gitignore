@@ -21,7 +21,6 @@ check.ts
 _reference/
 *.plugin
 .claude/
-.claude/
 
 # local build logs / pids
 .build-*.log*

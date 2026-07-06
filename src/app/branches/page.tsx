@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BRANCHES, getCollegesForBranch } from "@/lib/branch-data";
@@ -5,7 +6,6 @@ import { getAllPrograms } from "@/lib/program-data";
 import { fmtFee } from "@/lib/colleges";
 import JsonLd from "@/components/JsonLd";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export const metadata: Metadata = {
   title: "Engineering Branches — CSE, ECE, EEE & More | TeluguColleges",

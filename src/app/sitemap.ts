@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import type { MetadataRoute } from "next";
 import { getCollegesMerged } from "@/lib/colleges-merged";
 import { isIndexable } from "@/lib/cutoff-presence";
@@ -11,7 +12,7 @@ import { AP_CUTOFF_BRANCHES } from "@/lib/ap-cutoff-2026";
 import { TS_CUTOFF_BRANCHES } from "@/lib/ts-cutoff-2026";
 import { NEWS_ITEMS } from "@/lib/news";
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
+const BASE = SITE_URL;
 
 /*
  * BUILD_DATE is pinned at module load, but we emit it sparingly. Previously

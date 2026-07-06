@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { COLLEGES, fmtFee } from "@/lib/colleges";
 import { isIndexable } from "@/lib/cutoff-presence";
 import { getCollegeBySlugMerged, getCollegesMerged } from "@/lib/colleges-merged";
@@ -9,7 +10,6 @@ import CollegeDetail from "./CollegeDetail";
 import { buildCollegeJsonLd, generateCollegeFAQs, buildFaqJsonLd, buildCollegeBreadcrumbLd } from "./college-structured-data";
 import { getCutoffProps, getCollegeDetailData } from "./college-detail-data";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export const revalidate = 3600; // ISR: revalidate every hour
 // dynamicParams=false → any slug not in generateStaticParams() returns a

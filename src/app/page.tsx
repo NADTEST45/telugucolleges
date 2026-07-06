@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { COLLEGES, fmtFee } from "@/lib/colleges";
@@ -14,7 +15,6 @@ import ts_mca from "@/lib/mca_data.json";
 import ap_mca from "@/lib/ap_mca_data.json";
 import { TG_COUNSELLING_NOW, AP_COUNSELLING_NOW } from "@/lib/counselling-status";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 // Homepage self-canonical. Title/description/OG inherit from the root
 // layout (which intentionally no longer sets a canonical — see layout.tsx).

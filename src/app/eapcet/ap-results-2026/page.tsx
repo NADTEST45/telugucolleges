@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
@@ -9,7 +10,6 @@ import {
   AP_EAPCET_2026_TOTAL_QUALIFIED,
 } from "@/lib/ap-result-status";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 const url = `${SITE_URL}/eapcet/ap-results-2026`;
 const teUrl = `${SITE_URL}/eapcet/ap-results-2026-telugu`;
 

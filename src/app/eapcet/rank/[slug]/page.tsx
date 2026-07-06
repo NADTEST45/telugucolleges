@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -15,7 +16,6 @@ import {
   refYearLabel,
 } from "@/lib/rank-band-data";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export const revalidate = 86400; // 24 hours — closing ranks change yearly
 export const dynamicParams = false;

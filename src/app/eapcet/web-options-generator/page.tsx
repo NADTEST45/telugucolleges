@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { fmtFee } from "@/lib/colleges";
@@ -16,7 +17,6 @@ import {
 import WebOptionsExport, { type ExportRow } from "./WebOptionsExport";
 import CounsellingToolkit from "@/components/CounsellingToolkit";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 type SP = Record<string, string | string[] | undefined>;
 

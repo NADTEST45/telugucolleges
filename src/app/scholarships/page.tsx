@@ -1,10 +1,10 @@
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { COLLEGES } from "@/lib/colleges";
 import { SCHOLARSHIPS, type ScholarshipInfo } from "@/lib/scholarships";
 import JsonLd from "@/components/JsonLd";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export const metadata: Metadata = {
   title: "Engineering College Scholarships in AP & Telangana 2026 — Merit Fee Waivers",

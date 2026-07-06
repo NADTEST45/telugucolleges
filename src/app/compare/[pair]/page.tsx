@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { getComparisonPair, getAllPairSlugs } from "@/lib/comparison-pairs";
 import { isIndexable } from "@/lib/cutoff-presence"; // SERVER-only — never import from client code
 import { buildCompareFaqs, buildFaqJsonLd } from "@/lib/compare-faq";
@@ -7,7 +8,6 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export const revalidate = 3600; // ISR: revalidate every hour
 export const dynamicParams = true; // Allow pages not in generateStaticParams

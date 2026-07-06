@@ -1,6 +1,6 @@
+import { SITE_URL } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 const url = `${SITE_URL}/eapcet`;
 
 /**

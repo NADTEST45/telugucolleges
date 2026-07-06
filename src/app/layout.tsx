@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
@@ -18,7 +19,7 @@ import { Analytics } from "@vercel/analytics/next";
 const BUILD_DATE = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com"),
+  metadataBase: new URL(SITE_URL),
   title: "TeluguColleges.com — Professional Colleges in AP & Telangana",
   description: "Research professional colleges in Andhra Pradesh & Telangana. Official fees from government orders for B.Tech, MBA, MCA, M.Tech, Medical & more. Real EAPCET cutoffs and comparison tools.",
   keywords: "engineering colleges, Telangana, Andhra Pradesh, EAPCET, fees, cutoffs, JNTUH, JNTUK, MBA, MCA, M.Tech, B.Tech, medical, BBA, BCA",

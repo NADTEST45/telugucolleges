@@ -1,9 +1,9 @@
+import { SITE_URL } from "@/lib/site";
 import { notFound } from "next/navigation";
 import { getAllProgramSlugs, getCollegesForProgram } from "@/lib/program-data";
 import JsonLd from "@/components/JsonLd";
 import ProgramDetail from "./ProgramDetail";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export function generateStaticParams() {
   return getAllProgramSlugs().map(slug => ({ slug }));

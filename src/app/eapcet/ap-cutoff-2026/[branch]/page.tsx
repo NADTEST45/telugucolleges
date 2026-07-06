@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -6,7 +7,6 @@ import { fmtFee } from "@/lib/colleges";
 import { AP_CUTOFF_BRANCHES, getCutoffBranch, getCutoffRows } from "@/lib/ap-cutoff-2026";
 import { apResultExpectedPhrase } from "@/lib/ap-result-status";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://telugucolleges.com";
 
 export const revalidate = 86400;
 export const dynamicParams = false;
