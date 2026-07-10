@@ -13,4 +13,14 @@ BEGIN
       ADD CONSTRAINT edit_requests_evidence_url_https
       CHECK (evidence_url IS NULL OR evidence_url ~ '^https://');
   END IF;
+
+  -- NOT VALID skips the one-time scan of legacy rows, but PostgreSQL still
+  -- enforces the constraint for every new or updated row.
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint WHERE conname = 'edit_requests_evidence_url_required'
+  ) THEN
+    ALTER TABLE public.edit_requests
+      ADD CONSTRAINT edit_requests_evidence_url_required
+      CHECK (evidence_url IS NOT NULL) NOT VALID;
+  END IF;
 END $$;
