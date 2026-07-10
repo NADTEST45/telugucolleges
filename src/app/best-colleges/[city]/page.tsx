@@ -2,9 +2,9 @@ import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 import {
   getCitySlug,
-  getCityFromSlug,
   getCollegesInCity,
   getAllCitySlugs,
   CITY_META,
@@ -33,7 +33,7 @@ export async function generateMetadata({
     return { title: "City Not Found" };
   }
 
-  const colleges = getCollegesInCity(city);
+  const colleges = getCollegesInCity(city, await getCollegesMerged());
   const feeRange = colleges
     .filter((c) => c.fee > 0)
     .map((c) => c.fee)
@@ -75,10 +75,8 @@ export async function generateMetadata({
 
 function BreadcrumbSchema({
   district,
-  state,
 }: {
   district: string;
-  state: string;
 }) {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -138,7 +136,7 @@ export default async function BestCollegesCityPage({
     notFound();
   }
 
-  const colleges = getCollegesInCity(city);
+  const colleges = getCollegesInCity(city, await getCollegesMerged());
 
   if (colleges.length === 0) {
     notFound();
@@ -172,7 +170,7 @@ export default async function BestCollegesCityPage({
 
   return (
     <>
-      <BreadcrumbSchema district={meta.district} state={meta.state} />
+      <BreadcrumbSchema district={meta.district} />
       <CollegeListSchema colleges={colleges} district={meta.district} />
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
         {/* Header */}

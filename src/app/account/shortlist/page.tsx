@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import { useShortlistContext } from "@/components/ShortlistProvider";
-import { COLLEGES, fmtFee, type College } from "@/lib/colleges";
+import { fmtFee } from "@/lib/format";
 
 export default function ShortlistPage() {
   const { user, loading: authLoading, signOut } = useAuth();
@@ -24,11 +24,7 @@ export default function ShortlistPage() {
 
   const loading = authLoading || shortlistLoading || (!!user && !loadRequested);
 
-  // Resolve college data for each shortlisted item
-  const shortlistedColleges = items.map(item => {
-    const college = COLLEGES.find(c => c.slug === item.college_slug) || null;
-    return { ...item, college };
-  });
+  const shortlistedColleges = items;
 
   async function handleRemove(collegeSlug: string, program?: string | null) {
     setRemoving(collegeSlug + (program || ""));
@@ -136,16 +132,16 @@ export default function ShortlistPage() {
                           <span className="text-gray-500">Fee: </span>
                           <span className="font-semibold text-brand">{fmtFee(c.fee)}/yr</span>
                         </div>
-                        {c.cutoff.cse > 0 && (
+                        {c.cseCutoff > 0 && (
                           <div>
                             <span className="text-gray-500">CSE Cutoff: </span>
-                            <span className="font-semibold">{c.cutoff.cse.toLocaleString()}</span>
+                            <span className="font-semibold">{c.cseCutoff.toLocaleString()}</span>
                           </div>
                         )}
-                        {c.placements.avg > 0 && (
+                        {c.avgPackage > 0 && (
                           <div>
                             <span className="text-gray-500">Avg Pkg: </span>
-                            <span className="font-semibold text-green-600">₹{c.placements.avg}L</span>
+                            <span className="font-semibold text-green-600">₹{c.avgPackage}L</span>
                           </div>
                         )}
                       </div>

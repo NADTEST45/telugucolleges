@@ -36,7 +36,7 @@ export default function CollegeCard({ c, borderClass }: { c: College; borderClas
           <CollegeMonogram name={c.name} code={c.code} size="sm" />
           <div className="flex-1 min-w-0">
           <div className="font-bold text-sm sm:text-[15px] leading-tight pr-10">{c.name}</div>
-          <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5 truncate">{c.district}, {c.state} · {c.affiliation} · Est. {c.year}</div>
+          <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5 truncate">{c.district}, {c.state} · {c.affiliation}{c.year ? ` · Est. ${c.year}` : ""}</div>
           <div className="flex gap-1 sm:gap-1.5 mt-1.5 sm:mt-2 flex-wrap">
             <span className={`px-1.5 sm:px-2 py-0.5 rounded text-[11px] font-semibold ${c.type === "Government" ? "bg-green-50 text-green-600" : c.type === "Deemed University" ? "bg-amber-50 text-amber-700" : c.type === "Private University" ? "bg-violet-50 text-violet-700" : "bg-blue-50 text-blue-600"}`}>{c.type}</span>
             {c.nirf > 0 && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600">NIRF {nirfLabel(c.nirf)}</span>}

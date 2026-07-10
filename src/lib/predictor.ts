@@ -54,11 +54,11 @@ import { classify, SAFETY_ORDER } from "@/lib/predictor-core";
 // guard against a pathological payload size.
 const MAX_RESULTS = 400;
 
-export function predict(input: PredictInput): PredictMatch[] {
+export function predict(input: PredictInput, colleges: College[] = COLLEGES): PredictMatch[] {
   const { rank, state, category, gender, branches } = input;
   const out: PredictMatch[] = [];
 
-  for (const c of COLLEGES) {
+  for (const c of colleges) {
     if (c.state !== state.full) continue;
     for (const b of branches) {
       const res = getHistoricalCutoff(

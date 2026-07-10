@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServiceClient } from "@/lib/supabase/client";
+import { getServiceClient } from "@/lib/supabase/server-client";
 import { getAuthUser } from "@/lib/supabase/auth";
+import { revalidateTag } from "next/cache";
 
 export const dynamic = "force-dynamic";
 
@@ -15,13 +16,16 @@ export async function POST(req: NextRequest) {
 
     const { edit_id, action, notes } = await req.json();
 
-    if (!edit_id || !["approve", "reject"].includes(action)) {
+    if (typeof edit_id !== "string" || !/^[0-9a-f-]{36}$/i.test(edit_id) || !["approve", "reject"].includes(action)) {
       return NextResponse.json({ error: "edit_id and action (approve/reject) required" }, { status: 400 });
     }
     if (action === "reject" && !notes) {
       return NextResponse.json({ error: "Rejection reason is required" }, { status: 400 });
     }
-    if (notes && typeof notes === "string" && notes.length > 1000) {
+    if (notes !== undefined && notes !== null && typeof notes !== "string") {
+      return NextResponse.json({ error: "Notes must be text" }, { status: 400 });
+    }
+    if (typeof notes === "string" && notes.length > 1000) {
       return NextResponse.json({ error: "Notes must be 1000 characters or fewer" }, { status: 400 });
     }
 
@@ -82,53 +86,15 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({ error: "Edit already reviewed by another admin" }, { status: 409 });
         }
 
-        // Fallback only if the function isn't deployed (PostgREST PGRST202 /
-        // Postgres 42883). Any other RPC error is a real failure — surface it.
-        const functionMissing =
-          code === "PGRST202" ||
-          code === "42883" ||
-          msg.includes("could not find the function") ||
-          msg.includes("does not exist");
-        if (!functionMissing) {
-          return NextResponse.json({ error: "Failed to approve edit. Please retry." }, { status: 500 });
-        }
-
-        // --- Sequential fallback: write the override FIRST, then flip status. ---
-        // This ordering means an edit is only ever marked "approved" after its
-        // override has actually landed, so a failure can never produce the
-        // "approved but public data unchanged" state.
-        const { error: overrideError } = await sb
-          .from("college_overrides")
-          .upsert({
-            college_code: edit.college_code,
-            field_name: edit.field_name,
-            value: edit.new_value,
-            edit_request_id: edit_id,
-            updated_by: user.id,
-            updated_at: new Date().toISOString(),
-          }, { onConflict: "college_code,field_name" });
-
-        if (overrideError) {
-          return NextResponse.json({ error: "Failed to save override. Please retry." }, { status: 500 });
-        }
-
-        const { data: updated, error: updateError } = await sb
-          .from("edit_requests")
-          .update({
-            status: newStatus,
-            reviewer_id: user.id,
-            reviewer_notes: notes || null,
-          })
-          .eq("id", edit_id)
-          .eq("status", "pending")
-          .select();
-
-        if (updateError) {
-          return NextResponse.json({ error: "Override saved but failed to mark approved. Please retry." }, { status: 500 });
-        }
-        if (!updated || updated.length === 0) {
-          return NextResponse.json({ error: "Edit already reviewed by another admin" }, { status: 409 });
-        }
+        // Never fall back to sequential writes: an approve/reject race could
+        // leave a rejected edit applied. Missing RPC is a deployment health
+        // failure and must fail closed until migrations are installed.
+        const functionMissing = code === "PGRST202" || code === "42883" ||
+          msg.includes("could not find the function") || msg.includes("does not exist");
+        return NextResponse.json(
+          { error: functionMissing ? "Approval service is not configured. Deploy database migrations." : "Failed to approve edit. Please retry." },
+          { status: 503 },
+        );
       }
     }
 
@@ -145,8 +111,11 @@ export async function POST(req: NextRequest) {
         old_value: edit.old_value,
         new_value: edit.new_value,
         notes,
+        evidence_url: edit.evidence_url,
       },
     });
+
+    if (action === "approve") revalidateTag("college-overrides", "max");
 
     return NextResponse.json({ status: newStatus, edit_id });
   } catch (err) {

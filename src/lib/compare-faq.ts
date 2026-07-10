@@ -155,11 +155,11 @@ export function buildCompareFaqs(c1: College, c2: College): FaqItem[] {
     const sameState = c1.state === c2.state;
     let answer: string;
     if (sameDistrict) {
-      answer = `Both ${c1.code} and ${c2.code} are based in ${c1.district}, ${c1.state}. ${c1.code} is affiliated to ${c1.affiliation} and was established in ${c1.year}; ${c2.code} is affiliated to ${c2.affiliation} (established ${c2.year}). Same-city campuses make on-campus visits and direct comparisons easier.`;
+      answer = `Both ${c1.code} and ${c2.code} are based in ${c1.district}, ${c1.state}. ${c1.code} is affiliated to ${c1.affiliation}${c1.year ? ` and was established in ${c1.year}` : ""}; ${c2.code} is affiliated to ${c2.affiliation}${c2.year ? ` (established ${c2.year})` : ""}. Same-city campuses make on-campus visits and direct comparisons easier.`;
     } else if (sameState) {
-      answer = `${c1.name} is in ${c1.district}, ${c1.state} (affiliated to ${c1.affiliation}, established ${c1.year}); ${c2.name} is in ${c2.district}, ${c2.state} (affiliated to ${c2.affiliation}, established ${c2.year}). Both are within ${c1.state} but in different cities, so factor travel and accommodation costs into your decision.`;
+      answer = `${c1.name} is in ${c1.district}, ${c1.state} (affiliated to ${c1.affiliation}${c1.year ? `, established ${c1.year}` : ""}); ${c2.name} is in ${c2.district}, ${c2.state} (affiliated to ${c2.affiliation}${c2.year ? `, established ${c2.year}` : ""}). Both are within ${c1.state} but in different cities, so factor travel and accommodation costs into your decision.`;
     } else {
-      answer = `${c1.name} is in ${c1.district}, ${c1.state} (affiliated to ${c1.affiliation}, established ${c1.year}); ${c2.name} is in ${c2.district}, ${c2.state} (affiliated to ${c2.affiliation}, established ${c2.year}). The two are in different states, which affects EAPCET counselling eligibility — AP and TG run separate counselling processes.`;
+      answer = `${c1.name} is in ${c1.district}, ${c1.state} (affiliated to ${c1.affiliation}${c1.year ? `, established ${c1.year}` : ""}); ${c2.name} is in ${c2.district}, ${c2.state} (affiliated to ${c2.affiliation}${c2.year ? `, established ${c2.year}` : ""}). The two are in different states, which affects EAPCET counselling eligibility — AP and TG run separate counselling processes.`;
     }
     faqs.push({
       question: `Where are ${c1.code} and ${c2.code} located, and how are they affiliated?`,

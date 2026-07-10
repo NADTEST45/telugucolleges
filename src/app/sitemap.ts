@@ -11,6 +11,7 @@ import { getAllRankBandSlugs } from "@/lib/rank-band-data";
 import { AP_CUTOFF_BRANCHES } from "@/lib/ap-cutoff-2026";
 import { TS_CUTOFF_BRANCHES } from "@/lib/ts-cutoff-2026";
 import { NEWS_ITEMS } from "@/lib/news";
+import { isCollegeSectionIndexable } from "@/lib/college-page-quality";
 
 const BASE = SITE_URL;
 
@@ -125,13 +126,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const c of colleges) {
     if (!isIndexable(c)) continue;
     const base = `${BASE}/colleges/${c.slug}`;
-    entries.push(
-      { url: base, changeFrequency: "monthly", priority: 0.7, lastModified: BUILD_DATE },
-      { url: `${base}/placement`, changeFrequency: "monthly", priority: 0.65, lastModified: BUILD_DATE },
-      { url: `${base}/fees`, changeFrequency: "monthly", priority: 0.65, lastModified: BUILD_DATE },
-      { url: `${base}/cutoff`, changeFrequency: "monthly", priority: 0.65, lastModified: BUILD_DATE },
-      { url: `${base}/admission`, changeFrequency: "monthly", priority: 0.65, lastModified: BUILD_DATE },
-    );
+    entries.push({ url: base, changeFrequency: "monthly", priority: 0.7, lastModified: BUILD_DATE });
+    for (const section of ["placement", "fees", "cutoff", "admission"] as const) {
+      if (isCollegeSectionIndexable(c, section)) {
+        entries.push({ url: `${base}/${section}`, changeFrequency: "monthly", priority: 0.65, lastModified: BUILD_DATE });
+      }
+    }
   }
 
   // Comparison pair pages

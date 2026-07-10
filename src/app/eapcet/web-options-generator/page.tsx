@@ -16,6 +16,7 @@ import {
 } from "@/lib/predictor";
 import WebOptionsExport, { type ExportRow } from "./WebOptionsExport";
 import CounsellingToolkit from "@/components/CounsellingToolkit";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 
 
 type SP = Record<string, string | string[] | undefined>;
@@ -74,7 +75,9 @@ export default async function WebOptionsGeneratorPage({
   const rank = parseRank(sp.rank);
   const branchSlugs = new Set(branches.map(b => b.slug));
 
-  const matches = rank ? predict({ rank, state, category, gender, branches }) : [];
+  const matches = rank
+    ? predict({ rank, state, category, gender, branches }, await getCollegesMerged())
+    : [];
   const counts = countBySafety(matches);
   const catLabel = TS_CATEGORIES.find(c => c.key === category)?.label ?? category;
 

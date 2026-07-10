@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 
 
 export const revalidate = 3600; // ISR: revalidate every hour
@@ -23,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ pair: string }>;
 }): Promise<Metadata> {
   const { pair } = await params;
-  const comparisonPair = getComparisonPair(pair);
+  const comparisonPair = getComparisonPair(pair, await getCollegesMerged());
 
   if (!comparisonPair) {
     return {};
@@ -179,7 +180,7 @@ export default async function ComparePairPage({
   params: Promise<{ pair: string }>;
 }) {
   const { pair } = await params;
-  const comparisonPair = getComparisonPair(pair);
+  const comparisonPair = getComparisonPair(pair, await getCollegesMerged());
 
   if (!comparisonPair) {
     notFound();
@@ -249,7 +250,7 @@ export default async function ComparePairPage({
               ["Type", (c: typeof college1) => c.type],
               ["Location", (c: typeof college1) => `${c.district}, ${c.state}`],
               ["Affiliation", (c: typeof college1) => c.affiliation],
-              ["Established", (c: typeof college1) => String(c.year)],
+              ["Established", (c: typeof college1) => c.year ? String(c.year) : "Not verified"],
               ["NAAC Accreditation", (c: typeof college1) => c.naac || "—"],
               ["NBA Accreditation", (c: typeof college1) => c.nba ? "Yes" : "No"],
               ["NIRF Rank", (c: typeof college1) => c.nirf > 0 ? String(c.nirf) : "—"],

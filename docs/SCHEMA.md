@@ -21,7 +21,7 @@ interface College {
   affiliation: string;   // e.g. "JNTUH", "Osmania University"
   naac: string;          // grade ("A++", "A+", "A", "B++"…) or "-" / "" if none
   nba: boolean;
-  year: number;          // established
+  year: number | null;   // established; null means not verified (never use a fake sentinel)
   fee: number;           // annual tuition, ₹ (0 = unknown)
   goFee: number;         // govt-quota / convener fee, ₹
   nirf: number;          // NIRF rank (0 = unranked)
@@ -124,7 +124,9 @@ interface NewsItem {
   category: "eapcet" | "fees" | "counselling" | "naac-nirf" | "general";
   state: "AP" | "TS" | "Both";
   priority: "high" | "medium" | "low";
-  source?: string; sourceUrl?: string; tags: string[];
+  source?: string; sourceUrl?: string;
+  verifiedAt?: string; expiresAt?: string; // required for time-sensitive current alerts
+  tags: string[];
 }
 export const NEWS_ITEMS: NewsItem[]   // newest first; prepend new items
 ```
@@ -147,20 +149,29 @@ export const NEWS_ITEMS: NewsItem[]   // newest first; prepend new items
 | Table | Purpose | Access |
 |---|---|---|
 | `admin_users` | portal accounts; `role IN (super_admin, college_admin, marketing)`; `college_code` NULL for super_admin | self-read via RLS |
-| `edit_requests` | proposed data changes; `category IN (fees, placements, basic_info)`; `status IN (pending, approved, rejected)` | college admin reads/inserts own |
-| `college_overrides` | approved changes, UNIQUE(college_code, field_name) | anon read (build merge); writes service-role only |
+| `edit_requests` | proposed data changes with an official HTTPS `evidence_url`; `category IN (fees, placements, basic_info)`; `status IN (pending, approved, rejected)` | college admin reads/inserts own |
+| `college_overrides` | approved changes, UNIQUE(college_code, field_name) | service-role only; merged server-side |
 | `audit_log` | actions (`approve`/`reject`/`create_user`…) with JSONB details | service-role only |
 | `user_shortlists` (002) | saved college shortlists per user | per-user RLS |
 | `data_reports` (006) | anonymous "report incorrect data" from public pages via `/api/report` | service-role only |
 | `counselling_leads` (007) | predictor/WhatsApp lead capture | service-role only |
 
 `approve_edit_request(edit_id, reviewer_id, notes)` (migration 003) atomically flips status +
-upserts the override. RLS is enabled on all tables; API routes use the service-role key to bypass it.
+upserts the override. The review API fails closed if that RPC is unavailable; it never falls back to a
+partially atomic multi-query approval. RLS is enabled on all tables; API routes use the service-role key.
 
 ### Override field whitelist (`colleges-merged.ts`)
-Only these `field_name` values are applied at build: `fee`, `goFee`, `naac`, `nba`, `year`,
-`affiliation`, `placements.avg`, `placements.highest`, `placements.companies`. Numeric fields are
-validated (`>= 0`, year `> 1900`). Anything else is ignored.
+Only these `field_name` values are applied: `fee`, `goFee`, `naac`, `nba`, `year`, `affiliation`,
+`placements.avg`, `placements.highest`, `placements.companies`. Submission and merge-time validation
+both enforce field-specific ranges; malformed persisted values fail closed. Anything else is ignored.
+
+### Canonical public repository (`colleges-merged.ts`)
+
+Server-rendered public surfaces use `getCollegesMerged()` / `getCollegeBySlugMerged()` so approved
+overrides appear consistently in profiles, lists, comparison, calculators, rank/cutoff pages,
+predictors, and shortlists. The repository is request-deduped and tagged for revalidation. Client
+components receive slim projections rather than importing the full master dataset. Static
+`COLLEGES` remains appropriate for valid-slug enumeration and immutable join-key validation.
 
 ---
 
@@ -168,5 +179,6 @@ validated (`>= 0`, year `> 1900`). Anything else is ignored.
 - `src/app/sitemap.ts` — single flat sitemap; iterates colleges via `isIndexable`, plus branch,
   program, city, compare, rank-band, 2026-cutoff, and news URLs. `lastModified` set sparingly
   (BUILD_DATE for static-data pages; published date for news; omitted for top-level templates).
-- `src/app/robots.ts` — allow `/` & `/api/og/`; disallow `/admin`, `/college-admin`, `/api/`.
+- `src/app/robots.ts` — allow `/` & `/api/og/`; disallow private/auth routes and `/api/`.
 - `next.config.ts` — `output: standalone`, IndexNow key rewrite, full CSP + security headers.
+- `.github/workflows/ci.yml` — typecheck, lint, unit/data-integrity tests, and predictor integration sweep.

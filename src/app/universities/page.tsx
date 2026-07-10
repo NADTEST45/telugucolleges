@@ -1,12 +1,10 @@
 "use client";
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { COLLEGES, fmtFee, College } from "@/lib/colleges";
+import type { College } from "@/lib/colleges";
+import { fmtFee } from "@/lib/format";
 import AdSlot from "@/components/ads/AdSlot";
-
-const UNIVERSITIES = COLLEGES.filter(
-  (c) => c.type === "Deemed University" || c.type === "Private University"
-);
+import { useUniversitiesData } from "./UniversitiesDataProvider";
 
 function nirfLabel(rank: number): string {
   if (rank <= 0) return "";
@@ -21,8 +19,6 @@ const SECTIONS: { key: College["type"]; label: string; color: string; border: st
   { key: "Private University", label: "Private State Universities", color: "text-violet-700", border: "border-l-violet-500", bg: "bg-violet-50", desc: "Established by state legislation with authority to grant their own degrees" },
 ];
 
-const ALL_DISTRICTS = [...new Set(UNIVERSITIES.map((c) => c.district))].sort();
-
 function UniCard({ c, borderClass }: { c: College; borderClass: string }) {
   return (
     <Link
@@ -33,7 +29,7 @@ function UniCard({ c, borderClass }: { c: College; borderClass: string }) {
         <div className="flex-1 min-w-0">
           <div className="font-bold text-sm sm:text-[15px] leading-tight">{c.name}</div>
           <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5 truncate">
-            {c.district}, {c.state} · Est. {c.year}
+            {c.district}, {c.state}{c.year ? ` · Est. ${c.year}` : ""}
           </div>
           <div className="flex gap-1 sm:gap-1.5 mt-1.5 sm:mt-2 flex-wrap">
             <span
@@ -108,6 +104,7 @@ function UniCard({ c, borderClass }: { c: College; borderClass: string }) {
 }
 
 export default function UniversitiesPage() {
+  const UNIVERSITIES = useUniversitiesData();
   const [search, setSearch] = useState("");
   const [state, setState] = useState("");
   const [district, setDistrict] = useState("");

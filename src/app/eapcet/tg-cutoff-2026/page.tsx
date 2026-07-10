@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import { TS_CUTOFF_BRANCHES, getTSCutoffRows } from "@/lib/ts-cutoff-2026";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 
 const url = `${SITE_URL}/eapcet/tg-cutoff-2026`;
 
@@ -10,7 +11,7 @@ export const revalidate = 86400;
 
 const title = "TG EAPCET 2026 Cutoff — Branch-wise & College-wise Closing Ranks";
 const description =
-  "TG EAPCET 2026 cutoff ranks for CSE, ECE, EEE, Civil, Mechanical, IT, AI/ML and more — college-wise closing ranks based on official TSCHE 2024-25 & 2023-24 last-rank data. Counselling registration June 19–28; web options June 25–July 1; Phase-1 allotment by July 10, 2026.";
+  "TG EAPCET 2026 cutoff reference for CSE, ECE, EEE, Civil, Mechanical, IT, AI/ML and more, based on official TGCHE historical last-rank data. Phase-1 allotment processing was underway on July 10.";
 
 export const metadata: Metadata = {
   title,
@@ -20,9 +21,10 @@ export const metadata: Metadata = {
   twitter: { card: "summary", title, description },
 };
 
-export default function TGCutoff2026HubPage() {
+export default async function TGCutoff2026HubPage() {
+  const colleges = await getCollegesMerged();
   const branchStats = TS_CUTOFF_BRANCHES.map(b => {
-    const rows = getTSCutoffRows(b.slug);
+    const rows = getTSCutoffRows(b.slug, colleges);
     return { ...b, count: rows.length, top: rows[0] };
   });
 
@@ -39,7 +41,7 @@ export default function TGCutoff2026HubPage() {
   const faqs = [
     {
       q: "When will the official TG EAPCET 2026 cutoff be released?",
-      a: "Official closing ranks appear after each counselling phase. With registration June 19–28, web options June 25–July 1 and Phase-1 allotment due by July 10, 2026, the Phase-1 last-rank statement should appear in mid-July, and final-phase cutoffs by August 2026.",
+      a: "Official closing ranks appear after each counselling phase. The official portal entered Phase-1 allotment-processing mode on July 10, 2026; allotted candidates must pay the fee and self-report online by July 14. Final-phase cutoffs are expected after the later rounds conclude.",
     },
     {
       q: "What is a good rank in TG EAPCET 2026?",
@@ -75,10 +77,10 @@ export default function TGCutoff2026HubPage() {
       </h1>
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
         Branch-wise cutoffs for TG EAPCET 2026 counselling, built from official TSCHE
-        last-rank statements (2024–25 and 2023–24) — not a prediction. Phase-1 web options
-        closed <strong>July 1</strong>; mock allotment is due by <strong>July 4</strong>{" "}
-        (revise options July 5–7) and the final Phase-1 allotment by{" "}
-        <strong>July 10, 2026</strong>. Pick a branch below for the full college-wise table,
+        last-rank statements (2024–25 and 2023–24) — not a prediction. The official portal
+        entered <strong>Phase-1 allotment processing</strong> on July 10; allotted candidates
+        must pay the fee and self-report online by <strong>July 14, 2026</strong>. Pick a branch
+        below for the full college-wise table,
         or use the{" "}
         <Link href="/eapcet" className="text-accent font-semibold underline">College Predictor</Link>{" "}
         for a category- and gender-specific list once you have your rank.

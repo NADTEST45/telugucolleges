@@ -1,7 +1,8 @@
 import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { COLLEGES } from "@/lib/colleges";
+import type { College } from "@/lib/colleges";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 import { SCHOLARSHIPS, type ScholarshipInfo } from "@/lib/scholarships";
 import JsonLd from "@/components/JsonLd";
 
@@ -67,8 +68,8 @@ function examToken(examName: string): string {
   return examName.split("(")[0].trim();
 }
 
-function buildEntries(): Entry[] {
-  const byCode = new Map(COLLEGES.map(c => [c.code, c]));
+function buildEntries(colleges: College[]): Entry[] {
+  const byCode = new Map(colleges.map(c => [c.code, c]));
   return Object.entries(SCHOLARSHIPS)
     .map(([code, info]) => {
       const c = byCode.get(code);
@@ -119,7 +120,7 @@ export default async function ScholarshipsPage({
   const state: StateSlug = stateSel === "ts" || stateSel === "ap" ? stateSel : "all";
   const examSel = (Array.isArray(sp.exam) ? sp.exam[0] : sp.exam) ?? "all";
 
-  const all = buildEntries();
+  const all = buildEntries(await getCollegesMerged());
   const allExams = [...new Set(all.flatMap(e => e.examTokens))].sort();
   const entries = all.filter(
     e => stateMatches(e, state) && (examSel === "all" || e.examTokens.includes(examSel)),

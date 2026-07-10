@@ -5,6 +5,7 @@ import { BRANCHES, getCollegesForBranch } from "@/lib/branch-data";
 import { getAllPrograms } from "@/lib/program-data";
 import { fmtFee } from "@/lib/colleges";
 import JsonLd from "@/components/JsonLd";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 
 
 export const metadata: Metadata = {
@@ -27,23 +28,17 @@ const CATEGORY_META: Record<string, { label: string; subtitle: string; color: st
   agriculture: { label: "Agriculture & Food Technology", subtitle: "Agriculture", color: "border-l-lime-500", icon: "🌾" },
 };
 
-// Programs that are NOT covered by branches (degree types rather than specialisations)
-const PROGRAM_CATEGORY_META: Record<string, { label: string; color: string; icon: string }> = {
-  Management: { label: "Management & Business", color: "border-l-amber-500", icon: "📊" },
-  Science: { label: "Science & Arts", color: "border-l-emerald-500", icon: "🔬" },
-  Other: { label: "Other Programmes", color: "border-l-gray-400", icon: "📚" },
-};
-
 // Engineering programs already covered by branches — exclude from programs section
 const BRANCH_COVERED_PROGRAMS = new Set(["B.Tech", "B.E.", "B.Pharm", "M.Pharm", "Pharm.D", "MBBS"]);
 // Postgraduate engineering shown separately
 const PG_ENGINEERING = new Set(["M.Tech", "M.E.", "Dual Degree (B.Tech + M.S.)", "Polytechnic Diploma"]);
 
-export default function BranchesPage() {
+export default async function BranchesPage() {
+  const mergedColleges = await getCollegesMerged();
   const categories = new Map<string, typeof enriched>();
 
   const enriched = BRANCHES.map(b => {
-    const colleges = getCollegesForBranch(b.code);
+    const colleges = getCollegesForBranch(b.code, mergedColleges);
     const fees = colleges.filter(c => c.college.fee > 0).map(c => c.college.fee);
     return {
       ...b,
@@ -59,7 +54,7 @@ export default function BranchesPage() {
   }
 
   // Get programs not covered by branches
-  const allPrograms = getAllPrograms();
+  const allPrograms = getAllPrograms(mergedColleges);
   const extraPrograms = allPrograms.filter(p => !BRANCH_COVERED_PROGRAMS.has(p.name));
   const pgEngineering = extraPrograms.filter(p => PG_ENGINEERING.has(p.name));
   const managementPrograms = extraPrograms.filter(p => p.category === "Management");

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { COLLEGES } from "@/lib/colleges";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 
 export const metadata: Metadata = {
   title: "About Us | TeluguColleges",
@@ -12,10 +12,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
   // Render the actual count — not a marketing-rounded number. This is a
   // public-facing page and the claim needs to match reality at all times.
-  const totalColleges = COLLEGES.length;
+  const totalColleges = (await getCollegesMerged()).length;
 
   return (
     <main className="max-w-3xl mx-auto px-4 sm:px-6 py-12">

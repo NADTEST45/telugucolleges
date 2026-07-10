@@ -215,10 +215,13 @@ export interface RankBandMatch {
  * want at the top; we're trying to maximise their college choice
  * within their reach.
  */
-export function getCollegesForBand(parsed: ParsedRankBand): RankBandMatch[] {
+export function getCollegesForBand(
+  parsed: ParsedRankBand,
+  colleges: College[] = COLLEGES,
+): RankBandMatch[] {
   const { rank, branch, state } = parsed;
   const matches: RankBandMatch[] = [];
-  for (const c of COLLEGES) {
+  for (const c of colleges) {
     if (c.state !== state.full) continue;
     const closing = getOcClosingRank(c.code, branch, state);
     if (closing <= 0) continue;

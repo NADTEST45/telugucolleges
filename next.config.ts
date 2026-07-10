@@ -87,6 +87,10 @@ const nextConfig: NextConfig = {
     ].join("; ");
 
     return [
+      ...["/admin/:path*", "/college-admin/:path*", "/marketing/:path*", "/account/:path*", "/login"].map(source => ({
+        source,
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }],
+      })),
       {
         source: "/(.*)",
         headers: [

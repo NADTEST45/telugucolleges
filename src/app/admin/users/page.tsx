@@ -2,10 +2,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { COLLEGES } from "@/lib/colleges";
 import type { AdminUser } from "@/lib/supabase/types";
+import { useCollegeOptions } from "./CollegeOptionsProvider";
 
 export default function ManageUsersPage() {
+  const colleges = useCollegeOptions();
   const [user, setUser] = useState<AdminUser | null>(null);
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [loading, setLoading] = useState(true);
@@ -39,7 +40,7 @@ export default function ManageUsersPage() {
   // Auto-fill college name when code is selected
   function handleCollegeSelect(code: string) {
     setCollegeCode(code);
-    const c = COLLEGES.find(c => c.code === code);
+    const c = colleges.find(c => c.code === code);
     setCollegeName(c?.name || "");
   }
 
@@ -125,7 +126,7 @@ export default function ManageUsersPage() {
               <select value={collegeCode} onChange={e => handleCollegeSelect(e.target.value)} required
                 className="mt-1 w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-blue-200">
                 <option value="">Select college...</option>
-                {COLLEGES.slice().sort((a, b) => a.name.localeCompare(b.name)).map(c => (
+                {colleges.map(c => (
                   <option key={c.code} value={c.code}>{c.name} ({c.code})</option>
                 ))}
               </select>

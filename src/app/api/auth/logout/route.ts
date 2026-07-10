@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { getAuthUser, clearAuthCookies } from "@/lib/supabase/auth";
-import { getServiceClient } from "@/lib/supabase/client";
+import { getServiceClient } from "@/lib/supabase/server-client";
 
 export const dynamic = "force-dynamic";
 

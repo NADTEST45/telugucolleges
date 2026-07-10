@@ -2,8 +2,8 @@ import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 import {
-  getRegionFromSlug,
   getCollegesInRegion,
   getAllRegionSlugs,
   REGION_META,
@@ -32,7 +32,7 @@ export async function generateMetadata({
     return { title: "Region Not Found" };
   }
 
-  const colleges = getCollegesInRegion(region);
+  const colleges = getCollegesInRegion(region, await getCollegesMerged());
   const feeRange = colleges
     .filter((c) => c.fee > 0)
     .map((c) => c.fee)
@@ -137,7 +137,7 @@ export default async function BestCollegesRegionPage({
     notFound();
   }
 
-  const colleges = getCollegesInRegion(region);
+  const colleges = getCollegesInRegion(region, await getCollegesMerged());
 
   if (colleges.length === 0) {
     notFound();

@@ -72,7 +72,7 @@ function buildProfileJsonLd(c: College) {
       addressRegion: c.state,
       addressCountry: "IN",
     },
-    foundingDate: String(c.year),
+    ...(c.year ? { foundingDate: String(c.year) } : {}),
   };
 
   // Affiliation (university the college is affiliated to). Skip when the
@@ -165,7 +165,7 @@ function buildOrgBase(c: College): Record<string, unknown> {
       addressRegion: c.state,
       addressCountry: "IN",
     },
-    foundingDate: String(c.year),
+    ...(c.year ? { foundingDate: String(c.year) } : {}),
   };
 }
 
@@ -338,10 +338,10 @@ function locationFAQ(c: College): FAQItem {
   return {
     question: `Where is ${c.name} located?`,
     answer: isDeemed
-      ? `${c.name} (college code: ${c.code}) is located in ${c.district} district, ${c.state}, India. It is a deemed university with the authority to set its own curriculum and award its own degrees${c.year > 0 ? `, established in ${c.year}` : ""}.`
+      ? `${c.name} (college code: ${c.code}) is located in ${c.district} district, ${c.state}, India. It is a deemed university with the authority to set its own curriculum and award its own degrees${c.year ? `, established in ${c.year}` : ""}.`
       : isPvtUni
-      ? `${c.name} (college code: ${c.code}) is located in ${c.district} district, ${c.state}, India. It is a state private university that awards its own degrees${c.year > 0 ? `, established in ${c.year}` : ""}.`
-      : `${c.name} (college code: ${c.code}) is located in ${c.district} district, ${c.state}, India. It is affiliated to ${c.affiliation}${c.year > 0 ? ` and was established in ${c.year}` : ""}.`,
+      ? `${c.name} (college code: ${c.code}) is located in ${c.district} district, ${c.state}, India. It is a state private university that awards its own degrees${c.year ? `, established in ${c.year}` : ""}.`
+      : `${c.name} (college code: ${c.code}) is located in ${c.district} district, ${c.state}, India. It is affiliated to ${c.affiliation}${c.year ? ` and was established in ${c.year}` : ""}.`,
   };
 }
 

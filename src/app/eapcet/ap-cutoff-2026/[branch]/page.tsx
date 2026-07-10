@@ -6,6 +6,7 @@ import JsonLd from "@/components/JsonLd";
 import { fmtFee } from "@/lib/colleges";
 import { AP_CUTOFF_BRANCHES, getCutoffBranch, getCutoffRows } from "@/lib/ap-cutoff-2026";
 import { apResultExpectedPhrase } from "@/lib/ap-result-status";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 
 
 export const revalidate = 86400;
@@ -23,9 +24,9 @@ export async function generateMetadata({
   const { branch } = await params;
   const b = getCutoffBranch(branch);
   if (!b) return { title: "Not found" };
-  const rows = getCutoffRows(branch);
+  const rows = getCutoffRows(branch, await getCollegesMerged());
   const title = `AP EAPCET 2026 Cutoff for ${b.keyword} — Expected College-wise Closing Ranks`;
-  const description = `AP EAPCET 2026 ${b.keyword} cutoff: expected closing ranks for ${rows.length} Andhra Pradesh engineering colleges, based on official APSCHE 2023-24 & 2022-23 last-rank statements. Results expected end-June 2026, counselling from early July.`;
+  const description = `AP EAPCET 2026 ${b.keyword} cutoff reference for ${rows.length} Andhra Pradesh engineering colleges, based on official APSCHE historical last-rank statements. Rank cards are live; the MPC counselling schedule was still awaited on July 10.`;
   const url = `${SITE_URL}/eapcet/ap-cutoff-2026/${branch}`;
   return {
     title,
@@ -44,7 +45,7 @@ export default async function APCutoffBranchPage({
   const { branch } = await params;
   const b = getCutoffBranch(branch);
   if (!b) notFound();
-  const rows = getCutoffRows(branch);
+  const rows = getCutoffRows(branch, await getCollegesMerged());
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -64,7 +65,7 @@ export default async function APCutoffBranchPage({
     },
     {
       q: "When will AP EAPCET 2026 results and cutoffs be released?",
-      a: "AP EAPCET 2026 results were declared on July 1, 2026. Counselling registration is expected to open within about a week, and the official 2026 closing ranks appear after each allotment round — round 1 is likely in late July, with final-phase cutoffs by August 2026.",
+      a: "AP EAPCET 2026 results were declared on July 1. As of July 10, APSCHE had not published the 2026 MPC counselling schedule. Official 2026 closing ranks will be added only after APSCHE publishes each allotment-round statement.",
     },
     {
       q: "Do cutoffs differ by category and gender?",
@@ -101,7 +102,7 @@ export default async function APCutoffBranchPage({
         <strong>{rows.length} Andhra Pradesh engineering colleges</strong>, based on official
         APSCHE last-rank statements from 2023–24 and 2022–23 convener-quota counselling.
         Results <strong>{apResultExpectedPhrase()}</strong>; official 2026 cutoffs appear
-        after each counselling round (from July). Bookmark this page — it will be updated as
+        after each notified counselling round. Bookmark this page — it will be updated as
         2026 rounds conclude.
       </p>
 

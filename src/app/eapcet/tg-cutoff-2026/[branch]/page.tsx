@@ -10,6 +10,7 @@ import {
   getTSCutoffRows,
   isLastRankSentinel,
 } from "@/lib/ts-cutoff-2026";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 
 
 export const revalidate = 86400;
@@ -27,9 +28,9 @@ export async function generateMetadata({
   const { branch } = await params;
   const b = getTSCutoffBranch(branch);
   if (!b) return { title: "Not found" };
-  const rows = getTSCutoffRows(branch);
+  const rows = getTSCutoffRows(branch, await getCollegesMerged());
   const title = `TG EAPCET 2026 Cutoff for ${b.keyword} — College-wise Closing Ranks`;
-  const description = `TG EAPCET 2026 ${b.keyword} cutoff: closing ranks for ${rows.length} Telangana engineering colleges, based on official TSCHE 2024-25 & 2023-24 last-rank statements. Counselling registration June 19–28; web options June 25–July 1; Phase-1 allotment by July 10.`;
+  const description = `TG EAPCET 2026 ${b.keyword} cutoff reference for ${rows.length} Telangana engineering colleges, based on official TGCHE historical last-rank statements. Phase-1 allotment processing was underway on July 10.`;
   const url = `${SITE_URL}/eapcet/tg-cutoff-2026/${branch}`;
   return {
     title,
@@ -54,7 +55,7 @@ export default async function TGCutoffBranchPage({
   const { branch } = await params;
   const b = getTSCutoffBranch(branch);
   if (!b) notFound();
-  const rows = getTSCutoffRows(branch);
+  const rows = getTSCutoffRows(branch, await getCollegesMerged());
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -70,11 +71,11 @@ export default async function TGCutoffBranchPage({
   const faqs = [
     {
       q: `What is the TG EAPCET 2026 cutoff for ${b.keyword}?`,
-      a: `Official 2026 cutoffs are published only after each counselling phase (Phase-1 allotment by July 10, 2026). The most reliable reference is the official TSCHE last-rank data from 2024-25 counselling, shown in the table above for ${rows.length} colleges. Top colleges close ${b.slug === "cse" ? "within the first few thousand ranks" : "earlier than mid-tier colleges by tens of thousands of ranks"}, and cutoffs typically shift ±10–20% year to year.`,
+      a: `Official 2026 cutoffs are published only after each counselling phase. Phase-1 allotment processing was underway on July 10, 2026. The most reliable reference meanwhile is the official TGCHE last-rank data from 2024-25 counselling, shown in the table above for ${rows.length} colleges. Top colleges close ${b.slug === "cse" ? "within the first few thousand ranks" : "earlier than mid-tier colleges by tens of thousands of ranks"}, and cutoffs typically shift ±10–20% year to year.`,
     },
     {
       q: "When does TG EAPCET 2026 counselling start?",
-      a: "TG EAPCET 2026 counselling registration runs June 19–28, web options entry June 25–July 1, and Phase-1 seat allotment is due by July 10, 2026. The official 2026 closing ranks appear after each allotment phase.",
+      a: "Registration and web options have closed. The official portal entered Phase-1 allotment-processing mode on July 10, 2026; allotted candidates must pay the fee and self-report online by July 14. Official 2026 closing ranks appear after each allotment phase.",
     },
     {
       q: "Do cutoffs differ by category and gender?",
@@ -109,10 +110,10 @@ export default async function TGCutoffBranchPage({
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
         TG EAPCET 2026 cutoff reference for <strong>{b.label}</strong> across{" "}
         <strong>{rows.length} Telangana engineering colleges</strong>, based on official
-        TSCHE last-rank statements from 2024–25 and 2023–24 convener-quota counselling —
-        not a prediction. Counselling registration runs <strong>June 19–28</strong>, web
-        options <strong>June 25–July 1</strong>, and Phase-1 allotment is due by{" "}
-        <strong>July 10, 2026</strong>; official 2026 cutoffs appear after each phase.
+        TGCHE last-rank statements from 2024–25 and 2023–24 convener-quota counselling —
+        not a prediction. The official portal entered <strong>Phase-1 allotment
+        processing</strong> on July 10; allotted candidates must pay the fee and self-report
+        online by <strong>July 14, 2026</strong>. Official 2026 cutoffs appear after each phase.
         Bookmark this page — it will be updated as 2026 phases conclude.
       </p>
 

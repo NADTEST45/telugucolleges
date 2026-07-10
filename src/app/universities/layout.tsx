@@ -1,7 +1,8 @@
 import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
-import { COLLEGES } from "@/lib/colleges";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 import JsonLd from "@/components/JsonLd";
+import { UniversitiesDataProvider } from "./UniversitiesDataProvider";
 
 
 export const metadata: Metadata = {
@@ -22,10 +23,6 @@ export const metadata: Metadata = {
 // The page itself is a client component, so its JSON-LD is emitted here from
 // the (server) layout. Mirrors the universities-section filter on the page:
 // deemed + private state universities, each linking to its /colleges/[slug].
-const UNIVERSITIES = COLLEGES.filter(
-  (c) => c.type === "Deemed University" || c.type === "Private University"
-);
-
 const breadcrumbLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -35,24 +32,26 @@ const breadcrumbLd = {
   ],
 };
 
-const itemListLd = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: "Deemed & Private Universities in Andhra Pradesh & Telangana",
-  numberOfItems: UNIVERSITIES.length,
-  itemListElement: UNIVERSITIES.map((c, i) => ({
-    "@type": "ListItem",
-    position: i + 1,
-    url: `${SITE_URL}/colleges/${c.slug}`,
-    name: c.name,
-  })),
-};
-
-export default function UniversitiesLayout({ children }: { children: React.ReactNode }) {
+export default async function UniversitiesLayout({ children }: { children: React.ReactNode }) {
+  const colleges = (await getCollegesMerged()).filter(
+    c => c.type === "Deemed University" || c.type === "Private University"
+  );
+  const itemListLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Deemed & Private Universities in Andhra Pradesh & Telangana",
+    numberOfItems: colleges.length,
+    itemListElement: colleges.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `${SITE_URL}/colleges/${c.slug}`,
+      name: c.name,
+    })),
+  };
   return (
-    <>
+    <UniversitiesDataProvider colleges={colleges}>
       <JsonLd data={[breadcrumbLd, itemListLd]} />
       {children}
-    </>
+    </UniversitiesDataProvider>
   );
 }

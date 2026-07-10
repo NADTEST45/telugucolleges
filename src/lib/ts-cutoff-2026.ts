@@ -66,11 +66,11 @@ export interface TSCutoffRow {
 /** All Telangana colleges with official last-rank data for this branch,
  *  sorted by latest-year OC closing rank (tightest first). Sentinel values
  *  (156852/156840 = closed at last rank) naturally sink to the bottom. */
-export function getTSCutoffRows(branchSlug: string): TSCutoffRow[] {
+export function getTSCutoffRows(branchSlug: string, colleges: College[] = COLLEGES): TSCutoffRow[] {
   const branch = getTSCutoffBranch(branchSlug);
   if (!branch) return [];
   const code = branch.code;
-  return COLLEGES
+  return colleges
     .filter(c => c.state === "Telangana")
     .map(c => {
       const y2024 = TS_CUTOFFS[c.code]?.["2024"]?.[code];

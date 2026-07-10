@@ -50,7 +50,7 @@ export const AP_EAPCET_2026_RESULT: ApResultStatus = {
   declaredAt: "2026-07-01",
   resultUrl: "https://cets.apsche.ap.gov.in",
   counsellingPortal: "https://eapcet-sche.aptonline.in",
-  counsellingExpected: "within about a week of the result (early-to-mid July 2026)",
+  counsellingExpected: "schedule not yet published as of July 10, 2026",
 };
 
 /**

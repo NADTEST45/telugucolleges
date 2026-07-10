@@ -1,6 +1,6 @@
 import { SITE_URL } from "@/lib/site";
 import { COLLEGES } from "@/lib/colleges";
-import { isIndexable } from "@/lib/cutoff-presence";
+import { isCollegeSectionIndexable } from "@/lib/college-page-quality";
 import { getCollegeBySlugMerged, getCollegesMerged } from "@/lib/colleges-merged";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const description = `${c.name} (${c.code}) placement statistics${pkgInfo}${highestInfo}${companiesInfo}. Branch-wise data, trends & ROI analysis.`;
   const url = `${SITE_URL}/colleges/${slug}/placement`;
   // No placement data → noindex to avoid thin-content classification.
-  const noindex = !isIndexable(c);
+  const noindex = !isCollegeSectionIndexable(c, "placement");
 
   return {
     title,
@@ -77,7 +77,7 @@ export default async function PlacementPage({ params }: { params: Promise<{ slug
   // FAQ) on placeholder rows that emit `noindex, follow` — structured data
   // on noindexed pages reads as a mismatch to Google. Visible FAQ content
   // still renders in the DOM.
-  const indexable = isIndexable(c);
+  const indexable = isCollegeSectionIndexable(c, "placement");
   const jsonLd = indexable ? buildCollegeJsonLd(c, "placement") : null;
   const faqs = generateCollegeFAQs(c, "placement");
   const faqJsonLd = indexable ? buildFaqJsonLd(faqs) : null;

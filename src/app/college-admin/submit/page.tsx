@@ -10,6 +10,7 @@ export default function SubmitEditPage() {
   const [fieldName, setFieldName] = useState("");
   const [newValue, setNewValue] = useState("");
   const [reason, setReason] = useState("");
+  const [evidenceUrl, setEvidenceUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -50,6 +51,7 @@ export default function SubmitEditPage() {
           field_name: fieldName,
           new_value: newValue,
           change_reason: reason,
+          evidence_url: evidenceUrl,
         }),
       });
 
@@ -190,6 +192,20 @@ export default function SubmitEditPage() {
                 className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-blue-200 resize-none"
                 placeholder="e.g., Updated fee as per latest APHERMC order for 2025-26..."
               />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Official Evidence URL</label>
+              <input
+                type="url"
+                value={evidenceUrl}
+                onChange={e => setEvidenceUrl(e.target.value)}
+                required
+                pattern="https://.*"
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-blue-200"
+                placeholder="https://college.edu/official-fee-order.pdf"
+              />
+              <p className="mt-1 text-xs text-gray-500">Link the official order, accreditation listing, or college publication that proves the change.</p>
             </div>
 
             <div className="flex gap-3">

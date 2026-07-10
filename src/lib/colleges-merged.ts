@@ -2,73 +2,16 @@
  * Merges static COLLEGES data with dynamic overrides from Supabase.
  * Used at build time to apply approved edits.
  */
+import "server-only";
+import { cache } from "react";
 import { COLLEGES, type College } from "./colleges";
-
-interface Override {
-  college_code: string;
-  field_name: string;
-  value: string;
-}
-
-/**
- * Apply overrides to a single college record.
- */
-function applyOverrides(college: College, overrides: Override[]): College {
-  const result = { ...college, placements: { ...college.placements } };
-
-  for (const ov of overrides) {
-    const val = ov.value;
-    switch (ov.field_name) {
-      case "fee": {
-        const n = Number(val);
-        if (!isNaN(n) && n >= 0) result.fee = n;
-        break;
-      }
-      case "goFee": {
-        const n = Number(val);
-        if (!isNaN(n) && n >= 0) result.goFee = n;
-        break;
-      }
-      case "naac":
-        result.naac = val;
-        break;
-      case "nba":
-        result.nba = val === "true";
-        break;
-      case "year": {
-        const n = Number(val);
-        if (!isNaN(n) && n > 1900) result.year = n;
-        break;
-      }
-      case "affiliation":
-        result.affiliation = val;
-        break;
-      case "placements.avg": {
-        const n = Number(val);
-        if (!isNaN(n) && n >= 0) result.placements.avg = n;
-        break;
-      }
-      case "placements.highest": {
-        const n = Number(val);
-        if (!isNaN(n) && n >= 0) result.placements.highest = n;
-        break;
-      }
-      case "placements.companies": {
-        const n = Number(val);
-        if (!isNaN(n) && n >= 0) result.placements.companies = n;
-        break;
-      }
-    }
-  }
-
-  return result;
-}
+import { applyCollegeOverrides, type CollegeOverride } from "./college-overrides";
 
 /**
  * Get all colleges with approved overrides applied.
  * For now reads from env/fetch; in production would query Supabase at build time.
  */
-export async function getCollegesMerged(): Promise<College[]> {
+async function loadCollegesMerged(): Promise<College[]> {
   try {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -83,17 +26,17 @@ export async function getCollegesMerged(): Promise<College[]> {
         apikey: serviceKey,
         Authorization: `Bearer ${serviceKey}`,
       },
-      next: { revalidate: 60 }, // ISR: revalidate every 60 seconds
+      next: { revalidate: 60, tags: ["college-overrides"] },
     });
 
     if (!res.ok) return COLLEGES;
 
-    const overrides: Override[] = await res.json();
+    const overrides: CollegeOverride[] = await res.json();
 
     if (!overrides || overrides.length === 0) return COLLEGES;
 
     // Group overrides by college_code
-    const byCode = new Map<string, Override[]>();
+    const byCode = new Map<string, CollegeOverride[]>();
     for (const ov of overrides) {
       if (!byCode.has(ov.college_code)) byCode.set(ov.college_code, []);
       byCode.get(ov.college_code)!.push(ov);
@@ -102,13 +45,16 @@ export async function getCollegesMerged(): Promise<College[]> {
     // Apply overrides
     return COLLEGES.map(c => {
       const collegeOverrides = byCode.get(c.code);
-      return collegeOverrides ? applyOverrides(c, collegeOverrides) : c;
+      return collegeOverrides ? applyCollegeOverrides(c, collegeOverrides) : c;
     });
   } catch (err) {
     // Failed to fetch overrides — returning static data
     return COLLEGES;
   }
 }
+
+/** Request-deduped canonical public college repository. */
+export const getCollegesMerged = cache(loadCollegesMerged);
 
 /**
  * Look up a single college by slug, with approved overrides applied.

@@ -3,33 +3,17 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { AdminUser } from "@/lib/supabase/types";
-import { COLLEGES } from "@/lib/colleges";
-
-/* Precompute stats from the colleges data */
-const TOTAL_COLLEGES = COLLEGES.length;
-const TOTAL_AP = COLLEGES.filter(c => c.state === "Andhra Pradesh").length;
-const TOTAL_TS = COLLEGES.filter(c => c.state === "Telangana").length;
-const TOTAL_DEEMED = COLLEGES.filter(c => c.type === "Deemed University").length;
-const TOTAL_PVT_UNI = COLLEGES.filter(c => c.type === "Private University").length;
-const TOTAL_GOVT = COLLEGES.filter(c => c.type === "Government").length;
-const TOTAL_PRIVATE = COLLEGES.filter(c => c.type === "Private").length;
-const WITH_PLACEMENTS = COLLEGES.filter(c => c.placements.avg > 0).length;
-const WITH_NIRF = COLLEGES.filter(c => c.nirf > 0).length;
-const WITH_NAAC = COLLEGES.filter(c => c.naac && c.naac !== "-" && c.naac !== "N/A").length;
-const BRANCHES_SET = new Set(COLLEGES.flatMap(c => c.branches));
-const DISTRICTS_SET = new Set(COLLEGES.map(c => c.district));
-
-const TOP_BY_PLACEMENTS = [...COLLEGES]
-  .filter(c => c.placements.avg > 0)
-  .sort((a, b) => b.placements.avg - a.placements.avg)
-  .slice(0, 10);
-
-const TOP_BY_HIGHEST = [...COLLEGES]
-  .filter(c => c.placements.highest > 0)
-  .sort((a, b) => b.placements.highest - a.placements.highest)
-  .slice(0, 10);
+import { useMarketingData } from "./MarketingDataProvider";
 
 export default function MarketingDashboard() {
+  const data = useMarketingData();
+  const {
+    totalColleges: TOTAL_COLLEGES, totalAP: TOTAL_AP, totalTS: TOTAL_TS,
+    totalDeemed: TOTAL_DEEMED, totalPrivateUniversity: TOTAL_PVT_UNI,
+    totalGovernment: TOTAL_GOVT, totalPrivate: TOTAL_PRIVATE,
+    withPlacements: WITH_PLACEMENTS, withNirf: WITH_NIRF, withNaac: WITH_NAAC,
+    topByPlacements: TOP_BY_PLACEMENTS, topByHighest: TOP_BY_HIGHEST,
+  } = data;
   const [user, setUser] = useState<AdminUser | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -91,7 +75,7 @@ export default function MarketingDashboard() {
           <StatCard label="Total Colleges" value={TOTAL_COLLEGES} color="purple" />
           <StatCard label="AP Colleges" value={TOTAL_AP} color="green" />
           <StatCard label="TS Colleges" value={TOTAL_TS} color="blue" />
-          <StatCard label="Districts Covered" value={DISTRICTS_SET.size} color="amber" />
+          <StatCard label="Districts Covered" value={data.districtCount} color="amber" />
         </div>
 
         {/* Type Breakdown */}
@@ -109,7 +93,7 @@ export default function MarketingDashboard() {
           <StatCard label="With Placement Data" value={WITH_PLACEMENTS} color="green" sub={`${Math.round(WITH_PLACEMENTS / TOTAL_COLLEGES * 100)}%`} />
           <StatCard label="NIRF Ranked" value={WITH_NIRF} color="rose" sub={`${Math.round(WITH_NIRF / TOTAL_COLLEGES * 100)}%`} />
           <StatCard label="NAAC Accredited" value={WITH_NAAC} color="amber" sub={`${Math.round(WITH_NAAC / TOTAL_COLLEGES * 100)}%`} />
-          <StatCard label="Branches/Programs" value={BRANCHES_SET.size} color="indigo" />
+          <StatCard label="Branches/Programs" value={data.branchCount} color="indigo" />
         </div>
 
         {/* Top Colleges Tables */}

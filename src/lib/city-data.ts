@@ -34,11 +34,11 @@ function isEngineeringCollege(college: College): boolean {
  * Get colleges in a city, sorted by a composite score
  * Score: NIRF rank (lower is better), then CSE cutoff (lower is better), then placement avg (higher is better)
  */
-export function getCollegesInCity(slug: string): College[] {
+export function getCollegesInCity(slug: string, colleges: College[] = COLLEGES): College[] {
   const district = getCityFromSlug(slug);
   if (!district) return [];
 
-  const citiesColleges = COLLEGES.filter(
+  const citiesColleges = colleges.filter(
     (c) => c.district === district && isEngineeringCollege(c)
   );
 

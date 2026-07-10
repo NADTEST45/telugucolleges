@@ -8,6 +8,17 @@ export interface ShortlistItem {
   college_slug: string;
   program: string | null;
   created_at: string;
+  college?: {
+    slug: string;
+    code: string;
+    name: string;
+    district: string;
+    state: string;
+    affiliation: string;
+    fee: number;
+    cseCutoff: number;
+    avgPackage: number;
+  } | null;
 }
 
 /**

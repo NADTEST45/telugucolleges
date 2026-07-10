@@ -6,7 +6,6 @@ import mcaData from "./mca_data.json";
 import mtechData from "./mtech_data.json";
 import apBtechData from "./ap_btech_data.json";
 import apMtechData from "./ap_mtech_data.json";
-import apBbaBcaData from "./ap_bba_bca_data.json";
 import apBarchData from "./ap_barch_data.json";
 import apMbaData from "./ap_mba_data.json";
 import apMcaData from "./ap_mca_data.json";

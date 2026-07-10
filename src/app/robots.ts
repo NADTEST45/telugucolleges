@@ -10,7 +10,7 @@ export default function robots(): MetadataRoute.Robots {
       // and social scrapers can fetch share images. The more specific allow
       // takes precedence over the broader /api/ disallow.
       allow: ["/", "/api/og/"],
-      disallow: ["/admin", "/college-admin", "/api/"],
+      disallow: ["/admin", "/college-admin", "/marketing", "/account", "/login", "/api/"],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
   };

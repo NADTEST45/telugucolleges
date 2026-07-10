@@ -1,6 +1,9 @@
 import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
+import { getCollegesMerged } from "@/lib/colleges-merged";
+import { getFeaturedPairs } from "@/lib/comparison-pairs";
+import { CompareDataProvider } from "./CompareDataProvider";
 
 
 export const metadata: Metadata = {
@@ -29,15 +32,37 @@ const breadcrumbLd = {
   ],
 };
 
-export default function CompareLayout({
+export default async function CompareLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const colleges = await getCollegesMerged();
+  const byCode = new Map(colleges.map(c => [c.code, c]));
+  const featured = getFeaturedPairs(60).flatMap(p => {
+    const college1 = byCode.get(p.college1.code);
+    const college2 = byCode.get(p.college2.code);
+    return college1 && college2 ? [{ slug: p.slug, college1, college2 }] : [];
+  });
+  const compareColleges = colleges.map(c => ({
+    id: c.id,
+    name: c.name,
+    code: c.code,
+    district: c.district,
+    state: c.state,
+    type: c.type,
+    affiliation: c.affiliation,
+    naac: c.naac,
+    nba: c.nba,
+    year: c.year,
+    fee: c.fee,
+    cutoff: c.cutoff,
+    placements: c.placements,
+  }));
   return (
-    <>
+    <CompareDataProvider value={{ colleges: compareColleges, featured }}>
       <JsonLd data={breadcrumbLd} />
       {children}
-    </>
+    </CompareDataProvider>
   );
 }

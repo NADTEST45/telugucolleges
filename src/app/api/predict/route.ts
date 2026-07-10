@@ -18,7 +18,8 @@
  * they are CDN-cacheable; s-maxage keeps origin load minimal.
  */
 import { NextRequest, NextResponse } from "next/server";
-import { COLLEGES, type College } from "@/lib/colleges";
+import { type College } from "@/lib/colleges";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 import {
   getHistoricalCutoff,
   getTSPhaseHistoricalCutoff,
@@ -62,7 +63,7 @@ export async function GET(req: NextRequest) {
     branchCodes.reduce<number>((v, cd) => v || c.cutoff[cd] || c.cutoff[cd.toLowerCase()] || 0, 0);
 
   const out: PredictApiRow[] = [];
-  for (const c of COLLEGES) {
+  for (const c of await getCollegesMerged()) {
     if (c.state !== state) continue;
     const hist =
       c.state === "Telangana"

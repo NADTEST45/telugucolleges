@@ -1,8 +1,8 @@
 // Branch-wise data for landing pages
 // Aggregates colleges, cutoffs, and fees per branch
 
-import { COLLEGES, fmtFee, type College } from "./colleges";
-import { AP_CUTOFFS, type Category } from "./ap-cutoffs";
+import { COLLEGES, type College } from "./colleges";
+import { AP_CUTOFFS } from "./ap-cutoffs";
 import { TS_CUTOFFS } from "./ts-cutoffs";
 
 export interface BranchInfo {
@@ -99,11 +99,11 @@ export interface CollegeForBranch {
   hasCutoff: boolean;
 }
 
-export function getCollegesForBranch(branchCode: string): CollegeForBranch[] {
+export function getCollegesForBranch(branchCode: string, colleges: College[] = COLLEGES): CollegeForBranch[] {
   const results: CollegeForBranch[] = [];
   const seen = new Set<string>();
 
-  for (const col of COLLEGES) {
+  for (const col of colleges) {
     // Check if college offers this branch via branches array
     const hasBranch = col.branches.some(b => canonicalCode(b) === branchCode);
     // Also check cutoff data

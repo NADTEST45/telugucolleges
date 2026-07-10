@@ -45,8 +45,8 @@ export interface CutoffRow {
 
 /** All AP colleges with official last-rank data for this branch, sorted by
  *  latest-year OC closing rank (tightest first). */
-export function getCutoffRows(branchSlug: string): CutoffRow[] {
-  return COLLEGES
+export function getCutoffRows(branchSlug: string, colleges: College[] = COLLEGES): CutoffRow[] {
+  return colleges
     .filter(c => c.state === "Andhra Pradesh")
     .map(c => {
       const y2024 = AP_CUTOFFS[c.code]?.["2024"]?.[branchSlug];

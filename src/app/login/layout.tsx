@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Login | TeluguColleges",
   description: "Log in or create an account to save and compare your favorite colleges on TeluguColleges.com.",
+  robots: { index: false, follow: false, noarchive: true },
   openGraph: {
     title: "Login | TeluguColleges",
     description: "Log in or create an account to save and compare your favorite colleges.",

@@ -1,7 +1,8 @@
 import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { COLLEGES, fmtFee } from "@/lib/colleges";
+import { fmtFee } from "@/lib/colleges";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 // Server-only (pulls the cutoff tables) — page.tsx is a server component.
 import { hasCutoffData } from "@/lib/cutoff-presence";
 import { getLatestNews } from "@/lib/news";
@@ -22,17 +23,18 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-export default function Home() {
+export default async function Home() {
+  const colleges = await getCollegesMerged();
   const stats = {
-    total: COLLEGES.length,
-    ts: COLLEGES.filter(c => c.state === "Telangana").length,
-    ap: COLLEGES.filter(c => c.state === "Andhra Pradesh").length,
-    govt: COLLEGES.filter(c => c.type === "Government").length,
-    eng: COLLEGES.filter(c => c.branches.some(b => ["CSE","ECE","EEE","MECH","CIVIL"].includes(b))).length,
-    pharm: COLLEGES.filter(c => c.branches.includes("B.Pharm")).length,
-    mpharm: COLLEGES.filter(c => c.branches.includes("M.Pharm")).length,
-    pharmd: COLLEGES.filter(c => c.branches.includes("Pharm.D")).length,
-    med: COLLEGES.filter(c => c.branches.includes("MBBS")).length,
+    total: colleges.length,
+    ts: colleges.filter(c => c.state === "Telangana").length,
+    ap: colleges.filter(c => c.state === "Andhra Pradesh").length,
+    govt: colleges.filter(c => c.type === "Government").length,
+    eng: colleges.filter(c => c.branches.some(b => ["CSE","ECE","EEE","MECH","CIVIL"].includes(b))).length,
+    pharm: colleges.filter(c => c.branches.includes("B.Pharm")).length,
+    mpharm: colleges.filter(c => c.branches.includes("M.Pharm")).length,
+    pharmd: colleges.filter(c => c.branches.includes("Pharm.D")).length,
+    med: colleges.filter(c => c.branches.includes("MBBS")).length,
     // Derived from program datasets (ts_*_data + ap_*_data) rather than the main
     // COLLEGES list, because MBA/MCA have dedicated listings that are broader
     // than the engineering directory.
@@ -47,14 +49,14 @@ export default function Home() {
   // they get a fallback ordering after the numerically-ranked ones. This is
   // a server component, so importing the table-aware helper is safe here.
   const topByCse = (state: string) => {
-    const inState = COLLEGES.filter(c => c.state === state);
+    const inState = colleges.filter(c => c.state === state);
     const ranked = inState.filter(c => c.cutoff.cse > 0).sort((a, b) => a.cutoff.cse - b.cutoff.cse);
     const tableOnly = inState.filter(c => c.cutoff.cse === 0 && hasCutoffData(c));
     return [...ranked, ...tableOnly].slice(0, 5);
   };
   const topTS = topByCse("Telangana");
   const topAP = topByCse("Andhra Pradesh");
-  const cheapest = [...COLLEGES].filter(c => c.fee > 0 && c.branches.some(b => ["CSE","ECE","EEE","MECH","CIVIL"].includes(b))).sort((a, b) => a.fee - b.fee).slice(0, 6);
+  const cheapest = [...colleges].filter(c => c.fee > 0 && c.branches.some(b => ["CSE","ECE","EEE","MECH","CIVIL"].includes(b))).sort((a, b) => a.fee - b.fee).slice(0, 6);
 
   const jsonLd = [
     {

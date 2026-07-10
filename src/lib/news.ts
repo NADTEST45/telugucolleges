@@ -9,22 +9,43 @@ export interface NewsItem {
   priority: "high" | "medium" | "low";
   source?: string;
   sourceUrl?: string;
+  /** Last official verification time for deadline-sensitive reporting. */
+  verifiedAt?: string;
+  /** After this time, CI requires the item to be reviewed or superseded. */
+  expiresAt?: string;
   tags: string[];
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  {
+    id: "tg-eapcet-2026-phase-1-allotment-processing-july-10",
+    date: "2026-07-10",
+    title: "TG EAPCET 2026 Phase-1 Allotment Processing Underway — Official Portal Temporarily Closed",
+    summary: "The official TG EAPCET admissions portal is temporarily closed for Phase-1 allotment processing on July 10, 2026. Candidates should check tgeapcet.nic.in for the allotment result; the notified fee-payment and online self-reporting window runs through July 14.",
+    body: "The official TG EAPCET 2026 admissions portal at tgeapcet.nic.in currently states that the website is closed for allotment processing. This is the final processing stage after the July 5–7 option-modification window.\n\nWhat candidates should do:\n• Use only tgeapcet.nic.in to check the Phase-1 allotment result\n• Keep your hall-ticket number, login details and payment method ready\n• If allotted, pay the tuition fee and complete online self-reporting within the notified July 10–14 window\n• Download and preserve the allotment order and payment receipt\n\nDo not rely on unofficial result links or share credentials with third parties. The portal may reopen in stages while allotment files propagate; retry from the official homepage if a result link is temporarily unavailable.",
+    category: "counselling",
+    state: "TS",
+    priority: "high",
+    source: "TGCHE — TG EAPCET 2026 Admissions Portal",
+    sourceUrl: "https://tgeapcet.nic.in/default.aspx",
+    verifiedAt: "2026-07-10T16:30:00+05:30",
+    expiresAt: "2026-07-15T00:00:00+05:30",
+    tags: ["TG EAPCET", "TS EAMCET", "Phase 1", "Seat Allotment", "July 10", "2026"],
+  },
   // ── New: July 1, 2026 ────────────────────────────────────────
   {
     id: "ap-eapcet-2026-result-declared-july-1",
     date: "2026-07-01",
     title: "AP EAPCET 2026 Result Declared — Download Rank Card at cets.apsche.ap.gov.in; 70.52% Qualify in Engineering",
-    summary: "The AP EAPCET (AP EAMCET) 2026 result was declared on July 1, 2026. Of 2,58,545 candidates who appeared, 1,82,317 qualified in the Engineering stream (70.52% pass rate) and 63,546 qualified in the Agriculture & Pharmacy stream (89.59%). Rank cards are now downloadable at cets.apsche.ap.gov.in using the hall ticket number and date of birth. In Agriculture & Pharmacy, Sambangi Jaswanth Naidu topped with a combined score of 92.5398. Counselling registration is expected to open within about a week.",
-    body: "The Andhra Pradesh State Council of Higher Education (APSCHE), through JNTU Kakinada, declared the AP EAPCET 2026 (formerly AP EAMCET) result on July 1, 2026. Education Minister Nara Lokesh released the result data. Candidates can now download their rank cards at cets.apsche.ap.gov.in.\n\nKey numbers (as announced):\n• Registered: 2,76,572 candidates\n• Appeared: 2,58,545 candidates\n• Engineering stream: 1,82,317 qualified — 70.52% pass percentage\n• Agriculture & Pharmacy stream: 63,546 qualified — 89.59% pass percentage\n• Qualifying mark: at least 25% of maximum marks for OC candidates; no minimum qualifying mark for SC/ST candidates\n\nToppers:\n• Agriculture & Pharmacy stream: Sambangi Jaswanth Naidu topped with a combined score of 92.5398; Kudumula Venkata Mahant Akshaj Reddy placed second with 91.8114.\n• Among the top five Engineering ranks, three candidates are from Andhra Pradesh and two from Telangana.\n\nHow to download your AP EAPCET 2026 rank card:\n1. Visit cets.apsche.ap.gov.in and open EAPCET 2026 → Results / Rank Card\n2. Log in with your hall ticket number and date of birth (registration number may also be required)\n3. Enter the CAPTCHA and submit\n4. Download and save the PDF rank card; take 2–3 printouts for counselling\n\nWhat's next — counselling: APSCHE is expected to open AP EAPCET 2026 counselling registration within roughly a week of the result. The centralised online process typically covers registration and processing-fee payment, certificate verification, web options (college/branch preferences), and phase-wise seat allotment. Exact dates will be notified separately at cets.apsche.ap.gov.in.\n\nWhat to do now: Download and save your rank card immediately. Keep your counselling certificates ready — hall ticket, rank card, SSC and Intermediate memos, Transfer Certificate, study/bonafide certificates (for local-area status), income certificate (for fee reimbursement), and caste/EWS certificate if applicable. Use your rank to build a college and branch preference list in advance so you can enter web options quickly once counselling opens. Track cets.apsche.ap.gov.in for the official counselling notification.",
+    summary: "The AP EAPCET (AP EAMCET) 2026 result was declared on July 1, 2026. Of 2,58,545 candidates who appeared, 1,82,317 qualified in Engineering (70.52%) and 63,546 in Agriculture & Pharmacy (89.59%). Rank cards are live at cets.apsche.ap.gov.in. As of July 10, APSCHE had not published the 2026 MPC counselling schedule.",
+    body: "The Andhra Pradesh State Council of Higher Education (APSCHE), through JNTU Kakinada, declared the AP EAPCET 2026 (formerly AP EAMCET) result on July 1, 2026. Education Minister Nara Lokesh released the result data. Candidates can now download their rank cards at cets.apsche.ap.gov.in.\n\nKey numbers (as announced):\n• Registered: 2,76,572 candidates\n• Appeared: 2,58,545 candidates\n• Engineering stream: 1,82,317 qualified — 70.52% pass percentage\n• Agriculture & Pharmacy stream: 63,546 qualified — 89.59% pass percentage\n• Qualifying mark: at least 25% of maximum marks for OC candidates; no minimum qualifying mark for SC/ST candidates\n\nToppers:\n• Agriculture & Pharmacy stream: Sambangi Jaswanth Naidu topped with a combined score of 92.5398; Kudumula Venkata Mahant Akshaj Reddy placed second with 91.8114.\n• Among the top five Engineering ranks, three candidates are from Andhra Pradesh and two from Telangana.\n\nHow to download your AP EAPCET 2026 rank card:\n1. Visit cets.apsche.ap.gov.in and open EAPCET 2026 → Results / Rank Card\n2. Log in with your hall ticket number and date of birth (registration number may also be required)\n3. Enter the CAPTCHA and submit\n4. Download and save the PDF rank card; take 2–3 printouts for counselling\n\nWhat's next — counselling: as of July 10, APSCHE had not published the 2026 MPC counselling schedule. The centralised online process will cover registration and processing-fee payment, certificate verification, web options (college/branch preferences), and phase-wise seat allotment once officially notified. Check cets.apsche.ap.gov.in and eapcet-sche.aptonline.in for exact dates.\n\nWhat to do now: Download and save your rank card immediately. Keep your counselling certificates ready — hall ticket, rank card, SSC and Intermediate memos, Transfer Certificate, study/bonafide certificates (for local-area status), income certificate (for fee reimbursement), and caste/EWS certificate if applicable. Use your rank to build a college and branch preference list in advance. Do not rely on predicted registration dates; track the official APSCHE portals for the notification.",
     category: "eapcet",
     state: "AP",
     priority: "high",
     source: "APSCHE / JNTU Kakinada — AP EAPCET 2026 Result",
     sourceUrl: "https://cets.apsche.ap.gov.in/EAPCET/",
+    verifiedAt: "2026-07-10T16:30:00+05:30",
+    expiresAt: "2026-07-17T00:00:00+05:30",
     tags: ["AP EAPCET", "AP EAMCET", "Result", "Rank Card", "Declared", "July 1", "2026"],
   },
   {

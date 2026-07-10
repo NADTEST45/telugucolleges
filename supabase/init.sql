@@ -10,7 +10,7 @@ CREATE TABLE admin_users (
   email TEXT UNIQUE NOT NULL,
   college_code TEXT,                -- NULL for super_admin
   college_name TEXT,
-  role TEXT NOT NULL CHECK (role IN ('super_admin', 'college_admin')),
+  role TEXT NOT NULL CHECK (role IN ('super_admin', 'college_admin', 'marketing')),
   is_active BOOLEAN DEFAULT true,
   created_at TIMESTAMPTZ DEFAULT now(),
   last_login TIMESTAMPTZ
@@ -28,6 +28,7 @@ CREATE TABLE edit_requests (
   old_value TEXT NOT NULL,
   new_value TEXT NOT NULL,
   change_reason TEXT NOT NULL,
+  evidence_url TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
   reviewer_id UUID REFERENCES admin_users(id),
   reviewer_notes TEXT,

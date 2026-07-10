@@ -5,7 +5,7 @@
 // Data years: "2025" = 2025-26 (final phase; SC split into SC_I/SC_II/SC_III per official
 // TGCHE 2025 SC categorisation), "2024" = 2024-25, "2023" = 2023-24 admission counselling
 
-import { type Gender, type Category, catKey, type BranchCutoffs, type YearCutoffs, type CollegeCutoffs } from "./ap-cutoffs";
+import { type CollegeCutoffs } from "./ap-cutoffs";
 
 export const TS_CUTOFF_YEARS = ["2025", "2024", "2023"] as const;
 

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import CounsellingToolkit from "@/components/CounsellingToolkit";
 import FeeCalculatorClient, { type SlimCollege } from "./FeeCalculatorClient";
-import { COLLEGES } from "@/lib/colleges";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 
 
 export const metadata: Metadata = {
@@ -35,10 +35,11 @@ export const metadata: Metadata = {
  * client island — the fields the calculator actually needs — instead of the
  * full dataset, keeping the bundle small in line with the /colleges pattern.
  */
-export default function FeeCalculatorPage() {
+export default async function FeeCalculatorPage() {
+  const colleges = await getCollegesMerged();
   // Exclude rows without a real notified fee (fee = 0 placeholders) — a
   // "₹0 × 4 years" estimate is worse than no estimate.
-  const slim: SlimCollege[] = COLLEGES.filter(c => c.fee > 0).map(c => ({
+  const slim: SlimCollege[] = colleges.filter(c => c.fee > 0).map(c => ({
     n: c.name,
     f: c.fee,
     s: c.state === "Andhra Pradesh" ? "AP" : "TS",
@@ -75,7 +76,7 @@ export default function FeeCalculatorPage() {
 
       <h1 className="text-2xl sm:text-3xl font-bold mb-1">B.Tech 4-Year Fee Calculator</h1>
       <p className="text-sm text-gray-500 mb-6">
-        Estimate the total cost of a 4-year B.Tech at any of the {COLLEGES.length} colleges in our
+        Estimate the total cost of a 4-year B.Tech at any of the {colleges.length} colleges in our
         directory — tuition, hostel &amp; mess, and other recurring costs — with fee reimbursement
         guidance for AP and Telangana students.
       </p>

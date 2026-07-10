@@ -1,12 +1,13 @@
 import { cookies } from "next/headers";
-import { getServiceClient } from "./client";
+import { createPasswordAuthClient, getServiceClient } from "./server-client";
 import type { AdminUser } from "./types";
 
 const TOKEN_COOKIE = "tc_admin_token";
+const REFRESH_COOKIE = "tc_admin_refresh";
 const USER_COOKIE = "tc_admin_user";
 
 /** Set auth cookies after login — stores only ID and role (no PII) */
-export async function setAuthCookies(token: string, user: AdminUser) {
+export async function setAuthCookies(token: string, refreshToken: string, user: AdminUser) {
   const cookieStore = await cookies();
   cookieStore.set(TOKEN_COOKIE, token, {
     httpOnly: true,
@@ -25,12 +26,20 @@ export async function setAuthCookies(token: string, user: AdminUser) {
     path: "/",
     maxAge: 60 * 60 * 24 * 7,
   });
+  cookieStore.set(REFRESH_COOKIE, refreshToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7,
+  });
 }
 
 /** Clear auth cookies on logout */
 export async function clearAuthCookies() {
   const cookieStore = await cookies();
   cookieStore.delete(TOKEN_COOKIE);
+  cookieStore.delete(REFRESH_COOKIE);
   cookieStore.delete(USER_COOKIE);
 }
 
@@ -40,6 +49,7 @@ export async function getAuthUser(): Promise<AdminUser | null> {
   const cookieStore = await cookies();
   const userCookie = cookieStore.get(USER_COOKIE);
   const tokenCookie = cookieStore.get(TOKEN_COOKIE);
+  const refreshCookie = cookieStore.get(REFRESH_COOKIE);
   if (!userCookie?.value || !tokenCookie?.value) return null;
 
   try {
@@ -47,7 +57,26 @@ export async function getAuthUser(): Promise<AdminUser | null> {
     // source of identity — the user cookie is unsigned and attacker-mutable,
     // so we must never look the admin up by an id taken from it.
     const sb = getServiceClient();
-    const { data } = await sb.auth.getUser(tokenCookie.value);
+    let accessToken = tokenCookie.value;
+    let refreshToken = refreshCookie?.value;
+    let { data } = await sb.auth.getUser(accessToken);
+
+    // Access JWTs are intentionally short-lived. Refresh the pair server-side
+    // so the seven-day cookie lifetime represents a real seven-day session.
+    if (!data?.user && refreshToken) {
+      const authClient = createPasswordAuthClient();
+      const refreshed = await authClient.auth.setSession({
+        access_token: accessToken,
+        refresh_token: refreshToken,
+      });
+      if (refreshed.error || !refreshed.data.session || !refreshed.data.user) {
+        await clearAuthCookies();
+        return null;
+      }
+      accessToken = refreshed.data.session.access_token;
+      refreshToken = refreshed.data.session.refresh_token;
+      data = { user: refreshed.data.user };
+    }
     if (!data?.user) return null;
 
     // Bind the session to the admin record via the token's verified auth_id.
@@ -67,7 +96,11 @@ export async function getAuthUser(): Promise<AdminUser | null> {
       return null;
     }
 
-    return dbUser as AdminUser;
+    const admin = dbUser as AdminUser;
+    if (refreshToken && accessToken !== tokenCookie.value) {
+      await setAuthCookies(accessToken, refreshToken, admin);
+    }
+    return admin;
   } catch {
     return null;
   }

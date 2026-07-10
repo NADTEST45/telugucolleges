@@ -5,7 +5,7 @@
  * 2022: Phase 1, Final Phase (complements existing data)
  * Extracted from official TSCHE Last Rank Statement PDFs.
  */
-import { type BranchCutoffs, type YearCutoffs, type CollegeCutoffs } from "./ap-cutoffs";
+import { type YearCutoffs, type CollegeCutoffs } from "./ap-cutoffs";
 
 export type PhaseKey = "2025" | "2025_phase1" | "2025_phase2" | "2024" | "2023_phase1" | "2023_phase2" | "2023" | "2023_special" | "2022_phase1" | "2022_final";
 

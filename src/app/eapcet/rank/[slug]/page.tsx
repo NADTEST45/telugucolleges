@@ -15,6 +15,7 @@ import {
   buildRankBandSlug,
   refYearLabel,
 } from "@/lib/rank-band-data";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 
 
 export const revalidate = 86400; // 24 hours — closing ranks change yearly
@@ -98,7 +99,7 @@ export default async function RankBandPage({
 
   const { rank, branch, state } = parsed;
   const rankFmt = rank.toLocaleString("en-IN");
-  const matches = getCollegesForBand(parsed);
+  const matches = getCollegesForBand(parsed, await getCollegesMerged());
   const breadcrumbLabel = `${rankFmt} rank · ${branch.label} · ${state.short}`;
   const refYearLbl = refYearLabel(state);
 
@@ -121,7 +122,7 @@ export default async function RankBandPage({
     },
     {
       q: `When is ${state.exam} 2026 counselling?`,
-      a: `${state.exam === "AP EAPCET" ? "AP EAPCET 2026 results were declared on July 1, 2026 — rank cards are live at cets.apsche.ap.gov.in, with counselling registration expected within about a week." : "TG EAPCET 2026 counselling (conducted by TGCHE) is already underway — phase-1 web options opened June 25, 2026."} Official closing ranks for 2026 are published after each allotment round.`,
+      a: `${state.exam === "AP EAPCET" ? "AP EAPCET 2026 rank cards are live, but APSCHE had not published the MPC counselling schedule as of July 10." : "TG EAPCET 2026 Phase-1 allotment processing is underway as of July 10."} Official closing ranks for 2026 are published after each allotment round.`,
     },
   ];
   const faqJsonLd = {

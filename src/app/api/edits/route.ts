@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServiceClient } from "@/lib/supabase/client";
+import { getServiceClient } from "@/lib/supabase/server-client";
 import { getAuthUser } from "@/lib/supabase/auth";
 
 export const dynamic = "force-dynamic";
@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
     let query = sb
       .from("edit_requests")
       .select(
-        "id, college_code, college_name, submitted_by, submitted_by_email, category, field_name, old_value, new_value, change_reason, status, reviewer_notes, created_at"
+        "id, college_code, college_name, submitted_by, submitted_by_email, category, field_name, old_value, new_value, change_reason, evidence_url, status, reviewer_notes, created_at"
       )
       .order("created_at", { ascending: false });
 

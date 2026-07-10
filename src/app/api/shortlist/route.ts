@@ -1,10 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServer } from "@/lib/supabase/server";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 
 export const dynamic = "force-dynamic";
 
 /** Max shortlists per user — prevents DB bloat from abuse */
 const MAX_SHORTLISTS = 50;
+
+async function attachCollege<T extends { college_slug: string }>(row: T) {
+  const c = (await getCollegesMerged()).find(college => college.slug === row.college_slug);
+  return {
+    ...row,
+    college: c ? {
+      slug: c.slug,
+      code: c.code,
+      name: c.name,
+      district: c.district,
+      state: c.state,
+      affiliation: c.affiliation,
+      fee: c.fee,
+      cseCutoff: c.cutoff.cse || 0,
+      avgPackage: c.placements.avg || 0,
+    } : null,
+  };
+}
 
 /** Validate slug format: lowercase alphanumeric + hyphens, must start/end with alphanumeric */
 function isValidSlug(s: unknown): s is string {
@@ -39,7 +58,7 @@ export async function GET() {
       return NextResponse.json({ error: "Failed to fetch shortlist" }, { status: 500 });
     }
 
-    return NextResponse.json({ shortlists: data });
+    return NextResponse.json({ shortlists: await Promise.all((data ?? []).map(attachCollege)) });
   } catch (err) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
@@ -92,12 +111,19 @@ export async function POST(req: NextRequest) {
     if (error) {
       // Duplicate — return 201 consistently (don't leak via status codes whether it was new or existing)
       if (error.code === "23505") {
-        return NextResponse.json({ shortlist: { college_slug, program: program || null } }, { status: 201 });
+        let existingQuery = supabase
+          .from("user_shortlists")
+          .select("id, college_slug, program, created_at")
+          .eq("user_id", user.id)
+          .eq("college_slug", college_slug);
+        existingQuery = program ? existingQuery.eq("program", program) : existingQuery.is("program", null);
+        const { data: existing } = await existingQuery.single();
+        if (existing) return NextResponse.json({ shortlist: await attachCollege(existing) }, { status: 201 });
       }
       return NextResponse.json({ error: "Failed to add to shortlist" }, { status: 500 });
     }
 
-    return NextResponse.json({ shortlist: data }, { status: 201 });
+    return NextResponse.json({ shortlist: await attachCollege(data) }, { status: 201 });
   } catch (err) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }

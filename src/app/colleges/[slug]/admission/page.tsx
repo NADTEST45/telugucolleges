@@ -1,6 +1,6 @@
 import { SITE_URL } from "@/lib/site";
 import { COLLEGES } from "@/lib/colleges";
-import { isIndexable } from "@/lib/cutoff-presence";
+import { isCollegeSectionIndexable } from "@/lib/college-page-quality";
 import { getCollegeBySlugMerged, getCollegesMerged } from "@/lib/colleges-merged";
 import { isMedicalCollege } from "@/lib/medical-admission";
 import { notFound } from "next/navigation";
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     : `How to get admission in ${c.name}. ${exam} counselling process, eligibility criteria, important dates, and management quota details.`;
   const url = `${SITE_URL}/colleges/${slug}/admission`;
   // No real data → noindex; SEO-irrelevant page when fields are placeholders.
-  const noindex = !isIndexable(c);
+  const noindex = !isCollegeSectionIndexable(c, "admission");
 
   return {
     title,
@@ -82,7 +82,7 @@ export default async function AdmissionPage({ params }: { params: Promise<{ slug
   // FAQ) on placeholder rows that emit `noindex, follow` — structured data
   // on noindexed pages reads as a mismatch to Google. Visible FAQ content
   // still renders in the DOM.
-  const indexable = isIndexable(c);
+  const indexable = isCollegeSectionIndexable(c, "admission");
   const jsonLd = indexable ? buildCollegeJsonLd(c, "admission") : null;
   const faqs = generateCollegeFAQs(c, "admission");
   const faqJsonLd = indexable ? buildFaqJsonLd(faqs) : null;

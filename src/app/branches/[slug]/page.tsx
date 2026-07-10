@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getAllBranchSlugs, getBranchBySlug, getCollegesForBranch } from "@/lib/branch-data";
 import JsonLd from "@/components/JsonLd";
 import BranchDetail from "./BranchDetail";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 
 
 export function generateStaticParams() {
@@ -42,7 +43,7 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
   const { slug } = await params;
   const branch = getBranchBySlug(slug);
   if (!branch) notFound();
-  const colleges = getCollegesForBranch(branch.code);
+  const colleges = getCollegesForBranch(branch.code, await getCollegesMerged());
 
   const url = `${SITE_URL}/branches/${slug}`;
 

@@ -1,20 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServiceClient } from "@/lib/supabase/client";
+import { getServiceClient } from "@/lib/supabase/server-client";
 import { getAuthUser } from "@/lib/supabase/auth";
-import { COLLEGES, College } from "@/lib/colleges";
+import type { College } from "@/lib/colleges";
 import { EDITABLE_FIELDS, type EditCategory } from "@/lib/supabase/types";
+import { validateEditValue, validateEvidenceUrl } from "@/lib/edit-validation";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 
 export const dynamic = "force-dynamic";
 
-/** Maximum allowed length for string fields */
-const MAX_VALUE_LENGTH = 500;
 const MAX_REASON_LENGTH = 1000;
 const MIN_REASON_LENGTH = 10;
-
-/** All allowed field names from EDITABLE_FIELDS */
-const ALLOWED_FIELDS = new Set(
-  Object.values(EDITABLE_FIELDS).flatMap(fields => fields.map(f => f.field))
-);
 
 /** Type-safe accessor for college fields */
 function getCollegeFieldValue(college: College, fieldName: string): string {
@@ -40,7 +35,7 @@ export async function POST(req: NextRequest) {
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const body = await req.json();
-    const { category, field_name, new_value, change_reason } = body;
+    const { category, field_name, new_value, change_reason, evidence_url } = body;
 
     // Role allowlist: only college_admin and super_admin may submit edits.
     // For college_admins, derive college_code from session — body value is ignored (defense in depth).
@@ -60,7 +55,7 @@ export async function POST(req: NextRequest) {
     }
 
     // --- Input validation (S4) ---
-    if (!college_code || !category || !field_name || new_value === undefined || !change_reason) {
+    if (!college_code || !category || !field_name || new_value === undefined || !change_reason || !evidence_url) {
       return NextResponse.json({ error: "All fields are required" }, { status: 400 });
     }
 
@@ -69,30 +64,23 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid category" }, { status: 400 });
     }
 
-    // Validate field_name against whitelist
-    if (!ALLOWED_FIELDS.has(field_name)) {
+    // A field is valid only inside the submitted category. This prevents a
+    // forged category/field combination from bypassing type validation.
+    const fieldDef = EDITABLE_FIELDS[category as EditCategory]?.find(f => f.field === field_name);
+    if (!fieldDef) {
       return NextResponse.json({ error: `Invalid field: ${field_name}` }, { status: 400 });
     }
 
-    // Validate new_value length
     const valueStr = String(new_value);
-    if (valueStr.length > MAX_VALUE_LENGTH) {
-      return NextResponse.json({ error: `Value must be under ${MAX_VALUE_LENGTH} characters` }, { status: 400 });
-    }
-
     // Validate change_reason length
     if (typeof change_reason !== "string" || change_reason.length < MIN_REASON_LENGTH || change_reason.length > MAX_REASON_LENGTH) {
       return NextResponse.json({ error: `Reason must be ${MIN_REASON_LENGTH}-${MAX_REASON_LENGTH} characters` }, { status: 400 });
     }
 
-    // Validate numeric fields are actually numbers
-    const fieldDef = EDITABLE_FIELDS[category as EditCategory]?.find(f => f.field === field_name);
-    if (fieldDef?.type === "number" && isNaN(Number(new_value))) {
-      return NextResponse.json({ error: `${fieldDef.label} must be a number` }, { status: 400 });
-    }
-    if (fieldDef?.type === "number" && Number(new_value) < 0) {
-      return NextResponse.json({ error: `${fieldDef.label} cannot be negative` }, { status: 400 });
-    }
+    const valueError = validateEditValue(category as EditCategory, field_name, new_value);
+    if (valueError) return NextResponse.json({ error: valueError }, { status: 400 });
+    const evidenceError = validateEvidenceUrl(evidence_url);
+    if (evidenceError) return NextResponse.json({ error: evidenceError }, { status: 400 });
 
     // Validate college admin can only edit their own college
     if (user.role === "college_admin" && user.college_code !== college_code) {
@@ -100,7 +88,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Find the college — validates college_code exists (S6)
-    const college = COLLEGES.find(c => c.code === college_code);
+    const college = (await getCollegesMerged()).find(c => c.code === college_code);
     if (!college) {
       return NextResponse.json({ error: "College not found" }, { status: 404 });
     }
@@ -122,6 +110,7 @@ export async function POST(req: NextRequest) {
         old_value,
         new_value: valueStr,
         change_reason,
+        evidence_url,
         status: "pending",
       })
       .select()
@@ -138,7 +127,7 @@ export async function POST(req: NextRequest) {
       actor_email: user.email,
       target_type: "edit_request",
       target_id: data.id,
-      details: { college_code, field_name, old_value, new_value: valueStr },
+      details: { college_code, field_name, old_value, new_value: valueStr, evidence_url },
     });
 
     return NextResponse.json({ edit: data });

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getAllProgramSlugs, getCollegesForProgram } from "@/lib/program-data";
 import JsonLd from "@/components/JsonLd";
 import ProgramDetail from "./ProgramDetail";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 
 
 export function generateStaticParams() {
@@ -11,7 +12,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const data = getCollegesForProgram(slug);
+  const data = getCollegesForProgram(slug, await getCollegesMerged());
   if (!data) return {};
   const title = `${data.program.name} Colleges in AP & Telangana — Fees & Cutoffs | TeluguColleges`;
   const description = `${data.program.uniqueCollegeCount}+ colleges offering ${data.program.name} in Andhra Pradesh & Telangana. Compare fees, cutoff ranks, and placements.`;
@@ -40,7 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProgramPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const data = getCollegesForProgram(slug);
+  const data = getCollegesForProgram(slug, await getCollegesMerged());
   if (!data) notFound();
 
   const { program, colleges } = data;

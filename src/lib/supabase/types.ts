@@ -31,6 +31,7 @@ export interface EditRequest {
   old_value: string;
   new_value: string;
   change_reason: string;
+  evidence_url: string | null;
   status: EditStatus;
   reviewer_id: string | null;
   reviewer_notes: string | null;

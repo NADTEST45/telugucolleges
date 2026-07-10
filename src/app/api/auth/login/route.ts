@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServiceClient, createPasswordAuthClient } from "@/lib/supabase/client";
+import { getServiceClient, createPasswordAuthClient } from "@/lib/supabase/server-client";
 import { setAuthCookies } from "@/lib/supabase/auth";
 
 export const dynamic = "force-dynamic";
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
       .eq("id", adminUser.id);
 
     // Set cookies
-    await setAuthCookies(authData.session.access_token, adminUser);
+    await setAuthCookies(authData.session.access_token, authData.session.refresh_token, adminUser);
 
     // Audit log
     await sb.from("audit_log").insert({

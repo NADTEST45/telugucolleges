@@ -1,6 +1,6 @@
 import { SITE_URL } from "@/lib/site";
 import { COLLEGES } from "@/lib/colleges";
-import { isIndexable } from "@/lib/cutoff-presence";
+import { isCollegeSectionIndexable } from "@/lib/college-page-quality";
 import { getCollegeBySlugMerged, getCollegesMerged } from "@/lib/colleges-merged";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const url = `${SITE_URL}/colleges/${slug}/cutoff`;
   // Placeholder rows have no cutoff data → emit noindex so the page
   // doesn't read as thin content to Google.
-  const noindex = !isIndexable(c);
+  const noindex = !isCollegeSectionIndexable(c, "cutoff");
 
   return {
     title,
@@ -77,7 +77,7 @@ export default async function CutoffPage({ params }: { params: Promise<{ slug: s
   // FAQ) on placeholder rows that emit `noindex, follow` — structured data
   // on noindexed pages reads as a mismatch to Google. Visible FAQ content
   // still renders in the DOM.
-  const indexable = isIndexable(c);
+  const indexable = isCollegeSectionIndexable(c, "cutoff");
   const jsonLd = indexable ? buildCollegeJsonLd(c, "cutoff") : null;
   const faqs = generateCollegeFAQs(c, "cutoff");
   const faqJsonLd = indexable ? buildFaqJsonLd(faqs) : null;

@@ -11,7 +11,7 @@ import CounsellingReminderSignup from "@/components/CounsellingReminderSignup";
 
 const url = `${SITE_URL}/eapcet/ts-counselling-dates-2026`;
 
-const LAST_UPDATED = "2026-07-01";
+const LAST_UPDATED = "2026-07-10";
 
 export const metadata: Metadata = {
   title: "TS EAPCET Counselling Dates 2026 — Full Phase-Wise Schedule (TG EAPCET) | TeluguColleges",
@@ -56,7 +56,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "When is the TS EAPCET 2026 Phase 1 seat allotment result?",
-    a: "On or before July 10, 2026. Allotted candidates must pay the tuition fee and self-report online between July 10 and July 14, 2026.",
+    a: "The official portal entered allotment-processing mode on July 10, 2026. Check tgeapcet.nic.in for the result. Allotted candidates must pay the tuition fee and self-report online by July 14, 2026.",
   },
   {
     q: "Can I join Phase 2 if I missed Phase 1 registration?",
@@ -180,9 +180,9 @@ export default function TsCounsellingDates2026Page() {
         >
           eapcet.tgche.ac.in
         </a>{" "}
-        (also tgeapcet.nic.in) — mock allotment is due by July 4 and the final
-        Phase 1 seat allotment by July 10. Three phases run through August 2026.
-        Last updated: July 1, 2026.
+        (also tgeapcet.nic.in). The portal entered allotment-processing mode on
+        July 10; allotted candidates must pay the fee and self-report online by
+        July 14. Three phases run through August 2026. Last updated: July 10, 2026.
       </p>
 
       {/* Key dates banner */}
@@ -227,12 +227,12 @@ export default function TsCounsellingDates2026Page() {
       >
         <div className="p-4 sm:p-6">
           <h2 className="text-base sm:text-xl font-bold text-white mb-1">
-            Web options closed today — mock allotment lands by July 4
+            Phase-1 allotment processing is underway
           </h2>
           <p className="text-sm text-blue-100 mb-3 leading-relaxed">
             The predictor shows every Telangana college where the official TGCHE
             closing rank for your category × gender covered your rank — across the
-            last two counselling years. Use it to sanity-check your mock allotment.
+            last two counselling years. Use it to evaluate your allotment and prepare Phase-2 options if needed.
           </p>
           <Link
             href="/eapcet"

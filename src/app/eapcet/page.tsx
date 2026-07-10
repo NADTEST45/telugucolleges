@@ -5,7 +5,8 @@
  * UI lives in EapcetClient, which calls /api/predict — so none of the big
  * tables ever reach the browser bundle (CLAUDE.md bundle rule).
  */
-import { COLLEGES } from "@/lib/colleges";
+import type { College } from "@/lib/colleges";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 import { AP_CUTOFFS } from "@/lib/ap-cutoffs";
 import { TS_CUTOFFS } from "@/lib/ts-cutoffs";
 import { CANONICAL_BRANCHES } from "@/lib/branch-taxonomy";
@@ -17,10 +18,10 @@ import EapcetClient, { type EapcetStateStats } from "./EapcetClient";
    each backed by all its equivalent AP/TS codes (see branch-taxonomy.ts), so a
    single selection reaches both states' data. Order = competitor-style,
    most-popular-first (taxonomy order), not alphabetical. */
-function branchesWithData(): { id: string; label: string }[] {
+function branchesWithData(colleges: College[]): { id: string; label: string }[] {
   const present = new Set<string>();
   const add = (b: string) => present.add(b.toLowerCase());
-  COLLEGES.forEach(c => Object.keys(c.cutoff).forEach(add));
+  colleges.forEach(c => Object.keys(c.cutoff).forEach(add));
   Object.values(TS_CUTOFFS).forEach(college =>
     Object.values(college).forEach(yearData => Object.keys(yearData).forEach(add)));
   Object.values(AP_CUTOFFS).forEach(college =>
@@ -30,8 +31,8 @@ function branchesWithData(): { id: string; label: string }[] {
     .map(b => ({ id: b.id, label: b.label }));
 }
 
-function statsFor(state: "Telangana" | "Andhra Pradesh"): EapcetStateStats {
-  const subset = COLLEGES.filter(c => c.state === state);
+function statsFor(colleges: College[], state: "Telangana" | "Andhra Pradesh"): EapcetStateStats {
+  const subset = colleges.filter(c => c.state === state);
   const feesAboveZero = subset.filter(c => c.fee > 0);
   return {
     colleges: subset.length,
@@ -41,13 +42,14 @@ function statsFor(state: "Telangana" | "Andhra Pradesh"): EapcetStateStats {
   };
 }
 
-export default function EAPCETPage() {
+export default async function EAPCETPage() {
+  const colleges = await getCollegesMerged();
   return (
     <EapcetClient
-      branches={branchesWithData()}
+      branches={branchesWithData(colleges)}
       stats={{
-        Telangana: statsFor("Telangana"),
-        "Andhra Pradesh": statsFor("Andhra Pradesh"),
+        Telangana: statsFor(colleges, "Telangana"),
+        "Andhra Pradesh": statsFor(colleges, "Andhra Pradesh"),
       }}
     />
   );

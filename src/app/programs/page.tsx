@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getAllPrograms, fmtFee } from "@/lib/program-data";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 
 export const metadata: Metadata = {
   title: "All Programs & Courses — B.Tech, MBA, Pharmacy & More | TeluguColleges",
@@ -22,8 +23,8 @@ const CATEGORY_STYLES: Record<string, { bg: string; text: string; border: string
   Other: { bg: "bg-gray-50", text: "text-gray-700", border: "border-l-gray-400", icon: "📚" },
 };
 
-export default function ProgramsPage() {
-  const programs = getAllPrograms();
+export default async function ProgramsPage() {
+  const programs = getAllPrograms(await getCollegesMerged());
 
   // Group by category
   const categories = new Map<string, typeof programs>();

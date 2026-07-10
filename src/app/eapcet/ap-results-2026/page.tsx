@@ -124,7 +124,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "When will AP EAPCET 2026 counselling start?",
-    a: "APSCHE is expected to open counselling registration within about a week of the July 1 result, at eapcet-sche.aptonline.in. The process covers registration and fee payment, certificate verification, web options entry, and phase-wise seat allotment. Telangana's TG EAPCET counselling is already underway — phase-1 web options opened June 25, 2026.",
+    a: "As of July 10, APSCHE has not published the 2026 MPC counselling schedule on its official admissions portal. When notified, the process will cover registration and fee payment, certificate verification, web options entry, and phase-wise seat allotment. Check cets.apsche.ap.gov.in and eapcet-sche.aptonline.in rather than relying on predicted dates.",
   },
 ];
 
@@ -247,7 +247,7 @@ export default function ApResults2026Page() {
           <p className="text-sm text-green-900 leading-relaxed">
             AP EAPCET 2026 rank cards are now available on cets.apsche.ap.gov.in. Log in
             with your hall ticket number and date of birth to download yours, then start
-            building your web-options list — counselling registration is expected to open
+            building your web-options list — the official counselling schedule is still awaited
             shortly.
           </p>
         </section>
@@ -469,7 +469,7 @@ export default function ApResults2026Page() {
           — registration and fee payment (₹1,200 OC/BC, ₹600 SC/ST), certificate
           verification, web options entry, seat allotment, and self-reporting. With
           the result out, APSCHE is expected to notify the counselling schedule
-          within about a week; round 1 is expected to begin in July 2026.
+          after the result; as of July 10, APSCHE has not published the 2026 MPC schedule.
         </p>
         <ul className="text-sm text-gray-700 space-y-1.5">
           <li>

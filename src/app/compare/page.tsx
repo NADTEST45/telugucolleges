@@ -1,15 +1,11 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { COLLEGES, fmtFee } from "@/lib/colleges";
-import { getFeaturedPairs } from "@/lib/comparison-pairs";
+import { fmtFee } from "@/lib/format";
+import { useCompareData } from "./CompareDataProvider";
 
-// Computed once at module load — runs in SSR too, so the marquee links
-// land in the initial HTML and are crawlable by Googlebot. Each card is
-// a plain anchor pointing at /compare/[pair], which is statically generated.
-const FEATURED = getFeaturedPairs(60);
-
-function CollegeSearchSelect({ selected, onSelect, stateFilter }: {
+function CollegeSearchSelect({ colleges, selected, onSelect, stateFilter }: {
+  colleges: ReturnType<typeof useCompareData>["colleges"];
   selected: number[];
   onSelect: (id: number) => void;
   stateFilter: "" | "Telangana" | "Andhra Pradesh";
@@ -18,7 +14,7 @@ function CollegeSearchSelect({ selected, onSelect, stateFilter }: {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const available = COLLEGES
+  const available = colleges
     .filter(c => !selected.includes(c.id) && (!stateFilter || c.state === stateFilter))
     .sort((a, b) => a.name.localeCompare(b.name));
 
@@ -76,9 +72,10 @@ function CollegeSearchSelect({ selected, onSelect, stateFilter }: {
 }
 
 export default function ComparePage() {
+  const { colleges: allColleges, featured: FEATURED } = useCompareData();
   const [selected, setSelected] = useState<number[]>([]);
   const [stateFilter, setStateFilter] = useState<"" | "Telangana" | "Andhra Pradesh">("");
-  const colleges = selected.map(id => COLLEGES.find(c => c.id === id)!).filter(Boolean);
+  const colleges = selected.map(id => allColleges.find(c => c.id === id)!).filter(Boolean);
   const branches = ["cse", "ece", "eee", "mech", "civil"];
 
   const addCollege = (id: number) => {
@@ -130,7 +127,7 @@ export default function ComparePage() {
       {/* Selector */}
       <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm mb-6">
         <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-end gap-3 mb-3">
-          <CollegeSearchSelect selected={selected} onSelect={addCollege} stateFilter={stateFilter} />
+          <CollegeSearchSelect colleges={allColleges} selected={selected} onSelect={addCollege} stateFilter={stateFilter} />
           <div>
             <label className="text-[11px] text-gray-500 font-semibold mb-1 block">Filter by State</label>
             <select value={stateFilter} onChange={e => setStateFilter(e.target.value as typeof stateFilter)}
@@ -182,7 +179,7 @@ export default function ComparePage() {
                 ["Type", (c: typeof colleges[0]) => c.type],
                 ["Location", (c: typeof colleges[0]) => `${c.district}, ${c.state}`],
                 ["Affiliation", (c: typeof colleges[0]) => c.affiliation],
-                ["Established", (c: typeof colleges[0]) => String(c.year)],
+                ["Established", (c: typeof colleges[0]) => c.year ? String(c.year) : "Not verified"],
                 ["NAAC", (c: typeof colleges[0]) => c.naac || "—"],
                 ["NBA", (c: typeof colleges[0]) => c.nba ? "Yes" : "No"],
               ].map(([label, fn]) => (

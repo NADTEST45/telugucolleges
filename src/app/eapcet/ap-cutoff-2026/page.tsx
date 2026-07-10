@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import { AP_CUTOFF_BRANCHES, getCutoffRows } from "@/lib/ap-cutoff-2026";
 import { apResultExpectedPhrase } from "@/lib/ap-result-status";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 
 const url = `${SITE_URL}/eapcet/ap-cutoff-2026`;
 
@@ -11,7 +12,7 @@ export const revalidate = 86400;
 
 const title = "AP EAPCET 2026 Cutoff — Expected Branch-wise & College-wise Closing Ranks";
 const description =
-  "AP EAPCET 2026 cutoff ranks for CSE, ECE, EEE, Civil, Mechanical, IT, AI/ML and more — expected college-wise closing ranks based on official APSCHE 2023-24 & 2022-23 last-rank data. Results expected end-June 2026; counselling from early July.";
+  "AP EAPCET 2026 cutoff reference for CSE, ECE, EEE, Civil, Mechanical, IT, AI/ML and more, based on official APSCHE historical last-rank data. Rank cards are live; the MPC counselling schedule was still awaited on July 10.";
 
 export const metadata: Metadata = {
   title,
@@ -21,9 +22,10 @@ export const metadata: Metadata = {
   twitter: { card: "summary", title, description },
 };
 
-export default function APCutoff2026HubPage() {
+export default async function APCutoff2026HubPage() {
+  const colleges = await getCollegesMerged();
   const branchStats = AP_CUTOFF_BRANCHES.map(b => {
-    const rows = getCutoffRows(b.slug);
+    const rows = getCutoffRows(b.slug, colleges);
     return { ...b, count: rows.length, top: rows[0] };
   });
 
@@ -40,7 +42,7 @@ export default function APCutoff2026HubPage() {
   const faqs = [
     {
       q: "When will the official AP EAPCET 2026 cutoff be released?",
-      a: "Official closing ranks appear after each counselling round. AP EAPCET 2026 results were declared on July 1, 2026, with counselling registration expected within about a week; round-1 closing ranks should appear in late July, and final-phase cutoffs by August 2026.",
+      a: "Official closing ranks appear after each counselling round. AP EAPCET 2026 results were declared on July 1, but APSCHE had not published the 2026 MPC counselling schedule as of July 10. Check the official portal for notified dates; this page will add 2026 ranks only after official round statements appear.",
     },
     {
       q: "What is a good rank in AP EAPCET 2026?",
@@ -77,7 +79,8 @@ export default function APCutoff2026HubPage() {
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
         Branch-wise expected cutoffs for AP EAPCET 2026 counselling, built from official APSCHE
         last-rank statements (2023–24 and 2022–23). Results{" "}
-        <strong>{apResultExpectedPhrase()}</strong> and counselling registration in early July. Pick a
+        <strong>{apResultExpectedPhrase()}</strong>; APSCHE had not published the MPC counselling
+        schedule as of July 10. Pick a
         branch below for the full college-wise table, or use the{" "}
         <Link href="/eapcet" className="text-accent font-semibold underline">College Predictor</Link>{" "}
         for a category- and gender-specific list once you have your rank.

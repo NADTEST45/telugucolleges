@@ -37,24 +37,24 @@ export interface CounsellingStatus {
 }
 
 /** Last date these strings were reviewed against official/press sources. */
-export const COUNSELLING_STATUS_AS_OF = "July 2, 2026";
+export const COUNSELLING_STATUS_AS_OF = "July 10, 2026";
 
 export const TG_COUNSELLING_NOW: CounsellingStatus = {
   stage: "Phase 1",
-  headline: "Web options closed July 1 — mock seat allotment due by July 4",
+  headline: "Phase-1 allotment processing is underway — the official portal is temporarily closed",
   next:
-    "Check your mock allotment, revise your options July 5–7 if needed. Final Phase-1 allotment is due by July 10, then fee payment & self-reporting July 10–14.",
-  short: "TS Phase-1 allotment by July 10",
+    "Check tgeapcet.nic.in for the Phase-1 allotment result. Allotted candidates must pay the fee and self-report online by July 14.",
+  short: "TS Phase-1 allotment processing underway",
   portalUrl: "https://tgeapcet.nic.in",
   portalLabel: "tgeapcet.nic.in",
 };
 
 export const AP_COUNSELLING_NOW: CounsellingStatus = {
   stage: "Results out",
-  headline: "Rank cards are live (declared July 1) — counselling registration expected early–mid July",
+  headline: "Rank cards are live — APSCHE has not yet published the 2026 MPC counselling schedule",
   next:
     "Download your rank card now, then build your college & branch preference list so you can enter web options quickly once registration opens.",
-  short: "AP rank cards out — counselling opens soon",
+  short: "AP rank cards out — counselling schedule awaited",
   portalUrl: "https://cets.apsche.ap.gov.in",
   portalLabel: "cets.apsche.ap.gov.in",
 };

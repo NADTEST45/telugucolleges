@@ -81,11 +81,11 @@ export function parseFilters(
 }
 
 /** Pure filter + sort. Identical semantics to the previous client-side logic. */
-export function filterAndSort(filters: CollegesFilters): College[] {
+export function filterAndSort(filters: CollegesFilters, colleges: College[] = COLLEGES): College[] {
   const q = filters.q.toLowerCase();
   const maxFee = filters.maxFee ? parseInt(filters.maxFee, 10) : 0;
 
-  const list = COLLEGES.filter(c => {
+  const list = colleges.filter(c => {
     if (q) {
       const inName = c.name.toLowerCase().includes(q);
       const inDistrict = c.district.toLowerCase().includes(q);
@@ -141,16 +141,16 @@ export function filterAndSort(filters: CollegesFilters): College[] {
 }
 
 /** Per-section count for the currently-selected state filter (or all states). */
-export function sectionCounts(stateFilter: string): Record<string, number> {
-  const subset = stateFilter ? COLLEGES.filter(c => c.state === stateFilter) : COLLEGES;
+export function sectionCounts(stateFilter: string, colleges: College[] = COLLEGES): Record<string, number> {
+  const subset = stateFilter ? colleges.filter(c => c.state === stateFilter) : colleges;
   const m: Record<string, number> = {};
   for (const c of subset) m[c.type] = (m[c.type] || 0) + 1;
   return m;
 }
 
 /** Districts available for the currently-selected state (or all). */
-export function districtsForState(stateFilter: string): string[] {
-  const cs = stateFilter ? COLLEGES.filter(c => c.state === stateFilter) : COLLEGES;
+export function districtsForState(stateFilter: string, colleges: College[] = COLLEGES): string[] {
+  const cs = stateFilter ? colleges.filter(c => c.state === stateFilter) : colleges;
   return [...new Set(cs.map(c => c.district))].sort();
 }
 
@@ -158,6 +158,10 @@ export function districtsForState(stateFilter: string): string[] {
 export const ALL_AFFILIATIONS: string[] = [
   ...new Set(COLLEGES.map(c => c.affiliation)),
 ].sort();
+
+export function affiliationsFor(colleges: College[]): string[] {
+  return [...new Set(colleges.map(c => c.affiliation))].sort();
+}
 
 export const TOTAL_AP = COLLEGES.filter(c => c.state === "Andhra Pradesh").length;
 export const TOTAL_TS = COLLEGES.filter(c => c.state === "Telangana").length;

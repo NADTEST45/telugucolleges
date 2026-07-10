@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import LeadCapture from "@/components/LeadCapture";
 import {
-  AP_EAPCET_2026_RESULT,
   AP_EAPCET_2026_STATS,
   AP_EAPCET_2026_TOPPERS_AGRI,
   AP_EAPCET_2026_TOTAL_QUALIFIED,
@@ -20,7 +19,6 @@ import {
 const enUrl = `${SITE_URL}/eapcet/ap-results-2026`;
 const url = `${SITE_URL}/eapcet/ap-results-2026-telugu`;
 
-const LAST_UPDATED = "2026-07-01";
 const S = AP_EAPCET_2026_STATS;
 const inr = (n: number) => n.toLocaleString("en-IN");
 
@@ -97,8 +95,6 @@ function buildFaqJsonLd() {
 }
 
 export default function ApResults2026TeluguPage() {
-  const declared = AP_EAPCET_2026_RESULT.declared;
-
   return (
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
       <JsonLd data={[buildBreadcrumbJsonLd(), buildFaqJsonLd()]} />

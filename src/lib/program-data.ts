@@ -47,10 +47,10 @@ function getAllCourses(c: College): CourseInfo[] {
 }
 
 /** Build a map of program -> colleges offering it */
-function buildProgramMap(): Map<string, { info: CourseInfo; colleges: CollegeProgram[] }> {
+function buildProgramMap(colleges: College[] = COLLEGES): Map<string, { info: CourseInfo; colleges: CollegeProgram[] }> {
   const map = new Map<string, { info: CourseInfo; colleges: CollegeProgram[] }>();
 
-  for (const college of COLLEGES) {
+  for (const college of colleges) {
     const courses = getAllCourses(college);
     for (const course of courses) {
       const key = course.program;
@@ -69,10 +69,9 @@ function buildProgramMap(): Map<string, { info: CourseInfo; colleges: CollegePro
   return map;
 }
 
-const programMap = buildProgramMap();
-
 /** Get list of all programs with summary stats */
-export function getAllPrograms(): ProgramSummary[] {
+export function getAllPrograms(colleges: College[] = COLLEGES): ProgramSummary[] {
+  const programMap = buildProgramMap(colleges);
   const programs: ProgramSummary[] = [];
 
   for (const [name, data] of programMap) {
@@ -101,7 +100,8 @@ export function getAllPrograms(): ProgramSummary[] {
 }
 
 /** Get all colleges offering a specific program */
-export function getCollegesForProgram(slug: string): { program: ProgramSummary; colleges: CollegeProgram[] } | null {
+export function getCollegesForProgram(slug: string, colleges: College[] = COLLEGES): { program: ProgramSummary; colleges: CollegeProgram[] } | null {
+  const programMap = buildProgramMap(colleges);
   for (const [name, data] of programMap) {
     if (slugify(name) === slug) {
       const fees = data.colleges.map(c => c.fee).filter(f => f > 0).sort((a, b) => a - b);

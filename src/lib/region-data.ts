@@ -67,13 +67,13 @@ function isEngineeringCollege(college: College): boolean {
  * for district pages: NIRF rank (lower is better), then CSE cutoff (lower is
  * better), then placement avg (higher is better).
  */
-export function getCollegesInRegion(slug: string): College[] {
+export function getCollegesInRegion(slug: string, colleges: College[] = COLLEGES): College[] {
   const region = getRegionFromSlug(slug);
   if (!region) return [];
 
   const districtSet = new Set(region.districts);
 
-  const regionColleges = COLLEGES.filter(
+  const regionColleges = colleges.filter(
     (c) => districtSet.has(c.district) && isEngineeringCollege(c)
   );
 

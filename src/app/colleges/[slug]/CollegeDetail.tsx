@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 import type { College } from "@/lib/colleges";
-import { fmtFee, fmtCourseFee } from "@/lib/format";
+import { fmtFee, fmtCourseFee, fmtEstablishedYear } from "@/lib/format";
 import { CATEGORIES, TS_CATEGORIES, getRankForGender, type CollegeCutoffs, type YearCutoffs, type Category, type Gender } from "@/lib/categories";
 import type { CourseInfo } from "@/lib/university-courses";
 import AdSlot from "@/components/ads/AdSlot";
@@ -18,6 +18,7 @@ import AdmissionTab from "./components/AdmissionTab";
 import ScholarshipsTab from "./components/ScholarshipsTab";
 import type { FAQItem } from "./college-structured-data";
 import type { CollegeDetailData } from "./college-detail-data";
+import DataSourcesStrip from "./components/DataSourcesStrip";
 
 const BASE_TABS = [
   { key: "overview", label: "Overview" },
@@ -39,7 +40,6 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
   const [tab, setTab] = useState(initialTab || "overview");
   const [category, setCategory] = useState<Category>("OC");
   const [gender, setGender] = useState<Gender>("boys");
-  const [selectedPhase, setSelectedPhase] = useState<string | null>(null);
   const [feeTab, setFeeTab] = useState(0); // 0 = primary tab, 1 = secondary tab
   const cutoffTableRef = useRef<HTMLDivElement>(null);
   const cutoffs = Object.entries(c.cutoff).filter(([, v]) => v > 0).sort((a, b) => a[1] - b[1]);
@@ -125,7 +125,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
             <div className="mb-2">
               <span className="inline-flex items-center rounded-full bg-gray-100 border border-gray-200 px-2.5 py-1 text-xs font-bold text-gray-700 tracking-wide">Code: {c.code}</span>
             </div>
-            <p className="text-gray-500 text-sm">{c.district}, {c.state} · {c.affiliation} · Established {c.year}</p>
+            <p className="text-gray-500 text-sm">{c.district}, {c.state} · {c.affiliation}{c.year ? ` · Established ${c.year}` : ""}</p>
           </div>
         </div>
         {/* Google Reviews + Share */}
@@ -169,29 +169,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
         ))}
       </div>
 
-      {/* Data sources & freshness strip */}
-      {(() => {
-        const isUni = c.type === "Deemed University" || c.type === "Private University";
-        const sourceParts: string[] = [
-          ...(!medical && c.type !== "Deemed University"
-            ? [`Cutoffs from official ${c.state === "Telangana" ? "TGCHE/TSCHE" : "APSCHE"} Last Rank Statements`]
-            : []),
-          ...(!medical && !isUni
-            ? [`fees from ${c.state === "Telangana" ? "TS AFRC" : "APHERMC"}-regulated government orders`]
-            : []),
-          ...((c.naac && c.naac !== "-") || c.nirf > 0 ? ["NAAC/NIRF from official listings"] : []),
-        ];
-        return (
-          <div className="bg-white rounded-xl px-4 py-2.5 shadow-sm mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 text-[11px] sm:text-xs text-gray-500">
-            {sourceParts.length > 0 ? (
-              <p><span className="font-semibold text-gray-600">Data sources:</span> {sourceParts.join(" · ")}.</p>
-            ) : (
-              <p><span className="font-semibold text-gray-600">Data sources:</span> compiled from official publications.</p>
-            )}
-            <span className="shrink-0"><ReportDataButton collegeCode={c.code} variant="link" /></span>
-          </div>
-        );
-      })()}
+      <DataSourcesStrip college={c} medical={Boolean(medical)} />
 
       {/* Tabs */}
       <div className="flex gap-1 mb-6 bg-gray-100 p-1 rounded-xl overflow-x-auto scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-1">
@@ -217,7 +195,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                 ["Affiliation", c.affiliation],
                 ["District", c.district],
                 ["State", c.state],
-                ["Established", String(c.year)],
+                ["Established", fmtEstablishedYear(c.year)],
                 ["NAAC Grade", c.naac && c.naac !== "-" ? c.naac : "Not rated"],
                 ["NBA Accreditation", c.nba ? "Yes" : "No"],
                 ...(c.nirf > 0 ? [["NIRF 2025 Rank", `${nirfBand(c.nirf)} (Engineering)`]] : []),
@@ -235,7 +213,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
             <h2 className="text-lg font-bold mb-3">About {c.name}</h2>
             <div className="text-sm text-gray-700 leading-relaxed space-y-3">
               <p>
-                {c.name} ({c.code}) is {c.type === "Government" ? "a government" : c.type === "Deemed University" ? "a deemed" : c.type === "Private University" ? "a private" : "a private"} {medical ? "medical" : "engineering"} {c.type.includes("University") ? "university" : "college"} located in {c.district}, {c.state}, India{c.year > 0 ? `, established in ${c.year}` : ""}.{" "}
+                {c.name} ({c.code}) is {c.type === "Government" ? "a government" : c.type === "Deemed University" ? "a deemed" : c.type === "Private University" ? "a private" : "a private"} {medical ? "medical" : "engineering"} {c.type.includes("University") ? "university" : "college"} located in {c.district}, {c.state}, India{c.year ? `, established in ${c.year}` : ""}.{" "}
                 {!c.type.includes("University") && `It is affiliated to ${c.affiliation} and `}
                 {c.naac && c.naac !== "-" ? `holds NAAC Grade ${c.naac} accreditation${c.nba ? " with NBA-accredited programmes" : ""}. ` : c.nba ? "has NBA-accredited programmes. " : ""}
                 {c.nirf > 0 ? `The institution is ranked in the ${nirfBand(c.nirf)} band under the NIRF 2025 ${medical ? "Medical" : "Engineering"} category. ` : ""}
@@ -678,9 +656,6 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
 
         // Phase-wise view (TS colleges with phase data)
         const hasPhases = phaseCutoffs && phases && phases.length > 1;
-        const isPhaseView = hasPhases && selectedPhase !== null;
-        const activePhase = selectedPhase || (phases?.[0]?.key ?? null);
-
         // Phase-wise data helpers
         const getPhaseRank = (branch: string, phaseKey: string): number => {
           const yearData = phaseCutoffs?.[phaseKey];

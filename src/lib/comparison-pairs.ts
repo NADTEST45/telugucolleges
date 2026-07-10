@@ -241,10 +241,7 @@ const ALL_PAIRS = generateAllPairs();
  * on the college detail page) without pre-generating every possible pair.
  * Returns null only if the slug is malformed or one/both codes don't exist.
  */
-export function getComparisonPair(slug: string): ComparisonPair | null {
-  const preGenerated = ALL_PAIRS.find(pair => pair.slug === slug);
-  if (preGenerated) return preGenerated;
-
+export function getComparisonPair(slug: string, colleges: College[] = COLLEGES): ComparisonPair | null {
   // Fallback: parse slug as "{code1}-vs-{code2}" (codes are lowercase in URLs,
   // but COLLEGES stores them uppercase — normalize for comparison).
   const match = slug.match(/^(.+)-vs-(.+)$/);
@@ -253,8 +250,8 @@ export function getComparisonPair(slug: string): ComparisonPair | null {
   if (rawCode1 === rawCode2) return null; // no self-comparisons
   const code1 = rawCode1.toUpperCase();
   const code2 = rawCode2.toUpperCase();
-  const college1 = COLLEGES.find(c => c.code === code1);
-  const college2 = COLLEGES.find(c => c.code === code2);
+  const college1 = colleges.find(c => c.code === code1);
+  const college2 = colleges.find(c => c.code === code2);
   if (!college1 || !college2) return null;
   return { college1, college2, slug };
 }

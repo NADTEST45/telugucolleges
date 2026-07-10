@@ -10,13 +10,14 @@ import {
   filterAndSort,
   sectionCounts,
   districtsForState,
-  ALL_AFFILIATIONS,
+  affiliationsFor,
   TOTAL_AP,
   TOTAL_TS,
   TOTAL_ALL,
   type CollegesFilters,
 } from "./filtering";
-import { COLLEGES, type College } from "@/lib/colleges";
+import { type College } from "@/lib/colleges";
+import { getCollegesMerged } from "@/lib/colleges-merged";
 import { isIndexable } from "@/lib/cutoff-presence"; // SERVER-only — this page is a Server Component
 
 
@@ -129,13 +130,15 @@ function pageHref(filters: CollegesFilters, page: number): string {
 }
 
 export default async function CollegesPage({ searchParams }: PageProps) {
+  const colleges = await getCollegesMerged();
   const rawParams = (await searchParams) ?? {};
   const filters = parseFilters(rawParams);
-  const filtered = filterAndSort(filters);
+  const filtered = filterAndSort(filters, colleges);
 
   // Pre-computed inputs for the client filter bar
-  const counts = sectionCounts(filters.state);
-  const districts = districtsForState(filters.state);
+  const counts = sectionCounts(filters.state, colleges);
+  const districts = districtsForState(filters.state, colleges);
+  const affiliations = affiliationsFor(colleges);
 
   // --- Pagination over the *display* order -------------------------------
   // When no section filter is active the list renders grouped by section
@@ -210,7 +213,7 @@ export default async function CollegesPage({ searchParams }: PageProps) {
   // — name-only links, no cards.
   const azIndex: [string, College[]][] = isCanonicalView
     ? (() => {
-        const indexable = COLLEGES.filter(isIndexable).sort((a, b) => a.name.localeCompare(b.name));
+        const indexable = colleges.filter(isIndexable).sort((a, b) => a.name.localeCompare(b.name));
         const byLetter = new Map<string, College[]>();
         for (const c of indexable) {
           const letter = /^[A-Za-z]/.test(c.name) ? c.name[0]!.toUpperCase() : "#";
@@ -252,7 +255,7 @@ export default async function CollegesPage({ searchParams }: PageProps) {
         <Link href="/">Home</Link><span>/</span><span className="text-gray-600 font-medium">Colleges</span>
       </nav>
       <h1 className="text-2xl sm:text-3xl font-bold mb-1">College Directory</h1>
-      <p className="text-sm text-gray-500 mb-4">{COLLEGES.length} professional colleges across Andhra Pradesh & Telangana</p>
+      <p className="text-sm text-gray-500 mb-4">{colleges.length} professional colleges across Andhra Pradesh & Telangana</p>
 
       {/* Block Period Info */}
       {(showAPInfo || showTSInfo) && (
@@ -290,7 +293,7 @@ export default async function CollegesPage({ searchParams }: PageProps) {
         sections={SECTIONS.map(s => ({ key: s.key, label: s.label, color: s.color, bg: s.bg }))}
         sectionCounts={counts}
         districts={districts}
-        affiliations={ALL_AFFILIATIONS}
+        affiliations={affiliations}
         totalAll={TOTAL_ALL}
         totalAp={TOTAL_AP}
         totalTs={TOTAL_TS}

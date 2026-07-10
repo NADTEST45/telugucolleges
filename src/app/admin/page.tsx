@@ -76,8 +76,6 @@ export default function AdminDashboard() {
     return <div className="min-h-screen flex items-center justify-center"><div className="text-gray-500">Loading...</div></div>;
   }
 
-  const pendingCount = edits.length; // when filter is "pending" this is the count
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -157,6 +155,11 @@ export default function AdminDashboard() {
 
                     {edit.change_reason && (
                       <div className="text-xs text-gray-500 mt-2 italic">&quot;{edit.change_reason}&quot;</div>
+                    )}
+                    {edit.evidence_url && (
+                      <a href={edit.evidence_url} target="_blank" rel="noopener noreferrer" className="inline-block text-xs text-accent mt-2 underline">
+                        Open official evidence
+                      </a>
                     )}
 
                     {edit.reviewer_notes && (
