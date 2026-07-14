@@ -17,6 +17,37 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  // ── New: July 14, 2026 ───────────────────────────────────────
+  {
+    id: "tg-eapcet-2026-phase-1-allotment-released-self-reporting-ends-july-14",
+    date: "2026-07-14",
+    title: "TG EAPCET 2026 Phase-1 Seat Allotment Released — Self-Reporting Ends Today (July 14); Phase 2 Opens July 17",
+    summary: "The TG EAPCET 2026 Phase-1 seat allotment, released on July 10, is live at tgeapcet.nic.in — download the allotment order via Candidates Login. Allotted candidates must pay the tuition fee and complete online self-reporting by end of today, July 14. Phase 2 counselling opens July 17 (window July 17–28), with the Phase-2 seat allotment expected on or before July 22. The official 2026 Phase-1 last-rank statement has not been published yet.",
+    body: "The Telangana Council of Higher Education (TGCHE) released the TG EAPCET 2026 Phase-1 (final) seat allotment on July 10, 2026 at tgeapcet.nic.in. Allotment orders are available for download by signing in through Candidates Login, and a College-wise Allotment Details page is live on the portal.\n\nDeadline today — July 14:\n• If you were allotted a seat in Phase 1, pay the tuition fee and complete online self-reporting by end of today, July 14, 2026\n• Download and preserve the allotment order and the fee-payment receipt\n• Missing the window risks forfeiting the allotted seat\n\nWhat's next — Phase 2 (July 17–28):\n• Phase 2 opens on July 17, 2026, including fresh registration for candidates who missed Phase 1\n• Press reports indicate the Phase-2 seat allotment is due on or before July 22\n• Candidates not satisfied with their Phase-1 seat can participate in Phase 2; per TGCHE rules, an upgraded allotment replaces the earlier seat\n• A Final Phase (July 31 – August 7) plus internal sliding and spot rounds follow\n\nAbout 2026 cutoff data: the official TG EAPCET 2026 Phase-1 Last Rank Statement has not been published yet — as of July 14 the portal lists only the 2025 last-rank PDFs (First, Second and Final phase). Until it is released, use the 2025 phase-wise closing ranks as the reference when planning Phase-2 web options.\n\nAlso note: the portal carries a consolidated \"Fee Honourable High Court Orders\" document — the 2026-27 tuition fee at a number of private colleges is subject to pending High Court litigation. Check it before paying fees (see our separate fee-orders news item).",
+    category: "counselling",
+    state: "TS",
+    priority: "high",
+    source: "TGCHE — TG EAPCET 2026 Admissions Portal",
+    sourceUrl: "https://tgeapcet.nic.in/default.aspx",
+    verifiedAt: "2026-07-14T10:30:00+05:30",
+    expiresAt: "2026-07-18T00:00:00+05:30",
+    tags: ["TG EAPCET", "TS EAMCET", "Phase 1", "Seat Allotment", "Self Reporting", "Phase 2", "July 14", "2026"],
+  },
+  {
+    id: "tg-2026-27-fee-hc-orders-21-colleges-july-14",
+    date: "2026-07-14",
+    title: "Paying TS B.Tech Fees This Week? 21 Colleges' 2026-27 Fees Are Under High Court Orders — Check the Official List First",
+    summary: "21 private engineering colleges in Telangana have challenged TAFRC's 2026-27 fee fixation in the High Court, and several hold interim orders permitting a different fee for AY 2026-27. The court directed the Education Department to inform parents that fees paid are subject to its final verdict. A consolidated PDF of the High Court fee orders is published on tgeapcet.nic.in — review it before paying the tuition fee during self-reporting.",
+    body: "The tuition fee you pay at some Telangana private engineering colleges for AY 2026-27 may not be final. 21 colleges have moved the Telangana High Court against the fee fixed by the Telangana Admission and Fee Regulatory Committee (TAFRC) for the 2025-26 to 2027-28 block (notified via G.O.Ms.No.6, dated March 4, 2026), after the committee reduced their proposed fees or declined an increase.\n\nWhat the High Court has directed:\n• Several petitioner colleges hold interim orders permitting them to collect a court-specified fee for 2026-27 pending final disposal — for example, Visvesvaraya College of Engineering and Technology (Ibrahimpatnam) was permitted to collect ₹85,000/year against the ₹64,000 TAFRC had fixed (WP No. 20870/2026)\n• The Education Department must inform students and parents that fees paid at these colleges are subject to the court's final verdict\n• Copies of the orders for all the petitioner colleges have been published for public view — the consolidated \"Fee Honourable High Court Orders\" PDF and an \"Attention to Parents and Candidates\" notice are linked on the tgeapcet.nic.in homepage\n\nWhat candidates and parents should do:\n• Before paying the tuition fee during self-reporting, check whether your allotted college appears in the High Court orders PDF on tgeapcet.nic.in\n• Preserve every fee receipt — if the court's final verdict revises the fee, amounts collected in the interim may need adjustment or refund\n• Treat the fee shown on the counselling portal as the operative figure; these are interim, case-specific orders, not a general fee revision\n\nSeparately, in the fee-reimbursement (GO 9) case, the High Court on July 10 directed affiliated colleges not to collect fees from students for now while the government clears reimbursement dues — the government committed to releasing ₹250 crore immediately, clearing dues for 2nd–4th-year students by July 31 and the first instalment for first-years by August 15. If the government misses those deadlines, colleges may collect fees directly from students. The matter is next listed on July 20, 2026.",
+    category: "fees",
+    state: "TS",
+    priority: "high",
+    source: "Telangana High Court orders via TGEAPCET 2026 portal",
+    sourceUrl: "https://tgeapcetd.nic.in/files/HonHighCourtOrdersonFee.pdf",
+    verifiedAt: "2026-07-14T10:30:00+05:30",
+    expiresAt: "2026-07-21T00:00:00+05:30",
+    tags: ["TAFRC", "Fees", "High Court", "B.Tech Fee", "TG EAPCET", "2026-27", "Telangana"],
+  },
   {
     id: "tg-eapcet-2026-phase-1-allotment-processing-july-10",
     date: "2026-07-10",
