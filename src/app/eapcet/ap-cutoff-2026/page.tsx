@@ -12,7 +12,7 @@ export const revalidate = 86400;
 
 const title = "AP EAPCET 2026 Cutoff — Expected Branch-wise & College-wise Closing Ranks";
 const description =
-  "AP EAPCET 2026 cutoff reference for CSE, ECE, EEE, Civil, Mechanical, IT, AI/ML and more, based on official APSCHE historical last-rank data. Rank cards are live; the MPC counselling schedule was still awaited on July 10.";
+  "AP EAPCET 2026 cutoff reference for CSE, ECE, EEE, Civil, Mechanical, IT, AI/ML and more, based on official APSCHE historical last-rank data. Rank cards are live; first-phase counselling registration runs July 20–29 and web options July 25–31.";
 
 export const metadata: Metadata = {
   title,
@@ -42,7 +42,7 @@ export default async function APCutoff2026HubPage() {
   const faqs = [
     {
       q: "When will the official AP EAPCET 2026 cutoff be released?",
-      a: "Official closing ranks appear after each counselling round. AP EAPCET 2026 results were declared on July 1, but APSCHE had not published the 2026 MPC counselling schedule as of July 10. Check the official portal for notified dates; this page will add 2026 ranks only after official round statements appear.",
+      a: "Official closing ranks appear after each counselling round. AP EAPCET 2026 results were declared on July 1, and APSCHE notified the first-phase counselling schedule on July 16 — web options run July 25–31 with seat allotment on August 6. This page will add 2026 closing ranks only after the official round statements appear, which follow the August 6 allotment.",
     },
     {
       q: "What is a good rank in AP EAPCET 2026?",
@@ -79,8 +79,9 @@ export default async function APCutoff2026HubPage() {
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
         Branch-wise expected cutoffs for AP EAPCET 2026 counselling, built from official APSCHE
         last-rank statements (2023–24 and 2022–23). Results{" "}
-        <strong>{apResultExpectedPhrase()}</strong>; APSCHE had not published the MPC counselling
-        schedule as of July 10. Pick a
+        <strong>{apResultExpectedPhrase()}</strong>, and first-phase counselling is notified —
+        registration <strong>July 20–29</strong>, web options <strong>July 25–31</strong>, seat
+        allotment <strong>August 6</strong>. Pick a
         branch below for the full college-wise table, or use the{" "}
         <Link href="/eapcet" className="text-accent font-semibold underline">College Predictor</Link>{" "}
         for a category- and gender-specific list once you have your rank.

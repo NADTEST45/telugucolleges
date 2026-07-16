@@ -241,8 +241,10 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
         { label: "Engineering Exam",   date: "May 12–15, 18 ✓",    highlight: true  },
         { label: "Agri / Pharmacy",    date: "May 19–20",          highlight: true  },
         { label: AP_EAPCET_2026_RESULT.declared ? "Results" : "Results (Expected)", date: apResultDateCell(), highlight: true },
-        { label: "Counselling Reg.",   date: "Early July 2026 (expected)",   highlight: false },
-        { label: "Counselling Rounds", date: "Jul–Aug 2026 (3 rds + spot)", highlight: false },
+        { label: "Counselling Reg.",   date: "Jul 20–29, 2026",    highlight: true  },
+        { label: "Cert. Verification", date: "Jul 22–31, 2026",    highlight: false },
+        { label: "Web Options",        date: "Jul 25–31, 2026",    highlight: false },
+        { label: "Seat Allotment",     date: "Aug 6, 2026",        highlight: false },
       ],
     },
     tg: {
@@ -694,7 +696,7 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
           </div>
         </div>
         <div className="px-4 sm:px-6 pb-3 sm:pb-4 text-[11px] text-blue-200/50">
-          * Dates based on official notifications as of July 10, 2026. TG Phase-1 allotment processing is underway; self-reporting runs through July 14. {AP_EAPCET_2026_RESULT.declared ? `AP EAPCET results declared — rank cards live at cets.apsche.ap.gov.in; the MPC counselling schedule is still awaited.` : `AP EAPCET results still awaited — now expected by ${AP_EAPCET_2026_RESULT.expectedWindow}.`} Check APSCHE / TGCHE websites for latest updates.
+          * Dates based on official notifications as of {COUNSELLING_STATUS_AS_OF}. TG Phase-1 is complete; Phase-2 runs July 17–28. {AP_EAPCET_2026_RESULT.declared ? `AP EAPCET results are declared and APSCHE has notified the first-phase counselling schedule — registration opens July 20 at eapcet-sche.aptonline.in.` : `AP EAPCET results still awaited — now expected by ${AP_EAPCET_2026_RESULT.expectedWindow}.`} Check APSCHE / TGCHE websites for latest updates.
         </div>
       </section>
 

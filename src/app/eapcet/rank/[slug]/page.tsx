@@ -16,6 +16,7 @@ import {
   refYearLabel,
 } from "@/lib/rank-band-data";
 import { getCollegesMerged } from "@/lib/colleges-merged";
+import { AP_COUNSELLING_NOW, TG_COUNSELLING_NOW } from "@/lib/counselling-status";
 
 
 export const revalidate = 86400; // 24 hours — closing ranks change yearly
@@ -122,7 +123,9 @@ export default async function RankBandPage({
     },
     {
       q: `When is ${state.exam} 2026 counselling?`,
-      a: `${state.exam === "AP EAPCET" ? "AP EAPCET 2026 rank cards are live, but APSCHE had not published the MPC counselling schedule as of July 10." : "TG EAPCET 2026 Phase-1 allotment processing is underway as of July 10."} Official closing ranks for 2026 are published after each allotment round.`,
+      // Read from counselling-status.ts so these ~hundreds of rank-band pages
+      // can't drift out of date behind the live season.
+      a: `${state.exam === "AP EAPCET" ? AP_COUNSELLING_NOW.next : TG_COUNSELLING_NOW.next} Official closing ranks for 2026 are published after each allotment round.`,
     },
   ];
   const faqJsonLd = {

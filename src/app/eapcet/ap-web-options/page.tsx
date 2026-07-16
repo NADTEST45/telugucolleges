@@ -6,9 +6,9 @@ import JsonLd from "@/components/JsonLd";
 const url = `${SITE_URL}/eapcet/ap-web-options`;
 
 export const metadata: Metadata = {
-  title: "AP EAPCET Web Options Entry 2026 — Step-by-Step Guide | TeluguColleges",
+  title: "AP EAPCET Web Options Entry 2026 — Dates & Step-by-Step Guide | TeluguColleges",
   description:
-    "How to enter web options for AP EAPCET 2026 counselling at eapcet-sche.aptonline.in: login steps, priority-order strategy, saving and modifying options, freezing, and the mistakes that cost students seats.",
+    "AP EAPCET 2026 web options are open July 25–31, with August 1 to change options and seat allotment on August 6. Login steps, priority-order strategy, saving and modifying options, and the mistakes that cost students seats.",
   alternates: { canonical: url },
   openGraph: {
     title: "AP EAPCET Web Options Entry 2026 — Step-by-Step Guide",
@@ -30,11 +30,11 @@ export const metadata: Metadata = {
 const STEPS: { name: string; text: string }[] = [
   {
     name: "Complete registration and fee payment first",
-    text: "Web options open only for candidates who have paid the counselling processing fee (₹1,200 for OC/BC, ₹600 for SC/ST) and completed certificate verification on eapcet-sche.aptonline.in. If your certificates were verified online through web services, you may not need to visit a Help Line Centre at all.",
+    text: "Web options open only for candidates who have paid the counselling processing fee (₹1,200 for OC/BC, ₹600 for SC/ST) and completed certificate verification on eapcet-sche.aptonline.in. For the 2026 first phase, registration runs July 20–29 and verification of uploaded certificates at Help Line Centres runs July 22–31. If your certificates were verified online through web services, you may not need to visit a Help Line Centre at all.",
   },
   {
     name: "Open the web options portal",
-    text: "Go to eapcet-sche.aptonline.in during the notified web options window and click the Web Options Entry link. Options can only be entered during the scheduled dates for your rank range — check the counselling notification.",
+    text: "Go to eapcet-sche.aptonline.in during the web options window — July 25–31, 2026 for the first phase — and click the Web Options Entry link. Options can only be entered during the scheduled dates for your rank range, so check the notification for your slot.",
   },
   {
     name: "Log in with hall ticket number and date of birth",
@@ -54,7 +54,7 @@ const STEPS: { name: string; text: string }[] = [
   },
   {
     name: "Save, review, and modify freely until the deadline",
-    text: "Options can be saved and modified any number of times within the scheduled window. After the mock/seat allotment displays (where applicable), you get a window to reshuffle options before final freezing.",
+    text: "Options can be saved and modified any number of times within the July 25–31 window. The 2026 first phase then gives you one extra day — August 1 — to change your saved options. Note there is no mock allotment in this phase: the next thing you see is the real seat allotment on August 6, so treat August 1 as your last chance to get the order right.",
   },
   {
     name: "Take a printout of the final saved options",
@@ -65,7 +65,7 @@ const STEPS: { name: string; text: string }[] = [
 const FAQS: { q: string; a: string }[] = [
   {
     q: "When does AP EAPCET 2026 web options entry start?",
-    a: "AP EAPCET 2026 results were declared on July 1. APSCHE had not published the 2026 MPC counselling and web-options schedule as of July 10. Use only eapcet-sche.aptonline.in and cets.apsche.ap.gov.in for notified dates.",
+    a: "Web options entry for the first phase is open July 25–31, 2026, and you get one day — August 1 — to change your saved options. You must register and pay the processing fee first (July 20–29) and have your certificates verified (July 22–31). Seat allotments are released August 6. Use only eapcet-sche.aptonline.in and cets.apsche.ap.gov.in.",
   },
   {
     q: "What do I need to log in for web options entry?",
@@ -81,7 +81,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Can I change my options after saving them?",
-    a: "Yes — any number of times within the scheduled window, and again during the change-of-options window after mock allotment (where provided). After final freezing, no changes are possible for that round.",
+    a: "Yes — any number of times within the July 25–31 window, plus a dedicated change-of-options day on August 1, 2026. There is no mock allotment in the 2026 first phase, so August 1 is your final chance to reorder before the real seat allotment is released on August 6.",
   },
   {
     q: "If I'm allotted a seat in round 1, can I participate in round 2?",
@@ -160,6 +160,23 @@ export default function ApWebOptionsPage() {
         </a>
         , plus the priority-order strategy that decides which college you land.
       </p>
+
+      {/* Notified dates */}
+      <section className="rounded-xl mb-6 p-4 sm:p-5 bg-green-50 border border-green-200">
+        <h2 className="text-base sm:text-lg font-bold text-green-900 mb-1.5">
+          Web options are open July 25–31, 2026
+        </h2>
+        <p className="text-sm text-green-900 leading-relaxed">
+          APSCHE notified the first-phase schedule on July 16, 2026. Register and pay the
+          processing fee <strong>July 20–29</strong>, get certificates verified{" "}
+          <strong>July 22–31</strong>, enter web options <strong>July 25–31</strong>, and
+          change them if needed on <strong>August 1</strong>. Seat allotments are released{" "}
+          <strong>August 6</strong>.{" "}
+          <Link href="/eapcet/ap-results-2026#counselling-schedule" className="underline font-medium">
+            Full schedule →
+          </Link>
+        </p>
+      </section>
 
       {/* Prerequisites */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">

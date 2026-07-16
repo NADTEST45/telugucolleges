@@ -26,7 +26,7 @@ export async function generateMetadata({
   if (!b) return { title: "Not found" };
   const rows = getCutoffRows(branch, await getCollegesMerged());
   const title = `AP EAPCET 2026 Cutoff for ${b.keyword} — Expected College-wise Closing Ranks`;
-  const description = `AP EAPCET 2026 ${b.keyword} cutoff reference for ${rows.length} Andhra Pradesh engineering colleges, based on official APSCHE historical last-rank statements. Rank cards are live; the MPC counselling schedule was still awaited on July 10.`;
+  const description = `AP EAPCET 2026 ${b.keyword} cutoff reference for ${rows.length} Andhra Pradesh engineering colleges, based on official APSCHE historical last-rank statements. Rank cards are live; first-phase counselling registration runs July 20–29 and web options July 25–31.`;
   const url = `${SITE_URL}/eapcet/ap-cutoff-2026/${branch}`;
   return {
     title,
@@ -65,7 +65,7 @@ export default async function APCutoffBranchPage({
     },
     {
       q: "When will AP EAPCET 2026 results and cutoffs be released?",
-      a: "AP EAPCET 2026 results were declared on July 1. As of July 10, APSCHE had not published the 2026 MPC counselling schedule. Official 2026 closing ranks will be added only after APSCHE publishes each allotment-round statement.",
+      a: "AP EAPCET 2026 results were declared on July 1, and APSCHE notified the first-phase counselling schedule on July 16 — registration July 20–29, web options July 25–31, and seat allotment on August 6. Official 2026 closing ranks will be added only after APSCHE publishes each allotment-round statement, which follows the August 6 allotment.",
     },
     {
       q: "Do cutoffs differ by category and gender?",

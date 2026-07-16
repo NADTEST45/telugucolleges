@@ -4,15 +4,19 @@ import { useCallback } from "react";
 import {
   buildIcs,
   type CounsellingMilestone,
+  type IcsCalendarConfig,
 } from "@/lib/counselling-schedule";
 
 /**
- * Client-side "Add to Calendar" for TS EAPCET counselling deadlines.
+ * Client-side "Add to Calendar" for EAPCET counselling deadlines (TS and AP).
  *
  * Generates a .ics file entirely in the browser (Blob + object URL) and
  * triggers a download — no backend, no third-party script, so it stays within
  * the site CSP (`script-src 'self' 'unsafe-inline'`, no external connect).
  * The .ics imports cleanly into Google Calendar, Apple Calendar and Outlook.
+ *
+ * `config`/`filePrefix` default to TS/TGCHE so the TS dates page needs no
+ * changes; the AP schedule passes AP_ICS_CONFIG and a "ap-eapcet" prefix.
  */
 
 function downloadIcs(filename: string, ics: string) {
@@ -58,14 +62,18 @@ const CalendarIcon = ({ className = "" }: { className?: string }) => (
 export function AddMilestoneButton({
   milestone,
   phaseTag,
+  config,
+  filePrefix = "ts-eapcet",
 }: {
   milestone: CounsellingMilestone;
   phaseTag: string;
+  config?: IcsCalendarConfig;
+  filePrefix?: string;
 }) {
   const handleClick = useCallback(() => {
-    const ics = buildIcs([{ milestone, phaseTag }]);
-    downloadIcs(`ts-eapcet-${slugForFile(milestone.calendarTitle)}.ics`, ics);
-  }, [milestone, phaseTag]);
+    const ics = buildIcs([{ milestone, phaseTag }], { config });
+    downloadIcs(`${filePrefix}-${slugForFile(milestone.calendarTitle)}.ics`, ics);
+  }, [milestone, phaseTag, config, filePrefix]);
 
   const label = `Add "${milestone.calendarTitle}" (${milestone.dates}) to your calendar`;
 
@@ -87,17 +95,22 @@ export function AddPhaseButton({
   milestones,
   phaseTag,
   phaseLabel,
+  config,
+  filePrefix = "ts-eapcet",
 }: {
   milestones: CounsellingMilestone[];
   phaseTag: string;
   phaseLabel: string;
+  config?: IcsCalendarConfig;
+  filePrefix?: string;
 }) {
   const handleClick = useCallback(() => {
     const ics = buildIcs(
-      milestones.map(milestone => ({ milestone, phaseTag }))
+      milestones.map(milestone => ({ milestone, phaseTag })),
+      { config }
     );
-    downloadIcs(`ts-eapcet-2026-${slugForFile(phaseLabel)}.ics`, ics);
-  }, [milestones, phaseTag, phaseLabel]);
+    downloadIcs(`${filePrefix}-2026-${slugForFile(phaseLabel)}.ics`, ics);
+  }, [milestones, phaseTag, phaseLabel, config, filePrefix]);
 
   return (
     <button

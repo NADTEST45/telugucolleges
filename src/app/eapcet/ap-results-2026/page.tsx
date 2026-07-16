@@ -9,12 +9,18 @@ import {
   AP_EAPCET_2026_TOPPERS_AGRI,
   AP_EAPCET_2026_TOTAL_QUALIFIED,
 } from "@/lib/ap-result-status";
+import {
+  AP_COUNSELLING_PHASES,
+  AP_ICS_CONFIG,
+  AP_PHASE_1_MILESTONES,
+} from "@/lib/ap-counselling-schedule";
+import { AddMilestoneButton, AddPhaseButton } from "@/components/AddToCalendar";
 
 const url = `${SITE_URL}/eapcet/ap-results-2026`;
 const teUrl = `${SITE_URL}/eapcet/ap-results-2026-telugu`;
 
 // Bump this (and the update log below) whenever the page content changes.
-const LAST_UPDATED = "2026-07-01";
+const LAST_UPDATED = "2026-07-17";
 
 const S = AP_EAPCET_2026_STATS;
 const inr = (n: number) => n.toLocaleString("en-IN");
@@ -57,6 +63,12 @@ export const metadata: Metadata = {
  * Each entry also feeds the LiveBlogPosting JSON-LD below.
  */
 const UPDATES: { date: string; time: string; title: string; body: string }[] = [
+  {
+    date: "2026-07-17",
+    time: "09:00",
+    title: "Counselling schedule notified — registration opens July 20",
+    body: "APSCHE has officially notified the AP EAPCET 2026 first-phase counselling schedule. The admission committee met on July 15, the notification was issued on July 16, and it was published in newspapers today, July 17. Registration and processing-fee payment run July 20–29; verification of uploaded certificates at Help Line Centres runs July 22–31 (online); web options entry is open July 25–31, with a single day — August 1 — to change options. Seat allotments are released on August 6, self-joining and reporting at the allotted college runs August 7–13, and classes begin August 10. Register early: the portal is slowest on the closing days, and certificate verification has to finish before your options are considered.",
+  },
   {
     date: "2026-07-01",
     time: "15:00",
@@ -124,7 +136,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "When will AP EAPCET 2026 counselling start?",
-    a: "As of July 10, APSCHE has not published the 2026 MPC counselling schedule on its official admissions portal. When notified, the process will cover registration and fee payment, certificate verification, web options entry, and phase-wise seat allotment. Check cets.apsche.ap.gov.in and eapcet-sche.aptonline.in rather than relying on predicted dates.",
+    a: "APSCHE notified the first-phase schedule on July 16, 2026 (published in newspapers July 17). Registration and processing-fee payment run July 20–29, verification of uploaded certificates at Help Line Centres runs July 22–31, and web options entry is open July 25–31, with August 1 to change options. Seat allotments are released August 6, self-joining and reporting at the college runs August 7–13, and classes begin August 10. Register on eapcet-sche.aptonline.in.",
   },
 ];
 
@@ -242,13 +254,15 @@ export default function ApResults2026Page() {
       {declared ? (
         <section className="rounded-xl mb-6 p-4 sm:p-6 bg-green-50 border border-green-200">
           <h2 className="text-base sm:text-lg font-bold text-green-900 mb-1">
-            Current status: Declared — rank cards are live
+            Current status: Declared — rank cards are live, counselling registration opens July 20
           </h2>
           <p className="text-sm text-green-900 leading-relaxed">
-            AP EAPCET 2026 rank cards are now available on cets.apsche.ap.gov.in. Log in
-            with your hall ticket number and date of birth to download yours, then start
-            building your web-options list — the official counselling schedule is still awaited
-            shortly.
+            AP EAPCET 2026 rank cards are available on cets.apsche.ap.gov.in — log in with your
+            hall ticket number and date of birth to download yours. APSCHE has now notified the
+            first-phase counselling schedule: registration and fee payment run{" "}
+            <strong>July 20–29</strong>, certificate verification <strong>July 22–31</strong>, and
+            web options <strong>July 25–31</strong>, with seat allotment on{" "}
+            <strong>August 6</strong>. Full schedule below.
           </p>
         </section>
       ) : (
@@ -435,29 +449,40 @@ export default function ApResults2026Page() {
       {declared && (
         <section className="rounded-xl mb-6 p-4 sm:p-5 bg-white border border-gray-200 shadow-sm">
           <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-0.5">
-            Get counselling dates on WhatsApp
+            Get counselling reminders on WhatsApp
           </h2>
           <p className="text-sm text-gray-600 leading-relaxed">
-            Now that the result is out, counselling is next. Drop your WhatsApp number and
-            we&rsquo;ll message you the AP EAPCET 2026 registration and web-options dates the
-            moment APSCHE notifies them.
+            The schedule is out and the deadlines are tight. Drop your WhatsApp number and
+            we&rsquo;ll remind you before registration closes (July 29), before web options
+            close (July 31), and when the August 6 seat allotment is released.
           </p>
           <LeadCapture
             examState="Andhra Pradesh"
             source="ap-result-alert"
-            heading="WhatsApp me the AP EAPCET counselling dates"
-            subtext="Registration, web-options and seat-allotment dates the moment they're notified. No spam — counselling season only."
+            heading="WhatsApp me the AP EAPCET counselling reminders"
+            subtext="Reminders before the registration and web-options deadlines, and an alert when seat allotment drops. No spam — counselling season only."
             buttonLabel="Notify me"
-            doneLabel="✓ Done — we'll WhatsApp you the AP EAPCET 2026 counselling dates the moment they're out."
+            doneLabel="✓ Done — we'll WhatsApp you the AP EAPCET 2026 counselling deadline reminders."
           />
         </section>
       )}
 
-      {/* What happens next */}
-      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
-        <h2 className="text-base sm:text-lg font-bold mb-3">After the result: counselling roadmap</h2>
+      {/* Official counselling schedule */}
+      <section id="counselling-schedule" className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <h2 className="text-base sm:text-lg font-bold">
+            AP EAPCET 2026 counselling schedule — first phase
+          </h2>
+          <AddPhaseButton
+            milestones={AP_PHASE_1_MILESTONES}
+            phaseTag={AP_COUNSELLING_PHASES[0].tag}
+            phaseLabel={AP_COUNSELLING_PHASES[0].title}
+            config={AP_ICS_CONFIG}
+            filePrefix="ap-eapcet"
+          />
+        </div>
         <p className="text-sm text-gray-700 leading-relaxed mb-3">
-          AP EAPCET counselling runs on{" "}
+          APSCHE has officially notified the first-phase schedule. Counselling runs on{" "}
           <a
             href="https://eapcet-sche.aptonline.in"
             target="_blank"
@@ -467,9 +492,64 @@ export default function ApResults2026Page() {
             eapcet-sche.aptonline.in
           </a>{" "}
           — registration and fee payment (₹1,200 OC/BC, ₹600 SC/ST), certificate
-          verification, web options entry, seat allotment, and self-reporting. With
-          the result out, APSCHE is expected to notify the counselling schedule
-          after the result; as of July 10, APSCHE has not published the 2026 MPC schedule.
+          verification, web options entry, seat allotment, and self-reporting.
+        </p>
+        <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-left text-gray-500 border-b border-gray-200">
+                <th className="py-2 pr-3 font-semibold">Event</th>
+                <th className="py-2 pr-3 font-semibold whitespace-nowrap">Dates</th>
+                <th className="py-2 pr-3 font-semibold text-right whitespace-nowrap">Days</th>
+                <th className="py-2 w-9">
+                  <span className="sr-only">Add to calendar</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {AP_PHASE_1_MILESTONES.map(m => (
+                <tr key={m.id} className="border-b border-gray-100 last:border-0">
+                  <td className="py-2.5 pr-3 text-gray-700">{m.event}</td>
+                  <td className="py-2.5 pr-3 font-medium whitespace-nowrap">{m.dates}</td>
+                  <td className="py-2.5 pr-3 text-right text-gray-500">{m.days ?? "—"}</td>
+                  <td className="py-2.5">
+                    <AddMilestoneButton
+                      milestone={m}
+                      phaseTag={AP_COUNSELLING_PHASES[0].tag}
+                      config={AP_ICS_CONFIG}
+                      filePrefix="ap-eapcet"
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-gray-500 mt-3 leading-relaxed">
+          Source: APSCHE APEAPCET-2026 admissions counselling schedule (first phase).
+          Admission committee meeting July 15, 2026; notification issued July 16, 2026;
+          published in newspapers July 17, 2026. Later phases have not been notified yet.
+          Always confirm against{" "}
+          <a
+            href="https://cets.apsche.ap.gov.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent underline"
+          >
+            cets.apsche.ap.gov.in
+          </a>
+          .
+        </p>
+      </section>
+
+      {/* What happens next */}
+      <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
+        <h2 className="text-base sm:text-lg font-bold mb-3">After the result: counselling roadmap</h2>
+        <p className="text-sm text-gray-700 leading-relaxed mb-3">
+          Registration opens <strong>July 20</strong>. Do these now, in this order: download
+          your rank card, get your certificates uploaded and verified (July 22–31 — it must
+          finish before your options count), and build a long priority list of college+branch
+          options ready to enter from July 25.
         </p>
         <ul className="text-sm text-gray-700 space-y-1.5">
           <li>

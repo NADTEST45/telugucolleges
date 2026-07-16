@@ -310,9 +310,31 @@ function foldLine(line: string): string {
   return out.join("\r\n");
 }
 
+/**
+ * Board-specific identity for the generated calendar. Defaults to TS/TGCHE so
+ * existing TS callers keep producing byte-identical .ics output; the AP
+ * schedule (`ap-counselling-schedule.ts`) passes its own config.
+ */
+export interface IcsCalendarConfig {
+  /** Exam label used in the calendar name and event descriptions. */
+  examLabel: string;
+  /** Authority that notified the schedule, e.g. "TGCHE" / "APSCHE". */
+  authority: string;
+  /** Official portal for this board — the event URL field. */
+  portal: string;
+}
+
+export const TS_ICS_CONFIG: IcsCalendarConfig = {
+  examLabel: "TS EAPCET",
+  authority: "TGCHE",
+  portal: COUNSELLING_PORTAL,
+};
+
 export interface IcsBuildOptions {
   /** DTSTAMP / fixed timestamp so output is deterministic. Defaults to now. */
   now?: Date;
+  /** Board identity; defaults to TS/TGCHE. */
+  config?: IcsCalendarConfig;
 }
 
 function dtStamp(now: Date): string {
@@ -324,15 +346,16 @@ function dtStamp(now: Date): string {
 function buildVevent(
   m: CounsellingMilestone,
   phaseTag: string,
-  stamp: string
+  stamp: string,
+  config: IcsCalendarConfig
 ): string[] {
   const title = `${phaseTag}: ${m.calendarTitle}`;
   const windowLine = m.start
     ? `Window: ${m.dates}. `
     : `Date: ${m.dates}. `;
   const description =
-    `${windowLine}Deadline day for the TGCHE TS EAPCET 2026 counselling step ` +
-    `"${m.event}". Always confirm the latest schedule on ${COUNSELLING_PORTAL} ` +
+    `${windowLine}Deadline day for the ${config.authority} ${config.examLabel} 2026 counselling step ` +
+    `"${m.event}". Always confirm the latest schedule on ${config.portal} ` +
     `before acting. Reminder via TeluguColleges.com.`;
 
   return [
@@ -343,7 +366,7 @@ function buildVevent(
     `DTEND;VALUE=DATE:${nextDay(m.deadline)}`,
     `SUMMARY:${escapeIcsText(title)}`,
     `DESCRIPTION:${escapeIcsText(description)}`,
-    `URL:${COUNSELLING_PORTAL}`,
+    `URL:${config.portal}`,
     "TRANSP:TRANSPARENT",
     "BEGIN:VALARM",
     "TRIGGER:-P1D",
@@ -363,16 +386,17 @@ export function buildIcs(
   opts: IcsBuildOptions = {}
 ): string {
   const stamp = dtStamp(opts.now ?? new Date());
+  const config = opts.config ?? TS_ICS_CONFIG;
   const lines: string[] = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//TeluguColleges//TS EAPCET Counselling 2026//EN",
+    `PRODID:-//TeluguColleges//${config.examLabel} Counselling 2026//EN`,
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
-    "X-WR-CALNAME:TS EAPCET 2026 Counselling",
+    `X-WR-CALNAME:${config.examLabel} 2026 Counselling`,
   ];
   for (const { milestone, phaseTag } of milestones) {
-    lines.push(...buildVevent(milestone, phaseTag, stamp));
+    lines.push(...buildVevent(milestone, phaseTag, stamp, config));
   }
   lines.push("END:VCALENDAR");
   return lines.map(foldLine).join("\r\n") + "\r\n";

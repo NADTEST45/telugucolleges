@@ -15,11 +15,14 @@
  * └────────────────────────────────────────────────────────────────────────┘
  *
  * Current basis (see news.ts):
- *  - TS: Phase-1 web options closed Jul 1; mock allotment ≤ Jul 4; option
- *    modification Jul 5–7; final Phase-1 allotment ≤ Jul 10; self-reporting
- *    Jul 10–14; Phase 2 Jul 17–28. (id: tg-eapcet-2026-web-options-closed-july-1)
- *  - AP: result declared Jul 1, rank cards live; counselling registration
- *    expected within ~a week. (id: ap-eapcet-2026-result-declared-july-1)
+ *  - TS: Phase-1 complete (allotment ≤ Jul 10, self-reporting closed Jul 14);
+ *    Phase-2 opens Jul 17 (registration Jul 17, verification Jul 18, web
+ *    options Jul 18–19, allotment ≤ Jul 22). (id: tg-eapcet-2026-phase-2-opens-july-17)
+ *  - AP: result declared Jul 1; first-phase counselling schedule OFFICIALLY
+ *    NOTIFIED Jul 16, published in newspapers Jul 17 — registration Jul 20–29,
+ *    verification Jul 22–31, web options Jul 25–31, allotment Aug 6.
+ *    (id: ap-eapcet-2026-counselling-schedule-notified-july-17)
+ *    Full phase table: `ap-counselling-schedule.ts`.
  */
 
 export interface CounsellingStatus {
@@ -37,24 +40,24 @@ export interface CounsellingStatus {
 }
 
 /** Last date these strings were reviewed against official/press sources. */
-export const COUNSELLING_STATUS_AS_OF = "July 10, 2026";
+export const COUNSELLING_STATUS_AS_OF = "July 17, 2026";
 
 export const TG_COUNSELLING_NOW: CounsellingStatus = {
-  stage: "Phase 1",
-  headline: "Phase-1 allotment processing is underway — the official portal is temporarily closed",
+  stage: "Phase 2",
+  headline: "Phase-1 is complete — Phase-2 counselling opens July 17",
   next:
-    "Check tgeapcet.nic.in for the Phase-1 allotment result. Allotted candidates must pay the fee and self-report online by July 14.",
-  short: "TS Phase-1 allotment processing underway",
+    "Phase-2 registration and slot booking open July 17, certificate verification July 18, and fresh web options July 18–19 (Phase-1 options don't carry over). Phase-2 allotment is due by July 22.",
+  short: "TS Phase-2 counselling opens July 17",
   portalUrl: "https://tgeapcet.nic.in",
   portalLabel: "tgeapcet.nic.in",
 };
 
 export const AP_COUNSELLING_NOW: CounsellingStatus = {
-  stage: "Results out",
-  headline: "Rank cards are live — APSCHE has not yet published the 2026 MPC counselling schedule",
+  stage: "Phase 1",
+  headline: "Counselling schedule notified — first-phase registration opens July 20",
   next:
-    "Download your rank card now, then build your college & branch preference list so you can enter web options quickly once registration opens.",
-  short: "AP rank cards out — counselling schedule awaited",
-  portalUrl: "https://cets.apsche.ap.gov.in",
-  portalLabel: "cets.apsche.ap.gov.in",
+    "Registration and processing-fee payment run July 20–29, certificate verification July 22–31, and web options July 25–31 (options can be changed on August 1). Seat allotment is released August 6, with self-joining and reporting August 7–13.",
+  short: "AP counselling registration opens July 20",
+  portalUrl: "https://eapcet-sche.aptonline.in",
+  portalLabel: "eapcet-sche.aptonline.in",
 };
