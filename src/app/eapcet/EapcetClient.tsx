@@ -602,6 +602,7 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
           tag: "AP" | "TS" | "Both";
           isNew?: boolean;
         }[] = [
+          { href: "/eapcet/ap-counselling-dates-2026", tag: "AP", isNew: true, title: "AP Counselling Dates 2026 — Official Schedule", desc: "APSCHE-notified first phase: registration July 20–29, web options July 25–31, seat allotment August 6." },
           { href: "/eapcet/ap-results-2026", tag: "AP", title: "AP EAPCET Results 2026 — Declared July 1", desc: "Rank card download steps, pass percentages & toppers, and what happens next in counselling." },
           { href: "/eapcet/ap-cutoff-2026", tag: "AP", title: "AP EAPCET 2026 Cutoff — Branch-wise", desc: "Expected college-wise closing ranks for CSE, ECE, EEE, Civil, Mech, IT & AI branches." },
           { href: "/eapcet/ap-web-options", tag: "AP", title: "AP Web Options Entry — Step-by-Step", desc: "The exact entry process and the priority-order strategy that decides your seat." },

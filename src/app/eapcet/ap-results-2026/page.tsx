@@ -525,7 +525,14 @@ export default function ApResults2026Page() {
             </tbody>
           </table>
         </div>
-        <p className="text-xs text-gray-500 mt-3 leading-relaxed">
+        <p className="text-sm text-gray-700 mt-3 leading-relaxed">
+          →{" "}
+          <Link href="/eapcet/ap-counselling-dates-2026" className="text-accent underline font-medium">
+            Full AP EAPCET counselling dates 2026 page
+          </Link>{" "}
+          — fees, documents, deadline reminders and FAQs.
+        </p>
+        <p className="text-xs text-gray-500 mt-2 leading-relaxed">
           Source: APSCHE APEAPCET-2026 admissions counselling schedule (first phase).
           Admission committee meeting July 15, 2026; notification issued July 16, 2026;
           published in newspapers July 17, 2026. Later phases have not been notified yet.
@@ -552,6 +559,9 @@ export default function ApResults2026Page() {
           options ready to enter from July 25.
         </p>
         <ul className="text-sm text-gray-700 space-y-1.5">
+          <li>
+            → <Link href="/eapcet/ap-counselling-dates-2026" className="text-accent underline">AP EAPCET counselling dates 2026 — full official schedule</Link>
+          </li>
           <li>
             → <Link href="/eapcet/ap-cutoff-2026" className="text-accent underline">AP EAPCET 2026 cutoff — expected branch-wise closing ranks</Link>
           </li>

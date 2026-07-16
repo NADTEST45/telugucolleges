@@ -24,7 +24,12 @@ const MAX_URL = 300;
 
 // Capture surfaces. Upsert key is (phone, source), so each surface keeps its
 // own row per phone instead of overwriting another surface's opt-in.
-const ALLOWED_SOURCES = ["predictor", "counselling-dates", "ap-result-alert"] as const;
+const ALLOWED_SOURCES = [
+  "predictor",
+  "counselling-dates", // TS counselling-dates page
+  "ap-counselling-dates", // AP counselling-dates page (separate bucket: upsert key is phone+source)
+  "ap-result-alert",
+] as const;
 const DEFAULT_SOURCE = "predictor";
 
 // Indian mobile: 10 digits starting 6-9, after stripping +91/0 prefix and separators.

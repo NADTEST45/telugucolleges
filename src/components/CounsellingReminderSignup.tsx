@@ -3,14 +3,25 @@
 import { useState } from "react";
 
 /**
- * WhatsApp reminder opt-in for the TS EAPCET counselling-dates page.
+ * WhatsApp reminder opt-in for the EAPCET counselling-dates pages (TS and AP).
  *
  * Mirrors LeadCapture but is context-free (no rank/branch) and tags itself with
- * `source: "counselling-dates"` so these opt-ins are stored separately from the
- * predictor leads (the leads table upserts on phone+source). Posts to the same
- * /api/leads endpoint. Every submission is a qualified counselling-season lead.
+ * a per-page `source` so these opt-ins are stored separately from the predictor
+ * leads. The leads table upserts on phone+source, so AP and TS must use
+ * DIFFERENT source values or one state's opt-in would overwrite the other's for
+ * a student tracking both. Posts to the same /api/leads endpoint.
+ *
+ * Props default to TG so the existing TS page renders unchanged.
  */
-export default function CounsellingReminderSignup() {
+export default function CounsellingReminderSignup({
+  examState = "Telangana",
+  examLabel = "TG EAPCET",
+  source = "counselling-dates",
+}: {
+  examState?: "Telangana" | "Andhra Pradesh";
+  examLabel?: string;
+  source?: string;
+} = {}) {
   const [phone, setPhone] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -26,8 +37,8 @@ export default function CounsellingReminderSignup() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           phone,
-          exam_state: "Telangana",
-          source: "counselling-dates",
+          exam_state: examState,
+          source,
           page_url: window.location.href,
           website: "", // honeypot — humans leave this empty
         }),
@@ -63,7 +74,7 @@ export default function CounsellingReminderSignup() {
         Get deadline alerts on WhatsApp
       </div>
       <p className="text-[11px] text-gray-500 mb-2.5">
-        We&apos;ll ping you before each TG EAPCET 2026 counselling deadline and
+        We&apos;ll ping you before each {examLabel} 2026 counselling deadline and
         when seat-allotment results are out — free, counselling season only.
       </p>
       <div className="flex gap-2">

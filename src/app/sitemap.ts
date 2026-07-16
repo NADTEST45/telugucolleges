@@ -76,6 +76,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/eapcet/web-options-generator`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE}/eapcet/certificate-verification-documents`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/eapcet/ts-counselling-dates-2026`, changeFrequency: "weekly", priority: 0.8 },
+    // AP counselling schedule — notified July 16, 2026; first phase runs to Aug 13.
+    // Daily until the Aug 6 allotment, since deadlines land through the window.
+    { url: `${BASE}/eapcet/ap-counselling-dates-2026`, changeFrequency: "daily", priority: 0.9 },
     // AP EAPCET 2026 cutoff landing pages — pre-built ahead of the end-June
     // result spike; updated as official 2026 rounds conclude.
     { url: `${BASE}/eapcet/ap-cutoff-2026`, changeFrequency: "weekly", priority: 0.9 },

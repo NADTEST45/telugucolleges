@@ -172,7 +172,7 @@ export default function ApWebOptionsPage() {
           <strong>July 22–31</strong>, enter web options <strong>July 25–31</strong>, and
           change them if needed on <strong>August 1</strong>. Seat allotments are released{" "}
           <strong>August 6</strong>.{" "}
-          <Link href="/eapcet/ap-results-2026#counselling-schedule" className="underline font-medium">
+          <Link href="/eapcet/ap-counselling-dates-2026" className="underline font-medium">
             Full schedule →
           </Link>
         </p>
@@ -289,6 +289,9 @@ export default function ApWebOptionsPage() {
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
         <h2 className="text-base sm:text-lg font-bold mb-3">Related guides</h2>
         <ul className="text-sm text-gray-700 space-y-1.5">
+          <li>
+            → <Link href="/eapcet/ap-counselling-dates-2026" className="text-accent underline">AP EAPCET counselling dates 2026 — official schedule</Link>
+          </li>
           <li>
             → <Link href="/eapcet/ap-results-2026" className="text-accent underline">AP EAPCET Results 2026 — live updates</Link>
           </li>
