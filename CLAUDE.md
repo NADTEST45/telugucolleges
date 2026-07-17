@@ -13,9 +13,17 @@
   **redirect to apex** — flipping it breaks Google Search Console sitemap fetch.
 - Sitemap submitted to GSC (~4,300+ pages). Public contact: `contact@telugucolleges.com`.
 
-### Push / build constraint
-The sandbox can **commit** but cannot **push or run a full `next build`**. After making
-changes, the user must push from their Mac and let Vercel build. Don't assume a deploy happened.
+### Push / build
+As of 2026-07-17 the sandbox **can** commit, run a full `next build`, and **push to
+`origin/main`** — pushing triggers a Vercel **production** deploy to the live site.
+(This section previously said none of that was possible; it was stale.)
+
+- Run `npm run ci` (typecheck + lint + test) and, for anything non-trivial, `npm run build`
+  before pushing — the build catches what CI doesn't.
+- **Pushing to `main` publishes to telugucolleges.com.** Treat it as a deploy, not a save.
+  Only push when the user has actually asked to deploy; commit and let them push otherwise.
+- A failed Vercel build leaves prod on the previous deploy, but don't rely on that as the
+  safety net. Verify the deploy reached `READY` and hit the live URL before calling it done.
 
 ## How the data is stored
 Almost all site data is **static TypeScript/JSON in `src/lib/`** — there is no runtime DB read
