@@ -15,6 +15,17 @@
      passes WCAG AA. Do NOT use a lighter gray for text. */
   --color-ink: #1f2937;          /* primary text */
   --color-muted: #6b7280;        /* secondary / caption text — AA on white */
+
+  /* State coding — used EVERYWHERE a college's state is shown. Never swap.
+     Telangana = brand blue (accent), Andhra Pradesh = green. */
+  --color-state-ts: #2e86c1;     /* Telangana (same as accent) */
+  --color-state-ap: #16a34a;     /* Andhra Pradesh (green-600) */
+
+  /* Status colors — success/warning/alert accents and their soft tints.
+     Values are Tailwind green-600 / amber-600 / red-600, AA on white. */
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-alert: #dc2626;
 }
 
 /* Safe area inset for notched iPhones — bottom nav */
@@ -61,13 +72,22 @@ body {
   overscroll-behavior-y: none;
 }
 
-/* Larger tap targets — all interactive elements get min 44px touch area */
+/* Larger tap targets — interactive controls get a min 44px touch area.
+   Scoped to real controls + nav links, NOT every <a>/<button>: the previous
+   blanket rule (button, a, …) also inflated inline text links and full-card
+   overlay links inside dense data tables/cards, fighting the compact design.
+   Elements that are intentionally inline/opt-out carry data-inline. */
 @media (pointer: coarse) {
-  button, a, select, input, [role="button"] {
+  button:not([data-inline]),
+  select,
+  input,
+  [role="button"]:not([data-inline]),
+  nav a,
+  .tap-target {
     min-height: 44px;
   }
   /* Inline text links and tiny badges still need min 44px with proper padding */
-  .inline-link, nav a, .badge {
+  .inline-link, .badge {
     min-height: 44px;
     display: inline-flex;
     align-items: center;

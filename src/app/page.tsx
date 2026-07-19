@@ -10,6 +10,7 @@ import AdSlot from "@/components/ads/AdSlot";
 import JsonLd from "@/components/JsonLd";
 import ProgramIcon from "@/components/ui/ProgramIcon";
 import Badge from "@/components/ui/Badge";
+import Button from "@/components/ui/Button";
 import ts_mba from "@/lib/mba_data.json";
 import ap_mba from "@/lib/ap_mba_data.json";
 import ts_mca from "@/lib/mca_data.json";
@@ -114,12 +115,12 @@ export default async function Home() {
             Compare fees, cutoffs, placements and rankings for {stats.total} professional colleges across both states.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-2 sm:px-0">
-            <Link href="/colleges" className="inline-block bg-white text-brand font-bold px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl text-base sm:text-lg shadow-xl active:scale-[0.98] transition-all">
+            <Button href="/colleges" variant="white" size="lg">
               Explore Colleges
-            </Link>
-            <Link href="/eapcet" className="inline-block bg-white/15 text-white font-bold px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl text-base sm:text-lg border border-white/30 active:scale-[0.98] transition-all">
+            </Button>
+            <Button href="/eapcet" variant="secondary" size="lg">
               EAPCET Predictor
-            </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -130,22 +131,24 @@ export default async function Home() {
       <section className="bg-amber-50 border-b border-amber-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-4">
           <div className="flex items-start sm:items-center gap-2 min-w-0">
+            {/* Static live dot — no ping animation. The pulsing ring competed
+                with the two CTAs and read as "notification spam" on a site
+                whose whole value is calm, official-data credibility. */}
             <span className="relative flex h-2.5 w-2.5 shrink-0 mt-1 sm:mt-0" aria-hidden>
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-alert" />
             </span>
             <p className="text-xs sm:text-sm text-gray-800 min-w-0">
-              <span className="font-bold">EAPCET 2026 counselling is on:</span>{" "}
+              <span className="font-bold">Counselling is live:</span>{" "}
               {AP_COUNSELLING_NOW.short} · {TG_COUNSELLING_NOW.short}
             </p>
           </div>
           <div className="flex gap-2 sm:ml-auto shrink-0 pl-4 sm:pl-0">
-            <Link href="/eapcet" className="px-3 py-1.5 rounded-lg bg-brand text-white text-xs font-semibold hover:bg-brand-dark transition-colors active:scale-95">
+            <Button href="/eapcet" size="sm">
               Predict my colleges
-            </Link>
-            <Link href="/eapcet/web-options-generator" className="px-3 py-1.5 rounded-lg bg-white border border-amber-200 text-gray-700 text-xs font-semibold hover:border-accent hover:text-accent transition-colors active:scale-95">
+            </Button>
+            <Button href="/eapcet/web-options-generator" variant="white" size="sm" className="border border-amber-200 text-gray-700 hover:border-accent hover:text-accent">
               Build web options
-            </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -186,25 +189,29 @@ export default async function Home() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 -mt-4 sm:-mt-8 relative z-10 pt-8 sm:pt-12">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3">
           {[
-            { label: "B.Tech", count: stats.eng, href: "/programs/b-tech", tint: "bg-indigo-50 text-indigo-600" },
-            { label: "MBA", count: stats.mba, href: "/programs/mba", tint: "bg-amber-50 text-amber-600" },
-            { label: "MCA", count: stats.mca, href: "/programs/mca", tint: "bg-cyan-50 text-cyan-600" },
-            { label: "BBA", count: null, href: "/programs/bba", tint: "bg-orange-50 text-orange-600" },
-            { label: "BCA", count: null, href: "/programs/bca", tint: "bg-sky-50 text-sky-600" },
-            { label: "MBBS", count: stats.med, href: "/programs/mbbs", tint: "bg-rose-50 text-rose-600" },
-            { label: "B.Pharm", count: stats.pharm, href: "/programs/b-pharm", tint: "bg-teal-50 text-teal-600" },
-            { label: "Pharm.D", count: stats.pharmd, href: "/programs/pharm-d", tint: "bg-emerald-50 text-emerald-600" },
-            { label: "M.Pharm", count: stats.mpharm, href: "/programs/m-pharm", tint: "bg-violet-50 text-violet-600" },
-            { label: "M.Tech", count: null, href: "/programs/m-tech", tint: "bg-blue-50 text-blue-600" },
-            { label: "B.Arch", count: null, href: "/programs/b-arch", tint: "bg-stone-100 text-stone-600" },
-            { label: "BA LLB", count: null, href: "/programs/ba-llb-hons", tint: "bg-red-50 text-red-600" },
+            // Colour is reserved for the four highest-traffic hero programs so
+            // the grid reads as a calm, scannable index rather than a rainbow.
+            // Everything else uses one neutral tile. Program meaning is carried
+            // by the icon, not the tint.
+            { label: "B.Tech", count: stats.eng, href: "/programs/b-tech", hero: true },
+            { label: "MBA", count: stats.mba, href: "/programs/mba", hero: true },
+            { label: "MBBS", count: stats.med, href: "/programs/mbbs", hero: true },
+            { label: "B.Pharm", count: stats.pharm, href: "/programs/b-pharm", hero: true },
+            { label: "MCA", count: stats.mca, href: "/programs/mca", hero: false },
+            { label: "BBA", count: null, href: "/programs/bba", hero: false },
+            { label: "BCA", count: null, href: "/programs/bca", hero: false },
+            { label: "Pharm.D", count: stats.pharmd, href: "/programs/pharm-d", hero: false },
+            { label: "M.Pharm", count: stats.mpharm, href: "/programs/m-pharm", hero: false },
+            { label: "M.Tech", count: null, href: "/programs/m-tech", hero: false },
+            { label: "B.Arch", count: null, href: "/programs/b-arch", hero: false },
+            { label: "BA LLB", count: null, href: "/programs/ba-llb-hons", hero: false },
           ].map(item => (
             <Link key={item.label} href={item.href} aria-label={item.label} className="bg-white rounded-xl p-3 sm:p-4 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all text-center">
-              <span className={`inline-flex items-center justify-center w-10 h-10 rounded-lg mb-2 ${item.tint}`} aria-hidden="true">
+              <span className={`inline-flex items-center justify-center w-10 h-10 rounded-lg mb-2 ${item.hero ? "bg-blue-50 text-brand" : "bg-gray-100 text-gray-500"}`} aria-hidden="true">
                 <ProgramIcon name={item.label} className="w-5 h-5" />
               </span>
               <div className="font-bold text-xs sm:text-sm text-gray-800">{item.label}</div>
-              {item.count ? <div className="text-xs text-gray-500 mt-0.5 tabular-nums">{item.count} colleges</div> : null}
+              {item.count ? <div className="text-xs text-muted mt-0.5 tabular-nums">{item.count} colleges</div> : null}
             </Link>
           ))}
         </div>
@@ -241,8 +248,8 @@ export default async function Home() {
         <p className="text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6">Final-phase OC closing ranks from official TSCHE/APSCHE data. Lower rank = harder to get in.</p>
         <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mb-10 sm:mb-14">
           {[
-            { title: "Telangana — Top 5", color: "bg-accent", list: topTS },
-            { title: "Andhra Pradesh — Top 5", color: "bg-green-600", list: topAP },
+            { title: "Telangana — Top 5", color: "bg-state-ts", list: topTS },
+            { title: "Andhra Pradesh — Top 5", color: "bg-state-ap", list: topAP },
           ].map(({ title, color, list }) => (
             <div key={title} className="bg-white rounded-xl overflow-hidden shadow-sm">
               <div className={`${color} text-white px-4 sm:px-5 py-3 sm:py-3.5 font-bold text-sm sm:text-base`}>{title}</div>
@@ -272,13 +279,13 @@ export default async function Home() {
         <p className="text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6">Lowest tuition fees across AP & Telangana.</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-10 sm:mb-14">
           {cheapest.map(c => (
-            <Link key={c.id} href={`/colleges/${c.slug}`} className="bg-white rounded-xl p-4 sm:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all active:scale-[0.98]">
-              <div className={`text-xs font-semibold mb-1 ${c.type === "Government" ? "text-green-600" : "text-accent"}`}>
+            <Link key={c.id} href={`/colleges/${c.slug}`} className="bg-white rounded-xl p-4 sm:p-5 shadow-sm border-l-4 border-l-success hover:shadow-md hover:-translate-y-0.5 transition-all active:scale-[0.98]">
+              <div className={`text-xs font-semibold mb-1 ${c.type === "Government" ? "text-success" : "text-accent"}`}>
                 {c.type} · {c.state}
               </div>
               <div className="font-bold text-sm sm:text-base mb-2 leading-snug">{c.name}</div>
               <div className="flex items-center justify-between">
-                <div className="text-lg sm:text-xl font-extrabold text-brand tabular-nums">{fmtFee(c.fee)}<span className="text-xs font-normal text-gray-500">/yr</span></div>
+                <div className="text-lg sm:text-xl font-extrabold text-brand tabular-nums">{fmtFee(c.fee)}<span className="text-xs font-normal text-muted">/yr</span></div>
                 <Badge tone="accent">{c.district}</Badge>
               </div>
             </Link>

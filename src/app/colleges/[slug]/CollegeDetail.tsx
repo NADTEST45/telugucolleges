@@ -9,6 +9,7 @@ import AdSlot from "@/components/ads/AdSlot";
 import ShortlistButton from "@/components/ShortlistButton";
 import CollegeMonogram from "@/components/CollegeMonogram";
 import CutoffSparkline from "@/components/CutoffSparkline";
+import Badge from "@/components/ui/Badge";
 import FAQAccordion from "./components/FAQAccordion";
 import ReportDataButton from "./components/ReportDataButton";
 import DownloadCutoffPDF from "./components/DownloadCutoffPDF";
@@ -113,10 +114,10 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
       {/* Header */}
       <div className="bg-white rounded-2xl p-4 sm:p-8 mb-6 shadow-sm">
         <div className="flex gap-2 mb-3 flex-wrap">
-          <span className={`px-2.5 py-1 rounded text-xs font-semibold ${c.type === "Government" ? "bg-green-50 text-green-600" : c.type === "Deemed University" ? "bg-amber-50 text-amber-700" : c.type === "Private University" ? "bg-violet-50 text-violet-700" : "bg-blue-50 text-blue-600"}`}>{c.type}</span>
-          {c.naac && c.naac !== "-" && <span className="px-2.5 py-1 rounded text-xs font-semibold bg-amber-50 text-amber-600">NAAC {c.naac}</span>}
-          {c.nba && <span className="px-2.5 py-1 rounded text-xs font-semibold bg-purple-50 text-purple-600">NBA Accredited</span>}
-          {c.nirf > 0 && <span className="px-2.5 py-1 rounded text-xs font-semibold bg-rose-50 text-rose-600">NIRF 2025 {nirfBand(c.nirf)}</span>}
+          <Badge tone={c.type === "Government" ? "government" : c.type === "Deemed University" ? "deemed" : c.type === "Private University" ? "privateUniversity" : "private"}>{c.type}</Badge>
+          {c.naac && c.naac !== "-" && <Badge tone="naac">NAAC {c.naac}</Badge>}
+          {c.nba && <Badge tone="nba">NBA Accredited</Badge>}
+          {c.nirf > 0 && <Badge tone="nirf">NIRF 2025 {nirfBand(c.nirf)}</Badge>}
         </div>
         <div className="flex items-start gap-3 sm:gap-4 mb-3">
           <CollegeMonogram name={c.name} code={c.code} size="lg" />
@@ -527,7 +528,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                   <caption className="sr-only">{group.label} at {c.name} — program-wise annual fee, duration and total cost</caption>
                   <thead>
                     <tr className={`${headerBg} text-white`}>
-                      <th scope="col" className="px-4 py-2.5 text-left rounded-tl-lg">Program</th>
+                      <th scope="col" className="px-4 py-2.5 text-left rounded-tl-lg sticky left-0 z-10 bg-inherit">Program</th>
                       <th scope="col" className="px-4 py-2.5 text-right">{feeLabel}</th>
                       <th scope="col" className="px-4 py-2.5 text-right hidden sm:table-cell">Duration</th>
                       <th scope="col" className="px-4 py-2.5 text-right rounded-tr-lg">Total Cost</th>
@@ -535,14 +536,14 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                   </thead>
                   <tbody>
                     {group.items.map((co, i) => (
-                      <tr key={`${co.program}-${co.specialization || ""}-${i}`} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                        <th scope="row" className="px-4 py-3 text-left font-normal">
+                      <tr key={`${co.program}-${co.specialization || ""}-${i}`} className={`group/row transition-colors hover:bg-blue-50/60 ${i % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
+                        <th scope="row" className={`px-4 py-3 text-left font-normal sticky left-0 z-10 transition-colors group-hover/row:bg-blue-50/60 ${i % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
                           <div className="font-semibold">{co.program}</div>
-                          {co.specialization && <div className="text-xs text-gray-500 mt-0.5">{co.specialization}</div>}
-                          <div className="text-xs text-gray-500 mt-0.5 sm:hidden">{co.duration} {co.duration === 1 ? "yr" : "yrs"}</div>
+                          {co.specialization && <div className="text-xs text-muted mt-0.5">{co.specialization}</div>}
+                          <div className="text-xs text-muted mt-0.5 sm:hidden">{co.duration} {co.duration === 1 ? "yr" : "yrs"}</div>
                         </th>
                         <td className={`px-4 py-3 text-right font-bold ${feeColor}`}>{fmtCourseFee(getFee(co))}</td>
-                        <td className="px-4 py-3 text-right text-gray-500 hidden sm:table-cell">{co.duration} {co.duration === 1 ? "year" : "years"}</td>
+                        <td className="px-4 py-3 text-right text-muted hidden sm:table-cell">{co.duration} {co.duration === 1 ? "year" : "years"}</td>
                         <td className="px-4 py-3 text-right font-semibold">{fmtCourseFee(getTotal(co))}</td>
                       </tr>
                     ))}
@@ -793,7 +794,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                     </caption>
                     <thead>
                       <tr className="bg-brand text-white">
-                        <th scope="col" className="px-3 py-2.5 text-left rounded-tl-lg">Branch</th>
+                        <th scope="col" className="px-3 py-2.5 text-left rounded-tl-lg sticky left-0 z-10 bg-brand">Branch</th>
                         {phases!.map((p, i) => (
                           <th scope="col" key={p.key} className={`px-3 py-2.5 text-right whitespace-nowrap ${i === phases!.length - 1 ? "rounded-tr-lg" : ""}`}>
                             {p.label}
@@ -807,8 +808,8 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                         const hasAnyData = ranks.some(r => r > 0);
                         if (!hasAnyData) return null;
                         return (
-                          <tr key={branch} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                            <th scope="row" className="px-3 py-2.5 font-semibold text-sm text-left sm:whitespace-nowrap break-words">{branchLabel(branch)}</th>
+                          <tr key={branch} className={`group/row transition-colors hover:bg-blue-50/60 ${i % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
+                            <th scope="row" className={`px-3 py-2.5 font-semibold text-sm text-left sm:whitespace-nowrap break-words sticky left-0 z-10 transition-colors group-hover/row:bg-blue-50/60 ${i % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>{branchLabel(branch)}</th>
                             {ranks.map((rank, ri) => {
                               // Color code: earlier phases (tighter) = red-ish, later (relaxed) = green-ish
                               const prevRank = ri > 0 ? ranks[ri - 1] : 0;
@@ -818,7 +819,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                                   {rank > 0 ? (
                                     <span>
                                       {rank.toLocaleString()}
-                                      {relaxed && <span className="ml-1 text-[11px] sm:text-xs text-green-500">↓</span>}
+                                      {relaxed && <span className="ml-1 text-[11px] sm:text-xs text-success">↓</span>}
                                     </span>
                                   ) : (
                                     <span className="text-gray-300">—</span>
@@ -880,7 +881,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                     </caption>
                     <thead>
                       <tr className="bg-brand text-white">
-                        <th scope="col" className="px-4 py-2.5 text-left rounded-tl-lg">Branch</th>
+                        <th scope="col" className="px-4 py-2.5 text-left rounded-tl-lg sticky left-0 z-10 bg-brand">Branch</th>
                         {yearCols.map(y => (
                           <th scope="col" key={y.key} className="px-4 py-2.5 text-right">{y.label}</th>
                         ))}
@@ -901,8 +902,8 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                           if (Math.abs(diff) > 500) trend = diff < 0 ? "↑" : "↓";
                         }
                         return (
-                          <tr key={branch} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                            <th scope="row" className="px-4 py-2.5 font-semibold text-sm text-left break-words">{branchLabel(branch)}</th>
+                          <tr key={branch} className={`group/row transition-colors hover:bg-blue-50/60 ${i % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
+                            <th scope="row" className={`px-4 py-2.5 font-semibold text-sm text-left break-words sticky left-0 z-10 transition-colors group-hover/row:bg-blue-50/60 ${i % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>{branchLabel(branch)}</th>
                             {yearCols.map((y, yi) => {
                               const rank = getRank(branch, y.key);
                               return (
@@ -911,7 +912,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                                     <span>
                                       {rank.toLocaleString()}
                                       {yi === 0 && trend && (
-                                        <span className={`ml-1 text-[11px] sm:text-xs ${trend === "↑" ? "text-red-500" : "text-green-500"}`}>{trend}</span>
+                                        <span className={`ml-1 text-[11px] sm:text-xs ${trend === "↑" ? "text-alert" : "text-success"}`}>{trend}</span>
                                       )}
                                     </span>
                                   ) : (
