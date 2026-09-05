@@ -1,0 +1,42 @@
+{
+  "ap-cutoffs": {
+    "2024": {
+      "codes": 273,
+      "branches": 1476,
+      "cells": 12644,
+      "girlsCells": 0
+    },
+    "2025": {
+      "codes": 0,
+      "branches": 0,
+      "cells": 0,
+      "girlsCells": 0
+    },
+    "2026": {
+      "codes": 0,
+      "branches": 0,
+      "cells": 0,
+      "girlsCells": 0
+    }
+  },
+  "ts-cutoffs": {
+    "2024": {
+      "codes": 271,
+      "branches": 1154,
+      "cells": 19899,
+      "girlsCells": 10386
+    },
+    "2025": {
+      "codes": 163,
+      "branches": 951,
+      "cells": 19954,
+      "girlsCells": 10461
+    },
+    "2026": {
+      "codes": 0,
+      "branches": 0,
+      "cells": 0,
+      "girlsCells": 0
+    }
+  }
+}

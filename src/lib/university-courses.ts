@@ -27,6 +27,9 @@ export interface CourseInfo {
   program: string;
   specialization?: string;
   fee: number;
+  sourceUrl?: string;
+  feeAcademicYear?: string;
+  verifiedAt?: string;
   totalFee?: number; // Actual total for full duration — use when fee varies by year (e.g. annual hikes). If absent, total = fee × duration.
   mgmtFee?: number; // Management quota fee (Category-B) — only for affiliated colleges
   duration: number;
@@ -114,7 +117,8 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "MCA", fee: 250000, duration: 2, level: "PG" },
     { program: "M.Tech", specialization: "CSE (AI&DS / Cyber Security / Digital Forensic)", fee: 160000, duration: 2, level: "PG" },
     { program: "M.Tech", specialization: "ECE (VLSI / IoT)", fee: 140000, duration: 2, level: "PG" },
-    { program: "M.Tech", specialization: "Civil / EEE / ME", fee: 125000, duration: 2, level: "PG" },
+    { program: "M.Tech", specialization: "Civil (CTM)", fee: 145000, sourceUrl: "https://www.kluniversity.in/sships3.aspx", feeAcademicYear: "2026-27", verifiedAt: "2026-09-05", duration: 2, level: "PG" },
+    { program: "M.Tech", specialization: "EEE / ME", fee: 125000, duration: 2, level: "PG" },
     { program: "M.Pharm", fee: 220000, duration: 2, level: "PG" },
     { program: "M.Sc Chemistry", fee: 90000, duration: 2, level: "PG" },
     { program: "Ph.D", fee: 80000, duration: 3, level: "Doctoral" },
@@ -271,11 +275,11 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
   "IIIT": [ // IIIT Hyderabad (iiit.ac.in) — AY 2026-27 from ugadmissions.iiit.ac.in/fee-jee-spec/
     { program: "B.Tech", specialization: "CSE", fee: 500000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "ECE", fee: 500000, duration: 4, level: "UG" },
-    { program: "B.Tech", specialization: "CLD (Computational Linguistics)", fee: 500000, duration: 4, level: "UG" },
+    { program: "Dual Degree (B.Tech + M.S.)", specialization: "Computer Science + Computational Linguistics by Research (CLD)", fee: 500000, duration: 5, level: "Integrated" },
     { program: "Dual Degree (B.Tech + M.S.)", specialization: "CSE / ECE", fee: 500000, duration: 5, level: "Integrated" },
-    { program: "M.Tech", specialization: "CSE / ECE / VLSI", fee: 250000, duration: 2, level: "PG" },
-    { program: "M.S. by Research", fee: 200000, duration: 2, level: "PG" },
-    { program: "Ph.D", fee: 100000, duration: 4, level: "Doctoral" },
+    { program: "M.Tech", specialization: "CSE / CSIS / CASE / PDM / VLSI & Semiconductor Technologies", fee: 500000, sourceUrl: "https://pgadmissions.iiit.ac.in/fee/", feeAcademicYear: "2026-27", verifiedAt: "2026-09-05", duration: 2, level: "PG" },
+    { program: "M.S. by Research", fee: 60000, sourceUrl: "https://pgadmissions.iiit.ac.in/fee/", feeAcademicYear: "2026-27", verifiedAt: "2026-09-05", duration: 2, level: "PG" },
+    { program: "Ph.D", fee: 60000, sourceUrl: "https://pgadmissions.iiit.ac.in/fee/", feeAcademicYear: "2026-27", verifiedAt: "2026-09-05", duration: 4, level: "Doctoral" },
   ],
 
   "ICFA": [ // ICFAI (IFHE) — Hyderabad (ifheindia.org — ₹1,40,000/sem × 2, same all 4 yrs, total ₹11.2L)

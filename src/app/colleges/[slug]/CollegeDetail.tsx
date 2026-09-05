@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
+import { getCseSummary } from "@/lib/cutoff-summary";
 import Link from "next/link";
 import type { College } from "@/lib/colleges";
 import { fmtFee, fmtCourseFee, fmtEstablishedYear } from "@/lib/format";
@@ -43,39 +44,14 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
   const [gender, setGender] = useState<Gender>("boys");
   const [feeTab, setFeeTab] = useState(0); // 0 = primary tab, 1 = secondary tab
   const cutoffTableRef = useRef<HTMLDivElement>(null);
-  const cutoffs = Object.entries(c.cutoff).filter(([, v]) => v > 0).sort((a, b) => a[1] - b[1]);
 
   // Per-college datasets (courses, scholarships, exams, placements, reviews)
   // are looked up server-side in college-detail-data.ts and passed down, so
   // this client component never bundles those data files.
   const { courses, scholarshipInfo, admissionExam, medical, feeAY } = detail;
 
-  // Resolve the CSE OC closing rank for the summary card / About paragraph.
-  // The static summary (c.cutoff.cse) is 0 for many colleges that DO have
-  // real final-phase / historical CSE data in the cutoff tables below — which
-  // produced the trust-breaking "CSE Cutoff: 0" card while the table showed
-  // genuine closing ranks. Backfill from the same data the table renders:
-  // prefer the static summary, then the most recent phase (phases are ordered
-  // final-phase-first), then the latest historical year. OC / boys, matching
-  // the "EAPCET final OC" card label.
-  const cseClosing = (() => {
-    if (c.cutoff.cse > 0) return c.cutoff.cse;
-    if (phaseCutoffs && phases) {
-      for (const p of phases) {
-        const br = phaseCutoffs[p.key]?.["CSE"];
-        const r = br ? getRankForGender(br, "OC", "boys") : 0;
-        if (r > 0) return r;
-      }
-    }
-    if (historicalCutoffs) {
-      for (const y of Object.keys(historicalCutoffs).sort((a, b) => b.localeCompare(a))) {
-        const br = historicalCutoffs[y]?.["CSE"];
-        const r = br ? getRankForGender(br, "OC", "boys") : 0;
-        if (r > 0) return r;
-      }
-    }
-    return 0;
-  })();
+  const cseSummary = getCseSummary(c.state, historicalCutoffs, phaseCutoffs, phases);
+  const cseClosing = cseSummary?.rank ?? 0;
 
   // Use actual total from course data when available (handles variable yearly fees)
   const btechCourse = courses?.find(co => (co.program === "B.Tech" || co.program === "B.E.") && co.fee === c.fee);
@@ -115,8 +91,8 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
       <div className="bg-white rounded-2xl p-4 sm:p-8 mb-6 shadow-sm">
         <div className="flex gap-2 mb-3 flex-wrap">
           <Badge tone={c.type === "Government" ? "government" : c.type === "Deemed University" ? "deemed" : c.type === "Private University" ? "privateUniversity" : "private"}>{c.type}</Badge>
-          {c.naac && c.naac !== "-" && <Badge tone="naac">NAAC {c.naac}</Badge>}
-          {c.nba && <Badge tone="nba">NBA Accredited</Badge>}
+          {c.naac && c.naac !== "-" && <Badge tone="naac">Recorded NAAC {c.naac}</Badge>}
+          {c.nba && <Badge tone="nba">NBA validity unverified</Badge>}
           {c.nirf > 0 && <Badge tone="nirf">NIRF 2025 {nirfBand(c.nirf)}</Badge>}
         </div>
         <div className="flex items-start gap-3 sm:gap-4 mb-3">
@@ -158,9 +134,9 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-3">
         {([
           ["Annual Fee", c.fee > 0 ? btechFeeLabel : "—", c.type === "Deemed University" || c.type === "Private University" ? `University fee${feeAY ? ` · AY ${feeAY}` : ""}` : c.state === "Telangana" ? "GO.Ms.06 · 2025-28" : "APHERMC · 2023-26", "text-brand"],
-          ...(medical ? [["Admission", "NEET-UG", `Via ${medical.authority} counselling`, "text-gray-900"]] : c.type !== "Deemed University" ? [["CSE Closing Rank", cseClosing > 0 ? cseClosing.toLocaleString("en-IN") : "—", cseClosing > 0 ? "EAPCET final OC" : "Data pending", "text-gray-900"]] : [["Admission", "Own Exam", "Not via EAPCET", "text-gray-900"]]),
-          ["Avg Package", c.placements.avg > 0 ? `₹${c.placements.avg} LPA` : "—", "Placements", "text-green-600"],
-          ["NAAC Grade", c.naac && c.naac !== "-" ? c.naac : "—", c.naac && c.naac !== "-" ? "Accreditation" : "Not rated", "text-amber-600"],
+          ...(medical ? [["Admission", "NEET-UG", `Via ${medical.authority} counselling`, "text-gray-900"]] : c.type !== "Deemed University" ? [["CSE Closing Rank", cseClosing > 0 ? cseClosing.toLocaleString("en-IN") : "—", cseSummary?.label ?? "Dated rank not verified", "text-gray-900"]] : [["Admission", "Own Exam", "Not via EAPCET", "text-gray-900"]]),
+          ["Avg Package", c.placements.avg > 0 ? `₹${c.placements.avg} LPA` : "—", "Year/source unverified", "text-green-600"],
+          ["NAAC Grade", c.naac && c.naac !== "-" ? c.naac : "—", c.naac && c.naac !== "-" ? "Validity unverified" : "Not verified", "text-amber-600"],
         ] as [string, string, string, string][]).map(([label, value, sub, color]) => (
           <div key={label} className="bg-white rounded-xl p-3 sm:p-4 shadow-sm text-center">
             <div className="text-xs text-gray-500 mb-1">{label}</div>
@@ -197,8 +173,8 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                 ["District", c.district],
                 ["State", c.state],
                 ["Established", fmtEstablishedYear(c.year)],
-                ["NAAC Grade", c.naac && c.naac !== "-" ? c.naac : "Not rated"],
-                ["NBA Accreditation", c.nba ? "Yes" : "No"],
+                ["NAAC Grade", c.naac && c.naac !== "-" ? `${c.naac} (validity not verified)` : "Not verified"],
+                ["NBA Accreditation", c.nba ? "Recorded; programme validity not verified" : "Not verified"],
                 ...(c.nirf > 0 ? [["NIRF 2025 Rank", `${nirfBand(c.nirf)} (Engineering)`]] : []),
               ].map(([label, value]) => (
                 <div key={label} className="flex justify-between py-2 border-b border-gray-50">
@@ -215,8 +191,8 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
             <div className="text-sm text-gray-700 leading-relaxed space-y-3">
               <p>
                 {c.name} ({c.code}) is {c.type === "Government" ? "a government" : c.type === "Deemed University" ? "a deemed" : c.type === "Private University" ? "a private" : "a private"} {medical ? "medical" : "engineering"} {c.type.includes("University") ? "university" : "college"} located in {c.district}, {c.state}, India{c.year ? `, established in ${c.year}` : ""}.{" "}
-                {!c.type.includes("University") && `It is affiliated to ${c.affiliation} and `}
-                {c.naac && c.naac !== "-" ? `holds NAAC Grade ${c.naac} accreditation${c.nba ? " with NBA-accredited programmes" : ""}. ` : c.nba ? "has NBA-accredited programmes. " : ""}
+                {!c.type.includes("University") && `It is affiliated to ${c.affiliation}. `}
+
                 {c.nirf > 0 ? `The institution is ranked in the ${nirfBand(c.nirf)} band under the NIRF 2025 ${medical ? "Medical" : "Engineering"} category. ` : ""}
                 {medical
                   ? `${c.name} offers the ${c.branches.join(", ")} programme, with seats filled through NEET-UG based counselling conducted by ${medical.authorityFullName} (state quota) and the Medical Counselling Committee (All India Quota).`
@@ -226,11 +202,9 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                 {c.fee > 0 ? (medical
                   ? `The annual MBBS tuition fee (convener/competent-authority quota) is ${fmtFee(c.fee)}${c.type === "Government" ? ", making it one of the most affordable options in " + c.state : ""}. Management and NRI quota seats carry higher fees set per the ${medical.authority} notification. `
                   : `The annual tuition fee for B.Tech is ${fmtFee(c.fee)}${c.type === "Government" ? ", making it one of the most affordable options in " + c.state : c.goFee > 0 && c.goFee !== c.fee ? ` (government order fee: ${fmtFee(c.goFee)})` : ""}. Over four years, the total tuition cost comes to approximately ${fmtFee(btechTotalFee)}. `) : ""}
-                {c.placements.avg > 0 ? `In recent placements, ${c.name.split(" ")[0]} reported an average package of ₹${c.placements.avg} LPA${c.placements.highest > 0 ? ` with the highest offer reaching ₹${c.placements.highest} LPA` : ""}${c.placements.companies > 0 ? `, attracting ${c.placements.companies}+ recruiting companies` : ""}. ` : ""}
+                {c.placements.avg > 0 ? `Undated placement records list an average package of ₹${c.placements.avg} LPA${c.placements.highest > 0 ? ` with the highest offer reaching ₹${c.placements.highest} LPA` : ""}${c.placements.companies > 0 ? `, attracting ${c.placements.companies}+ recruiting companies` : ""}. The reporting year and source are not verified. ` : ""}
                 {"" /* ROI sentence removed */}
-                {cseClosing > 0 ? (c.type === "Deemed University"
-                  ? `In its final ${c.state === "Telangana" ? "TS" : "AP"} EAPCET counselling cycle before becoming a deemed university, the CSE branch closed at rank ${cseClosing.toLocaleString("en-IN")}.`
-                  : `For ${c.state === "Telangana" ? "TS" : "AP"} EAPCET admissions, the CSE branch had a closing rank of ${cseClosing.toLocaleString("en-IN")} in the most recent counselling cycle.`) : ""}
+                {cseSummary ? `The recorded CSE closing rank is ${cseClosing.toLocaleString("en-IN")} (${cseSummary.label}). Historical ranks do not guarantee admission.` : ""}
               </p>
             </div>
           </section>
@@ -312,17 +286,20 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
               <h2 className="text-lg font-bold">Fee Structure</h2>
               {isDeemedOrPrivateUni && feeAY && (
                 <span className="px-2.5 py-1 rounded-full bg-blue-50 text-brand text-xs font-bold">
-                  AY {feeAY}
+                  Reference AY {feeAY}
                 </span>
               )}
             </div>
             <p className="text-xs text-gray-500 mb-4">
               {isDeemedOrPrivateUni
-                ? `Annual tuition fee as declared by the university${feeAY ? ` for AY ${feeAY}` : ""} — not regulated by state fee fixation committee`
+                ? `Recorded annual tuition fee${feeAY ? ` · reference AY ${feeAY}` : ""} — not regulated by state fee fixation committee`
                 : isGovt
                 ? "Government college — nominal tuition fee as per state norms"
                 : "Annual tuition fee as per official government order"}
             </p>
+
+            {isDeemedOrPrivateUni && <p className="text-xs text-amber-900 bg-amber-50 rounded-lg p-3 mb-4">The reference year does not verify every course. Rows with an official fee link have a separate academic year; other figures need confirmation for your intake.</p>}
+            {c.code === "CVSR" && <p className="text-sm text-amber-900 bg-amber-50 rounded-lg p-3 mb-4">Anurag fee figures are disputed: intake categories on the university page differ from these records and do not state a clear academic year. Confirm your programme, quota and payable fee with admissions. <a className="underline" href="https://anurag.edu.in/tuition-fee/">Official fee page</a></p>}
 
             {/* Medical fee banner — MBBS fees are NEET/health-university regulated, not APHERMC/AFRC */}
             {medical && (
@@ -465,7 +442,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                   {/* Source note */}
                   {isDeemedOrPrivateUni && (
                     <div className="mt-3 bg-amber-50 rounded-lg px-4 py-2.5 text-xs text-amber-700">
-                      {`${c.type} fees are set by the institution${feeAY ? ` (sourced from official website for AY ${feeAY})` : ""}. Contact admissions for exact, up-to-date fee details.`}
+                      {`${c.type} fees are set by the institution${feeAY ? ` (reference AY ${feeAY}; per-course verification varies)` : ""}. Contact admissions for exact, up-to-date fee details.`}
                     </div>
                   )}
                   {medical && (
@@ -540,6 +517,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                         <th scope="row" className={`px-4 py-3 text-left font-normal sticky left-0 z-10 transition-colors group-hover/row:bg-blue-50/60 ${i % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
                           <div className="font-semibold">{co.program}</div>
                           {co.specialization && <div className="text-xs text-muted mt-0.5">{co.specialization}</div>}
+                          {co.sourceUrl && <a href={co.sourceUrl} className="text-xs text-brand underline">Official fee · AY {co.feeAcademicYear}</a>}
                           <div className="text-xs text-muted mt-0.5 sm:hidden">{co.duration} {co.duration === 1 ? "yr" : "yrs"}</div>
                         </th>
                         <td className={`px-4 py-3 text-right font-bold ${feeColor}`}>{fmtCourseFee(getFee(co))}</td>
@@ -580,7 +558,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
           {/* Fee disclaimer */}
           <div className="bg-amber-50 rounded-xl px-5 py-3 text-xs text-amber-700">
             {isDeemedOrPrivateUni
-              ? `Fees shown are approximate annual tuition for AY ${feeAY || "2025-26"}. Actual fees may vary by admission category, scholarship, or merit slab. Hostel, exam, and miscellaneous charges are extra. Contact the university admissions office for exact figures.`
+              ? `Fees shown are recorded annual tuition; reference AY ${feeAY || "not verified"}. Per-course verification varies. Actual fees may vary by admission category, scholarship, or merit slab. Hostel, exam, and miscellaneous charges are extra. Contact the university admissions office for exact figures.`
               : "Fees are from official government orders for the current block period. Hostel, transport, exam fees, and miscellaneous charges are extra. Actual costs may vary."}
           </div>
 
@@ -667,11 +645,9 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
         };
 
         // Default year-wise view
-        const hasCurrentCutoffs = cutoffs.length > 0;
         const hasHistorical = historicalCutoffs && Object.keys(historicalCutoffs).length > 0;
 
         const allBranches = new Set<string>();
-        if (hasCurrentCutoffs) cutoffs.forEach(([b]) => allBranches.add(b));
         if (hasHistorical) {
           Object.values(historicalCutoffs!).forEach(yearData => {
             Object.keys(yearData).forEach(b => allBranches.add(b));
@@ -691,11 +667,6 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
         });
 
         const yearCols: { label: string; key: string }[] = [];
-        // The hand-maintained summary column is labelled "2024-25". Once official
-        // 2024 last-rank data exists it is the authoritative 2024-25 source, so skip
-        // the summary column to avoid a duplicate "2024-25" header.
-        const hasOfficial2024 = !!(hasHistorical && historicalCutoffs!["2024"]);
-        if (hasCurrentCutoffs && !hasOfficial2024) yearCols.push({ label: "2024-25", key: "current" });
         if (hasHistorical) {
           cutoffYears.forEach(y => {
             if (historicalCutoffs![y]) yearCols.push({ label: `${y}-${String(Number(y) + 1).slice(-2)}`, key: y });
@@ -703,7 +674,6 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
         }
 
         const getRank = (branch: string, yearKey: string): number => {
-          if (yearKey === "current") return c.cutoff[branch] || c.cutoff[branch.toLowerCase()] || 0;
           const yearData = historicalCutoffs?.[yearKey];
           if (!yearData) return 0;
           const brData = yearData[branch] || yearData[branch.toUpperCase()] || yearData[branch.toLowerCase()];
@@ -744,6 +714,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
 
         return (
           <div className="space-y-6">
+            {c.state === "Andhra Pradesh" && <p className="text-sm text-amber-900 bg-amber-50 rounded-lg p-3">AP 2024 gender and regional mapping is not verified. Separate girls’ values are unavailable; use the original official statement before making admission choices.</p>}
             {/* Download PDF button */}
             {!noCutoffData && !isDeemedUni && (
               <div className="flex justify-end">

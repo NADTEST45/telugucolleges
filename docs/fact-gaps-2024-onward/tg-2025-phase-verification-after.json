@@ -1,0 +1,20 @@
+[
+  {
+    "sourceUrl": "https://tgeapcetd.nic.in/files/TGEAPCET_2025_LASTRANKS_FirstPhase.pdf",
+    "sha256": "d437d8b213fb868ed36b5e34411c137964c78e129368c98c8aa1f873a7bf163e",
+    "rows": 942,
+    "numericCells": 19734,
+    "differentValues": [],
+    "missingValues": [],
+    "sourceCodes": 159
+  },
+  {
+    "sourceUrl": "https://tgeapcetd.nic.in/files/TGEAPCET_2025_LASTRANKS_SecondPhase.pdf",
+    "sha256": "9d669be26b7db0388c3b483b07231d7cd73491b214dd9757094fb0cefe08fc02",
+    "rows": 960,
+    "numericCells": 20141,
+    "differentValues": [],
+    "missingValues": [],
+    "sourceCodes": 163
+  }
+]

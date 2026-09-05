@@ -13,6 +13,8 @@
  * old per-page implementations.
  */
 import type { College } from "@/lib/colleges";
+import { getCseSummary } from "@/lib/cutoff-summary";
+import { getCutoffProps } from "./college-detail-data";
 import { fmtFee } from "@/lib/format";
 import { isMedicalCollege, getMedicalAdmission, type MedicalAdmissionInfo } from "@/lib/medical-admission";
 
@@ -301,11 +303,13 @@ function feeFAQ(c: College, examLabelForPvtUni?: string, med?: MedicalAdmissionI
 
 function cutoffFAQ(c: College): FAQItem | null {
   const { exam, isDeemed } = ctx(c);
-  if (!(c.cutoff.cse > 0) || isDeemed) return null;
-  const cseCutoff = c.cutoff.cse.toLocaleString("en-IN");
+  if (isDeemed) return null;
+  const props = getCutoffProps(c);
+  const summary = getCseSummary(c.state, props.historicalCutoffs, props.phaseCutoffs, props.phases);
+  if (!summary) return null;
   return {
     question: `What is the ${exam} cutoff rank for CSE at ${c.name}?`,
-    answer: `The last available final-phase OC closing rank for CSE at ${c.name} is ${cseCutoff}. This means students with a ${exam} rank of ${cseCutoff} or better (lower number) were admitted to CSE in the most recent counselling.`,
+    answer: `The recorded CSE closing rank at ${c.name} is ${summary.rank.toLocaleString("en-IN")} (${summary.label}). Historical closing ranks do not guarantee admission in a later round.`,
   };
 }
 

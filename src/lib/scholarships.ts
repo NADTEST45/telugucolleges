@@ -158,7 +158,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
           { percent: "25%", criteria: "Rank 101–1,500" },
           { percent: "15%", criteria: "Rank 1,501–3,000" },
           { percent: "10%", criteria: "Rank 3,001–6,000" },
-          { percent: "₹5,000/yr", criteria: "Rank 6,001–25,000" },
+          { percent: "₹5,000/semester", criteria: "Rank 6,001–25,000" },
         ],
       },
       {
@@ -169,7 +169,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
           { percent: "25%", criteria: "Rank 501–2,000" },
           { percent: "15%", criteria: "Rank 2,001–4,000" },
           { percent: "10%", criteria: "Rank 4,001–15,000" },
-          { percent: "₹5,000/yr", criteria: "Rank 15,001–30,000" },
+          { percent: "₹5,000/semester", criteria: "Rank 15,001–30,000" },
         ],
       },
       {
@@ -180,7 +180,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
           { percent: "25%", criteria: "Rank 1,001–5,000" },
           { percent: "15%", criteria: "Rank 5,001–10,000" },
           { percent: "10%", criteria: "Rank 10,001–25,000" },
-          { percent: "₹5,000/yr", criteria: "Rank 25,001–75,000" },
+          { percent: "₹5,000/semester", criteria: "Rank 25,001–75,000" },
         ],
       },
       {
@@ -191,14 +191,14 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
           { percent: "25%", criteria: "Rank 1,001–5,000" },
           { percent: "15%", criteria: "Rank 5,001–10,000" },
           { percent: "10%", criteria: "Rank 10,001–15,000" },
-          { percent: "₹5,000/yr", criteria: "Rank 15,001–20,000" },
+          { percent: "₹5,000/semester", criteria: "Rank 15,001–20,000" },
         ],
       },
       {
         examName: "JEE Main Percentile",
         branchGroup: "CSE, AI & DS, Biotech",
         slabs: [
-          { percent: "100%", criteria: "Percentile ≥97" },
+          { percent: "Confirm award", criteria: "Percentile ≥97 — official course row does not specify a 100% award" },
           { percent: "50%", criteria: "Percentile ≥95" },
           { percent: "25%", criteria: "Percentile ≥93" },
           { percent: "15%", criteria: "Percentile ≥92" },
@@ -236,7 +236,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
       "Board-based scholarships also available — concession varies by branch (e.g. CBSE ≥94% gets 50% for CSE group)",
       "SC/ST/PH: ₹10,000/yr concession; OBC: ₹5,000/yr concession",
       "Scholarship is on tuition fee only, applied semester-wise",
-      "Concession continues from 2nd semester onward only if student maintains required CGPA",
+      "Concession continues from 2nd year onward only if student maintains required CGPA",
     ],
     source: "https://www.kluniversity.in/sships3.aspx",
     sourceLabel: "KL University Official — Fee Structure & Scholarships",
@@ -253,7 +253,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
           { percent: "25%", criteria: "Rank 101–1,500" },
           { percent: "15%", criteria: "Rank 1,501–3,000" },
           { percent: "10%", criteria: "Rank 3,001–6,000" },
-          { percent: "₹5,000/yr", criteria: "Rank 6,001–25,000" },
+          { percent: "₹5,000 — period unverified", criteria: "Rank 6,001–25,000" },
         ],
       },
       {
@@ -264,14 +264,14 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
           { percent: "25%", criteria: "Rank 501–2,000" },
           { percent: "15%", criteria: "Rank 2,001–4,000" },
           { percent: "10%", criteria: "Rank 4,001–15,000" },
-          { percent: "₹5,000/yr", criteria: "Rank 15,001–30,000" },
+          { percent: "₹5,000 — period unverified", criteria: "Rank 15,001–30,000" },
         ],
       },
       {
         examName: "JEE Main Percentile",
         branchGroup: "CSE, AI & DS",
         slabs: [
-          { percent: "100%", criteria: "Percentile ≥97" },
+          { percent: "Confirm award", criteria: "Percentile ≥97 — confirm campus-specific award" },
           { percent: "50%", criteria: "Percentile ≥95" },
           { percent: "25%", criteria: "Percentile ≥93" },
           { percent: "15%", criteria: "Percentile ≥92" },
@@ -282,7 +282,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     maintenance: "CGPA 9.0 for CSE/AI&DS/ECE/CS&IT groups",
     notes: [
       "Hyderabad operates two campuses — Aziz Nagar and Bowrampet. Programs offered: CSE, AI&DS, ECE (CS&IT at Bowrampet only)",
-      "KLEEE rank bands are the same as the Vijayawada campus (official 2026-27 publication)",
+      "Campus-specific rank bands and concession period need confirmation from the official admissions office",
       "KL is a Deemed University — no EAPCET convener quota. EAPCET rank is accepted as a scholarship criterion",
       "Board-based scholarships also available",
     ],

@@ -24,12 +24,12 @@ export const TG_COUNSELLING_NOW: CounsellingStatus = {
 };
 
 export const AP_COUNSELLING_NOW: CounsellingStatus = {
-  stage: "Check official notice",
-  headline: "AP first-phase dates are recorded; confirm the current admission window",
-  next: "The AP counselling portal could not be reached during our September 5 review. Check the official portal for the active round, web-options dates and reporting deadline; the recorded first-phase reporting window ended August 13.",
-  short: "AP counselling — confirm the current round on the official portal",
-  portalUrl: "https://eapcet-sche.aptonline.in/EAPCET/",
-  portalLabel: "eapcet-sche.aptonline.in",
+  stage: "Final-phase reporting deadline passed",
+  headline: "AP final-phase MPC allotment released; reporting extension ended September 2",
+  next: "The official Common Admissions Portal confirms AP EAPCET 2026 final-phase MPC allotment and an extended self-joining and college-reporting deadline of September 2. That deadline has passed; check for a later official notice before acting.",
+  short: "AP final-phase reporting ended September 2 — check later notices",
+  portalUrl: "https://cap.apcfss.in/",
+  portalLabel: "cap.apcfss.in",
 };
 
 /** Never leave a manually reviewed status looking live indefinitely. */
