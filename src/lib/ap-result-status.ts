@@ -21,6 +21,11 @@
  * result on 2026-07-01 at cets.apsche.ap.gov.in. 1,82,317 qualified in
  * Engineering (70.52%) and 63,546 in Agriculture & Pharmacy (89.59%) of
  * 2,58,545 who appeared. See news.ts id "ap-eapcet-2026-result-declared-july-1".
+ *
+ * COUNSELLING NOTIFIED: the first-phase schedule was issued 2026-07-16 and
+ * published in newspapers 2026-07-17. `counsellingExpected` now reflects the
+ * official window; the full phase table lives in `ap-counselling-schedule.ts`
+ * (the source of truth for every AP counselling date on the site).
  */
 
 export interface ApResultStatus {

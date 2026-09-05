@@ -24,8 +24,8 @@ export const TG_COUNSELLING_NOW: CounsellingStatus = {
 
 export const AP_COUNSELLING_NOW: CounsellingStatus = {
   stage: "Check official notice",
-  headline: "AP results are available; the current counselling window needs confirmation",
-  next: "The AP counselling portal could not be reached during our September 5 review. Check the official portal for the active round, web-options dates and reporting deadline; older July notices are historical.",
+  headline: "AP first-phase dates are recorded; confirm the current admission window",
+  next: "The AP counselling portal could not be reached during our September 5 review. Check the official portal for the active round, web-options dates and reporting deadline; the recorded first-phase reporting window ended August 13.",
   short: "AP counselling — confirm the current round on the official portal",
   portalUrl: "https://eapcet-sche.aptonline.in/EAPCET/",
   portalLabel: "eapcet-sche.aptonline.in",

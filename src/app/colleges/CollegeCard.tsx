@@ -2,6 +2,7 @@ import Link from "next/link";
 import { type College, fmtFee } from "@/lib/colleges";
 import ShortlistButton from "@/components/ShortlistButton";
 import CollegeMonogram from "@/components/CollegeMonogram";
+import Badge from "@/components/ui/Badge";
 
 /**
  * Server-rendered college card. The only client portion is the
@@ -22,10 +23,20 @@ export default function CollegeCard({ c, borderClass }: { c: College; borderClas
       ? "Tuition/yr"
       : "Convener Fee";
 
+  const typeTone =
+    c.type === "Government"
+      ? "government"
+      : c.type === "Deemed University"
+      ? "deemed"
+      : c.type === "Private University"
+      ? "privateUniversity"
+      : "private";
+
   return (
     <div className={`cv-card relative bg-white rounded-xl px-3 sm:px-5 py-3 sm:py-4 shadow-sm hover:shadow-md transition-all border-l-4 ${borderClass}`}>
-      {/* Full-card link — covers entire card for navigation */}
-      <Link href={`/colleges/${c.slug}`} className="absolute inset-0 z-0 rounded-xl" aria-label={c.name} />
+      {/* Full-card link — covers entire card for navigation. data-inline opts
+          out of the global 44px touch-target rule: the whole card IS the target. */}
+      <Link href={`/colleges/${c.slug}`} data-inline className="absolute inset-0 z-0 rounded-xl" aria-label={c.name} />
       {/* Shortlist button — positioned outside the Link DOM to avoid iOS Safari tap conflicts */}
       <div className="absolute top-2 right-2 z-10">
         <ShortlistButton collegeSlug={c.slug} />
@@ -36,34 +47,33 @@ export default function CollegeCard({ c, borderClass }: { c: College; borderClas
           <CollegeMonogram name={c.name} code={c.code} size="sm" />
           <div className="flex-1 min-w-0">
           <div className="font-bold text-sm sm:text-[15px] leading-tight pr-10">{c.name}</div>
-          <div className="text-[11px] sm:text-xs text-gray-500 mt-0.5 truncate">{c.district}, {c.state} · {c.affiliation}{c.year ? ` · Est. ${c.year}` : ""}</div>
+          <div className="text-xs text-muted mt-0.5 truncate">{c.district}, {c.state} · {c.affiliation}{c.year ? ` · Est. ${c.year}` : ""}</div>
           <div className="flex gap-1 sm:gap-1.5 mt-1.5 sm:mt-2 flex-wrap">
-            <span className={`px-1.5 sm:px-2 py-0.5 rounded text-[11px] font-semibold ${c.type === "Government" ? "bg-green-50 text-green-600" : c.type === "Deemed University" ? "bg-amber-50 text-amber-700" : c.type === "Private University" ? "bg-violet-50 text-violet-700" : "bg-blue-50 text-blue-600"}`}>{c.type}</span>
-            {c.nirf > 0 && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600">NIRF {nirfLabel(c.nirf)}</span>}
-            {c.naac && c.naac !== "-" && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-50 text-amber-600">NAAC {c.naac}</span>}
-            {c.nba && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[11px] font-semibold bg-purple-50 text-purple-600">NBA</span>}
-            {c.branches.includes("B.Pharm") && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[11px] sm:text-xs font-semibold bg-teal-50 text-teal-600">Pharmacy</span>}
-            {c.branches.includes("MBBS") && <span className="px-1.5 sm:px-2 py-0.5 rounded text-[11px] sm:text-xs font-semibold bg-rose-50 text-rose-600">Medical</span>}
+            <Badge tone={typeTone}>{c.type}</Badge>
+            {c.nirf > 0 && <Badge tone="nirf">NIRF {nirfLabel(c.nirf)}</Badge>}
+            {c.naac && c.naac !== "-" && <Badge tone="naac">NAAC {c.naac}</Badge>}
+            {c.nba && <Badge tone="nba">NBA</Badge>}
+            {c.branches.includes("B.Pharm") && <Badge tone="accent">Pharmacy</Badge>}
+            {c.branches.includes("MBBS") && <Badge tone="nirf">Medical</Badge>}
           </div>
           </div>
         </div>
-        {/* Stats: 3-col (Tuition · Avg Pkg · Highest), full-width row on mobile, fixed-width right side on desktop */}
-        <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-100 shrink-0 sm:w-[240px]">
-          <div>
-            <div className="text-[11px] sm:text-xs text-gray-500">{feeLabel}</div>
-            <div className="font-bold text-brand text-xs sm:text-sm">{fmtFee(c.fee)}</div>
+        {/* Fee-first stat block — fee is the primary decision input for the
+            parent audience, so it leads large; packages follow as secondary
+            context in a single muted line. */}
+        <div className="pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-100 shrink-0 sm:w-48">
+          <div className="flex sm:flex-col items-baseline sm:items-end justify-between gap-1">
+            <div className="text-xs text-muted">{feeLabel}</div>
+            <div className="font-extrabold text-brand text-base sm:text-lg tabular-nums leading-none">{fmtFee(c.fee)}</div>
           </div>
-          <div>
-            <div className="text-[11px] sm:text-xs text-gray-500">Avg Pkg</div>
-            <div className={`font-bold text-xs sm:text-sm ${c.placements.avg > 0 ? "text-green-600" : "text-gray-300"}`}>
-              {c.placements.avg > 0 ? `₹${c.placements.avg}L` : "—"}
-            </div>
-          </div>
-          <div>
-            <div className="text-[11px] sm:text-xs text-gray-500">Highest</div>
-            <div className={`font-bold text-xs sm:text-sm ${c.placements.highest > 0 ? "text-amber-600" : "text-gray-300"}`}>
-              {c.placements.highest > 0 ? `₹${c.placements.highest}L` : "—"}
-            </div>
+          <div className="flex sm:justify-end gap-3 mt-1 text-xs">
+            <span className={c.placements.avg > 0 ? "text-success font-semibold" : "text-gray-300"}>
+              Avg {c.placements.avg > 0 ? `₹${c.placements.avg}L` : "—"}
+            </span>
+            <span className="text-gray-300" aria-hidden="true">·</span>
+            <span className={c.placements.highest > 0 ? "text-warning font-semibold" : "text-gray-300"}>
+              High {c.placements.highest > 0 ? `₹${c.placements.highest}L` : "—"}
+            </span>
           </div>
         </div>
       </div>

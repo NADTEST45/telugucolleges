@@ -244,8 +244,10 @@ export default function EapcetClient({ branches: allBranches, stats, initialNow 
         { label: "Engineering Exam",   date: "May 12–15, 18 ✓",    highlight: true  },
         { label: "Agri / Pharmacy",    date: "May 19–20",          highlight: true  },
         { label: AP_EAPCET_2026_RESULT.declared ? "Results" : "Results (Expected)", date: apResultDateCell(), highlight: true },
-        { label: "Counselling Reg.",   date: "Confirm on official portal",   highlight: false },
-        { label: "Counselling Rounds", date: "Current round unconfirmed", highlight: false },
+        { label: "Counselling Reg.",   date: "Jul 20–29, 2026",    highlight: false  },
+        { label: "Cert. Verification", date: "Jul 22–31, 2026",    highlight: false },
+        { label: "Web Options",        date: "Jul 25–31, 2026",    highlight: false },
+        { label: "Seat Allotment",     date: "Aug 6, 2026",        highlight: false },
       ],
     },
     tg: {
@@ -603,6 +605,7 @@ export default function EapcetClient({ branches: allBranches, stats, initialNow 
           tag: "AP" | "TS" | "Both";
           isNew?: boolean;
         }[] = [
+          { href: "/eapcet/ap-counselling-dates-2026", tag: "AP", isNew: true, title: "AP Counselling Dates 2026 — Official Schedule", desc: "APSCHE-notified first phase: registration July 20–29, web options July 25–31, seat allotment August 6." },
           { href: "/eapcet/ap-results-2026", tag: "AP", title: "AP EAPCET Results 2026 — Declared July 1", desc: "Rank card download steps, pass percentages & toppers, and what happens next in counselling." },
           { href: "/eapcet/ap-cutoff-2026", tag: "AP", title: "AP EAPCET 2026 Cutoff — Branch-wise", desc: "Expected college-wise closing ranks for CSE, ECE, EEE, Civil, Mech, IT & AI branches." },
           { href: "/eapcet/ap-web-options", tag: "AP", title: "AP Web Options Entry — Step-by-Step", desc: "The exact entry process and the priority-order strategy that decides your seat." },

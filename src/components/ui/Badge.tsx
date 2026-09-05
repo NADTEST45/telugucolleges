@@ -15,7 +15,11 @@ export type BadgeTone =
   | "nba"
   | "accent"
   | "alert"
-  | "neutral";
+  | "neutral"
+  | "stateTS"
+  | "stateAP"
+  | "success"
+  | "warning";
 
 const TONES: Record<BadgeTone, string> = {
   government: "bg-green-100 text-green-700",
@@ -28,6 +32,10 @@ const TONES: Record<BadgeTone, string> = {
   accent: "bg-blue-50 text-accent",
   alert: "bg-red-100 text-red-700",
   neutral: "bg-gray-100 text-gray-700",
+  stateTS: "bg-blue-50 text-accent",
+  stateAP: "bg-green-100 text-green-700",
+  success: "bg-green-100 text-green-700",
+  warning: "bg-amber-100 text-amber-700",
 };
 
 export default function Badge({

@@ -6,15 +6,19 @@ import { useCurrentTime } from "@/lib/useCurrentTime";
 import {
   buildIcs,
   type CounsellingMilestone,
+  type IcsCalendarConfig,
 } from "@/lib/counselling-schedule";
 
 /**
- * Client-side "Add to Calendar" for TS EAPCET counselling deadlines.
+ * Client-side "Add to Calendar" for EAPCET counselling deadlines (TS and AP).
  *
  * Generates a .ics file entirely in the browser (Blob + object URL) and
  * triggers a download — no backend, no third-party script, so it stays within
  * the site CSP (`script-src 'self' 'unsafe-inline'`, no external connect).
  * The .ics imports cleanly into Google Calendar, Apple Calendar and Outlook.
+ *
+ * `config`/`filePrefix` default to TS/TGCHE so the TS dates page needs no
+ * changes; the AP schedule passes AP_ICS_CONFIG and a "ap-eapcet" prefix.
  */
 
 function downloadIcs(filename: string, ics: string) {
@@ -61,17 +65,21 @@ export function AddMilestoneButton({
   milestone,
   phaseTag,
   initialNow,
+  config,
+  filePrefix = "ts-eapcet",
 }: {
   milestone: CounsellingMilestone;
   phaseTag: string;
   initialNow: number;
+  config?: IcsCalendarConfig;
+  filePrefix?: string;
 }) {
   const now = useCurrentTime(initialNow);
   const handleClick = useCallback(() => {
     if (isDeadlinePast(milestone.deadline)) return;
-    const ics = buildIcs([{ milestone, phaseTag }]);
-    downloadIcs(`ts-eapcet-${slugForFile(milestone.calendarTitle)}.ics`, ics);
-  }, [milestone, phaseTag]);
+    const ics = buildIcs([{ milestone, phaseTag }], { config });
+    downloadIcs(`${filePrefix}-${slugForFile(milestone.calendarTitle)}.ics`, ics);
+  }, [milestone, phaseTag, config, filePrefix]);
 
   if (isDeadlinePast(milestone.deadline, now)) return <span className="text-xs text-gray-500">Elapsed</span>;
 
@@ -96,21 +104,26 @@ export function AddPhaseButton({
   phaseTag,
   phaseLabel,
   initialNow,
+  config,
+  filePrefix = "ts-eapcet",
 }: {
   milestones: CounsellingMilestone[];
   phaseTag: string;
   phaseLabel: string;
   initialNow: number;
+  config?: IcsCalendarConfig;
+  filePrefix?: string;
 }) {
   const now = useCurrentTime(initialNow);
   const handleClick = useCallback(() => {
     const upcoming = milestones.filter(m => !isDeadlinePast(m.deadline));
     if (upcoming.length === 0) return;
     const ics = buildIcs(
-      upcoming.map(milestone => ({ milestone, phaseTag }))
+      upcoming.map(milestone => ({ milestone, phaseTag })),
+      { config }
     );
-    downloadIcs(`ts-eapcet-2026-${slugForFile(phaseLabel)}.ics`, ics);
-  }, [milestones, phaseTag, phaseLabel]);
+    downloadIcs(`${filePrefix}-2026-${slugForFile(phaseLabel)}.ics`, ics);
+  }, [milestones, phaseTag, phaseLabel, config, filePrefix]);
 
   if (milestones.every(m => isDeadlinePast(m.deadline, now))) return <span className="text-xs text-gray-500">Published dates have passed</span>;
 
