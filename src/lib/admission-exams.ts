@@ -173,7 +173,7 @@ export const ADMISSION_EXAMS: AdmissionExam[] = [
     eligibility: "10+2 with PCM",
     phases: [
       { phase: "Rolling", examDates: "Jan 15 – Apr 15, 2026 (concluded)", lastDateToApply: "Apr 15, 2026", resultDate: "Released per-candidate after exam" },
-      { phase: "Counselling", examDates: "May 2026 (Round 1 ongoing), Round 2 at Vadlamudi campus for vacant seats", lastDateToApply: "Post-result registration" },
+      { phase: "Counselling", examDates: "May 2026 (historical Round 1), Round 2 at Vadlamudi campus for vacant seats", lastDateToApply: "Post-result registration" },
     ],
     alternateEntry: "Also accepts JEE Main, AP/TS EAPCET scores. Direct admission also possible for AP EAPCET qualifiers.",
     counsellingNote: "Vignan conducts two-round online counselling after VSAT results, plus spot round at campus",
@@ -290,7 +290,7 @@ export const ADMISSION_EXAMS: AdmissionExam[] = [
       { phase: "JEE Main Counselling", examDates: "Round 1: Apr 10–16 · Round 2: Apr 20–28, 2026 (concluded)", lastDateToApply: "Apr 2026" },
       { phase: "SEEE Phase I", examDates: "Apr 4–26, 2026, 8 sittings (conducted)", lastDateToApply: "Apr 20, 2026", resultDate: "Apr 30, 2026 — counselling from May 4" },
       { phase: "SEEE Phase II", examDates: "May 23–24, 2026 (conducted)", lastDateToApply: "May 18, 2026", resultDate: "May 26, 2026 — counselling from May 30" },
-      { phase: "AP EAPCET (leftover seats only)", examDates: "Counselling ~1 week after EAPCET results (Jun 2026)", lastDateToApply: "2 days after EAPCET result declaration" },
+      { phase: "AP EAPCET (leftover seats only)", examDates: "Confirm the current round with the university", lastDateToApply: "2 days after EAPCET result declaration" },
     ],
     alternateEntry: "JEE Main scores get dedicated counselling rounds. AP EAPCET scores are accepted only for seats left over after JEE and SEEE counselling.",
     counsellingNote: "Siddhartha (SAHE) is a deemed university — all B.Tech counselling is conducted by the university itself, NOT APSCHE. Seats fill via JEE Main and SEEE merit; EAPCET candidates take only leftover seats. Phase-II admissions don't guarantee merit scholarships.",
@@ -365,8 +365,8 @@ export const ADMISSION_EXAMS: AdmissionExam[] = [
     subjects: "Mathematics, Physics, Chemistry",
     eligibility: "10+2 with PCM, minimum 50% marks",
     phases: [
-      { phase: "Rolling", examDates: "Dec 1, 2025 – Jun 30, 2026 (ongoing)", lastDateToApply: "Jun 30, 2026", resultDate: "Same day as exam" },
-      { phase: "AP EAPCET (alternate route)", examDates: "Engineering: May 12–15, 18, 2026", lastDateToApply: "Apr 10, 2026 (with late fee)", resultDate: "Jun 1, 2026 (expected)" },
+      { phase: "Rolling", examDates: "Dec 1, 2025 – Jun 30, 2026 (past window)", lastDateToApply: "Jun 30, 2026", resultDate: "Same day as exam" },
+      { phase: "AP EAPCET (alternate route)", examDates: "Engineering: May 12–15, 18, 2026", lastDateToApply: "Apr 10, 2026 (with late fee)", resultDate: "Results available — check the APSCHE result portal" },
     ],
     alternateEntry: "Also accepts JEE Main, AP EAPCET scores, and Merit in Sports",
     counsellingNote: "Dual route: AP EAPCET counselling (govt fees, Jul 2026) or direct ASAT admission (university fees, same-day result)",
@@ -385,7 +385,7 @@ export const ADMISSION_EXAMS: AdmissionExam[] = [
     eligibility: "10+2 with PCM, minimum 45% marks (5% relaxation for SC/ST/BC)",
     phases: [
       { phase: "AUET 2026", examDates: "Rolling — scheduled per applicant after registration", lastDateToApply: "Rolling", resultDate: "Released after each session + PI round" },
-      { phase: "AP EAPCET (alternate route)", examDates: "Engineering: May 12–15, 18, 2026", lastDateToApply: "Apr 10, 2026 (with late fee)", resultDate: "Jun 1, 2026 (expected)" },
+      { phase: "AP EAPCET (alternate route)", examDates: "Engineering: May 12–15, 18, 2026", lastDateToApply: "Apr 10, 2026 (with late fee)", resultDate: "Results available — check the APSCHE result portal" },
     ],
     alternateEntry: "Also accepts AP EAPCET, JEE Main scores",
     counsellingNote: "Scholarships up to ₹25 Lakhs based on AUET score. AUET followed by personal interview round.",
@@ -440,7 +440,7 @@ export const ADMISSION_EXAMS: AdmissionExam[] = [
     eligibility: "10+2 with PCM, minimum 45% aggregate",
     phases: [
       { phase: "CUEE 2026", examDates: "Rolling test slots through 2026", lastDateToApply: "May 24, 2026", resultDate: "Released soon after each slot" },
-      { phase: "AP EAPCET (alternate route)", examDates: "Engineering: May 12–15, 18, 2026", lastDateToApply: "Apr 10, 2026 (with late fee)", resultDate: "Jun 1, 2026 (expected)" },
+      { phase: "AP EAPCET (alternate route)", examDates: "Engineering: May 12–15, 18, 2026", lastDateToApply: "Apr 10, 2026 (with late fee)", resultDate: "Results available — check the APSCHE result portal" },
     ],
     alternateEntry: "Also accepts JEE Main (rank up to 3 lakh), AP EAPCET, OJEE scores",
     counsellingNote: "CUEE rank up to 50,000 required for B.Tech. Selection done by admissions team after merit-based counselling.",

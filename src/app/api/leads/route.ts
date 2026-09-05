@@ -1,3 +1,4 @@
+import { readJsonObject, RequestBodyError } from "@/lib/request-body";
 import { NextRequest, NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase/server-client";
 
@@ -39,7 +40,7 @@ function normalizePhone(raw: unknown): string | null {
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const body = await readJsonObject(req);
     const { phone, name, exam_state, rank, branch, category, page_url, website, source } = body;
 
     // Honeypot: hidden field humans never fill. Pretend success for bots.
@@ -69,7 +70,7 @@ export async function POST(req: NextRequest) {
       typeof category === "string" && category.length <= MAX_FIELD ? category : null;
     const cleanUrl =
       typeof page_url === "string" && page_url.length <= MAX_URL ? page_url : null;
-    const cleanSource = ALLOWED_SOURCES.includes(source) ? source : DEFAULT_SOURCE;
+    const cleanSource = typeof source === "string" && ALLOWED_SOURCES.some(allowed => allowed === source) ? source : DEFAULT_SOURCE;
 
     const sb = getServiceClient();
     const { error } = await sb.from("counselling_leads").upsert(
@@ -91,7 +92,10 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (error) {
+    if (error instanceof RequestBodyError) {
+      return NextResponse.json({ error: error.message }, { status: error.status });
+    }
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

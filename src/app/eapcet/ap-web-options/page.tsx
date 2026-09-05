@@ -65,7 +65,7 @@ const STEPS: { name: string; text: string }[] = [
 const FAQS: { q: string; a: string }[] = [
   {
     q: "When does AP EAPCET 2026 web options entry start?",
-    a: "AP EAPCET 2026 results were declared on July 1. APSCHE had not published the 2026 MPC counselling and web-options schedule as of July 10. Use only eapcet-sche.aptonline.in and cets.apsche.ap.gov.in for notified dates.",
+    a: "Current AP counselling and web-options dates could not be confirmed during our September 5 review. Check eapcet-sche.aptonline.in for an active 2026 round and its notified dates before following this guide.",
   },
   {
     q: "What do I need to log in for web options entry?",

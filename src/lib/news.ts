@@ -11,12 +11,27 @@ export interface NewsItem {
   sourceUrl?: string;
   /** Last official verification time for deadline-sensitive reporting. */
   verifiedAt?: string;
-  /** After this time, CI requires the item to be reviewed or superseded. */
+  /** After this time, the UI archives the alert until editorial review. */
   expiresAt?: string;
   tags: string[];
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  {
+    id: "eapcet-2026-september-admission-status-review",
+    date: "2026-09-05",
+    title: "EAPCET September Review: Check Current Notices Before Using Older Deadlines",
+    summary: "The published TG final-phase and internal-sliding windows have passed. Check current TGCHE and college notices for any remaining admission opportunity. AP counselling dates could not be confirmed during this review.",
+    body: "The TGCHE detailed notification scheduled final-phase reporting through August 7 and internal-sliding reporting through August 17, 2026. These published windows are now in the past. The admissions portal lists spot-admission resources; confirm that any linked notice is for 2026 and that its deadline is still open before acting.\n\nThe AP results form is available, but the AP counselling portal could not be reached during our September 5 review. This does not establish whether registration is open or closed. Use the official AP counselling portal to confirm your round and reporting requirements.\n\nOur cutoff tables remain historical references, with their source years shown. They are not official 2026 closing ranks or guarantees of a seat.",
+    category: "counselling",
+    state: "Both",
+    priority: "medium",
+    source: "TGCHE — 2026 detailed counselling notification",
+    sourceUrl: "https://tgeapcetd.nic.in/files/TGEAPCET2026DETNOTIFICATION.PDF",
+    verifiedAt: "2026-09-05T19:00:00+05:30",
+    expiresAt: "2026-09-12T00:00:00+05:30",
+    tags: ["EAPCET", "2026", "Counselling", "September review"],
+  },
   // ── New: July 14, 2026 ───────────────────────────────────────
   {
     id: "tg-eapcet-2026-phase-1-allotment-released-self-reporting-ends-july-14",

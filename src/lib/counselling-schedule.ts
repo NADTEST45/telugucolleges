@@ -43,7 +43,7 @@ export interface CounsellingPhase {
   milestones: CounsellingMilestone[];
 }
 
-export const COUNSELLING_PORTAL = "https://eapcet.tgche.ac.in";
+export const COUNSELLING_PORTAL = "https://tgeapcet.nic.in";
 
 export const COUNSELLING_PHASES: CounsellingPhase[] = [
   {
@@ -236,6 +236,17 @@ export const COUNSELLING_PHASES: CounsellingPhase[] = [
         deadline: "2026-08-07",
         calendarTitle: "Fee payment & reporting closes",
       },
+    ],
+  },
+  {
+    id: "internal-sliding",
+    title: "Internal sliding — August 12 to 17, 2026",
+    tag: "TS EAPCET Sliding",
+    milestones: [
+      { id: "sliding-options", event: "Options for another branch within the same college", dates: "August 12 – 13, 2026", start: "2026-08-12", deadline: "2026-08-13", calendarTitle: "Internal sliding options close" },
+      { id: "sliding-freeze", event: "Freezing of internal-sliding options", dates: "August 13, 2026", deadline: "2026-08-13", calendarTitle: "Internal sliding options freeze" },
+      { id: "sliding-allotment", event: "Internal-sliding allotment", dates: "On or before August 15, 2026", deadline: "2026-08-15", calendarTitle: "Internal sliding allotment" },
+      { id: "sliding-report", event: "Download new order, self-report and report in the new branch", dates: "August 16 – 17, 2026", start: "2026-08-16", deadline: "2026-08-17", calendarTitle: "Internal sliding reporting closes" },
     ],
   },
 ];

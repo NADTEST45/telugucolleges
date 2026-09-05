@@ -1,3 +1,4 @@
+import { readJsonObject, RequestBodyError } from "@/lib/request-body";
 import { NextRequest, NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase/server-client";
 import { COLLEGES } from "@/lib/colleges";
@@ -30,7 +31,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const body = await readJsonObject(req);
     const { college_code, field_label, message, email, page_url, website } = body;
 
     // Honeypot: hidden field humans never fill. Pretend success for bots.
@@ -82,7 +83,10 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (error) {
+    if (error instanceof RequestBodyError) {
+      return NextResponse.json({ error: error.message }, { status: error.status });
+    }
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

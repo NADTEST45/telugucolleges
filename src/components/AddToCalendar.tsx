@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback } from "react";
+import { isDeadlinePast } from "@/lib/content-freshness";
+import { useCurrentTime } from "@/lib/useCurrentTime";
 import {
   buildIcs,
   type CounsellingMilestone,
@@ -58,14 +60,20 @@ const CalendarIcon = ({ className = "" }: { className?: string }) => (
 export function AddMilestoneButton({
   milestone,
   phaseTag,
+  initialNow,
 }: {
   milestone: CounsellingMilestone;
   phaseTag: string;
+  initialNow: number;
 }) {
+  const now = useCurrentTime(initialNow);
   const handleClick = useCallback(() => {
+    if (isDeadlinePast(milestone.deadline)) return;
     const ics = buildIcs([{ milestone, phaseTag }]);
     downloadIcs(`ts-eapcet-${slugForFile(milestone.calendarTitle)}.ics`, ics);
   }, [milestone, phaseTag]);
+
+  if (isDeadlinePast(milestone.deadline, now)) return <span className="text-xs text-gray-500">Elapsed</span>;
 
   const label = `Add "${milestone.calendarTitle}" (${milestone.dates}) to your calendar`;
 
@@ -87,17 +95,24 @@ export function AddPhaseButton({
   milestones,
   phaseTag,
   phaseLabel,
+  initialNow,
 }: {
   milestones: CounsellingMilestone[];
   phaseTag: string;
   phaseLabel: string;
+  initialNow: number;
 }) {
+  const now = useCurrentTime(initialNow);
   const handleClick = useCallback(() => {
+    const upcoming = milestones.filter(m => !isDeadlinePast(m.deadline));
+    if (upcoming.length === 0) return;
     const ics = buildIcs(
-      milestones.map(milestone => ({ milestone, phaseTag }))
+      upcoming.map(milestone => ({ milestone, phaseTag }))
     );
     downloadIcs(`ts-eapcet-2026-${slugForFile(phaseLabel)}.ics`, ics);
   }, [milestones, phaseTag, phaseLabel]);
+
+  if (milestones.every(m => isDeadlinePast(m.deadline, now))) return <span className="text-xs text-gray-500">Published dates have passed</span>;
 
   return (
     <button
@@ -106,7 +121,7 @@ export function AddPhaseButton({
       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-accent bg-blue-50 hover:bg-blue-100 active:scale-95 transition-all whitespace-nowrap"
     >
       <CalendarIcon className="w-3.5 h-3.5" />
-      Add all deadlines
+      Add upcoming deadlines
     </button>
   );
 }

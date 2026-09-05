@@ -44,13 +44,13 @@ export interface ApResultStatus {
 
 export const AP_EAPCET_2026_RESULT: ApResultStatus = {
   declared: true,
-  asOf: "2026-07-01",
+  asOf: "2026-09-05",
   expectedWindow: "the end of June 2026",
   expectedShort: "Declared 1 July 2026",
   declaredAt: "2026-07-01",
-  resultUrl: "https://cets.apsche.ap.gov.in",
-  counsellingPortal: "https://eapcet-sche.aptonline.in",
-  counsellingExpected: "schedule not yet published as of July 10, 2026",
+  resultUrl: "https://cets.apsche.ap.gov.in/eapcet/Eapcet/EAPCET_GetResult.aspx",
+  counsellingPortal: "https://eapcet-sche.aptonline.in/EAPCET/",
+  counsellingExpected: "current round and deadlines require confirmation on the official counselling portal",
 };
 
 /**

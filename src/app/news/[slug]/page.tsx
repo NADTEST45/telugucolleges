@@ -1,3 +1,4 @@
+import { isNewsActionable, isNewsArchived } from "@/lib/content-freshness";
 import { SITE_URL } from "@/lib/site";
 import { NEWS_ITEMS, NEWS_CATEGORIES, type NewsItem } from "@/lib/news";
 import { notFound } from "next/navigation";
@@ -167,7 +168,7 @@ export default async function NewsItemPage({ params }: { params: Promise<{ slug:
               <span className={`px-2 py-0.5 rounded text-[11px] font-bold border ${sBadge.cls}`}>
                 {sBadge.label}
               </span>
-              {item.priority === "high" && (
+              {isNewsActionable(item) && (
                 <span className={`px-2 py-0.5 rounded text-[11px] font-bold ${pBadge.cls}`}>
                   {pBadge.label}
                 </span>
@@ -176,6 +177,11 @@ export default async function NewsItemPage({ params }: { params: Promise<{ slug:
                 {formatDate(item.date)}
               </time>
             </div>
+            {isNewsArchived(item) && (
+              <p className="rounded-lg bg-amber-50 p-3 mb-3 text-sm text-amber-900">
+                Archived report from {formatDate(item.date)}. Dates and availability described below may have changed. <Link href="/news" className="underline font-semibold">View recent updates</Link> and confirm details with the linked source.
+              </p>
+            )}
             <h1 className="text-2xl sm:text-3xl font-bold leading-tight mb-3">{item.title}</h1>
             <p className="text-base text-gray-600 leading-relaxed">{item.summary}</p>
           </header>

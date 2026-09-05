@@ -16,9 +16,10 @@ import ShortlistButton from "@/components/ShortlistButton";
 import LeadCapture from "@/components/LeadCapture";
 import CounsellingToolkit from "@/components/CounsellingToolkit";
 import { EapcetStructuredData, PREDICTOR_FAQS } from "./structured-data";
+import { useCurrentTime } from "@/lib/useCurrentTime";
 import { readStatePref, writeStatePref } from "@/lib/state-pref";
 import { AP_EAPCET_2026_RESULT, apResultDateCell } from "@/lib/ap-result-status";
-import { TG_COUNSELLING_NOW, AP_COUNSELLING_NOW, COUNSELLING_STATUS_AS_OF } from "@/lib/counselling-status";
+import { getCounsellingStatus, COUNSELLING_STATUS_AS_OF } from "@/lib/counselling-status";
 
 /* Canonical branch id -> /eapcet/web-options-generator branch slug, for the
    "build web options" hand-off. Only the branches the generator supports are
@@ -60,13 +61,15 @@ export interface EapcetStateStats {
 }
 
 interface EapcetClientProps {
+  initialNow: number;
   /** Canonical branches that have cutoff data in ≥1 source (server-computed). */
   branches: { id: string; label: string }[];
   /** Headline "At a Glance" stats per state (server-computed). */
   stats: Record<"Telangana" | "Andhra Pradesh", EapcetStateStats>;
 }
 
-export default function EapcetClient({ branches: allBranches, stats }: EapcetClientProps) {
+export default function EapcetClient({ branches: allBranches, stats, initialNow }: EapcetClientProps) {
+  const currentTime = useCurrentTime(initialNow);
   const [rank, setRank] = useState("");
   const [state, setState] = useState<"Telangana" | "Andhra Pradesh">("Telangana");
   const [branch, setBranch] = useState("cse");
@@ -241,8 +244,8 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
         { label: "Engineering Exam",   date: "May 12–15, 18 ✓",    highlight: true  },
         { label: "Agri / Pharmacy",    date: "May 19–20",          highlight: true  },
         { label: AP_EAPCET_2026_RESULT.declared ? "Results" : "Results (Expected)", date: apResultDateCell(), highlight: true },
-        { label: "Counselling Reg.",   date: "Early July 2026 (expected)",   highlight: false },
-        { label: "Counselling Rounds", date: "Jul–Aug 2026 (3 rds + spot)", highlight: false },
+        { label: "Counselling Reg.",   date: "Confirm on official portal",   highlight: false },
+        { label: "Counselling Rounds", date: "Current round unconfirmed", highlight: false },
       ],
     },
     tg: {
@@ -262,7 +265,7 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
     },
   } as const;
 
-  const now = state === "Telangana" ? TG_COUNSELLING_NOW : AP_COUNSELLING_NOW;
+  const now = getCounsellingStatus(state === "Telangana" ? "TS" : "AP", currentTime);
 
   return (
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
@@ -302,7 +305,7 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
           </span>
           <span className="text-[11px] font-bold uppercase tracking-wide text-amber-700">
-            Happening now · {state === "Telangana" ? "TS" : "AP"} · {now.stage}
+            Admission guidance · {state === "Telangana" ? "TS" : "AP"} · {now.stage}
           </span>
           <a href="#dates" className="ml-auto text-[11px] font-semibold text-amber-700 hover:underline">Full schedule ↓</a>
         </div>
@@ -407,7 +410,7 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
         {usePhaseData && (
           <div className="bg-blue-50 rounded-lg px-4 py-2 text-[11px] text-blue-700 mb-4">
             {phase === "phase1" && (
-              <>Phase-1 cutoffs are the <strong>tightest</strong> of the season — later phases relax as seats free up. TG EAPCET 2026 Phase-1 allotment processing is underway. Data: official TSCHE Phase-1 Last Rank Statements (2023 &amp; 2022).</>
+              <>Phase-1 cutoffs are the <strong>tightest</strong> of the season — later phases relax as seats free up. These are historical statements, not 2026 allotment results. Data: official TSCHE Phase-1 Last Rank Statements (2023 &amp; 2022).</>
             )}
             {phase === "phase2" && (
               <>Phase-2 cutoffs typically relax vs Phase 1 as candidates slide or exit. Data: official TSCHE Phase-2 Last Rank Statement (2023).</>
@@ -604,7 +607,7 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
           { href: "/eapcet/ap-cutoff-2026", tag: "AP", title: "AP EAPCET 2026 Cutoff — Branch-wise", desc: "Expected college-wise closing ranks for CSE, ECE, EEE, Civil, Mech, IT & AI branches." },
           { href: "/eapcet/ap-web-options", tag: "AP", title: "AP Web Options Entry — Step-by-Step", desc: "The exact entry process and the priority-order strategy that decides your seat." },
           { href: "/eapcet/tg-cutoff-2026", tag: "TS", title: "TG EAPCET 2026 Cutoff — Branch-wise", desc: "College-wise closing ranks from official TSCHE 2024-25 & 2023-24 last-rank data, plus Phase-1 reference." },
-          { href: "/eapcet/ts-counselling-dates-2026", tag: "TS", title: "TS Counselling Dates 2026", desc: "Full TGCHE phase-wise schedule — Phase-1 allotment processing underway, self-reporting through July 14." },
+          { href: "/eapcet/ts-counselling-dates-2026", tag: "TS", title: "TS Counselling Dates 2026", desc: "Published TGCHE schedule, elapsed deadlines and official notice links." },
           { href: "/eapcet/web-options-generator", tag: "Both", isNew: true, title: "Web Options Generator", desc: "Enter your rank, category & branches to auto-build a best-first preference list across all colleges — tagged safe / moderate / reach." },
           { href: "/eapcet/certificate-verification-documents", tag: "Both", title: "Certificate Verification Documents", desc: "Complete checklist for AP & TS — including income certificate validity rules." },
         ];
@@ -694,7 +697,7 @@ export default function EapcetClient({ branches: allBranches, stats }: EapcetCli
           </div>
         </div>
         <div className="px-4 sm:px-6 pb-3 sm:pb-4 text-[11px] text-blue-200/50">
-          * Dates based on official notifications as of July 10, 2026. TG Phase-1 allotment processing is underway; self-reporting runs through July 14. {AP_EAPCET_2026_RESULT.declared ? `AP EAPCET results declared — rank cards live at cets.apsche.ap.gov.in; the MPC counselling schedule is still awaited.` : `AP EAPCET results still awaited — now expected by ${AP_EAPCET_2026_RESULT.expectedWindow}.`} Check APSCHE / TGCHE websites for latest updates.
+          Published 2026 dates are historical reference. Status reviewed {COUNSELLING_STATUS_AS_OF}; confirm any current admission window on the APSCHE / TGCHE portals.
         </div>
       </section>
 

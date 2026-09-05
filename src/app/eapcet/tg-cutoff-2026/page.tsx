@@ -11,7 +11,7 @@ export const revalidate = 86400;
 
 const title = "TG EAPCET 2026 Cutoff — Branch-wise & College-wise Closing Ranks";
 const description =
-  "TG EAPCET 2026 cutoff reference for CSE, ECE, EEE, Civil, Mechanical, IT, AI/ML and more, based on official TGCHE historical last-rank data. Phase-1 allotment processing was underway on July 10.";
+  "TG EAPCET 2026 cutoff reference for CSE, ECE, EEE, Civil, Mechanical, IT, AI/ML and more, based on official TGCHE historical last-rank data. Historical cutoff reference; check the official portal for current admission notices.";
 
 export const metadata: Metadata = {
   title,
@@ -41,7 +41,7 @@ export default async function TGCutoff2026HubPage() {
   const faqs = [
     {
       q: "When will the official TG EAPCET 2026 cutoff be released?",
-      a: "Official closing ranks appear after each counselling phase. The official portal entered Phase-1 allotment-processing mode on July 10, 2026; allotted candidates must pay the fee and self-report online by July 14. Final-phase cutoffs are expected after the later rounds conclude.",
+      a: "Official 2026 closing ranks have not been imported into this site. The table uses historical TGCHE statements, including 2025-26. Check tgeapcet.nic.in for current notices and any newly published statements.",
     },
     {
       q: "What is a good rank in TG EAPCET 2026?",
@@ -77,10 +77,8 @@ export default async function TGCutoff2026HubPage() {
       </h1>
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
         Branch-wise cutoffs for TG EAPCET 2026 counselling, built from official TSCHE
-        last-rank statements (2024–25 and 2023–24) — not a prediction. The official portal
-        entered <strong>Phase-1 allotment processing</strong> on July 10; allotted candidates
-        must pay the fee and self-report online by <strong>July 14, 2026</strong>. Pick a branch
-        below for the full college-wise table,
+        last-rank statements (2025–26, 2024–25 and 2023–24). These are historical
+        references, not official 2026 closing ranks. Pick a branch for the full table,
         or use the{" "}
         <Link href="/eapcet" className="text-accent font-semibold underline">College Predictor</Link>{" "}
         for a category- and gender-specific list once you have your rank.
@@ -93,7 +91,7 @@ export default async function TGCutoff2026HubPage() {
             <div className="font-bold text-sm text-gray-900 mb-1">{b.label} Cutoff 2026</div>
             <div className="text-xs text-gray-500">
               {b.count} colleges with official last-rank data
-              {b.top?.oc2024 ? <> · tightest OC close: {b.top.oc2024.toLocaleString("en-IN")}</> : null}
+              {b.top?.oc2025 ? <> · tightest 2025 OC close: {b.top.oc2025.toLocaleString("en-IN")}</> : null}
             </div>
           </Link>
         ))}

@@ -14,7 +14,7 @@ import ts_mba from "@/lib/mba_data.json";
 import ap_mba from "@/lib/ap_mba_data.json";
 import ts_mca from "@/lib/mca_data.json";
 import ap_mca from "@/lib/ap_mca_data.json";
-import { TG_COUNSELLING_NOW, AP_COUNSELLING_NOW } from "@/lib/counselling-status";
+import { getCounsellingStatus } from "@/lib/counselling-status";
 
 
 // Homepage self-canonical. Title/description/OG inherit from the root
@@ -22,6 +22,8 @@ import { TG_COUNSELLING_NOW, AP_COUNSELLING_NOW } from "@/lib/counselling-status
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
+
+export const revalidate = 300;
 
 export default async function Home() {
   const colleges = await getCollegesMerged();
@@ -131,12 +133,12 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-4">
           <div className="flex items-start sm:items-center gap-2 min-w-0">
             <span className="relative flex h-2.5 w-2.5 shrink-0 mt-1 sm:mt-0" aria-hidden>
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+              <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
             </span>
             <p className="text-xs sm:text-sm text-gray-800 min-w-0">
-              <span className="font-bold">EAPCET 2026 counselling is on:</span>{" "}
-              {AP_COUNSELLING_NOW.short} · {TG_COUNSELLING_NOW.short}
+              <span className="font-bold">EAPCET 2026 admission guidance:</span>{" "}
+              {getCounsellingStatus("AP").short} · {getCounsellingStatus("TS").short}
             </p>
           </div>
           <div className="flex gap-2 sm:ml-auto shrink-0 pl-4 sm:pl-0">

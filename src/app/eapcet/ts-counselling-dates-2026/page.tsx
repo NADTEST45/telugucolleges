@@ -7,11 +7,14 @@ import {
   type CounsellingPhase,
 } from "@/lib/counselling-schedule";
 import { AddMilestoneButton, AddPhaseButton } from "@/components/AddToCalendar";
-import CounsellingReminderSignup from "@/components/CounsellingReminderSignup";
+import { isDeadlinePast } from "@/lib/content-freshness";
+import { getCounsellingStatus, TG_SCHEDULE_SOURCE, COUNSELLING_STATUS_AS_OF } from "@/lib/counselling-status";
+
+export const revalidate = 300;
 
 const url = `${SITE_URL}/eapcet/ts-counselling-dates-2026`;
 
-const LAST_UPDATED = "2026-07-10";
+const LAST_UPDATED = "2026-09-05";
 
 export const metadata: Metadata = {
   title: "TS EAPCET Counselling Dates 2026 — Full Phase-Wise Schedule (TG EAPCET) | TeluguColleges",
@@ -21,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "TS EAPCET Counselling Dates 2026 — Full Phase-Wise Schedule",
     description:
-      "Phase 1 starts June 19, 2026. Complete TGCHE schedule for all three phases with fees and documents.",
+      "Published TGCHE 2026 schedule including internal sliding, elapsed deadlines and links to current notices.",
     url,
     siteName: "TeluguColleges.com",
     type: "article",
@@ -40,11 +43,11 @@ export const metadata: Metadata = {
 const FAQS: { q: string; a: string }[] = [
   {
     q: "When does TS EAPCET 2026 counselling start?",
-    a: "Phase 1 registration, fee payment and slot booking run from June 19 to June 28, 2026 on the TGCHE portal (eapcet.tgche.ac.in / tgeapcet.nic.in). Certificate verification starts June 22 and web options open June 25.",
+    a: "Phase 1 registration, fee payment and slot booking run from June 19 to June 28, 2026 on the TGCHE counselling portal (tgeapcet.nic.in). Certificate verification starts June 22 and web options open June 25.",
   },
   {
     q: "How many phases of TG EAPCET counselling are there in 2026?",
-    a: "Three — Phase 1 (June 19 to July 14), Phase 2 (July 17 to 28), and a Final Phase (July 31 to August 7). The overall process concludes by mid-August 2026.",
+    a: "Three — Phase 1 (June 19 to July 14), Phase 2 (July 17 to 28), and a Final Phase (July 31 to August 7). Internal sliding was scheduled for August 12–17. Spot admissions have separate notices; confirm their year and deadline on the official portal.",
   },
   {
     q: "What is the TS EAPCET 2026 counselling fee?",
@@ -56,7 +59,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "When is the TS EAPCET 2026 Phase 1 seat allotment result?",
-    a: "The official portal entered allotment-processing mode on July 10, 2026. Check tgeapcet.nic.in for the result. Allotted candidates must pay the tuition fee and self-report online by July 14, 2026.",
+    a: "The published Phase 1 allotment date was on or before July 10, 2026, with fee payment and self-reporting through July 14. These are elapsed dates; use the official portal for your current admission status.",
   },
   {
     q: "Can I join Phase 2 if I missed Phase 1 registration?",
@@ -64,7 +67,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Can I get reminders for the TS EAPCET 2026 counselling deadlines?",
-    a: "Yes. Use the calendar icon next to any milestone above to add that deadline to your phone's calendar (Google, Apple or Outlook) — it sets an all-day event with an alert the day before. You can also add a whole phase at once with the 'Add all deadlines' button. To get a WhatsApp ping when web options open and when allotment results are out, enter your number in the alerts box near the top of the page.",
+    a: "Calendar buttons are available only for deadlines that have not passed in India. Past milestones are labelled as elapsed and cannot be added as new reminders. Check the official portal for any revised schedule.",
   },
   {
     q: "What documents do I need for TG EAPCET certificate verification?",
@@ -113,16 +116,18 @@ function buildFaqJsonLd() {
   };
 }
 
-function PhaseTable({ phase }: { phase: CounsellingPhase }) {
+function PhaseTable({ phase, now }: { phase: CounsellingPhase; now: number }) {
+  const upcoming = phase.milestones.filter(m => !isDeadlinePast(m.deadline, now));
   return (
     <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
       <div className="flex items-start justify-between gap-3 mb-3">
         <h2 className="text-base sm:text-lg font-bold">{phase.title}</h2>
-        <AddPhaseButton
-          milestones={phase.milestones}
+        {upcoming.length > 0 ? <AddPhaseButton
+          initialNow={now}
+          milestones={upcoming}
           phaseTag={phase.tag}
           phaseLabel={phase.title}
-        />
+        /> : <span className="text-xs font-semibold text-gray-500">Published dates have passed</span>}
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
@@ -141,7 +146,7 @@ function PhaseTable({ phase }: { phase: CounsellingPhase }) {
                 <td className="py-2.5 pr-3 text-gray-700 leading-relaxed">{m.event}</td>
                 <td className="py-2.5 text-gray-800 font-medium whitespace-nowrap">{m.dates}</td>
                 <td className="py-2.5 pl-2 text-right">
-                  <AddMilestoneButton milestone={m} phaseTag={phase.tag} />
+                  {isDeadlinePast(m.deadline, now) ? <span className="text-xs text-gray-500">Elapsed</span> : <AddMilestoneButton milestone={m} phaseTag={phase.tag} initialNow={now} />}
                 </td>
               </tr>
             ))}
@@ -153,6 +158,8 @@ function PhaseTable({ phase }: { phase: CounsellingPhase }) {
 }
 
 export default function TsCounsellingDates2026Page() {
+  const now = Date.now();
+  const status = getCounsellingStatus("TS", now);
   return (
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
       <JsonLd data={[buildBreadcrumbJsonLd(), buildArticleJsonLd(), buildFaqJsonLd()]} />
@@ -170,35 +177,20 @@ export default function TsCounsellingDates2026Page() {
         TS EAPCET Counselling Dates 2026 — Phase-Wise Schedule
       </h1>
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
-        TGCHE released the TG EAPCET 2026 counselling schedule on June 9, 2026.{" "}
-        <strong>Phase 1 web options closed July 1</strong> on{" "}
-        <a
-          href="https://eapcet.tgche.ac.in"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-accent underline"
-        >
-          eapcet.tgche.ac.in
-        </a>{" "}
-        (also tgeapcet.nic.in). The portal entered allotment-processing mode on
-        July 10; allotted candidates must pay the fee and self-report online by
-        July 14. Three phases run through August 2026. Last updated: July 10, 2026.
+        Published TGCHE schedule, including all three counselling phases and internal sliding.
+        Reviewed {COUNSELLING_STATUS_AS_OF}. Past dates remain visible as a reference.
       </p>
-
-      {/* Key dates banner */}
       <section className="rounded-xl mb-6 p-4 sm:p-6 bg-blue-50 border border-blue-200">
-        <h2 className="text-base sm:text-lg font-bold text-blue-900 mb-2">Phase 1 at a glance</h2>
-        <ul className="text-sm text-blue-900 space-y-1 leading-relaxed">
-          <li><strong>June 19–28</strong> — Register, pay fee (₹1,200 OC/BC · ₹600 SC/ST), book verification slot</li>
-          <li><strong>June 25–July 1</strong> — Enter web options (freeze July 1)</li>
-          <li><strong>By July 4</strong> — Mock allotment → reshuffle options July 5–7</li>
-          <li><strong>By July 10</strong> — Seat allotment → pay fee & self-report by July 14</li>
-        </ul>
-        <CounsellingReminderSignup />
+        <h2 className="text-base sm:text-lg font-bold text-blue-900 mb-2">{status.headline}</h2>
+        <p className="text-sm text-blue-900 mb-3">{status.next}</p>
+        <div className="flex flex-wrap gap-4 text-sm font-semibold text-accent">
+          <a href={status.portalUrl} target="_blank" rel="noopener noreferrer" className="underline">Current TGCHE notices →</a>
+          <a href={TG_SCHEDULE_SOURCE} target="_blank" rel="noopener noreferrer" className="underline">Official 2026 schedule (PDF) →</a>
+        </div>
       </section>
 
       {COUNSELLING_PHASES.map(phase => (
-        <PhaseTable key={phase.id} phase={phase} />
+        <PhaseTable key={phase.id} phase={phase} now={now} />
       ))}
 
       {/* Fee + documents */}
@@ -227,12 +219,12 @@ export default function TsCounsellingDates2026Page() {
       >
         <div className="p-4 sm:p-6">
           <h2 className="text-base sm:text-xl font-bold text-white mb-1">
-            Phase-1 allotment processing is underway
+            Explore historical closing ranks
           </h2>
           <p className="text-sm text-blue-100 mb-3 leading-relaxed">
             The predictor shows every Telangana college where the official TGCHE
             closing rank for your category × gender covered your rank — across the
-            last two counselling years. Use it to evaluate your allotment and prepare Phase-2 options if needed.
+            available historical counselling years. Compare the source year, category and gender before interpreting a closing rank.
           </p>
           <Link
             href="/eapcet"
@@ -273,8 +265,8 @@ export default function TsCounsellingDates2026Page() {
       </section>
 
       <p className="text-xs text-gray-500 leading-relaxed">
-        Schedule as notified by TGCHE and reported on June 9, 2026. Dates can be
-        revised by the council — always confirm on eapcet.tgche.ac.in before acting.
+        Schedule from the TGCHE notification dated June 8, 2026, reviewed September 5.
+        Confirm revisions and any remaining admission opportunity on tgeapcet.nic.in.
       </p>
     </main>
   );

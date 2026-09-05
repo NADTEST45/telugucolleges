@@ -42,10 +42,13 @@ function statsFor(colleges: College[], state: "Telangana" | "Andhra Pradesh"): E
   };
 }
 
+export const revalidate = 300;
+
 export default async function EAPCETPage() {
   const colleges = await getCollegesMerged();
   return (
     <EapcetClient
+      initialNow={Date.now()}
       branches={branchesWithData(colleges)}
       stats={{
         Telangana: statsFor(colleges, "Telangana"),

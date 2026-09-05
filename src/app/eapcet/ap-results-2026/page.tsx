@@ -14,7 +14,7 @@ const url = `${SITE_URL}/eapcet/ap-results-2026`;
 const teUrl = `${SITE_URL}/eapcet/ap-results-2026-telugu`;
 
 // Bump this (and the update log below) whenever the page content changes.
-const LAST_UPDATED = "2026-07-01";
+const LAST_UPDATED = "2026-09-05";
 
 const S = AP_EAPCET_2026_STATS;
 const inr = (n: number) => n.toLocaleString("en-IN");
@@ -124,7 +124,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "When will AP EAPCET 2026 counselling start?",
-    a: "As of July 10, APSCHE has not published the 2026 MPC counselling schedule on its official admissions portal. When notified, the process will cover registration and fee payment, certificate verification, web options entry, and phase-wise seat allotment. Check cets.apsche.ap.gov.in and eapcet-sche.aptonline.in rather than relying on predicted dates.",
+    a: "Current AP counselling dates could not be confirmed during our September 5 review. Check eapcet-sche.aptonline.in for the active round, web-options dates and reporting deadline. The results portal and the counselling portal serve different purposes.",
   },
 ];
 
@@ -246,9 +246,8 @@ export default function ApResults2026Page() {
           </h2>
           <p className="text-sm text-green-900 leading-relaxed">
             AP EAPCET 2026 rank cards are now available on cets.apsche.ap.gov.in. Log in
-            with your hall ticket number and date of birth to download yours, then start
-            building your web-options list — the official counselling schedule is still awaited
-            shortly.
+            with your registration number and EAPCET hall ticket number to view your result, then
+            check the official counselling portal for the active round and its deadlines.
           </p>
         </section>
       ) : (
@@ -468,8 +467,8 @@ export default function ApResults2026Page() {
           </a>{" "}
           — registration and fee payment (₹1,200 OC/BC, ₹600 SC/ST), certificate
           verification, web options entry, seat allotment, and self-reporting. With
-          the result out, APSCHE is expected to notify the counselling schedule
-          after the result; as of July 10, APSCHE has not published the 2026 MPC schedule.
+          the result available, confirm the active counselling round and its deadlines
+          directly on the official portal. These dates could not be verified during our September 5 review.
         </p>
         <ul className="text-sm text-gray-700 space-y-1.5">
           <li>

@@ -203,8 +203,8 @@ export default function CertificateVerificationDocsPage() {
           eapcet-sche.aptonline.in
         </a>
         ) and TG EAPCET (
-        <a href="https://eapcet.tgche.ac.in" target="_blank" rel="noopener noreferrer" className="text-accent underline">
-          eapcet.tgche.ac.in
+        <a href="https://tgeapcet.nic.in" target="_blank" rel="noopener noreferrer" className="text-accent underline">
+          tgeapcet.nic.in
         </a>
         ). Carry <strong>originals + two sets of photocopies</strong> of everything.
       </p>

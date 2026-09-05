@@ -5,7 +5,7 @@
  * Pre-built BEFORE TG EAPCET 2026 counselling (registration June 19–28,
  * web options June 25–July 1, Phase-1 allotment by ~July 10, 2026) so pages
  * are indexed when search volume peaks. Tables show official TSCHE last-rank
- * data (2024-25 & 2023-24 final phase, plus 2023 Phase-1 OC for reference) —
+ * data (2025-26, 2024-25 & 2023-24 final phase, plus 2023 Phase-1 OC for reference) —
  * clearly labelled as such, never a prediction.
  *
  * Mirrors ap-cutoff-2026.ts. One structural difference: TS_CUTOFFS branch
@@ -56,6 +56,7 @@ export function isLastRankSentinel(rank: number): boolean {
 
 export interface TSCutoffRow {
   college: College;
+  oc2025: number;        // 2025-26 final-phase boys OC rank (0 = no data)
   oc2024: number;        // 2024-25 final-phase OC closing rank (0 = no data)
   oc2023: number;        // 2023-24 final-phase OC closing rank
   sc2024: number;        // 2024-25 final-phase SC closing rank
@@ -73,11 +74,13 @@ export function getTSCutoffRows(branchSlug: string, colleges: College[] = COLLEG
   return colleges
     .filter(c => c.state === "Telangana")
     .map(c => {
+      const y2025 = TS_CUTOFFS[c.code]?.["2025"]?.[code];
       const y2024 = TS_CUTOFFS[c.code]?.["2024"]?.[code];
       const y2023 = TS_CUTOFFS[c.code]?.["2023"]?.[code];
       const phase1 = TS_CUTOFFS_2023_PHASE1[c.code]?.["2023"]?.[code];
       return {
         college: c,
+        oc2025: y2025?.OC || 0,
         oc2024: y2024?.OC || 0,
         oc2023: y2023?.OC || 0,
         sc2024: y2024?.SC || 0,
@@ -85,6 +88,6 @@ export function getTSCutoffRows(branchSlug: string, colleges: College[] = COLLEG
         ocPhase1_2023: phase1?.OC || 0,
       };
     })
-    .filter(r => r.oc2024 > 0 || r.oc2023 > 0)
-    .sort((a, b) => (a.oc2024 || a.oc2023) - (b.oc2024 || b.oc2023));
+    .filter(r => r.oc2025 > 0 || r.oc2024 > 0 || r.oc2023 > 0)
+    .sort((a, b) => (a.oc2025 || a.oc2024 || a.oc2023) - (b.oc2025 || b.oc2024 || b.oc2023));
 }

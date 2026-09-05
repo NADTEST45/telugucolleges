@@ -25,8 +25,8 @@ export async function generateMetadata({
   const b = getCutoffBranch(branch);
   if (!b) return { title: "Not found" };
   const rows = getCutoffRows(branch, await getCollegesMerged());
-  const title = `AP EAPCET 2026 Cutoff for ${b.keyword} — Expected College-wise Closing Ranks`;
-  const description = `AP EAPCET 2026 ${b.keyword} cutoff reference for ${rows.length} Andhra Pradesh engineering colleges, based on official APSCHE historical last-rank statements. Rank cards are live; the MPC counselling schedule was still awaited on July 10.`;
+  const title = `AP EAPCET 2026 Cutoff for ${b.keyword} — Historical College-wise Closing Ranks`;
+  const description = `AP EAPCET 2026 ${b.keyword} cutoff reference for ${rows.length} Andhra Pradesh engineering colleges, based on official APSCHE historical last-rank statements. Results are available; confirm current counselling deadlines on the official portal.`;
   const url = `${SITE_URL}/eapcet/ap-cutoff-2026/${branch}`;
   return {
     title,
@@ -61,11 +61,11 @@ export default async function APCutoffBranchPage({
   const faqs = [
     {
       q: `What is the expected AP EAPCET 2026 cutoff for ${b.keyword}?`,
-      a: `Official 2026 cutoffs are published only after counselling concludes (expected July–August 2026). The most reliable indicator is the official APSCHE last-rank data from 2023-24 counselling, shown in the table above for ${rows.length} colleges. Top colleges close ${b.slug === "cse" ? "within the first few thousand ranks" : "earlier than mid-tier colleges by tens of thousands of ranks"}, and cutoffs typically shift ±10–20% year to year.`,
+      a: `This site has not imported official 2026 closing ranks. The table contains available official APSCHE historical data, including 2024-25 counselling, shown in the table above for ${rows.length} colleges. Top colleges close ${b.slug === "cse" ? "within the first few thousand ranks" : "earlier than mid-tier colleges by tens of thousands of ranks"}, and year-to-year changes vary by branch, category and seat availability.`,
     },
     {
       q: "When will AP EAPCET 2026 results and cutoffs be released?",
-      a: "AP EAPCET 2026 results were declared on July 1. As of July 10, APSCHE had not published the 2026 MPC counselling schedule. Official 2026 closing ranks will be added only after APSCHE publishes each allotment-round statement.",
+      a: "AP EAPCET 2026 results are available. Current counselling dates require confirmation on the official portal. This table contains historical closing ranks; no 2026 cutoff dataset has been imported.",
     },
     {
       q: "Do cutoffs differ by category and gender?",
@@ -95,15 +95,14 @@ export default async function APCutoffBranchPage({
       </nav>
 
       <h1 className="text-2xl sm:text-3xl font-bold mb-2">
-        AP EAPCET 2026 Cutoff for {b.label} — Expected Closing Ranks
+        AP EAPCET 2026 Cutoff for {b.label} — Historical Closing Ranks
       </h1>
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
-        Expected AP EAPCET 2026 cutoff ranks for <strong>{b.label}</strong> across{" "}
+        AP EAPCET 2026 historical cutoff reference for <strong>{b.label}</strong> across{" "}
         <strong>{rows.length} Andhra Pradesh engineering colleges</strong>, based on official
-        APSCHE last-rank statements from 2023–24 and 2022–23 convener-quota counselling.
-        Results <strong>{apResultExpectedPhrase()}</strong>; official 2026 cutoffs appear
-        after each notified counselling round. Bookmark this page — it will be updated as
-        2026 rounds conclude.
+        APSCHE last-rank statements from 2024–25, 2023–24 and 2022–23 convener-quota counselling.
+        Results <strong>{apResultExpectedPhrase()}</strong>. No official 2026 cutoff dataset
+        has been imported here. Confirm the active counselling round on the official portal.
       </p>
 
       <div className="bg-blue-50 rounded-xl border border-blue-200 p-4 mb-6 text-sm text-blue-900">
@@ -189,7 +188,7 @@ export default async function APCutoffBranchPage({
 
       <p className="text-xs text-gray-500 leading-relaxed">
         Methodology: closing ranks are from official APSCHE &ldquo;Last Rank Details&rdquo; statements for
-        2023–24 and 2022–23 convener-quota (Category-A) counselling, final phase. These are
+        2024–25, 2023–24 and 2022–23 convener-quota (Category-A) counselling, final phase. These are
         reference values for AP EAPCET 2026 — actual 2026 cutoffs depend on seat matrix,
         applicant volume and counselling round, and typically vary ±10–20% year to year.
         Not an admission guarantee.

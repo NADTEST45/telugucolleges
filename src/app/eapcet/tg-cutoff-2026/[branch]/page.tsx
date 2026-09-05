@@ -30,7 +30,7 @@ export async function generateMetadata({
   if (!b) return { title: "Not found" };
   const rows = getTSCutoffRows(branch, await getCollegesMerged());
   const title = `TG EAPCET 2026 Cutoff for ${b.keyword} — College-wise Closing Ranks`;
-  const description = `TG EAPCET 2026 ${b.keyword} cutoff reference for ${rows.length} Telangana engineering colleges, based on official TGCHE historical last-rank statements. Phase-1 allotment processing was underway on July 10.`;
+  const description = `TG EAPCET 2026 ${b.keyword} cutoff reference for ${rows.length} Telangana engineering colleges, based on official TGCHE historical last-rank statements. Historical cutoff reference; check the official portal for current admission notices.`;
   const url = `${SITE_URL}/eapcet/tg-cutoff-2026/${branch}`;
   return {
     title,
@@ -71,11 +71,11 @@ export default async function TGCutoffBranchPage({
   const faqs = [
     {
       q: `What is the TG EAPCET 2026 cutoff for ${b.keyword}?`,
-      a: `Official 2026 cutoffs are published only after each counselling phase. Phase-1 allotment processing was underway on July 10, 2026. The most reliable reference meanwhile is the official TGCHE last-rank data from 2024-25 counselling, shown in the table above for ${rows.length} colleges. Top colleges close ${b.slug === "cse" ? "within the first few thousand ranks" : "earlier than mid-tier colleges by tens of thousands of ranks"}, and cutoffs typically shift ±10–20% year to year.`,
+      a: `Official 2026 cutoffs are published only after each counselling phase. No official 2026 cutoff dataset has been imported into this site. The most reliable reference meanwhile is the official TGCHE last-rank data from 2025-26 counselling, shown in the table above for ${rows.length} colleges. Top colleges close ${b.slug === "cse" ? "within the first few thousand ranks" : "earlier than mid-tier colleges by tens of thousands of ranks"}, and year-to-year changes vary by branch, category and seat availability.`,
     },
     {
-      q: "When does TG EAPCET 2026 counselling start?",
-      a: "Registration and web options have closed. The official portal entered Phase-1 allotment-processing mode on July 10, 2026; allotted candidates must pay the fee and self-report online by July 14. Official 2026 closing ranks appear after each allotment phase.",
+      q: "What is the current TG EAPCET 2026 counselling status?",
+      a: "The published final-phase reporting deadline was August 7, and internal-sliding reporting ended August 17, 2026. Check current TGCHE and college notices for any remaining admission opportunity. This page shows historical cutoffs.",
     },
     {
       q: "Do cutoffs differ by category and gender?",
@@ -110,11 +110,10 @@ export default async function TGCutoffBranchPage({
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
         TG EAPCET 2026 cutoff reference for <strong>{b.label}</strong> across{" "}
         <strong>{rows.length} Telangana engineering colleges</strong>, based on official
-        TGCHE last-rank statements from 2024–25 and 2023–24 convener-quota counselling —
-        not a prediction. The official portal entered <strong>Phase-1 allotment
-        processing</strong> on July 10; allotted candidates must pay the fee and self-report
-        online by <strong>July 14, 2026</strong>. Official 2026 cutoffs appear after each phase.
-        Bookmark this page — it will be updated as 2026 phases conclude.
+        TGCHE final-phase statements from 2025–26, 2024–25 and 2023–24.
+        The columns show boys closing ranks for the named year and category.
+        These are historical references, not official 2026 cutoffs. Use the predictor
+        below for girls ranks and the 2025 SC subcategories.
       </p>
 
       <div className="bg-blue-50 rounded-xl border border-blue-200 p-4 mb-6 text-sm text-blue-900">
@@ -128,6 +127,7 @@ export default async function TGCutoffBranchPage({
             <tr className="bg-brand text-white text-left">
               <th className="px-3 py-2.5 text-xs font-semibold w-10">#</th>
               <th className="px-3 py-2.5 text-xs font-semibold">College</th>
+              <th className="px-3 py-2.5 text-xs font-semibold text-right">OC 2025-26</th>
               <th className="px-3 py-2.5 text-xs font-semibold text-right">OC 2024-25</th>
               <th className="px-3 py-2.5 text-xs font-semibold text-right">OC 2023-24</th>
               <th className="px-3 py-2.5 text-xs font-semibold text-right">SC 2024-25</th>
@@ -148,6 +148,7 @@ export default async function TGCutoffBranchPage({
                     {r.college.code} · {r.college.district} · {r.college.type}
                   </div>
                 </td>
+                <td className="px-3 py-2.5 text-right font-mono font-semibold">{rank(r.oc2025)}</td>
                 <td className="px-3 py-2.5 text-right font-mono font-semibold">
                   {rank(r.oc2024)}
                 </td>

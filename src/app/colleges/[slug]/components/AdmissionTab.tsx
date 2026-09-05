@@ -111,7 +111,8 @@ export default function AdmissionTab({ collegeName, medical, admissionExam }: { 
 
       {/* Exam Schedule */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
-        <h2 className="text-lg font-bold mb-4">2026 Exam Schedule</h2>
+        <h2 className="text-lg font-bold mb-4">2026 Exam Schedule — Historical Reference</h2>
+        <p className="text-sm text-amber-900 bg-amber-50 rounded-lg p-3 mb-4">These earlier-cycle dates have not been reverified for September. Labels such as “expected”, “open” or “ongoing” describe the original notice, not current availability. Confirm the latest round on the official website above.</p>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
