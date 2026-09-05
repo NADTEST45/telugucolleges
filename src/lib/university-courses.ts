@@ -62,7 +62,7 @@ export const UNIVERSITY_FEE_AY: Record<string, string> = {
   BEST: "2026-27", // bestiu.edu.in — ₹2L/yr CSE (total ₹8L)
 
   // TS — Deemed Universities
-  BITS: "2026-27", // admissions.bits-pilani.ac.in — Y1 ₹4.90L (₹2.45L/sem × 2), 5% annual hike, total ₹20.76L
+  BITS: "2026-27", // admissions.bits-pilani.ac.in — FD_fee.html — Y1 ₹5.83L; 8 regular semesters ₹25.13L, excluding summer/PS and other charges
   IIIT: "2026-27", // ugadmissions.iiit.ac.in/fee-jee-spec/ — ₹5L/yr B.Tech
   ICFA: "2026-27", // ifheindia.org — ₹1.4L/sem, batch 2026-30
   GITH: "2026-27", // gitam.edu/fee-scholarship/fee-structure — same as Vizag
@@ -254,15 +254,15 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
   // TS — DEEMED UNIVERSITIES (official websites)
   // =============================================
 
-  "BITS": [ // BITS Pilani — Hyderabad (admissions.bits-pilani.ac.in — AY 2026-27: Y1 ₹4.90L tuition (₹2.45L/sem × 2), 5% annual hike, total 4-yr ₹20.76L)
-    { program: "B.E.", specialization: "CSE", fee: 490000, totalFee: 2076000, duration: 4, level: "UG" },
-    { program: "B.E.", specialization: "ECE", fee: 490000, totalFee: 2076000, duration: 4, level: "UG" },
-    { program: "B.E.", specialization: "EEE", fee: 490000, totalFee: 2076000, duration: 4, level: "UG" },
-    { program: "B.E.", specialization: "Mechanical", fee: 490000, totalFee: 2076000, duration: 4, level: "UG" },
-    { program: "B.E.", specialization: "Civil", fee: 490000, totalFee: 2076000, duration: 4, level: "UG" },
-    { program: "B.E.", specialization: "Chemical", fee: 490000, totalFee: 2076000, duration: 4, level: "UG" },
-    { program: "B.Pharm", fee: 490000, totalFee: 2076000, duration: 4, level: "UG" },
-    { program: "M.Sc (Hons)", specialization: "Biology / Chemistry / Economics / Maths / Physics", fee: 490000, totalFee: 2076000, duration: 4, level: "Integrated" },
+  "BITS": [ // BITS Pilani — Hyderabad (admissions.bits-pilani.ac.in — AY 2026-27 FD_fee.html: Y1 ₹5.83L, 8 regular semesters ₹25.13L; summer/PS and other charges extra)
+    { program: "B.E.", specialization: "CSE", fee: 583000, totalFee: 2513000, duration: 4, level: "UG" },
+    { program: "B.E.", specialization: "ECE", fee: 583000, totalFee: 2513000, duration: 4, level: "UG" },
+    { program: "B.E.", specialization: "EEE", fee: 583000, totalFee: 2513000, duration: 4, level: "UG" },
+    { program: "B.E.", specialization: "Mechanical", fee: 583000, totalFee: 2513000, duration: 4, level: "UG" },
+    { program: "B.E.", specialization: "Civil", fee: 583000, totalFee: 2513000, duration: 4, level: "UG" },
+    { program: "B.E.", specialization: "Chemical", fee: 583000, totalFee: 2513000, duration: 4, level: "UG" },
+    { program: "B.Pharm", fee: 583000, totalFee: 2513000, duration: 4, level: "UG" },
+    { program: "M.Sc (Hons)", specialization: "Biology / Chemistry / Economics / Maths / Physics", fee: 583000, totalFee: 2513000, duration: 4, level: "Integrated" },
     { program: "M.E.", fee: 300000, duration: 2, level: "PG" },
     { program: "MBA", fee: 500000, duration: 2, level: "PG" },
     { program: "Ph.D", fee: 200000, duration: 4, level: "Doctoral" },
@@ -649,20 +649,17 @@ const ENGINEERING_BRANCHES = new Set(["CSE","ECE","EEE","MECH","CIVIL","IT","AI&
 /**
  * Generate course list for government or private affiliated colleges.
  * Lists each B.Tech branch individually.
- * Convener quota (Category-A) fees only — from official government orders.
+ * Recorded undergraduate branches only. A shared fee is used only when its
+ * program is unambiguous; unknown prices remain unavailable, never estimated.
  */
 export function generateAffiliateCourses(c: { code?: string; type: string; state: string; fee: number; goFee: number; branches: string[] }): CourseInfo[] | null {
   if (c.type === "Deemed University" || c.type === "Private University") return null;
 
   const baseFee = c.goFee > 0 ? c.goFee : c.fee;
-  const isGovt = c.type === "Government";
-  const isAP = c.state === "Andhra Pradesh";
-
   const engBranches = c.branches.filter(b => ENGINEERING_BRANCHES.has(b));
   const hasPharmacy = c.branches.includes("B.Pharm");
   const hasPharmD = c.branches.includes("Pharm.D");
   const hasMedical = c.branches.includes("MBBS");
-  const hasMPharm = c.branches.includes("M.Pharm");
   const hasPHB = c.branches.includes("PHB");
   const hasPDB = c.branches.includes("PDB");
 
@@ -689,43 +686,18 @@ export function generateAffiliateCourses(c: { code?: string; type: string; state
       });
     }
 
-    // ── PG programs (standard for engineering colleges) ──
-    const mtechFee = isGovt ? (isAP ? 20000 : 25000) : Math.round(btechFee * 0.6);
-    const mbaFee = isGovt ? (isAP ? 25000 : 30000) : (isAP ? 55000 : 80000);
-    const mcaFee = isGovt ? (isAP ? 20000 : 25000) : (isAP ? 40000 : 55000);
-
-    courses.push({ program: "M.Tech", fee: mtechFee, duration: 2, level: "PG" });
-
-    if (btechFee >= 50000) {
-      courses.push({ program: "MBA", fee: mbaFee, duration: 2, level: "PG" });
-      courses.push({ program: "MCA", fee: mcaFee, duration: 2, level: "PG" });
-    }
   }
 
-  // ── Pharmacy programs ──
-  if (hasPharmacy || hasPHB) {
-    const bpharmFee = engBranches.length > 0 ? (isAP ? 45000 : 50000) : baseFee;
-    const mpharmFee = isGovt ? (isAP ? 20000 : 25000) : Math.round(bpharmFee * 0.7);
-
-    courses.push({ program: "B.Pharm", fee: bpharmFee, duration: 4, level: "UG" });
-    if (hasMPharm || engBranches.length > 0) {
-      courses.push({ program: "M.Pharm", fee: mpharmFee, duration: 2, level: "PG" });
-    }
-  }
-
-  if (hasPharmD || hasPDB) {
-    const pharmdFee = engBranches.length > 0 ? (isAP ? 68000 : 75000) : Math.round(baseFee * 1.3);
-    courses.push({ program: "Pharm.D", fee: pharmdFee, duration: 6, level: "Integrated" });
-  }
-
-  // ── Medical programs ──
-  if (hasMedical) {
-    const mbbsFee = baseFee;
-    courses.push({ program: "MBBS", fee: mbbsFee, duration: 5, level: "UG" });
-    if (mbbsFee > 0) {
-      const mdFee = isGovt ? (isAP ? 50000 : 60000) : Math.round(mbbsFee * 1.2);
-      courses.push({ program: "MD/MS", fee: mdFee, duration: 3, level: "PG" });
-    }
+  // A branch list does not establish PG offerings or their fees. Never infer
+  // M.Tech/MBA/MCA/MD/MS from the existence or price of an undergraduate course.
+  const pharmacyPrograms = [
+    ...(hasPharmacy || hasPHB ? [{ program: "B.Pharm", duration: 4, level: "UG" as const }] : []),
+    ...(hasPharmD || hasPDB ? [{ program: "Pharm.D", duration: 6, level: "Integrated" as const }] : []),
+  ];
+  for (const program of pharmacyPrograms) {
+    // A shared institutional fee cannot establish prices for multiple programs.
+    const fee = engBranches.length === 0 && pharmacyPrograms.length === 1 && !hasMedical ? baseFee : 0;
+    courses.push({ ...program, fee });
   }
 
   return courses.length > 0 ? courses : null;

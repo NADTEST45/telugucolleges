@@ -1,0 +1,160 @@
+{
+  "NITA": {
+    "source": "NIRF",
+    "sourceUrl": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "years": [],
+    "summary": {
+      "year": "2023-24",
+      "graduated": 527,
+      "placed": 393,
+      "avgPackage": 8.13,
+      "maxPackage": 44.1,
+      "medianPackage": 7.56
+    }
+  },
+  "IIIS": {
+    "source": "NIRF",
+    "sourceUrl": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "years": [],
+    "summary": {
+      "year": "2023-24",
+      "avgPackage": 18.92,
+      "maxPackage": 120,
+      "medianPackage": 14.32
+    }
+  },
+  "IIDK": {
+    "source": "NIRF",
+    "sourceUrl": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "years": [],
+    "summary": {
+      "year": "2023-24",
+      "avgPackage": 7.64,
+      "maxPackage": 32.5
+    }
+  },
+  "GVPE": {
+    "source": "NIRF",
+    "sourceUrl": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "years": [],
+    "summary": {
+      "year": "2023-24",
+      "maxPackage": 50,
+      "medianPackage": 5.4
+    }
+  },
+  "JNTA": {
+    "source": "NIRF",
+    "sourceUrl": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "years": [],
+    "summary": {
+      "year": "2023-24",
+      "graduated": 1106,
+      "placed": 534,
+      "avgPackage": 6,
+      "maxPackage": 29,
+      "medianPackage": 4.2
+    }
+  },
+  "UCEK": {
+    "source": "NIRF",
+    "sourceUrl": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "years": [],
+    "summary": {
+      "year": "2023-24",
+      "maxPackage": 35,
+      "medianPackage": 9.42
+    }
+  },
+  "KLUN": {
+    "source": "NIRF",
+    "sourceUrl": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "years": [],
+    "summary": {
+      "year": "2023-24",
+      "avgPackage": 11,
+      "maxPackage": 75
+    }
+  },
+  "SRMA": {
+    "source": "NIRF",
+    "sourceUrl": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "years": [],
+    "summary": {
+      "year": "2023-24",
+      "avgPackage": 13.43,
+      "maxPackage": 55,
+      "medianPackage": 7.07
+    }
+  },
+  "VTAP": {
+    "source": "NIRF",
+    "sourceUrl": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "years": [],
+    "summary": {
+      "year": "2023-24",
+      "avgPackage": 14.43,
+      "maxPackage": 27
+    }
+  },
+  "RVRJ": {
+    "source": "NIRF",
+    "sourceUrl": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "years": [],
+    "summary": {
+      "year": "2023-24",
+      "graduated": 1081,
+      "placed": 589,
+      "avgPackage": 4.73,
+      "maxPackage": 25,
+      "medianPackage": 4.25
+    }
+  },
+  "MBUT": {
+    "source": "NIRF",
+    "sourceUrl": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "years": [],
+    "summary": {
+      "year": "2023-24",
+      "graduated": 1554,
+      "placed": 1363,
+      "avgPackage": 4.9,
+      "maxPackage": 31,
+      "medianPackage": 5.3,
+      "note": "Submitted as Sree Vidyanikethan Engineering College (SVEC), now part of Mohan Babu University"
+    }
+  },
+  "SVCE": {
+    "source": "NIRF",
+    "sourceUrl": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "years": [],
+    "summary": {
+      "year": "2023-24",
+      "placed": 1625,
+      "maxPackage": 11,
+      "medianPackage": 5.5
+    }
+  },
+  "GDLV": {
+    "source": "NIRF",
+    "sourceUrl": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "years": [],
+    "summary": {
+      "year": "2023-24",
+      "placed": 872,
+      "avgPackage": 4.01,
+      "maxPackage": 31,
+      "medianPackage": 4.12
+    }
+  },
+  "PPSV": {
+    "source": "NIRF",
+    "sourceUrl": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "years": [],
+    "summary": {
+      "year": "2023-24",
+      "avgPackage": 7.44,
+      "maxPackage": 44
+    }
+  }
+}

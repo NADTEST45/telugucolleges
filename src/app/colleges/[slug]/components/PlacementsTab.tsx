@@ -15,7 +15,7 @@ export default function PlacementsTab({ c, pd }: { c: College; pd: CollegePlacem
       {/* ── Placement Highlights (always shown) ── */}
       <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
         <h2 className="text-lg font-bold mb-1">Placement Highlights</h2>
-        <p className="text-xs text-gray-500 mb-4">{c.placements.avg > 0 ? "Based on NIRF 2025 submission data (median salary, AY 2023-24)" : "Placement data not available — college did not participate in NIRF or data not published"}</p>
+        <p className="text-xs text-gray-500 mb-4">{c.placements.avg > 0 ? "Recorded headline figures; reporting year and source are not established for every value" : "Placement data is not available in this dataset"}</p>
         <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6">
           <div className="bg-green-50 rounded-xl p-3 sm:p-5 text-center">
             <div className="text-[11px] sm:text-xs text-gray-500 mb-1">Average Package</div>
@@ -39,7 +39,7 @@ export default function PlacementsTab({ c, pd }: { c: College; pd: CollegePlacem
         <section className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
           <h2 className="text-lg font-bold mb-1">Placement Summary · {pd.summary.year}</h2>
           <p className="text-xs text-gray-500 mb-4">
-            {pd.source === "NIRF" ? "Official NIRF 2025 submission / report figures" : "Institutional data"}
+            {pd.source === "NIRF" ? "Figures recorded from an institutional NIRF submission" : "Institutional data"}
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
             {pd.summary.medianPackage != null && (
@@ -212,8 +212,8 @@ export default function PlacementsTab({ c, pd }: { c: College; pd: CollegePlacem
             <p className="text-sm font-semibold text-brand mb-1">About this data</p>
             <p className="text-xs text-gray-600 leading-relaxed">
               {pd
-                ? "This placement data is sourced from the college's AICTE Mandatory Disclosure document. All AICTE-approved colleges are required to publish this data annually. Figures represent actual placements reported by the institution."
-                : "Overall placement data is based on NIRF 2025 submissions. Detailed branch-wise data from AICTE Mandatory Disclosures will be added as it becomes available. If you represent this college, you can submit detailed data through our College Admin portal."}
+                ? "The detailed figures use the source and reporting year identified above. Median salary and average salary are different measures; headline figures may cover a different cohort."
+                : "The source and reporting year for these headline figures have not been established here. Confirm them with the college before comparing outcomes."}
             </p>
           </div>
         </div>

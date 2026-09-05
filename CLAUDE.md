@@ -6,7 +6,7 @@
 > See `docs/SCHEMA.md` for full type definitions and data shapes.
 
 ## Stack & deployment
-- **Next.js 16** (App Router, `output: "standalone"`), **React 19**, **TypeScript**, **Tailwind v4**.
+- **Next.js 16** (App Router, standalone output locally; Vercel adapter packaging on Vercel), **React 19**, **TypeScript**, **Tailwind v4**.
 - **Supabase** (Postgres + Auth) for admin portal, edits, shortlists, leads, data reports.
 - **Upstash Redis** for production rate limiting (falls back to in-memory if unset).
 - Hosted on **Vercel**. Apex domain `telugucolleges.com` is canonical; `www` must remain a
@@ -32,8 +32,8 @@ files, then committing. The build merges any approved Supabase overrides on top 
 
 Key data files (all in `src/lib/`):
 - `colleges.ts` — **the master college list** (`COLLEGES: College[]`, ~849 rows). 328 KB.
-- `ap-cutoffs.ts` — AP EAPCET historical cutoffs (`AP_CUTOFFS`, ~147 college codes, years 2023/2022).
-- `ts-cutoffs.ts` — TS EAMCET cutoffs (`TS_CUTOFFS`, ~285 codes, years 2025/2024/2023). 702 KB.
+- `ap-cutoffs.ts` — AP EAPCET historical cutoffs (`AP_CUTOFFS`, 281 college codes, years 2024/2023/2022).
+- `ts-cutoffs.ts` — TS EAMCET cutoffs (`TS_CUTOFFS`, 287 codes, years 2025/2024/2023). 702 KB.
 - `ts-cutoffs-phases.ts` — TS phase-level cutoffs (phase1/phase2/special/final). 1.5 MB.
 - `branch-taxonomy.ts` — **canonical branch mapping** unifying AP/TS branch codes (read this first
   before touching any predictor/branch code).
@@ -96,6 +96,13 @@ Tables: `admin_users` (roles: `super_admin`|`college_admin`|`marketing`), `edit_
 `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (required for
 admin/edits/auth), `UPSTASH_REDIS_REST_URL`/`_TOKEN` (prod rate limiting),
 optional `NEXT_PUBLIC_SITE_URL`, `GOOGLE_SITE_VERIFICATION`.
+
+## Fact-check coverage
+
+See `docs/FACT-CHECK-2026-09-05.md` and its per-college coverage ledger before
+claiming a field is verified. Do not regenerate postgraduate offerings or fees
+from undergraduate fee formulas. A general NIRF ranking-page link does not
+substantiate placement statistics; use an institution-specific submission.
 
 ## When updating data
 - Verify against official sources (TGCHE/APSCHE/NIRF/NAAC/college sites) — accuracy is the product.

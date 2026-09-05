@@ -12,11 +12,12 @@ export interface CounsellingStatus {
 export const COUNSELLING_STATUS_AS_OF = "September 5, 2026";
 export const COUNSELLING_REVIEWED_AT = "2026-09-05";
 export const TG_SCHEDULE_SOURCE = "https://tgeapcetd.nic.in/files/TGEAPCET2026DETNOTIFICATION.PDF";
+export const TG_SPOT_SOURCE = "https://tgeapcetd.nic.in/files/TGEAPCET2026SPOTADMNSGUIDELINES.pdf";
 
 export const TG_COUNSELLING_NOW: CounsellingStatus = {
   stage: "Post-schedule guidance",
-  headline: "Published final-phase and internal-sliding deadlines have passed",
-  next: "Check the TGCHE portal and your college for any current spot-admission notice. Confirm the notice year and closing date before acting; a vacancy link alone does not confirm admissions are open.",
+  headline: "Published engineering rounds and August 19–20 spot window have passed",
+  next: "The 2026 engineering spot-admission guidelines scheduled admissions for August 19–20. Confirm any later opportunity with a new official notice. The separate MPC pharmacy round schedules allotment by September 6; it does not reopen engineering admissions.",
   short: "TS published rounds ended — check current college notices",
   portalUrl: "https://tgeapcet.nic.in",
   portalLabel: "tgeapcet.nic.in",

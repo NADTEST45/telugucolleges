@@ -1,0 +1,847 @@
+[
+  {
+    "url": "https://tgeapcetd.nic.in/files/TGEAPCET2026DETNOTIFICATION.PDF",
+    "claims": [
+      "news/NEWS_ITEMS/0/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://tgeapcetd.nic.in/files/TGEAPCET2026DETNOTIFICATION.PDF",
+    "contentType": "application/pdf",
+    "bytes": 645126
+  },
+  {
+    "url": "https://cets.apsche.ap.gov.in",
+    "claims": [
+      "news/NEWS_ITEMS/1/sourceUrl",
+      "news/NEWS_ITEMS/21/body"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://cets.apsche.ap.gov.in/APSCHE/APSCHEHome.aspx",
+    "contentType": "text/html; charset=utf-8",
+    "bytes": 57297
+  },
+  {
+    "url": "https://tgeapcet.nic.in/default.aspx",
+    "claims": [
+      "news/NEWS_ITEMS/2/sourceUrl",
+      "news/NEWS_ITEMS/4/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://tgeapcet.nic.in/default.aspx",
+    "contentType": "text/html; charset=utf-8",
+    "bytes": 26662
+  },
+  {
+    "url": "https://tgeapcetd.nic.in/files/HonHighCourtOrdersonFee.pdf",
+    "claims": [
+      "news/NEWS_ITEMS/3/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://tgeapcetd.nic.in/files/HonHighCourtOrdersonFee.pdf",
+    "contentType": "application/pdf",
+    "bytes": 615033
+  },
+  {
+    "url": "https://cets.apsche.ap.gov.in/EAPCET/",
+    "claims": [
+      "news/NEWS_ITEMS/5/sourceUrl",
+      "news/NEWS_ITEMS/8/sourceUrl",
+      "news/NEWS_ITEMS/9/sourceUrl",
+      "news/NEWS_ITEMS/14/sourceUrl",
+      "news/NEWS_ITEMS/21/sourceUrl",
+      "news/NEWS_ITEMS/25/sourceUrl",
+      "news/NEWS_ITEMS/45/sourceUrl",
+      "news/NEWS_ITEMS/49/sourceUrl",
+      "news/NEWS_ITEMS/54/sourceUrl",
+      "news/NEWS_ITEMS/55/sourceUrl",
+      "news/NEWS_ITEMS/58/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://cets.apsche.ap.gov.in/EAPCET/",
+    "contentType": "text/html",
+    "bytes": 297
+  },
+  {
+    "url": "https://eapcet.tgche.ac.in/",
+    "claims": [
+      "news/NEWS_ITEMS/6/sourceUrl",
+      "news/NEWS_ITEMS/7/sourceUrl",
+      "news/NEWS_ITEMS/13/sourceUrl",
+      "news/NEWS_ITEMS/26/sourceUrl",
+      "news/NEWS_ITEMS/41/sourceUrl",
+      "news/NEWS_ITEMS/46/sourceUrl",
+      "news/NEWS_ITEMS/56/sourceUrl",
+      "news/NEWS_ITEMS/57/sourceUrl",
+      "news/NEWS_ITEMS/59/sourceUrl",
+      "news/NEWS_ITEMS/60/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://eapcet.tgche.ac.in/",
+    "contentType": "text/html; charset=utf-8",
+    "bytes": 41092
+  },
+  {
+    "url": "https://resultsbie.ap.gov.in/",
+    "claims": [
+      "news/NEWS_ITEMS/10/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://resultsbie.ap.gov.in/",
+    "contentType": "text/html",
+    "bytes": 568
+  },
+  {
+    "url": "https://josaa.nic.in/",
+    "claims": [
+      "news/NEWS_ITEMS/11/sourceUrl",
+      "news/NEWS_ITEMS/20/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "<urlopen error _ssl.c:993: The handshake operation timed out>"
+  },
+  {
+    "url": "https://icet.tgche.ac.in/",
+    "claims": [
+      "news/NEWS_ITEMS/12/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://icet.tgche.ac.in/",
+    "contentType": "text/html; charset=utf-8",
+    "bytes": 42924
+  },
+  {
+    "url": "https://lawcet.tgche.ac.in/",
+    "claims": [
+      "news/NEWS_ITEMS/15/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://lawcet.tgche.ac.in/",
+    "contentType": "text/html; charset=utf-8",
+    "bytes": 42306
+  },
+  {
+    "url": "https://jeeadv.ac.in/",
+    "claims": [
+      "news/NEWS_ITEMS/16/sourceUrl",
+      "news/NEWS_ITEMS/17/sourceUrl",
+      "news/NEWS_ITEMS/22/sourceUrl",
+      "news/NEWS_ITEMS/27/sourceUrl",
+      "news/NEWS_ITEMS/38/sourceUrl",
+      "news/NEWS_ITEMS/40/sourceUrl",
+      "admission-exams/ADMISSION_EXAMS/25/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://jeeadv.ac.in/",
+    "contentType": "text/html; charset=utf-8",
+    "bytes": 65032
+  },
+  {
+    "url": "https://neet.nta.nic.in/",
+    "claims": [
+      "news/NEWS_ITEMS/18/sourceUrl",
+      "news/NEWS_ITEMS/23/sourceUrl",
+      "news/NEWS_ITEMS/31/sourceUrl",
+      "news/NEWS_ITEMS/32/sourceUrl",
+      "news/NEWS_ITEMS/33/sourceUrl",
+      "news/NEWS_ITEMS/37/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://neet.nta.nic.in/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 109873
+  },
+  {
+    "url": "https://ecet.tgche.ac.in/",
+    "claims": [
+      "news/NEWS_ITEMS/19/sourceUrl",
+      "news/NEWS_ITEMS/24/sourceUrl",
+      "news/NEWS_ITEMS/29/sourceUrl",
+      "news/NEWS_ITEMS/34/sourceUrl",
+      "news/NEWS_ITEMS/42/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://ecet.tgche.ac.in/",
+    "contentType": "text/html; charset=utf-8",
+    "bytes": 34487
+  },
+  {
+    "url": "https://cets.apsche.ap.gov.in/ICET/",
+    "claims": [
+      "news/NEWS_ITEMS/28/sourceUrl",
+      "news/NEWS_ITEMS/43/sourceUrl",
+      "news/NEWS_ITEMS/48/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://cets.apsche.ap.gov.in/ICET/",
+    "contentType": "text/html",
+    "bytes": 296
+  },
+  {
+    "url": "https://cets.apsche.ap.gov.in/PGECET/",
+    "claims": [
+      "news/NEWS_ITEMS/30/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://cets.apsche.ap.gov.in/PGECET/",
+    "contentType": "text/html",
+    "bytes": 300
+  },
+  {
+    "url": "https://jeemain.nta.nic.in/",
+    "claims": [
+      "news/NEWS_ITEMS/35/sourceUrl",
+      "news/NEWS_ITEMS/39/sourceUrl",
+      "news/NEWS_ITEMS/47/sourceUrl",
+      "admission-exams/ADMISSION_EXAMS/26/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://jeemain.nta.nic.in/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 109785
+  },
+  {
+    "url": "https://tafrc.telangana.gov.in/",
+    "claims": [
+      "news/NEWS_ITEMS/36/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://tafrc.telangana.gov.in/",
+    "contentType": "text/html; charset=utf-8",
+    "bytes": 37024
+  },
+  {
+    "url": "https://cets.apsche.ap.gov.in/",
+    "claims": [
+      "news/NEWS_ITEMS/44/sourceUrl",
+      "news/NEWS_ITEMS/61/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://cets.apsche.ap.gov.in/APSCHE/APSCHEHome.aspx",
+    "contentType": "text/html; charset=utf-8",
+    "bytes": 57297
+  },
+  {
+    "url": "https://ugadmissions.iiit.ac.in/ugee/",
+    "claims": [
+      "news/NEWS_ITEMS/50/sourceUrl",
+      "admission-exams/ADMISSION_EXAMS/8/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://ugadmissions.iiit.ac.in/ugee/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 46300
+  },
+  {
+    "url": "https://apply.gitam.edu/",
+    "claims": [
+      "news/NEWS_ITEMS/51/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "url": "https://admissions.bits-pilani.ac.in/",
+    "claims": [
+      "news/NEWS_ITEMS/52/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>"
+  },
+  {
+    "url": "https://viteee.vit.ac.in/",
+    "claims": [
+      "news/NEWS_ITEMS/53/sourceUrl",
+      "admission-exams/ADMISSION_EXAMS/4/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://viteee.vit.ac.in/",
+    "contentType": "text/html;charset=ISO-8859-1",
+    "bytes": 103878
+  },
+  {
+    "url": "https://www.gitam.edu/fee-scholarship/student-scholarships",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/GITM/source",
+      "scholarships/SCHOLARSHIPS/GITH/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "url": "https://www.kluniversity.in/sships3.aspx",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/KLUN/source",
+      "scholarships/SCHOLARSHIPS/KLHD/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>"
+  },
+  {
+    "url": "https://www.vrsiddhartha.ac.in/scholorships2025-26/",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/VRSE/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "HTTP Error 406: Not Acceptable"
+  },
+  {
+    "url": "https://admissions.bits-pilani.ac.in/FD/scholarship.html",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/BITS/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>"
+  },
+  {
+    "url": "https://ugadmissions.iiit.ac.in/financial-assistance/",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/IIIT/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://ugadmissions.iiit.ac.in/financial-assistance/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 27308
+  },
+  {
+    "url": "https://www.ifheindia.org/icfaitech-school-hyderabad/icfaitech/ugprograms/btech",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/ICFA/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://www.ifheindia.org/icfaitech-school-hyderabad/icfaitech/ugprograms/btech",
+    "contentType": "text/html; charset=utf-8",
+    "bytes": 136736
+  },
+  {
+    "url": "https://www.vignan.ac.in/curscholorships.php",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/VIGF/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://www.vignan.ac.in/curscholorships.php",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 78438
+  },
+  {
+    "url": "https://aeee.amrita.edu/wp-content/uploads/2026/04/BTECH_FEE_STRUCTURE_SCHOLARSHIP_TERMS.pdf",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/AMRT/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://aeee.amrita.edu/wp-content/uploads/2026/04/BTECH_FEE_STRUCTURE_SCHOLARSHIP_TERMS.pdf",
+    "contentType": "application/pdf",
+    "bytes": 584879
+  },
+  {
+    "url": "https://gmrit.edu.in/du/faqs.php",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/GMRI/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "HTTP Error 406: Not Acceptable"
+  },
+  {
+    "url": "https://audisankara.ac.in/amss.html",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/AUDI/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://audisankara.ac.in/amss.html",
+    "contentType": "text/html",
+    "bytes": 39114
+  },
+  {
+    "url": "https://www.mits.ac.in/",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/MITS/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://srmap.edu.in/admissions/",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/SRMA/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "HTTP Error 301: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nMoved Permanently"
+  },
+  {
+    "url": "https://vitap.ac.in/fees-and-scholarships",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/VTAP/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://vitap.ac.in/fees-and-scholarships",
+    "contentType": "text/html; charset=utf-8",
+    "bytes": 151225
+  },
+  {
+    "url": "https://anurag.edu.in/scholarships/",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/CVSR/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://www.anurag.edu.in/scholarships",
+    "contentType": "text/html; charset=utf-8",
+    "bytes": 130436
+  },
+  {
+    "url": "https://nriit.edu.in/nri-deemed-university/fee-structure/",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/NRIA/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://nriit.edu.in/nri-deemed-university/fee-structure/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 284577
+  },
+  {
+    "url": "https://www.gitam.edu/gimsr/admissions/under-graduate",
+    "claims": [
+      "scholarships/SCHOLARSHIPS/GIOM/source"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "url": "https://www.gitam.edu/admissions",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/0/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "url": "https://aeee.amrita.edu/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/1/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://aeee.amrita.edu/",
+    "contentType": "text/html",
+    "bytes": 260841
+  },
+  {
+    "url": "https://www.bits-pilani.ac.in/bitsat/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/2/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://www.bits-pilani.ac.in/bitsat/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 292768
+  },
+  {
+    "url": "https://admissions.kluniversity.in/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/3/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://admissions.kluniversity.in/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 201252
+  },
+  {
+    "url": "https://applications.srmist.edu.in/btech",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/5/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://applications.srmist.edu.in/btech",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 201125
+  },
+  {
+    "url": "https://www.ifheindia.org/icfaitech-school-hyderabad/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/6/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://www.ifheindia.org/Home/NotFound?aspxerrorpath=/icfaitech-school-hyderabad/",
+    "contentType": "text/html; charset=utf-8",
+    "bytes": 115913
+  },
+  {
+    "url": "https://admissions.vignan.ac.in/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/7/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://admissions.vignan.ac.in/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 444
+  },
+  {
+    "url": "https://www.mahindrauniversity.edu.in/programs/b-tech/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/9/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "url": "https://anurag.edu.in/entrance-tests/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/10/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://admissions.gmrit.edu.in/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/11/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://admissions.gmrit.edu.in/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 136585
+  },
+  {
+    "url": "https://admission.mits.ac.in/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/12/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://admission.mits.ac.in/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 156216
+  },
+  {
+    "url": "https://admissions.siddhartha.edu.in/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/13/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://admissions.siddhartha.edu.in/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 183679
+  },
+  {
+    "url": "https://woxsen.edu.in/admissions/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/14/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://woxsen.edu.in/admissions/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 298643
+  },
+  {
+    "url": "https://admissions.mallareddyuniversity.ac.in/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/15/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://www.mallareddyuniversity.ac.in/application-for-admission-for-the-academic-year-2026-27/login-page",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 3066024
+  },
+  {
+    "url": "https://sru.edu.in/admission/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/16/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://sru.edu.in/admission/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 347867
+  },
+  {
+    "url": "https://apply.adityauniversity.in/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/17/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://apply.adityauniversity.in/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 179252
+  },
+  {
+    "url": "https://annamacharyauniversity.edu.in/admission-requirements/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/18/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://annamacharyauniversity.edu.in/admission-requirements/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 600186
+  },
+  {
+    "url": "https://audisankarauniversity.edu.in/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/19/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://audisankarauniversity.edu.in/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 268882
+  },
+  {
+    "url": "https://nriit.edu.in/nri-deemed-university/admissions/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/20/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://nriit.edu.in/nri-deemed-university/admissions/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 283583
+  },
+  {
+    "url": "https://admissions.cutm.ac.in/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/21/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://admissions.cutm.ac.in/",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 203043
+  },
+  {
+    "url": "https://www.gnuindia.org/admissions-department.php",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/22/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "url": "https://suh.edu.in/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/23/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "error": "HTTP Error 406: Not Acceptable"
+  },
+  {
+    "url": "https://mnruniversity.edu.in/btech",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/24/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://mnruniversity.edu.in/btech",
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 72026
+  },
+  {
+    "url": "https://acad.uohyd.ac.in/",
+    "claims": [
+      "admission-exams/ADMISSION_EXAMS/27/officialUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://acad.uohyd.ac.in/?AspxAutoDetectCookieSupport=1",
+    "contentType": "text/html",
+    "bytes": 66557
+  },
+  {
+    "url": "https://www.vrsiddhartha.ac.in/wp-content/uploads/2019/09/Mandatory_Disclosure_2022_23i.pdf",
+    "claims": [
+      "placement-data/PLACEMENT_DATA/VRSE/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://www.vrsiddhartha.ac.in/wp-content/uploads/2019/09/Mandatory_Disclosure_2022_23i.pdf",
+    "contentType": "application/pdf",
+    "bytes": 8000000,
+    "downloadCapped": true
+  },
+  {
+    "url": "https://www.svec.education/wp-content/uploads/2022/05/AICTE-Mandatory-Disclosure-2021-2022-as-per-APH-2022-2023-compressed.pdf",
+    "claims": [
+      "placement-data/PLACEMENT_DATA/VSVT/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://www.svec.education/wp-content/uploads/2022/05/AICTE-Mandatory-Disclosure-2021-2022-as-per-APH-2022-2023-compressed.pdf",
+    "contentType": "application/pdf",
+    "bytes": 4663556
+  },
+  {
+    "url": "https://bvrithyderabad.edu.in/wp-content/uploads/2026/02/Mandatory-Disclosure-2026.pdf",
+    "claims": [
+      "placement-data/PLACEMENT_DATA/BVRW/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://bvrithyderabad.edu.in/wp-content/uploads/2026/02/Mandatory-Disclosure-2026.pdf",
+    "contentType": "application/pdf",
+    "bytes": 8000000,
+    "downloadCapped": true
+  },
+  {
+    "url": "https://gmrit.edu.in/PDFs/about_us/mandatory_disclosure.pdf",
+    "claims": [
+      "placement-data/PLACEMENT_DATA/GMRI/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://gmrit.edu.in/PDFs/about_us/mandatory_disclosure.pdf",
+    "contentType": "application/pdf",
+    "bytes": 2649234
+  },
+  {
+    "url": "https://www.raghuenggcollege.com/wp-content/uploads/2024/03/Mandatory-Disclosure-REC-Modified-1.pdf",
+    "claims": [
+      "placement-data/PLACEMENT_DATA/RAGU/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://www.raghuenggcollege.com/wp-content/uploads/2024/03/Mandatory-Disclosure-REC-Modified-1.pdf",
+    "contentType": "application/pdf",
+    "bytes": 892007
+  },
+  {
+    "url": "https://drive.sreenidhi.edu.in/snist/civil/SNIST%20AicteMandatory%202025-26.pdf",
+    "claims": [
+      "placement-data/PLACEMENT_DATA/SNIS/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://drive.sreenidhi.edu.in/snist/civil/SNIST%20AicteMandatory%202025-26.pdf",
+    "contentType": "application/pdf",
+    "bytes": 426073
+  },
+  {
+    "url": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "claims": [
+      "placement-data/PLACEMENT_DATA/NITA/sourceUrl",
+      "placement-data/PLACEMENT_DATA/IIIS/sourceUrl",
+      "placement-data/PLACEMENT_DATA/IIDK/sourceUrl",
+      "placement-data/PLACEMENT_DATA/GVPE/sourceUrl",
+      "placement-data/PLACEMENT_DATA/IITP/sourceUrl",
+      "placement-data/PLACEMENT_DATA/AUCE/sourceUrl",
+      "placement-data/PLACEMENT_DATA/JNTA/sourceUrl",
+      "placement-data/PLACEMENT_DATA/UCEK/sourceUrl",
+      "placement-data/PLACEMENT_DATA/KLUN/sourceUrl",
+      "placement-data/PLACEMENT_DATA/VIGF/sourceUrl",
+      "placement-data/PLACEMENT_DATA/SRMA/sourceUrl",
+      "placement-data/PLACEMENT_DATA/VTAP/sourceUrl",
+      "placement-data/PLACEMENT_DATA/RVRJ/sourceUrl",
+      "placement-data/PLACEMENT_DATA/MBUT/sourceUrl",
+      "placement-data/PLACEMENT_DATA/SVCE/sourceUrl",
+      "placement-data/PLACEMENT_DATA/GDLV/sourceUrl",
+      "placement-data/PLACEMENT_DATA/PPSV/sourceUrl"
+    ],
+    "checkedAt": "2026-09-05",
+    "factStatus": "not_reverified",
+    "status": 200,
+    "finalUrl": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    "contentType": "text/html",
+    "bytes": 110459
+  }
+]

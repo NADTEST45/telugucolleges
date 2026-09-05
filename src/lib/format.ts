@@ -12,5 +12,5 @@ export const fmtEstablishedYear = (year: number | null): string =>
 /** Format course fee (moved from university-courses.ts so client components
  * can use it without pulling the course dataset into the bundle). */
 export const fmtCourseFee = (fee: number): string => {
-  return `₹${fee.toLocaleString("en-IN")}`;
+  return fee > 0 ? `₹${fee.toLocaleString("en-IN")}` : "Not verified";
 };

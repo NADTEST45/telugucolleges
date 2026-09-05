@@ -9,6 +9,7 @@ import type { ScholarshipInfo } from "@/lib/scholarships";
 export default function ScholarshipsTab({ scholarshipInfo }: { scholarshipInfo: ScholarshipInfo }) {
   return (
     <div className="space-y-6">
+      <p className="text-sm text-amber-900 bg-amber-50 rounded-lg p-3">Recorded scholarship terms may refer to an earlier intake. Confirm the admission year, renewal conditions and available awards on the linked official source before relying on a concession.</p>
       {/* Scholarship tables grouped by exam */}
       {(() => {
         // Group tables by examName

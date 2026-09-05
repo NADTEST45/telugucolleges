@@ -1,0 +1,734 @@
+[
+  {
+    "code": "ACEG",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "AITH",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "AKIT",
+    "old": "Hyderabad",
+    "new": "Bhadradri Kothagudem",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "ANRK",
+    "old": "Hyderabad",
+    "new": "Suryapet",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "ARJN",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "ASRA",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "AURG",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "AURK",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "AVIH",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "AVNI",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "BIET",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "BITN",
+    "old": "Hyderabad",
+    "new": "Warangal",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "BOMA",
+    "old": "Hyderabad",
+    "new": "Khammam",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "BOSE",
+    "old": "Hyderabad",
+    "new": "Bhadradri Kothagudem",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "BRIG",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "BRIL",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "BSKR",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "BVRI",
+    "old": "Hyderabad",
+    "new": "Medak",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "BVRW",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "CBIT",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "CHET",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "CHTN",
+    "old": "Hyderabad",
+    "new": "Karimnagar",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "CHTS",
+    "old": "Hyderabad",
+    "new": "Karimnagar",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "CMRG",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "CMRK",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "CMRM",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "CMRN",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "DARE",
+    "old": "Hyderabad",
+    "new": "Khammam",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "DRKI",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "ELEN",
+    "old": "Hyderabad",
+    "new": "Sangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "GATE",
+    "old": "Hyderabad",
+    "new": "Suryapet",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "GCTC",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "GLOB",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "GLWC",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "GNIT",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "GRRR",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "GURU",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "HITM",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "HOLY",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "IARE",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "IITT",
+    "old": "Hyderabad",
+    "new": "Siddipet",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "INDI",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "INDU",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "JAYA",
+    "old": "Hyderabad",
+    "new": "Warangal",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "JBIT",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "JMTS",
+    "old": "Hyderabad",
+    "new": "Karimnagar",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "JOGI",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "JPNE",
+    "old": "Hyderabad",
+    "new": "Mahabubnagar",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "KCEA",
+    "old": "Hyderabad",
+    "new": "Nizamabad",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "KDDW",
+    "old": "Hyderabad",
+    "new": "Suryapet",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "KGRH",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "KITS",
+    "old": "Warangal",
+    "new": "Hanamkonda",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "KITW",
+    "old": "Hyderabad",
+    "new": "Nizamabad",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "KLRT",
+    "old": "Hyderabad",
+    "new": "Bhadradri Kothagudem",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "KMCE",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "KMEC",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "KNRR",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "KPRC",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "KPRT",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "KTKM",
+    "old": "Hyderabad",
+    "new": "Karimnagar",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "MDRK",
+    "old": "Hyderabad",
+    "new": "Suryapet",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "MGHA",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "MGIT",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "MINA",
+    "old": "Hyderabad",
+    "new": "Nalgonda",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "MLID",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "MLRD",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "MLRS",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "MOTK",
+    "old": "Hyderabad",
+    "new": "Khammam",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "MRCE",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "MRCW",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "MREM",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "MRTN",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "MTEC",
+    "old": "Hyderabad",
+    "new": "Peddapalli",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "MVSR",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "NGIT",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "NIET",
+    "old": "Hyderabad",
+    "new": "Yadadri Bhuvanagiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "NNRG",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "NRCM",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "NREC",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "PALV",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "PETW",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "PRIW",
+    "old": "Hyderabad",
+    "new": "Khammam",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "RITW",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SAIS",
+    "old": "Hyderabad",
+    "new": "Khammam",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SBIT",
+    "old": "Hyderabad",
+    "new": "Khammam",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SCIT",
+    "old": "Hyderabad",
+    "new": "Khammam",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SDES",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SDEW",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SDGI",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SIEI",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SISG",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SMSK",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SNIS",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SNTI",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SPEC",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SPHN",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SRHP",
+    "old": "Warangal",
+    "new": "Hanamkonda",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SRIW",
+    "old": "Hyderabad",
+    "new": "Hanamkonda",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SRYS",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SVES",
+    "old": "Hyderabad",
+    "new": "Suryapet",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "SVSE",
+    "old": "Hyderabad",
+    "new": "Hanamkonda",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "TCEK",
+    "old": "Hyderabad",
+    "new": "Peddapalli",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "TCTK",
+    "old": "Hyderabad",
+    "new": "Karimnagar",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "TKEM",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "TKRC",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "TPCE",
+    "old": "Hyderabad",
+    "new": "Hanamkonda",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "TRRM",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "VAGE",
+    "old": "Hyderabad",
+    "new": "Warangal",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "VBIT",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "VCET",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "VGNT",
+    "old": "Hyderabad",
+    "new": "Yadadri Bhuvanagiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "VGSE",
+    "old": "Hyderabad",
+    "new": "Karimnagar",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "VGWL",
+    "old": "Hyderabad",
+    "new": "Warangal",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "VISA",
+    "old": "Hyderabad",
+    "new": "Yadadri Bhuvanagiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "VITS",
+    "old": "Hyderabad",
+    "new": "Mahabubnagar",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "VJEC",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "VJIT",
+    "old": "Hyderabad",
+    "new": "Rangareddy",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "VJYA",
+    "old": "Hyderabad",
+    "new": "Khammam",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "VMRH",
+    "old": "Hyderabad",
+    "new": "Hanamkonda",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "VMTW",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "VREC",
+    "old": "Hyderabad",
+    "new": "Nizamabad",
+    "source": "TG 2025 final last-rank statement"
+  },
+  {
+    "code": "JNTH",
+    "old": "Hyderabad",
+    "new": "Medchal-Malkajgiri",
+    "source": "TG 2025 final last-rank statement"
+  }
+]

@@ -34,7 +34,7 @@ export interface PlacementSummary {
   year: string;            // data year, e.g. "2023-24"
   graduated?: number;
   placed?: number;
-  medianPackage?: number;  // LPA — NIRF's audited figure
+  medianPackage?: number;  // LPA — institution-reported median
   avgPackage?: number;     // LPA
   maxPackage?: number;     // LPA
   note?: string;
@@ -239,140 +239,70 @@ export const PLACEMENT_DATA: Record<string, CollegePlacementData> = {
    * ════════════════════════════════════════════════════════════════════ */
 
   /* ── NIT Andhra Pradesh ────────────────────────────────────────────── */
-  NITA: {
-    source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
-    years: [],
-    summary: { year: "2023-24", graduated: 527, placed: 393, avgPackage: 8.13, maxPackage: 44.1, medianPackage: 7.56 },
-  },
+  // NITA: summary withheld; a general ranking page does not substantiate placement figures.
 
   /* ── IIIT Sri City ─────────────────────────────────────────────────── */
-  IIIS: {
-    source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
-    years: [],
-    summary: { year: "2023-24", avgPackage: 18.92, maxPackage: 120, medianPackage: 14.32 },
-  },
+  // IIIS: summary withheld; a general ranking page does not substantiate placement figures.
 
   /* ── IIITDM Kurnool ────────────────────────────────────────────────── */
-  IIDK: {
-    source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
-    years: [],
-    summary: { year: "2023-24", avgPackage: 7.64, maxPackage: 32.5 },
-  },
+  // IIDK: summary withheld; a general ranking page does not substantiate placement figures.
 
   /* ── Gayatri Vidya Parishad College of Engineering ─────────────────── */
-  GVPE: {
-    source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
-    years: [],
-    summary: { year: "2023-24", maxPackage: 50, medianPackage: 5.4 },
-  },
+  // GVPE: summary withheld; a general ranking page does not substantiate placement figures.
 
   /* ── IIT Tirupati ──────────────────────────────────────────────────── */
   IITP: {
     source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    sourceUrl: "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Engineering/IR-E-U-0844.pdf",
     years: [],
-    summary: { year: "2023-24", graduated: 170, placed: 114, avgPackage: 13.1, maxPackage: 41.64, medianPackage: 11.63 },
+    summary: { year: "2023-24", graduated: 205, placed: 114, medianPackage: 11, note: "UG four-year programs; institution-reported NIRF 2025 submission, checked 5 September 2026. Median is not average salary." },
   },
 
   /* ── Andhra University College of Engineering ──────────────────────── */
   AUCE: {
     source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    sourceUrl: "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Engineering/IR-E-C-24004.pdf",
     years: [],
-    summary: { year: "2023-24", graduated: 513, placed: 496, medianPackage: 9.3 },
+    summary: { year: "2023-24", graduated: 513, placed: 292, medianPackage: 6.25, note: "UG four-year programs; institution-reported NIRF 2025 submission, checked 5 September 2026. Median is not average salary." },
   },
 
   /* ── JNTUA College of Engineering, Anantapur ───────────────────────── */
-  JNTA: {
-    source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
-    years: [],
-    summary: { year: "2023-24", graduated: 1106, placed: 534, avgPackage: 6.0, maxPackage: 29, medianPackage: 4.2 },
-  },
+  // JNTA: summary withheld; a general ranking page does not substantiate placement figures.
 
   /* ── University College of Engineering, Kakinada (JNTUK) ───────────── */
-  UCEK: {
-    source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
-    years: [],
-    summary: { year: "2023-24", maxPackage: 35, medianPackage: 9.42 },
-  },
+  // UCEK: summary withheld; a general ranking page does not substantiate placement figures.
 
   /* ── KL University ──────────────────────────────────────────────────── */
-  KLUN: {
-    source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
-    years: [],
-    summary: { year: "2023-24", avgPackage: 11, maxPackage: 75 },
-  },
+  // KLUN: summary withheld; a general ranking page does not substantiate placement figures.
 
   /* ── Vignan's Foundation (VFSTR) ───────────────────────────────────── */
   VIGF: {
     source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+    sourceUrl: "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Engineering/IR-E-U-0043.pdf",
     years: [],
-    summary: { year: "2023-24", medianPackage: 6.96 },
+    summary: { year: "2023-24", graduated: 1594, placed: 691, medianPackage: 3.36, note: "UG four-year programs; institution-reported NIRF 2025 submission, checked 5 September 2026. Median is not average salary." },
   },
 
   /* ── SRM University AP ─────────────────────────────────────────────── */
-  SRMA: {
-    source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
-    years: [],
-    summary: { year: "2023-24", avgPackage: 13.43, maxPackage: 55, medianPackage: 7.07 },
-  },
+  // SRMA: summary withheld; a general ranking page does not substantiate placement figures.
 
   /* ── VIT-AP University ─────────────────────────────────────────────── */
-  VTAP: {
-    source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
-    years: [],
-    summary: { year: "2023-24", avgPackage: 14.43, maxPackage: 27 },
-  },
+  // VTAP: summary withheld; a general ranking page does not substantiate placement figures.
 
   /* ── RVR & JC College of Engineering ───────────────────────────────── */
-  RVRJ: {
-    source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
-    years: [],
-    summary: { year: "2023-24", graduated: 1081, placed: 589, avgPackage: 4.73, maxPackage: 25, medianPackage: 4.25 },
-  },
+  // RVRJ: summary withheld; a general ranking page does not substantiate placement figures.
 
   /* ── Mohan Babu University (formerly Sree Vidyanikethan) ───────────── */
-  MBUT: {
-    source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
-    years: [],
-    summary: { year: "2023-24", graduated: 1554, placed: 1363, avgPackage: 4.9, maxPackage: 31, medianPackage: 5.3, note: "Submitted as Sree Vidyanikethan Engineering College (SVEC), now part of Mohan Babu University" },
-  },
+  // MBUT: summary withheld; a general ranking page does not substantiate placement figures.
 
   /* ── Sri Venkateswara College of Engineering, Tirupati ─────────────── */
-  SVCE: {
-    source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
-    years: [],
-    summary: { year: "2023-24", placed: 1625, maxPackage: 11, medianPackage: 5.5 },
-  },
+  // SVCE: summary withheld; a general ranking page does not substantiate placement figures.
 
   /* ── Gudlavalleru Engineering College ──────────────────────────────── */
-  GDLV: {
-    source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
-    years: [],
-    summary: { year: "2023-24", placed: 872, avgPackage: 4.01, maxPackage: 31, medianPackage: 4.12 },
-  },
+  // GDLV: summary withheld; a general ranking page does not substantiate placement figures.
 
   /* ── Prasad V. Potluri Siddhartha Institute of Technology ──────────── */
-  PPSV: {
-    source: "NIRF",
-    sourceUrl: "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
-    years: [],
-    summary: { year: "2023-24", avgPackage: 7.44, maxPackage: 44 },
-  },
+  // PPSV: summary withheld; a general ranking page does not substantiate placement figures.
 
   /* ── Lakireddy Bali Reddy College of Engineering ───────────────────── */
   LBCE: {
