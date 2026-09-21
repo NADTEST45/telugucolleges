@@ -36,7 +36,8 @@
     "eslint": "^9.39.5",
     "eslint-plugin-react": "^7.37.5",
     "typescript": "^5.9.3",
-    "vitest": "^3.2.7"
+    "vite": "^7.3.6",
+    "vitest": "^5.0.1"
   },
   "overrides": {
     "ws": "^8.21.0",
