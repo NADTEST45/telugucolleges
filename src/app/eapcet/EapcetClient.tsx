@@ -248,6 +248,7 @@ export default function EapcetClient({ branches: allBranches, stats, initialNow 
         { label: "Cert. Verification", date: "Jul 22–31, 2026",    highlight: false },
         { label: "Web Options",        date: "Jul 25–31, 2026",    highlight: false },
         { label: "Seat Allotment",     date: "Aug 6, 2026",        highlight: false },
+        { label: "Final Phase Allotment", date: "Released ✓",      highlight: false },
       ],
     },
     tg: {

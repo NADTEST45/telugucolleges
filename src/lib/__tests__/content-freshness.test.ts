@@ -36,8 +36,9 @@ describe("dated admission information", () => {
     const now = Date.parse("2026-09-05T12:00:00Z");
     expect(NEWS_ITEMS.filter(n => n.date < "2026-08-01").every(n => !isNewsActionable(n, now))).toBe(true);
     expect(COUNSELLING_PHASES.flatMap(p => p.milestones).every(m => isDeadlinePast(m.deadline, now))).toBe(true);
-    expect(getCounsellingStatus("TS", now).headline).toContain("have passed");
-    expect(getCounsellingStatus("TS", Date.parse("2026-09-12T00:00:00+05:30")).stage).toBe("Review needed");
+    expect(getCounsellingStatus("TS", now).headline).toContain("Engineering rounds are over");
+    expect(getCounsellingStatus("TS", Date.parse("2026-09-30T23:59:59+05:30")).stage).not.toBe("Review needed");
+    expect(getCounsellingStatus("TS", Date.parse("2026-10-01T00:00:00+05:30")).stage).toBe("Review needed");
   });
 
   it("keeps schedule IDs unique, ordered windows and calendar links on the counselling portal", () => {

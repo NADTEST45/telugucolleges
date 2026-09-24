@@ -17,6 +17,22 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  // ── New: September 24, 2026 ──────────────────────────────────
+  {
+    id: "eapcet-2026-final-phase-status-september-24",
+    date: "2026-09-24",
+    title: "EAPCET Final Phases: AP MPC Allotment Out, AP BiPC Allotment Due Today, TG BiPC Final Phase Opens September 25",
+    summary: "The AP Common Admissions Portal confirms the AP EAPCET 2026 MPC third and final phase allotment has been released. The portal says the AP BiPC final-phase allotment will be released on September 24, with reporting from September 24 to 26. TG EAPCET BiPC final-phase counselling opens September 25, with allotment on or before September 29.",
+    body: "AP EAPCET 2026, MPC stream (engineering): The official Common Admissions Portal (https://cap.apcfss.in/) confirms that the third and final phase seat allotment has been released. Log in to download your allotment order, then complete self-reporting and reporting at the college by the deadline shown on the portal. The schedule PDF on the portal still lists the original dates and has not been updated with the revised ones, so confirm your deadline on the portal instead of relying on news reports.\n\nAP EAPCET 2026, BiPC stream (pharmacy and allied courses): The portal says the final-phase allotment will be released on September 24, 2026. The revised official schedule gives:\n• Self-reporting and reporting at college: September 24 – 26, 2026\n• Updating of joining details by colleges: September 26, 2026\nThe allotment was originally scheduled for September 23 and has been moved to September 24. Check the portal in case the reporting window is revised as well.\n\nTG EAPCET 2026, BiPC stream (B.Pharmacy, Pharm.D, Pharmaceutical Engineering, Bio-Medical Engineering, Bio-Technology): The official TGCHE notification on tgeapcetb.nic.in schedules the final phase as follows:\n• Online filing, processing fee and slot booking (for candidates who did not attend in the first phase): September 25, 2026\n• Certificate verification: September 26, 2026\n• Exercising options: September 26 – 27, 2026. Options must be entered afresh; first-phase options will not be considered.\n• Provisional allotment: on or before September 29, 2026\n• Tuition fee payment and self-reporting online: September 29 – 30, 2026\n• Physical reporting at the allotted college: September 30 – October 1, 2026 (mandatory)\n• Spot admission guidelines published: October 2, 2026\n\nTG engineering (MPC) counselling rounds and the August spot admissions are over.\n\nOur cutoff tables remain historical references, with their source years shown. They are not official 2026 closing ranks.",
+    category: "counselling",
+    state: "Both",
+    priority: "high",
+    source: "AP Common Admissions Portal (APSCHE) and TGCHE — TG EAPCET BiPC 2026 detailed notification",
+    sourceUrl: "https://cap.apcfss.in/",
+    verifiedAt: "2026-09-24T14:00:00+05:30",
+    expiresAt: "2026-10-02T00:00:00+05:30",
+    tags: ["EAPCET", "2026", "Counselling", "Final Phase", "BiPC", "Seat Allotment"],
+  },
   {
     id: "eapcet-2026-september-admission-status-review",
     date: "2026-09-05",

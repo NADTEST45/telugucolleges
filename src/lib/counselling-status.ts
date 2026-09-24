@@ -9,25 +9,27 @@ export interface CounsellingStatus {
 }
 
 /** Review date, not a claim that every linked notice has been updated. */
-export const COUNSELLING_STATUS_AS_OF = "September 5, 2026";
-export const COUNSELLING_REVIEWED_AT = "2026-09-05";
+export const COUNSELLING_STATUS_AS_OF = "September 24, 2026";
+export const COUNSELLING_REVIEWED_AT = "2026-09-24";
 export const TG_SCHEDULE_SOURCE = "https://tgeapcetd.nic.in/files/TGEAPCET2026DETNOTIFICATION.PDF";
 export const TG_SPOT_SOURCE = "https://tgeapcetd.nic.in/files/TGEAPCET2026SPOTADMNSGUIDELINES.pdf";
+export const TG_BIPC_SCHEDULE_SOURCE = "https://tgeapcetbd.nic.in/files/BIPC2026DETAILEDNOTIFICATION.pdf";
+export const AP_BIPC_SCHEDULE_SOURCE = "https://cap.apcfss.in/TET-PDF/EAPCET-BIPC-DOCS/EAPCETBIPCFINALPHASEREVISEDSCHEDULE.pdf";
 
 export const TG_COUNSELLING_NOW: CounsellingStatus = {
-  stage: "Post-schedule guidance",
-  headline: "Published engineering rounds and August 19–20 spot window have passed",
-  next: "The 2026 engineering spot-admission guidelines scheduled admissions for August 19–20. Confirm any later opportunity with a new official notice. The separate MPC pharmacy round schedules allotment by September 6; it does not reopen engineering admissions.",
-  short: "TS published rounds ended — check current college notices",
-  portalUrl: "https://tgeapcet.nic.in",
-  portalLabel: "tgeapcet.nic.in",
+  stage: "BiPC final phase",
+  headline: "Engineering rounds are over; TG EAPCET BiPC final phase opens September 25",
+  next: "The 2026 engineering (MPC) counselling rounds and the August spot admissions are over. The separate BiPC-stream counselling for B.Pharmacy, Pharm.D, Pharmaceutical Engineering, Bio-Medical Engineering and Bio-Technology runs its final phase on tgeapcetb.nic.in: processing fee and slot booking September 25, certificate verification September 26, options September 26–27 (options must be entered afresh), allotment on or before September 29, tuition fee and self-reporting September 29–30, and reporting at the college September 30 – October 1.",
+  short: "TS BiPC final phase: slot booking Sept 25, allotment by Sept 29",
+  portalUrl: "https://tgeapcetb.nic.in",
+  portalLabel: "tgeapcetb.nic.in",
 };
 
 export const AP_COUNSELLING_NOW: CounsellingStatus = {
-  stage: "Final-phase reporting deadline passed",
-  headline: "AP final-phase MPC allotment released; reporting extension ended September 2",
-  next: "The official Common Admissions Portal confirms AP EAPCET 2026 final-phase MPC allotment and an extended self-joining and college-reporting deadline of September 2. That deadline has passed; check for a later official notice before acting.",
-  short: "AP final-phase reporting ended September 2 — check later notices",
+  stage: "Final-phase allotments",
+  headline: "AP MPC third and final phase allotment released; BiPC final allotment due September 24",
+  next: "The official Common Admissions Portal confirms the AP EAPCET 2026 MPC (engineering) third and final phase seat allotment has been released. Download your allotment order on cap.apcfss.in and complete self-reporting and reporting at the college by the deadline shown there. The schedule PDF on the portal has not been updated with the revised dates, so rely on the portal rather than news reports. For the BiPC stream, the portal says the final-phase allotment will be released on September 24, and the revised official schedule gives self-reporting and college reporting from September 24 to 26.",
+  short: "AP MPC final allotment out · BiPC final allotment Sept 24",
   portalUrl: "https://cap.apcfss.in/",
   portalLabel: "cap.apcfss.in",
 };
