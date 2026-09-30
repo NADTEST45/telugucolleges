@@ -8,23 +8,23 @@ import {
 } from "@/lib/counselling-schedule";
 import { AddMilestoneButton, AddPhaseButton } from "@/components/AddToCalendar";
 import { isDeadlinePast } from "@/lib/content-freshness";
-import { getCounsellingStatus, TG_SCHEDULE_SOURCE } from "@/lib/counselling-status";
+import { getCounsellingStatus, TG_SCHEDULE_SOURCE, TG_SPOT_SOURCE, TG_BIPC_SCHEDULE_SOURCE } from "@/lib/counselling-status";
 
 export const revalidate = 300;
 
 const url = `${SITE_URL}/eapcet/ts-counselling-dates-2026`;
 
-const LAST_UPDATED = "2026-09-05";
+const LAST_UPDATED = "2026-09-30";
 
 export const metadata: Metadata = {
   title: "TS EAPCET Counselling Dates 2026 — Full Phase-Wise Schedule (TG EAPCET) | TeluguColleges",
   description:
-    "Official TG EAPCET 2026 counselling schedule: Phase 1 registration June 19–28, certificate verification June 22–29, web options June 25–July 1, seat allotment by July 10. All three phases, fees, and documents.",
+    "Historical TG EAPCET 2026 engineering (MPC) counselling dates, elapsed deadlines and separate BiPC reporting guidance. Statewide BiPC dates await re-verification.",
   alternates: { canonical: url },
   openGraph: {
     title: "TS EAPCET Counselling Dates 2026 — Full Phase-Wise Schedule",
     description:
-      "Published TGCHE 2026 schedule including internal sliding, elapsed deadlines and links to current notices.",
+      "Published TG engineering (MPC) dates have passed. Separate BiPC guidance identifies statewide dates that await re-verification.",
     url,
     siteName: "TeluguColleges.com",
     type: "article",
@@ -36,18 +36,18 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "TS EAPCET Counselling Dates 2026 — Phase-Wise Schedule",
-    description: "Phase 1 registration June 19–28. Full TGCHE schedule for all phases.",
+    description: "Historical TG engineering (MPC) schedule and separate BiPC reporting guidance. Confirm current instructions before acting.",
   },
 };
 
 const FAQS: { q: string; a: string }[] = [
   {
-    q: "When does TS EAPCET 2026 counselling start?",
-    a: "Phase 1 registration, fee payment and slot booking run from June 19 to June 28, 2026 on the TGCHE counselling portal (tgeapcet.nic.in). Certificate verification starts June 22 and web options open June 25.",
+    q: "When was TS EAPCET 2026 engineering counselling scheduled to start?",
+    a: "The published engineering (MPC) Phase 1 registration, fee-payment and slot-booking window was June 19–28, 2026. Certificate verification was scheduled from June 22 and web options from June 25. These dates have passed; BiPC has a separate notification.",
   },
   {
     q: "How many phases of TG EAPCET counselling are there in 2026?",
-    a: "Three — Phase 1 (June 19 to July 14), Phase 2 (July 17 to 28), and a Final Phase (July 31 to August 7). Internal sliding was scheduled for August 12–17. Spot admissions have separate notices; confirm their year and deadline on the official portal.",
+    a: "The published engineering (MPC) schedule had three phases: Phase 1 (June 19 to July 14), Phase 2 (July 17 to 28), and a Final Phase (July 31 to August 7). Internal sliding was scheduled for August 12–17 and engineering spot admissions for August 19–20. These published windows have passed.",
   },
   {
     q: "What is the TS EAPCET 2026 counselling fee?",
@@ -55,7 +55,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "What is the mock seat allotment on July 4?",
-    a: "A simulated allotment based on the options you entered, published on or before July 4, 2026. It shows where you'd currently land, and you then get July 5–7 to reshuffle your options before final freezing on July 7. Use it — students who reorder options after the mock often improve their final allotment.",
+    a: "The engineering (MPC) schedule provided for a simulated allotment on or before July 4, 2026, followed by an option-editing window on July 5–7 and freezing on July 7. Those dates have passed; this is historical guidance.",
   },
   {
     q: "When is the TS EAPCET 2026 Phase 1 seat allotment result?",
@@ -63,7 +63,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Can I join Phase 2 if I missed Phase 1 registration?",
-    a: "Yes — Phase 2 has a registration window (July 17, 2026) for fresh candidates. But Phase 1 has the widest seat availability; later phases mostly redistribute leftover and cancelled seats.",
+    a: "The engineering (MPC) Phase 2 schedule had a registration window for fresh candidates on July 17, 2026. That window has passed. It does not establish that registration is open now; check the official portal for any later notice.",
   },
   {
     q: "Can I get reminders for the TS EAPCET 2026 counselling deadlines?",
@@ -94,7 +94,7 @@ function buildArticleJsonLd() {
     "@id": url,
     headline: "TS EAPCET Counselling Dates 2026 — Full Phase-Wise Schedule",
     description:
-      "Complete TGCHE-notified TG EAPCET 2026 counselling schedule across all three phases, with fees and document requirements.",
+      "Historical TGCHE-notified engineering (MPC) schedule and separate BiPC guidance with explicit review limits.",
     url,
     datePublished: "2026-06-10T09:00:00+05:30",
     dateModified: `${LAST_UPDATED}T09:00:00+05:30`,
@@ -177,16 +177,27 @@ export default function TsCounsellingDates2026Page() {
         TS EAPCET Counselling Dates 2026 — Phase-Wise Schedule
       </h1>
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
-        Published TGCHE schedule, including all three counselling phases and internal sliding.
-        Reviewed {status.asOf}. Past dates remain visible as a reference.
+        Historical TGCHE engineering (MPC) schedule, including all three phases and internal sliding.
+        These published dates have passed. BiPC has a separate notification and reporting instructions below.
       </p>
       <section className="rounded-xl mb-6 p-4 sm:p-6 bg-blue-50 border border-blue-200">
         <h2 className="text-base sm:text-lg font-bold text-blue-900 mb-2">{status.headline}</h2>
         <p className="text-sm text-blue-900 mb-3">{status.next}</p>
         <div className="flex flex-wrap gap-4 text-sm font-semibold text-accent">
-          <a href={status.portalUrl} target="_blank" rel="noopener noreferrer" className="underline">Current TGCHE notices →</a>
-          <a href={TG_SCHEDULE_SOURCE} target="_blank" rel="noopener noreferrer" className="underline">Official 2026 schedule (PDF) →</a>
+          <a href={status.portalUrl} target="_blank" rel="noopener noreferrer" className="underline">BiPC counselling portal →</a>
+          <a href={TG_BIPC_SCHEDULE_SOURCE} target="_blank" rel="noopener noreferrer" className="underline">BiPC 2026 notification (PDF; last verified September 24) →</a>
+          <a href={TG_SCHEDULE_SOURCE} target="_blank" rel="noopener noreferrer" className="underline">Historical MPC 2026 schedule (PDF) →</a>
+          <a href={TG_SPOT_SOURCE} target="_blank" rel="noopener noreferrer" className="underline">Historical MPC spot-admission guidelines (PDF) →</a>
         </div>
+        <p className="text-sm text-blue-900 mt-3">
+          CBIT&apos;s final-phase BiPC notice lists September 30–October 1 reporting for its own allottees.
+          This is college-specific evidence, not confirmation of a statewide deadline or extension.{" "}
+          <a href="https://www.cbit.ac.in/wp-content/uploads/2021/07/TGEPACET-B-BIOTECH-BI.P.C.-STREAM-FINAL-PHASE-GUIDELINES-2026.pdf" target="_blank" rel="noopener noreferrer" className="underline">CBIT BiPC reporting notice (PDF) →</a>
+        </p>
+        <p className="text-xs text-blue-900 mt-3">
+          Last successful statewide BiPC review: {status.asOf}. Partial review: September 30, 2026.
+          The statewide BiPC portal could not be loaded securely during the partial review; statewide deadlines remain unverified.
+        </p>
       </section>
 
       {COUNSELLING_PHASES.map(phase => (
@@ -268,8 +279,9 @@ export default function TsCounsellingDates2026Page() {
       </section>
 
       <p className="text-xs text-gray-500 leading-relaxed">
-        Schedule from the TGCHE notification dated June 8, 2026, reviewed September 5.
-        Confirm revisions and any remaining admission opportunity on tgeapcet.nic.in.
+        The tables above are historical engineering (MPC) dates from the TGCHE notification dated June 8, 2026.
+        MPC schedule and spot-admission sources were checked September 30. BiPC statewide dates were last successfully reviewed September 24; the September 30 review was partial.
+        Confirm current instructions with the appropriate stream portal and your allotted college.
       </p>
     </main>
   );

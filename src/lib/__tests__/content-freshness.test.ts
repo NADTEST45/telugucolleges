@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { indiaDate, isDeadlinePast, isNewsActionable, isNewsArchived } from "../content-freshness";
-import { getCounsellingStatus } from "../counselling-status";
+import { getCounsellingStatus, TG_BIPC_SCHEDULE_SOURCE, TG_SCHEDULE_SOURCE } from "../counselling-status";
 import { NEWS_ITEMS, type NewsItem } from "../news";
 import { COUNSELLING_PHASES, buildIcs } from "../counselling-schedule";
 
@@ -36,7 +36,7 @@ describe("dated admission information", () => {
     const now = Date.parse("2026-09-05T12:00:00Z");
     expect(NEWS_ITEMS.filter(n => n.date < "2026-08-01").every(n => !isNewsActionable(n, now))).toBe(true);
     expect(COUNSELLING_PHASES.flatMap(p => p.milestones).every(m => isDeadlinePast(m.deadline, now))).toBe(true);
-    expect(getCounsellingStatus("TS", now).headline).toContain("Engineering rounds are over");
+    expect(getCounsellingStatus("TS", now).headline).toContain("TG engineering dates have passed");
     expect(getCounsellingStatus("TS", Date.parse("2026-09-30T23:59:59+05:30")).stage).not.toBe("Review needed");
     expect(getCounsellingStatus("TS", Date.parse("2026-10-01T00:00:00+05:30")).stage).toBe("Review needed");
   });
@@ -54,6 +54,17 @@ describe("dated admission information", () => {
     expect(getCounsellingStatus("AP", expiration - 1).stage).not.toBe("Review needed");
     expect(getCounsellingStatus("AP", expiration).next).toContain("September 30, 2026");
     expect(getCounsellingStatus("AP", expiration).stage).toBe("Review needed");
+  });
+
+  it("flags the partial TG review without refreshing statewide BiPC dates", () => {
+    const tg = getCounsellingStatus("TS", Date.parse("2026-09-30T12:00:00+05:30"));
+    expect(tg.reviewedAt).toBe("2026-09-24");
+    expect(tg.headline).not.toContain("opens September 25");
+    expect(tg.next).toContain("partial September 30 review");
+    expect(tg.next).toContain("could not re-verify the statewide BiPC deadlines");
+    expect(tg.next).toContain("last successful statewide review was September 24");
+    expect(TG_BIPC_SCHEDULE_SOURCE).toContain("tgeapcetbd.nic.in/files/BIPC2026DETAILEDNOTIFICATION.pdf");
+    expect(TG_SCHEDULE_SOURCE).not.toBe(TG_BIPC_SCHEDULE_SOURCE);
   });
 
   it("replaces the superseded September 24 alert with an AP-only update", () => {

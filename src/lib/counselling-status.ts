@@ -19,10 +19,10 @@ export const AP_BIPC_SCHEDULE_SOURCE = "https://cap.apcfss.in/TET-PDF/EAPCET-BIP
 export const TG_COUNSELLING_NOW: CounsellingStatus = {
   reviewedAt: "2026-09-24",
   asOf: "September 24, 2026",
-  stage: "BiPC final phase",
-  headline: "Engineering rounds are over; TG EAPCET BiPC final phase opens September 25",
-  next: "The 2026 engineering (MPC) counselling rounds and the August spot admissions are over. The separate BiPC-stream counselling for B.Pharmacy, Pharm.D, Pharmaceutical Engineering, Bio-Medical Engineering and Bio-Technology runs its final phase on tgeapcetb.nic.in: processing fee and slot booking September 25, certificate verification September 26, options September 26–27 (options must be entered afresh), allotment on or before September 29, tuition fee and self-reporting September 29–30, and reporting at the college September 30 – October 1.",
-  short: "TS BiPC final phase: slot booking Sept 25, allotment by Sept 29",
+  stage: "Confirm BiPC instructions",
+  headline: "TG engineering dates have passed; confirm BiPC final-phase reporting instructions",
+  next: "The published 2026 TG engineering (MPC) counselling, internal-sliding and August spot-admission windows have passed. BiPC is a separate stream. During our partial September 30 review, we could not re-verify the statewide BiPC deadlines; the last successful statewide review was September 24. Do not assume allotment has been released or that a reporting window is open. Check your allotment order, current BiPC notices and the allotted college's instructions before acting.",
+  short: "TG engineering dates passed · Confirm BiPC reporting instructions",
   portalUrl: "https://tgeapcetb.nic.in",
   portalLabel: "tgeapcetb.nic.in",
 };
