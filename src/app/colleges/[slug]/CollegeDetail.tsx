@@ -730,7 +730,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                   <div>
                     <h2 className="text-lg font-bold mb-1">Phase-wise Cutoff Comparison</h2>
                     <p className="text-xs text-gray-500">
-                      See how cutoffs relax across counselling phases ({selectedCatLabel}, {gender === "girls" ? "Girls" : "Boys"})
+                      Compare historical ranks by source year and phase ({selectedCatLabel}, {gender === "girls" ? "Girls" : "Boys"})
                     </p>
                   </div>
                   <div className="flex items-end gap-2">
@@ -782,15 +782,11 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                           <tr key={branch} className={`group/row transition-colors hover:bg-blue-50/60 ${i % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
                             <th scope="row" className={`px-3 py-2.5 font-semibold text-sm text-left sm:whitespace-nowrap break-words sticky left-0 z-10 transition-colors group-hover/row:bg-blue-50/60 ${i % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>{branchLabel(branch)}</th>
                             {ranks.map((rank, ri) => {
-                              // Color code: earlier phases (tighter) = red-ish, later (relaxed) = green-ish
-                              const prevRank = ri > 0 ? ranks[ri - 1] : 0;
-                              const relaxed = rank > 0 && prevRank > 0 && rank > prevRank;
                               return (
                                 <td key={phases![ri].key} className={`px-3 py-2.5 text-right ${ri === 0 ? "font-bold" : ""}`}>
                                   {rank > 0 ? (
                                     <span>
                                       {rank.toLocaleString()}
-                                      {relaxed && <span className="ml-1 text-[11px] sm:text-xs text-success">↓</span>}
                                     </span>
                                   ) : (
                                     <span className="text-gray-300">—</span>
@@ -803,7 +799,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                       })}
                     </tbody>
                   </table>
-                  <p className="text-[11px] sm:text-xs text-gray-500 mt-2">↓ = cutoff relaxed from previous phase (higher rank = easier to get in). Source: TSCHE official Last Rank Statement PDFs. From 2025, the SC quota is split into SC-I/II/III; for earlier years those options show the combined SC rank.</p>
+                  <p className="text-[11px] sm:text-xs text-gray-500 mt-2">Historical closing ranks by year and phase; adjacent columns may represent different years and are not a progression within one counselling round. Source: TSCHE official Last Rank Statement PDFs. From 2025, the SC quota is split into SC-I/II/III; for earlier years those options show the combined SC rank.</p>
                 </div>
               </section>
             )}

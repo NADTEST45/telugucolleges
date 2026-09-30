@@ -6,7 +6,7 @@ import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 
 
-export const revalidate = 3600;
+export const revalidate = 300;
 // dynamicParams=false → any slug not in NEWS_ITEMS returns a real HTTP 404,
 // not a soft-404. NEWS_ITEMS is the sole source of valid slugs.
 export const dynamicParams = false;
@@ -251,6 +251,7 @@ export default async function NewsItemPage({ params }: { params: Promise<{ slug:
                       </span>
                       <span className="text-[11px] text-gray-600 ml-auto">{formatDate(r.date)}</span>
                     </div>
+                    {isNewsArchived(r) && <p className="text-xs font-semibold text-amber-800 mb-1">Archived update — check current notices</p>}
                     <h3 className="font-semibold text-sm leading-snug mb-0.5">{r.title}</h3>
                     <p className="text-xs text-gray-600 line-clamp-2">{r.summary}</p>
                   </Link>

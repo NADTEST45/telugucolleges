@@ -8,7 +8,7 @@ const url = `${SITE_URL}/eapcet/ap-web-options`;
 export const metadata: Metadata = {
   title: "AP EAPCET Web Options Entry 2026 — Dates & Step-by-Step Guide | TeluguColleges",
   description:
-    "AP EAPCET 2026 web options are open July 25–31, with August 1 to change options and seat allotment on August 6. Login steps, priority-order strategy, saving and modifying options, and the mistakes that cost students seats.",
+    "Historical AP EAPCET 2026 first-phase web options ran July 25–31, with changes scheduled for August 1 and allotment for August 6. Those dates have passed. Login steps, priority-order strategy, saving and modifying options, and the mistakes that cost students seats.",
   alternates: { canonical: url },
   openGraph: {
     title: "AP EAPCET Web Options Entry 2026 — Step-by-Step Guide",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 const STEPS: { name: string; text: string }[] = [
   {
     name: "Complete registration and fee payment first",
-    text: "Web options open only for candidates who have paid the counselling processing fee (₹1,200 for OC/BC, ₹600 for SC/ST) and completed certificate verification on eapcet-sche.aptonline.in. For the 2026 first phase, registration runs July 20–29 and verification of uploaded certificates at Help Line Centres runs July 22–31. If your certificates were verified online through web services, you may not need to visit a Help Line Centre at all.",
+    text: "Web options open only for candidates who have paid the counselling processing fee (₹1,200 for OC/BC, ₹600 for SC/ST) and completed certificate verification on eapcet-sche.aptonline.in. For the 2026 first phase, registration was scheduled for July 20–29 and verification for July 22–31. Those windows have passed. If your certificates were verified online through web services, you may not need to visit a Help Line Centre at all.",
   },
   {
     name: "Open the web options portal",
@@ -65,7 +65,7 @@ const STEPS: { name: string; text: string }[] = [
 const FAQS: { q: string; a: string }[] = [
   {
     q: "When does AP EAPCET 2026 web options entry start?",
-    a: "Current AP counselling and web-options dates could not be confirmed during our September 5 review. Check eapcet-sche.aptonline.in for an active 2026 round and its notified dates before following this guide.",
+    a: "The first-phase web-options window was July 25–31, 2026, with changes scheduled for August 1. Those dates have passed. Check the current AP guidance and cap.apcfss.in for later notices; this guide does not mean option entry is open now.",
   },
   {
     q: "What do I need to log in for web options entry?",

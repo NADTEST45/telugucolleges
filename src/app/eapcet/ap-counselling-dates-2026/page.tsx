@@ -70,11 +70,11 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "How many phases of AP EAPCET 2026 counselling are there?",
-    a: "This page records the first-phase notification from July 2026, with reporting through August 13. Those dates have passed. Check the official portal for later-phase notices; the current window could not be confirmed during our September 5 review.",
+    a: "This page records the first-phase notification from July 2026, with reporting through August 13. Those dates have passed. Check current AP guidance and cap.apcfss.in for later-phase allotment and reporting notices.",
   },
   {
     q: "Can I get reminders for the AP EAPCET 2026 counselling deadlines?",
-    a: "Yes. Use the calendar icon next to any milestone above to add that deadline to your phone's calendar (Google, Apple or Outlook) — it sets an all-day event with an alert the day before. You can also add every deadline at once with the 'Add all deadlines' button, or enter your number in the alerts box near the top of the page for a WhatsApp ping.",
+    a: "Calendar controls are only available for deadlines that have not passed in India. The first-phase dates on this page are historical; confirm current official notices before setting a reminder.",
   },
 ];
 

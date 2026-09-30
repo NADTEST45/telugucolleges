@@ -2,7 +2,6 @@ import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
-import LeadCapture from "@/components/LeadCapture";
 import {
   AP_EAPCET_2026_STATS,
   AP_EAPCET_2026_TOPPERS_AGRI,
@@ -145,9 +144,7 @@ export default function ApResults2026TeluguPage() {
         </h2>
         <p className="text-sm text-green-900 leading-relaxed">
           ఏపీ ఈఏపీసెట్ 2026 ర్యాంక్ కార్డులు ఇప్పుడు cets.apsche.ap.gov.in లో అందుబాటులో ఉన్నాయి.
-          మీ హాల్ టికెట్ నంబర్, పుట్టిన తేదీతో లాగిన్ అయి డౌన్‌లోడ్ చేసుకోండి. కౌన్సెలింగ్
-          రిజిస్ట్రేషన్ త్వరలో ప్రారంభమవుతుందని భావిస్తున్నారు — మీ వెబ్ ఆప్షన్ల జాబితాను ఇప్పుడే
-          సిద్ధం చేసుకోండి.
+          మీ హాల్ టికెట్ నంబర్, పుట్టిన తేదీతో లాగిన్ అయి డౌన్‌లోడ్ చేసుకోండి. మొదటి దశ కౌన్సెలింగ్ తేదీలు ముగిశాయి. ప్రస్తుత రిపోర్టింగ్ సూచనలు, గడువులను అధికారిక పోర్టల్‌లో నిర్ధారించుకోండి.
         </p>
       </section>
 
@@ -284,23 +281,10 @@ export default function ApResults2026TeluguPage() {
         </div>
       </section>
 
-      {/* WhatsApp counselling alerts */}
-      <section className="rounded-xl mb-6 p-4 sm:p-5 bg-white border border-gray-200 shadow-sm">
-        <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-0.5">
-          కౌన్సెలింగ్ తేదీలను WhatsApp లో పొందండి
-        </h2>
-        <p className="text-sm text-gray-600 leading-relaxed">
-          ఫలితం వచ్చింది — ఇప్పుడు కౌన్సెలింగ్ వంతు. మీ WhatsApp నంబర్ ఇవ్వండి, ఏపీ ఈఏపీసెట్ 2026
-          రిజిస్ట్రేషన్, వెబ్ ఆప్షన్ల తేదీలను APSCHE ప్రకటించిన వెంటనే మేము మెసేజ్ చేస్తాం.
-        </p>
-        <LeadCapture
-          examState="Andhra Pradesh"
-          source="ap-result-alert"
-          heading="కౌన్సెలింగ్ తేదీలను WhatsApp లో పంపండి"
-          subtext="రిజిస్ట్రేషన్, వెబ్ ఆప్షన్లు, సీట్ కేటాయింపు తేదీలు — ప్రకటించిన వెంటనే. స్పామ్ లేదు — కౌన్సెలింగ్ సీజన్‌లో మాత్రమే."
-          buttonLabel="నాకు తెలియజేయండి"
-          doneLabel="✓ పూర్తయింది — ఏపీ ఈఏపీసెట్ 2026 కౌన్సెలింగ్ తేదీలు వచ్చిన వెంటనే WhatsApp లో తెలియజేస్తాం."
-        />
+      <section className="rounded-xl mb-6 p-4 sm:p-5 bg-amber-50 border border-amber-200">
+        <h2 className="font-bold mb-1">మొదటి దశ కౌన్సెలింగ్ తేదీలు ముగిశాయి</h2>
+        <p className="text-sm text-gray-700">జూలై రిజిస్ట్రేషన్, వెబ్ ఆప్షన్ల గడువులు గత తేదీలు. ప్రస్తుత సూచనలు, రిపోర్టింగ్ గడువులను అధికారిక పోర్టల్‌లో నిర్ధారించుకోండి.</p>
+        <Link href="/eapcet?st=ap" className="inline-block mt-2 text-sm font-semibold text-accent underline">ప్రస్తుత ఏపీ కౌన్సెలింగ్ సమాచారం →</Link>
       </section>
 
       {/* Counselling roadmap */}

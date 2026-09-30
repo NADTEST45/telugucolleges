@@ -229,7 +229,7 @@ export default async function CollegesPage({ searchParams }: PageProps) {
   const nextHref = page < totalPages ? pageHref(filters, page + 1) : null;
 
   const paginationNav = totalPages > 1 && (
-    <nav aria-label="Pagination" className="mt-8 flex items-center justify-center gap-3 text-sm">
+    <nav aria-label="Pagination" className="mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-sm">
       {prevHref ? (
         <Link href={prevHref} rel="prev" className="px-4 py-2 rounded-lg bg-white border border-gray-200 font-semibold text-gray-700 shadow-sm hover:shadow-md transition-all">
           ← Previous

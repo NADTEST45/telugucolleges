@@ -51,8 +51,8 @@ export default function CollegeCard({ c, borderClass }: { c: College; borderClas
           <div className="flex gap-1 sm:gap-1.5 mt-1.5 sm:mt-2 flex-wrap">
             <Badge tone={typeTone}>{c.type}</Badge>
             {c.nirf > 0 && <Badge tone="nirf">NIRF {nirfLabel(c.nirf)}</Badge>}
-            {c.naac && c.naac !== "-" && <Badge tone="naac">NAAC {c.naac}</Badge>}
-            {c.nba && <Badge tone="nba">NBA</Badge>}
+            {c.naac && c.naac !== "-" && <Badge tone="naac">NAAC {c.naac} · validity unverified</Badge>}
+            {c.nba && <Badge tone="nba">NBA validity unverified</Badge>}
             {c.branches.includes("B.Pharm") && <Badge tone="accent">Pharmacy</Badge>}
             {c.branches.includes("MBBS") && <Badge tone="nirf">Medical</Badge>}
           </div>
@@ -75,6 +75,7 @@ export default function CollegeCard({ c, borderClass }: { c: College; borderClas
               High {c.placements.highest > 0 ? `₹${c.placements.highest}L` : "—"}
             </span>
           </div>
+          {(c.placements.avg > 0 || c.placements.highest > 0) && <p className="text-[11px] text-gray-500 sm:text-right mt-1">Placement year/source unverified</p>}
         </div>
       </div>
     </div>

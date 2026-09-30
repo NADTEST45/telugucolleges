@@ -20,7 +20,7 @@ export default function SearchBar() {
   const mobileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   // Shared hook: lazily fetches the slim index once, filters by name/code/district.
-  const { results, ensureIndex } = useCollegeSearch(q);
+  const { results, ensureIndex, loading, error, loaded } = useCollegeSearch(q);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -40,6 +40,9 @@ export default function SearchBar() {
   useEffect(() => { setActiveIdx(-1); }, [q]);
 
   const expanded = open && results.length > 0;
+  const searchMessage = open && q.trim().length >= 2
+    ? loading ? "Searching colleges…" : error ? "Search is temporarily unavailable. Try again." : loaded && results.length === 0 ? "No colleges found. Try a name, district, or college code." : null
+    : null;
 
   /** Shared combobox keyboard handling (WAI-ARIA combobox pattern). */
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -111,6 +114,7 @@ export default function SearchBar() {
           className={`w-full px-4 py-1.5 rounded-lg text-sm outline-none transition-all ${focused ? "bg-white text-gray-900 shadow-lg" : "bg-white/20 text-white placeholder-white/80"}`}
         />
         {dropdown}
+        {searchMessage && <div role="status" className="absolute top-full mt-1 left-0 right-0 bg-white text-gray-700 text-sm p-3 rounded-xl shadow-xl border border-gray-100 z-50">{searchMessage}</div>}
       </div>
 
       {/* Mobile search — toggle button + full-width overlay */}
@@ -131,12 +135,13 @@ export default function SearchBar() {
                 placeholder="Search colleges / universities..."
                 aria-label="Search colleges"
                 {...comboProps("search-mobile")}
-                className="flex-1 px-3 py-2 rounded-lg text-sm bg-white text-gray-900 outline-none"
+                className="min-w-0 flex-1 px-3 py-2 rounded-lg text-sm bg-white text-gray-900 outline-none"
               />
               <button onClick={() => { setMobileOpen(false); setQ(""); setOpen(false); }} className="p-2 text-white shrink-0" aria-label="Close search">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
+            {searchMessage && <div role="status" className="mx-3 bg-white text-gray-700 text-sm p-3 rounded-b-xl shadow-xl">{searchMessage}</div>}
             {expanded && (
               <div className="mx-3 bg-white rounded-b-xl shadow-xl border border-gray-100 overflow-hidden max-h-[60vh] overflow-y-auto">
                 {renderOptions("search-mobile", "px-4 py-3")}

@@ -147,7 +147,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
             </div>
             <div className="border-t border-white/10 pt-4 text-center text-xs">
-              All fee data sourced from official government orders. Cutoff ranks are approximate and vary by category.
+              Fee records vary by course, source and academic year; confirm current fees with the college. Historical cutoff ranks vary by year, category and gender.
               <br />© 2026 TeluguColleges.com — Not affiliated with any government body.
               <br />Site last updated: <time dateTime={BUILD_DATE}>{BUILD_DATE}</time>
             </div>

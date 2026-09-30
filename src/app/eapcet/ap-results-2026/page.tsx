@@ -20,7 +20,7 @@ const url = `${SITE_URL}/eapcet/ap-results-2026`;
 const teUrl = `${SITE_URL}/eapcet/ap-results-2026-telugu`;
 
 // Bump this (and the update log below) whenever the page content changes.
-const LAST_UPDATED = "2026-09-05";
+const LAST_UPDATED = "2026-09-30";
 
 const S = AP_EAPCET_2026_STATS;
 const inr = (n: number) => n.toLocaleString("en-IN");
@@ -132,11 +132,11 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "What should I do now that the result is out?",
-    a: "Three things: (1) download and save your rank card immediately; (2) keep your counselling documents ready — income certificate, caste certificate, study certificates and Transfer Certificate; (3) build your college priority list now using your actual rank, so you can enter web options quickly once counselling opens. Our free EAPCET predictor shows which colleges matched your rank in official counselling.",
+    a: "Three things: (1) download and save your rank card immediately; (2) keep your counselling documents ready — income certificate, caste certificate, study certificates and Transfer Certificate; (3) check your current allotment and reporting instructions on cap.apcfss.in. Our free EAPCET predictor shows which colleges matched your rank in official counselling.",
   },
   {
     q: "When will AP EAPCET 2026 counselling start?",
-    a: "Current AP counselling dates could not be confirmed during our September 5 review. Check eapcet-sche.aptonline.in for the active round, web-options dates and reporting deadline. The results portal and the counselling portal serve different purposes.",
+    a: "First-phase registration was July 20–29, 2026; those dates have passed. Check current AP guidance and the Common Admissions Portal at cap.apcfss.in for allotment and reporting instructions. The results portal and counselling portal serve different purposes.",
   },
 ];
 
@@ -430,8 +430,7 @@ export default function ApResults2026Page() {
           </h2>
           <p className="text-sm text-blue-100 mb-3 leading-relaxed">
             Enter your rank in our free predictor to see which B.Tech colleges matched that
-            rank in official APSCHE counselling — category and gender-wise. Have your web
-            options list ready before counselling opens.
+            rank in official APSCHE counselling — category and gender-wise. Use the historical records to research colleges, and check current official reporting instructions.
           </p>
           <Link
             href="/eapcet"
@@ -442,27 +441,11 @@ export default function ApResults2026Page() {
         </div>
       </section>
 
-      {/* WhatsApp counselling alerts (declared state) */}
-      {declared && (
-        <section className="rounded-xl mb-6 p-4 sm:p-5 bg-white border border-gray-200 shadow-sm">
-          <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-0.5">
-            Get counselling reminders on WhatsApp
-          </h2>
-          <p className="text-sm text-gray-600 leading-relaxed">
-            The schedule is out and the deadlines are tight. Drop your WhatsApp number and
-            we&rsquo;ll remind you before registration closes (July 29), before web options
-            close (July 31), and when the August 6 seat allotment is released.
-          </p>
-          <LeadCapture
-            examState="Andhra Pradesh"
-            source="ap-result-alert"
-            heading="WhatsApp me the AP EAPCET counselling reminders"
-            subtext="Reminders before the registration and web-options deadlines, and an alert when seat allotment drops. No spam — counselling season only."
-            buttonLabel="Notify me"
-            doneLabel="✓ Done — we'll WhatsApp you the AP EAPCET 2026 counselling deadline reminders."
-          />
-        </section>
-      )}
+      <section className="rounded-xl mb-6 p-4 sm:p-5 bg-amber-50 border border-amber-200">
+        <h2 className="font-bold mb-1">First-phase counselling dates have passed</h2>
+        <p className="text-sm text-gray-700">The July registration and options windows and August 6 allotment date are historical. Check the latest AP guidance and official notices before acting.</p>
+        <Link href="/eapcet?st=ap" className="inline-block mt-2 text-sm font-semibold text-accent underline">Current AP counselling guidance →</Link>
+      </section>
 
       {/* Official counselling schedule */}
       <section id="counselling-schedule" className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">

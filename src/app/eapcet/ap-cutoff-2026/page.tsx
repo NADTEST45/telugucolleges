@@ -42,15 +42,15 @@ export default async function APCutoff2026HubPage() {
   const faqs = [
     {
       q: "When will the official AP EAPCET 2026 cutoff be released?",
-      a: "These are historical closing ranks, not official 2026 cutoffs. Current AP counselling dates could not be confirmed during our September 5 review; check the official portal for your round and deadline.",
+      a: "These are historical closing ranks, not official 2026 cutoffs. Check current AP guidance and cap.apcfss.in for your allotment and applicable reporting instructions.",
     },
     {
       q: "What is a good rank in AP EAPCET 2026?",
       a: "For CSE in the top AP colleges, OC closing ranks have historically been within the first 5,000–15,000. Mid-tier colleges extend to 50,000+, and many colleges admit well beyond 1,00,000 — especially in non-circuit branches and reserved categories. Check the branch-wise tables for exact reference ranks.",
     },
     {
-      q: "How are these expected 2026 cutoffs calculated?",
-      a: "They are official APSCHE last-rank statements from 2023-24 and 2022-23 convener-quota counselling — the strongest available predictor of 2026 cutoffs. Actual 2026 ranks typically vary ±10–20% depending on seat matrix and applicant volume.",
+      q: "What years do these historical cutoff tables cover?",
+      a: "These tables contain imported APSCHE counselling records for 2024, 2023 and 2022. They are historical reference ranks, not calculated or official 2026 cutoffs. Available coverage differs by college and branch; future ranks can change with the seat matrix and applicants.",
     },
   ];
   const faqJsonLd = {

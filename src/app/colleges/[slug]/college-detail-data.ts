@@ -43,10 +43,8 @@ export function getCutoffProps(c: College): CollegeCutoffProps {
   if (c.state === "Telangana") {
     const phaseMap: Record<string, YearCutoffs> = {};
     for (const phase of TS_PHASES) {
-      const data = phase.key === "2024"
-        ? (TS_CUTOFFS[c.code]?.["2024"] || null)
-        : phase.key === "2023"
-        ? (TS_CUTOFFS[c.code]?.["2023"] || null)
+      const data = /^\d{4}$/.test(phase.key)
+        ? (TS_CUTOFFS[c.code]?.[phase.key] || null)
         : getTSPhaseCutoffs(c.code, phase.key as PhaseKey);
       if (data) phaseMap[phase.key] = data;
     }

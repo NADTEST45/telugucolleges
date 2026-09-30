@@ -284,6 +284,7 @@ export default function UniversitiesPage() {
           />
           <div className="flex gap-2 sm:gap-3">
             <select
+              aria-label="Sort universities"
               value={sort}
               onChange={(e) => setSort(e.target.value)}
               className={`${sel} font-semibold flex-1 sm:flex-none text-xs sm:text-sm`}
@@ -295,6 +296,7 @@ export default function UniversitiesPage() {
               <option value="nirf">NIRF Rank</option>
             </select>
             <select
+              aria-label="Filter universities by district"
               value={district}
               onChange={(e) => setDistrict(e.target.value)}
               className={`${sel} flex-1 sm:flex-none text-xs sm:text-sm`}

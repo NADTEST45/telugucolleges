@@ -49,7 +49,7 @@ export default async function TGCutoff2026HubPage() {
     },
     {
       q: "Are these tables a prediction of 2026 cutoffs?",
-      a: "No. These are official TSCHE last-rank statements from 2024-25 and 2023-24 convener-quota counselling — not a prediction. They are the strongest available reference for 2026; actual 2026 closing ranks typically vary ±10–20% depending on seat matrix and applicant volume.",
+      a: "No. These tables contain imported TSCHE counselling records for 2025, 2024 and 2023. They are historical reference ranks, not official 2026 cutoffs. Available coverage differs by college and branch; future ranks can change with the seat matrix and applicants.",
     },
   ];
   const faqJsonLd = {

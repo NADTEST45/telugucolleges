@@ -6,6 +6,8 @@ import { getCollegesMerged } from "@/lib/colleges-merged";
 // Server-only (pulls the cutoff tables) — page.tsx is a server component.
 import { hasCutoffData } from "@/lib/cutoff-presence";
 import { getLatestNews } from "@/lib/news";
+import { isNewsArchived } from "@/lib/content-freshness";
+import { isEngineeringCollege } from "@/lib/branch-constants";
 import AdSlot from "@/components/ads/AdSlot";
 import JsonLd from "@/components/JsonLd";
 import ProgramIcon from "@/components/ui/ProgramIcon";
@@ -46,19 +48,14 @@ export default async function Home() {
   };
 
   const latestNews = getLatestNews(3);
-  // Top-5 lists need a numeric rank to sort by, which only the summary
-  // cutoff.cse provides — but don't EXCLUDE colleges whose ranks live only
-  // in the historical tables (cutoff.cse === 0 is common for real colleges):
-  // they get a fallback ordering after the numerically-ranked ones. This is
-  // a server component, so importing the table-aware helper is safe here.
-  const topByCse = (state: string) => {
-    const inState = colleges.filter(c => c.state === state);
-    const ranked = inState.filter(c => c.cutoff.cse > 0).sort((a, b) => a.cutoff.cse - b.cutoff.cse);
-    const tableOnly = inState.filter(c => c.cutoff.cse === 0 && hasCutoffData(c));
-    return [...ranked, ...tableOnly].slice(0, 5);
-  };
-  const topTS = topByCse("Telangana");
-  const topAP = topByCse("Andhra Pradesh");
+  // Browse alphabetically: legacy summary ranks lack consistent year/gender
+  // provenance and must not be presented as a comparable "top colleges" ranking.
+  const browseEngineering = (state: string) => colleges
+    .filter(c => c.state === state && isEngineeringCollege(c.branches) && hasCutoffData(c))
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .slice(0, 5);
+  const topTS = browseEngineering("Telangana");
+  const topAP = browseEngineering("Andhra Pradesh");
   const cheapest = [...colleges].filter(c => c.fee > 0 && c.branches.some(b => ["CSE","ECE","EEE","MECH","CIVIL"].includes(b))).sort((a, b) => a.fee - b.fee).slice(0, 6);
 
   const jsonLd = [
@@ -230,12 +227,15 @@ export default async function Home() {
             </div>
             <div className="divide-y divide-gray-50">
               {latestNews.map(item => (
-                <Link key={item.id} href="/news" className="flex items-center gap-3 px-5 py-2.5 hover:bg-gray-50 transition-colors">
+                <Link key={item.id} href={`/news/${item.id}`} className="flex items-start gap-3 px-4 sm:px-5 py-3 hover:bg-gray-50 transition-colors">
                   <span className={`shrink-0 px-1.5 py-0.5 rounded text-xs font-bold ${item.state === "AP" ? "bg-green-50 text-green-700" : item.state === "TS" ? "bg-blue-50 text-accent" : "bg-violet-50 text-violet-700"}`}>
                     {item.state}
                   </span>
-                  <span className="text-sm text-gray-700 truncate">{item.title}</span>
-                  <span className="shrink-0 text-xs text-gray-500 ml-auto tabular-nums">{item.date.slice(5)}</span>
+                  <span className="min-w-0 flex-1">
+                    {isNewsArchived(item) && <span className="block text-xs font-semibold text-amber-800 mb-1">Archived update — check current notices</span>}
+                    <span className="block text-sm text-gray-700 line-clamp-2">{item.title}</span>
+                  </span>
+                  <span className="shrink-0 text-xs text-gray-500 ml-auto tabular-nums">{item.date}</span>
                 </Link>
               ))}
             </div>
@@ -246,23 +246,22 @@ export default async function Home() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
 
         {/* Top CSE Colleges */}
-        <h2 className="text-xl sm:text-2xl font-bold mb-1">Top CSE Colleges by EAPCET Cutoff</h2>
-        <p className="text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6">Final-phase OC closing ranks from official TSCHE/APSCHE data. Lower rank = harder to get in.</p>
+        <h2 className="text-xl sm:text-2xl font-bold mb-1">Explore Engineering Colleges</h2>
+        <p className="text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6">An alphabetical selection with historical cutoff records. Open a profile for the source year, phase, category and gender.</p>
         <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mb-10 sm:mb-14">
           {[
-            { title: "Telangana — Top 5", color: "bg-state-ts", list: topTS },
-            { title: "Andhra Pradesh — Top 5", color: "bg-state-ap", list: topAP },
+            { title: "Telangana — Browse Colleges", color: "bg-state-ts", list: topTS },
+            { title: "Andhra Pradesh — Browse Colleges", color: "bg-state-ap", list: topAP },
           ].map(({ title, color, list }) => (
             <div key={title} className="bg-white rounded-xl overflow-hidden shadow-sm">
               <div className={`${color} text-white px-4 sm:px-5 py-3 sm:py-3.5 font-bold text-sm sm:text-base`}>{title}</div>
-              {list.map((c, i) => (
+              {list.map(c => (
                 <Link key={c.id} href={`/colleges/${c.slug}`} className="flex items-center justify-between px-4 sm:px-5 py-3 border-b border-gray-100 hover:bg-gray-50 transition-colors gap-2">
                   <div className="min-w-0 flex-1 flex items-baseline gap-1.5 sm:gap-2">
-                    <span className="text-gray-500 font-semibold shrink-0 text-xs sm:text-sm">#{i + 1}</span>
                     <span className="font-semibold text-xs sm:text-sm truncate" title={c.name}>{c.name}</span>
                   </div>
                   <div className="text-right shrink-0">
-                    <div className="font-bold text-brand text-xs sm:text-sm tabular-nums">{c.cutoff.cse > 0 ? `Rank ${c.cutoff.cse.toLocaleString()}` : "See cutoffs"}</div>
+                    <div className="font-bold text-brand text-xs sm:text-sm tabular-nums">View cutoffs</div>
                     <div className="text-xs text-gray-500 tabular-nums">{fmtFee(c.fee)}/yr</div>
                   </div>
                 </Link>
@@ -321,7 +320,7 @@ export default async function Home() {
           <h2 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6">Built for Telugu States</h2>
           <div className="grid sm:grid-cols-3 gap-4 sm:gap-6">
             {[
-              ["Official Fees", "All fee data comes from government orders, not estimates."],
+              ["Fee References", "Government-order and institution fee records where available. Confirm the course, academic year and current fee with the college."],
               ["Real Cutoffs", "EAPCET closing ranks from official TSCHE & APSCHE counselling data."],
               [`${stats.total} Colleges`, "The most comprehensive directory of AP & Telangana professional colleges."],
             ].map(([t, d]) => (

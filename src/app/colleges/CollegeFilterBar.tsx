@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { createDebouncer, createQueryTracker } from "@/lib/debounce";
 import type { CollegesFilters } from "./filtering";
 
 interface SectionMeta {
@@ -50,11 +51,27 @@ export default function CollegeFilterBar({
   // navigation is in flight (otherwise typing feels "sticky").
   const [q, setQ] = useState(filters.q);
   const [showFilters, setShowFilters] = useState(false);
+  const [searchDebounce] = useState(() => createDebouncer(200));
+  const [searchQueries] = useState(() => createQueryTracker(filters.q));
 
   // Keep local `q` in sync when the URL changes from outside (back/forward).
   useEffect(() => {
+    if (!searchQueries.acknowledge(filters.q)) return;
+    searchDebounce.cancel();
     setQ(filters.q);
-  }, [filters.q]);
+  }, [filters.q, searchDebounce, searchQueries]);
+
+  useEffect(() => {
+    const onHistoryChange = () => {
+      const restored = (new URLSearchParams(window.location.search).get("q") ?? "").slice(0, 100);
+      searchQueries.reset();
+      searchQueries.edit(restored);
+      setQ(restored);
+      searchDebounce.cancel();
+    };
+    window.addEventListener("popstate", onHistoryChange);
+    return () => window.removeEventListener("popstate", onHistoryChange);
+  }, [searchDebounce, searchQueries]);
 
   const hasActiveFilters = !!(
     filters.state ||
@@ -63,6 +80,7 @@ export default function CollegeFilterBar({
     filters.maxFee ||
     filters.naac ||
     filters.category ||
+    filters.section ||
     filters.q
   );
 
@@ -80,22 +98,25 @@ export default function CollegeFilterBar({
   }
 
   function update(patch: Partial<CollegesFilters>) {
+    searchDebounce.cancel();
+    const nextQuery = patch.q ?? searchQueries.current;
+    searchQueries.submit(nextQuery);
     startTransition(() => {
-      router.replace(buildUrl(patch), { scroll: false });
+      router.replace(buildUrl({ ...patch, q: nextQuery }), { scroll: false });
     });
   }
 
   // Debounce search input → URL
-  const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => searchDebounce.cancel(), [searchDebounce]);
   function onSearchChange(value: string) {
+    searchQueries.edit(value);
     setQ(value);
-    if (searchTimer.current) clearTimeout(searchTimer.current);
-    searchTimer.current = setTimeout(() => {
-      update({ q: value });
-    }, 200);
+    searchDebounce.schedule(() => update({ q: value }));
   }
 
   function clearAll() {
+    searchDebounce.cancel();
+    searchQueries.submit("");
     setQ("");
     startTransition(() => {
       router.replace(pathname, { scroll: false });
@@ -203,7 +224,7 @@ export default function CollegeFilterBar({
               onClick={() => setShowFilters(v => !v)}
               className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${showFilters || hasActiveFilters ? "bg-accent text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}
             >
-              Filters {hasActiveFilters ? `(${[filters.state, filters.district, filters.affiliation, filters.maxFee, filters.naac, filters.category].filter(Boolean).length})` : ""}
+              Filters {hasActiveFilters ? `(${[filters.state, filters.district, filters.affiliation, filters.maxFee, filters.naac, filters.category, filters.section, filters.q].filter(Boolean).length})` : ""}
             </button>
           </div>
         </div>
@@ -218,7 +239,7 @@ export default function CollegeFilterBar({
                   id="filter-state"
                   value={filters.state}
                   onChange={e => update({ state: e.target.value, district: "" })}
-                  className={`${sel} w-full`}
+                  className={`${sel} min-w-0 w-full`}
                 >
                   <option value="">All States</option>
                   <option>Telangana</option>
@@ -231,7 +252,7 @@ export default function CollegeFilterBar({
                   id="filter-district"
                   value={filters.district}
                   onChange={e => update({ district: e.target.value })}
-                  className={`${sel} w-full`}
+                  className={`${sel} min-w-0 w-full`}
                 >
                   <option value="">All Districts</option>
                   {districts.map(d => <option key={d}>{d}</option>)}
@@ -243,7 +264,7 @@ export default function CollegeFilterBar({
                   id="filter-affiliation"
                   value={filters.affiliation}
                   onChange={e => update({ affiliation: e.target.value })}
-                  className={`${sel} w-full`}
+                  className={`${sel} min-w-0 w-full`}
                 >
                   <option value="">All Universities</option>
                   {affiliations.map(a => <option key={a}>{a}</option>)}
@@ -255,16 +276,16 @@ export default function CollegeFilterBar({
                   id="filter-maxfee"
                   value={filters.maxFee}
                   onChange={e => update({ maxFee: e.target.value })}
-                  className={`${sel} w-full`}
+                  className={`${sel} min-w-0 w-full`}
                 >
                   <option value="">Any Fee</option>
-                  <option value="50000">Under ₹50K</option>
-                  <option value="100000">Under ₹1L</option>
-                  <option value="150000">Under ₹1.5L</option>
-                  <option value="200000">Under ₹2L</option>
-                  <option value="500000">Under ₹5L</option>
-                  <option value="1000000">Under ₹10L</option>
-                  <option value="2000000">Under ₹20L</option>
+                  <option value="50000">Up to ₹50K</option>
+                  <option value="100000">Up to ₹1L</option>
+                  <option value="150000">Up to ₹1.5L</option>
+                  <option value="200000">Up to ₹2L</option>
+                  <option value="500000">Up to ₹5L</option>
+                  <option value="1000000">Up to ₹10L</option>
+                  <option value="2000000">Up to ₹20L</option>
                 </select>
               </div>
               <div>
@@ -273,12 +294,12 @@ export default function CollegeFilterBar({
                   id="filter-naac"
                   value={filters.naac}
                   onChange={e => update({ naac: e.target.value })}
-                  className={`${sel} w-full`}
+                  className={`${sel} min-w-0 w-full`}
                 >
                   <option value="">Any</option>
                   <option value="rated">NAAC Rated</option>
-                  <option value="A+">A++ Only</option>
-                  <option value="A">A+ &amp; A</option>
+                  <option value="A+">A+ or above</option>
+                  <option value="A">A or above</option>
                 </select>
               </div>
             </div>

@@ -143,7 +143,7 @@ export default function ComparePage() {
             {colleges.map(c => (
               <span key={c.id} className="bg-blue-50 text-brand px-3 py-1.5 rounded-lg text-sm font-semibold flex items-center gap-2">
                 {c.code}
-                <button onClick={() => setSelected(selected.filter(id => id !== c.id))} className="text-red-400 hover:text-red-600 font-bold">×</button>
+                <button aria-label={`Remove ${c.name} from comparison`} onClick={() => setSelected(selected.filter(id => id !== c.id))} className="text-red-400 hover:text-red-600 font-bold">×</button>
               </span>
             ))}
             <button onClick={() => setSelected([])} className="px-3 py-1.5 rounded-lg text-sm text-red-500 bg-red-50 font-semibold">Clear all</button>

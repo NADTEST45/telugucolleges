@@ -72,7 +72,7 @@ export function parseFilters(
     state: VALID_STATES.has(state) ? state : "",
     district: first(r.district).slice(0, 100),
     affiliation: first(r.affiliation).slice(0, 100),
-    maxFee: first(r.maxFee),
+    maxFee: /^\d+$/.test(first(r.maxFee)) && Number(first(r.maxFee)) > 0 ? first(r.maxFee) : "",
     naac: VALID_NAAC.has(naac) ? naac : "",
     category: VALID_CATEGORIES.has(category) ? category : "",
     section: VALID_SECTIONS.has(section) ? section : "",
@@ -82,7 +82,7 @@ export function parseFilters(
 
 /** Pure filter + sort. Identical semantics to the previous client-side logic. */
 export function filterAndSort(filters: CollegesFilters, colleges: College[] = COLLEGES): College[] {
-  const q = filters.q.toLowerCase();
+  const q = filters.q.trim().toLowerCase();
   const maxFee = filters.maxFee ? parseInt(filters.maxFee, 10) : 0;
 
   const list = colleges.filter(c => {
@@ -96,7 +96,7 @@ export function filterAndSort(filters: CollegesFilters, colleges: College[] = CO
     if (filters.district && c.district !== filters.district) return false;
     if (filters.affiliation && c.affiliation !== filters.affiliation) return false;
     if (filters.section && c.type !== filters.section) return false;
-    if (maxFee && c.fee > maxFee) return false;
+    if (maxFee && (c.fee <= 0 || c.fee > maxFee)) return false;
     if (filters.naac === "rated" && (!c.naac || c.naac === "-")) return false;
     if (filters.naac === "A+" && c.naac !== "A+" && c.naac !== "A++") return false;
     if (filters.naac === "A" && c.naac !== "A" && c.naac !== "A+" && c.naac !== "A++") return false;
@@ -108,7 +108,7 @@ export function filterAndSort(filters: CollegesFilters, colleges: College[] = CO
 
   switch (filters.sort) {
     case "fee_low":
-      list.sort((a, b) => a.fee - b.fee);
+      list.sort((a, b) => (a.fee > 0 ? a.fee : Infinity) - (b.fee > 0 ? b.fee : Infinity));
       break;
     case "fee_high":
       list.sort((a, b) => b.fee - a.fee);

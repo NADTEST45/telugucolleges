@@ -29,27 +29,27 @@ const url = `${SITE_URL}/eapcet`;
 export const PREDICTOR_FAQS: { q: string; a: string }[] = [
   {
     q: "How accurate is the TeluguColleges EAPCET College Predictor?",
-    a: "The predictor uses official TSCHE closing ranks for 2023–24 and 2024–25, and APSCHE closing ranks for 2022–23 and 2023–24. Predictions are weighted 70% toward the most recent year and 30% toward the previous year, so they reflect actual counselling behaviour. Real cutoffs vary year to year — the predictor is a strong starting point but not a guarantee. We recommend treating its college list as a shortlist to research, not a final allotment.",
+    a: "The predictor uses historical TSCHE and APSCHE closing-rank records, with Telangana final-phase data through 2025 and Andhra Pradesh data through 2024. For each available college, branch, category and gender combination, it weights the latest three years 50%/30%/20%, two years 70%/30%, or uses the single available year. Phase-specific selections use their available records. This is a research shortlist, not an official 2026 cutoff or a guarantee of admission.",
   },
   {
     q: "What data does the predictor use to match colleges to my rank?",
-    a: "The TS predictor uses cutoffs published by the Telangana State Council of Higher Education (TSCHE) and JNTU Hyderabad after each round of TG EAPCET counselling. The AP predictor uses cutoffs published by the Andhra Pradesh State Council of Higher Education (APSCHE) and JNTU Kakinada. We import every category-and-gender row from the official notifications — OC, BC-A, BC-B, BC-C, BC-D, BC-E, SC, ST and EWS, separately for boys and girls.",
+    a: "The predictor uses historical TSCHE/APSCHE closing-rank datasets. Coverage varies by year, college, branch, phase, category and gender. Results marked OC reference use a legacy OC record rather than an exact category/gender match. Missing records are not evidence of an available seat; inspect each result label and source year, and confirm current admissions instructions separately.",
   },
   {
     q: "Why do TS and AP have different reference years?",
-    a: "TSCHE published 2024–25 closing ranks earlier than APSCHE did, so TS predictions can use the latest two years (2023–24 and 2024–25). For AP, the most recent two complete-and-published years are 2022–23 and 2023–24. Once APSCHE releases 2024–25 closing ranks after the 2026 counselling cycle, the AP predictor will roll forward.",
+    a: "The imported Telangana final-phase dataset contains 2025, 2024 and 2023 records, while Andhra Pradesh contains 2024, 2023 and 2022 records. Phase-specific coverage differs. These source years describe the data currently used by this site; they do not establish whether newer official records have been published elsewhere.",
   },
   {
     q: "Does the predictor include management-quota and self-financed seats?",
-    a: "No. The closing ranks shown are convenor-quota (state counselling) only. Management-quota, NRI and category-B seats follow college-specific cutoffs that are not published centrally and vary widely between rounds. If you are targeting management quota, contact the college directly and use our /colleges/[name]/fees pages for the published management-quota fee.",
+    a: "No. The closing ranks shown are convenor-quota (state counselling) only. Management-quota, NRI and category-B seats follow college-specific cutoffs that are not published centrally and vary widely between rounds. If you are targeting management quota, contact the college directly and verify any fee and eligibility information directly with that institution.",
   },
   {
     q: "What category and gender options does the predictor support?",
-    a: "Eight categories — OC, BC-A, BC-B, BC-C, BC-D, BC-E, SC, ST — across two genders (boys and girls). EWS is treated as OC for cutoff purposes per current TSCHE/APSCHE counselling rules. The predictor returns colleges where the closing rank for your exact category × gender combination is at or above your input rank.",
+    a: "The predictor supports OC, BC-A through BC-E, SC, ST and EWS, with separate boys and girls selections where source records exist. Telangana also offers SC-I, SC-II and SC-III for 2025 onward; older records may use the combined SC category. EWS uses its own recorded cutoff, not OC. Missing girls records are not silently replaced by boys records.",
   },
   {
     q: "Can I use the predictor for branches other than CSE / ECE / EEE / Mech / Civil?",
-    a: "Yes. The branch dropdown includes core branches plus newer specializations — CSE (AI & ML), CSE (Data Science), CSE (Cyber Security), AI & DS, Biomedical, Aerospace, Automobile, Chemical, Mining, Metallurgy, Pharm.D and others. Where official cutoffs are available for a given branch in a given year, the predictor uses them; where they are not, the branch is hidden for that state.",
+    a: "Yes. The branch dropdown includes core branches plus newer specializations — CSE (AI & ML), CSE (Data Science), CSE (Cyber Security), AI & DS, Biomedical, Aerospace, Automobile, Chemical, Mining, Metallurgy, Pharm.D and others. Where official cutoffs are available for a given branch in a given year, the predictor uses them; where no matching records exist, no prediction can be made.",
   },
 ];
 

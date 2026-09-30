@@ -326,7 +326,7 @@ export default function EapcetClient({ branches: allBranches, stats, initialNow 
       {/* College Predictor — the page's main tool, now first */}
       <section id="predictor" className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6 scroll-mt-20">
         <h2 className="text-base sm:text-lg font-bold mb-1">College Predictor</h2>
-        <p className="text-[11px] sm:text-xs text-gray-500 mb-4 sm:mb-5">Built on official TSCHE/APSCHE closing ranks (weighted, latest 2 years), category &amp; gender-wise. For Telangana you can also predict by counselling phase.</p>
+        <p className="text-[11px] sm:text-xs text-gray-500 mb-4 sm:mb-5">Built on official TSCHE/APSCHE closing ranks (weighted, up to 3 available years), category &amp; gender-wise. For Telangana you can also predict by counselling phase.</p>
 
         <div className="space-y-4 sm:space-y-5 mb-4">
           {/* Step 1 — rank */}
@@ -413,13 +413,13 @@ export default function EapcetClient({ branches: allBranches, stats, initialNow 
         {usePhaseData && (
           <div className="bg-blue-50 rounded-lg px-4 py-2 text-[11px] text-blue-700 mb-4">
             {phase === "phase1" && (
-              <>Phase-1 cutoffs are the <strong>tightest</strong> of the season — later phases relax as seats free up. These are historical statements, not 2026 allotment results. Data: official TSCHE Phase-1 Last Rank Statements (2023 &amp; 2022).</>
+              <>Historical Phase-1 records, not 2026 allotment results. Available TSCHE Phase-1 datasets: 2025, 2023 and 2022. Later-phase cutoffs can change and are not guaranteed to relax.</>
             )}
             {phase === "phase2" && (
-              <>Phase-2 cutoffs typically relax vs Phase 1 as candidates slide or exit. Data: official TSCHE Phase-2 Last Rank Statement (2023).</>
+              <>Historical TSCHE Phase-2 records are available for 2025 and 2023. Compare the year and phase; these are not 2026 allotment results.</>
             )}
             {phase === "special" && (
-              <>Special-phase cutoffs are the most relaxed — leftover seats after regular phases. Data: official TSCHE Special-Phase Last Rank Statement (2023).</>
+              <>Historical special-phase data comes from the 2023 TSCHE Last Rank Statement. It does not confirm current vacancies or guarantee an easier cutoff.</>
             )}
             {" "}Colleges without official data for this phase are excluded — no estimates.
           </div>

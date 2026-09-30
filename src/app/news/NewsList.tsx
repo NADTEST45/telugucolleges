@@ -62,7 +62,7 @@ export default function NewsList({ items, categories, initialNow }: { items: New
             </button>
           ))}
         </div>
-        <div className="flex gap-1 bg-gray-100 p-1 rounded-xl overflow-x-auto">
+        <div className="flex gap-1 bg-gray-100 p-1 rounded-xl min-w-0 max-w-full overflow-x-auto">
           <button aria-pressed={!selectedCategory} onClick={() => setSelectedCategory("")}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${!selectedCategory ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
             All Topics
