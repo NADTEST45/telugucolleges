@@ -19,7 +19,7 @@ import { EapcetStructuredData, PREDICTOR_FAQS } from "./structured-data";
 import { useCurrentTime } from "@/lib/useCurrentTime";
 import { readStatePref, writeStatePref } from "@/lib/state-pref";
 import { AP_EAPCET_2026_RESULT, apResultDateCell } from "@/lib/ap-result-status";
-import { getCounsellingStatus, COUNSELLING_STATUS_AS_OF } from "@/lib/counselling-status";
+import { getCounsellingStatus } from "@/lib/counselling-status";
 
 /* Canonical branch id -> /eapcet/web-options-generator branch slug, for the
    "build web options" hand-off. Only the branches the generator supports are
@@ -320,7 +320,7 @@ export default function EapcetClient({ branches: allBranches, stats, initialNow 
             <a href={now.portalUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-accent hover:underline">{now.portalLabel}</a>
           </span>
         </p>
-        <p className="mt-1.5 text-[10px] text-amber-700/60">Status as of {COUNSELLING_STATUS_AS_OF}.</p>
+        <p className="mt-1.5 text-[10px] text-amber-700/60">Status as of {now.asOf}.</p>
       </section>
 
       {/* College Predictor — the page's main tool, now first */}
@@ -701,7 +701,7 @@ export default function EapcetClient({ branches: allBranches, stats, initialNow 
           </div>
         </div>
         <div className="px-4 sm:px-6 pb-3 sm:pb-4 text-[11px] text-blue-200/50">
-          Published 2026 dates are historical reference. Status reviewed {COUNSELLING_STATUS_AS_OF}; confirm any current admission window on the APSCHE / TGCHE portals.
+          Published 2026 dates are historical reference. {state === "Telangana" ? "TS" : "AP"} status reviewed {now.asOf}; confirm any current admission window on the APSCHE / TGCHE portals.
         </div>
       </section>
 

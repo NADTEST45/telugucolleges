@@ -8,7 +8,7 @@ import {
 } from "@/lib/counselling-schedule";
 import { AddMilestoneButton, AddPhaseButton } from "@/components/AddToCalendar";
 import { isDeadlinePast } from "@/lib/content-freshness";
-import { getCounsellingStatus, TG_SCHEDULE_SOURCE, COUNSELLING_STATUS_AS_OF } from "@/lib/counselling-status";
+import { getCounsellingStatus, TG_SCHEDULE_SOURCE } from "@/lib/counselling-status";
 
 export const revalidate = 300;
 
@@ -178,7 +178,7 @@ export default function TsCounsellingDates2026Page() {
       </h1>
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
         Published TGCHE schedule, including all three counselling phases and internal sliding.
-        Reviewed {COUNSELLING_STATUS_AS_OF}. Past dates remain visible as a reference.
+        Reviewed {status.asOf}. Past dates remain visible as a reference.
       </p>
       <section className="rounded-xl mb-6 p-4 sm:p-6 bg-blue-50 border border-blue-200">
         <h2 className="text-base sm:text-lg font-bold text-blue-900 mb-2">{status.headline}</h2>

@@ -41,6 +41,31 @@ describe("dated admission information", () => {
     expect(getCounsellingStatus("TS", Date.parse("2026-10-01T00:00:00+05:30")).stage).toBe("Review needed");
   });
 
+  it("reviews AP independently without extending the TG freshness window", () => {
+    const now = Date.parse("2026-10-01T00:00:00+05:30");
+    const ap = getCounsellingStatus("AP", now);
+    const tg = getCounsellingStatus("TS", now);
+    expect(ap.headline).toContain("BiPC final-phase allotments released");
+    expect(ap.next).toContain("that window has passed");
+    expect(ap.asOf).toBe("September 30, 2026");
+    expect(tg.asOf).toBe("September 24, 2026");
+    expect(tg.stage).toBe("Review needed");
+    const expiration = Date.parse("2026-10-07T00:00:00+05:30");
+    expect(getCounsellingStatus("AP", expiration - 1).stage).not.toBe("Review needed");
+    expect(getCounsellingStatus("AP", expiration).next).toContain("September 30, 2026");
+    expect(getCounsellingStatus("AP", expiration).stage).toBe("Review needed");
+  });
+
+  it("replaces the superseded September 24 alert with an AP-only update", () => {
+    const now = Date.parse("2026-09-30T18:15:00+05:30");
+    const old = NEWS_ITEMS.find(n => n.id === "eapcet-2026-final-phase-status-september-24")!;
+    const current = NEWS_ITEMS.find(n => n.id === "ap-eapcet-2026-final-allotments-released-september-30")!;
+    expect(isNewsArchived(old, now)).toBe(true);
+    expect(isNewsActionable(current, now)).toBe(true);
+    expect(current.state).toBe("AP");
+    expect(current.summary).toContain("has passed");
+  });
+
   it("keeps schedule IDs unique, ordered windows and calendar links on the counselling portal", () => {
     const milestones = COUNSELLING_PHASES.flatMap(p => p.milestones);
     expect(new Set(milestones.map(m => m.id)).size).toBe(milestones.length);

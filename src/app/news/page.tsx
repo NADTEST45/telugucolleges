@@ -12,7 +12,7 @@ import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { NEWS_ITEMS, NEWS_CATEGORIES } from "@/lib/news";
 import NewsList from "./NewsList";
-import { getCounsellingStatus, COUNSELLING_STATUS_AS_OF } from "@/lib/counselling-status";
+import { getCounsellingStatus } from "@/lib/counselling-status";
 
 export const revalidate = 300;
 
@@ -113,13 +113,14 @@ export default function NewsPage() {
 
       <section className="bg-brand text-white rounded-2xl p-4 sm:p-6 mb-8">
         <h2 className="text-lg font-bold mb-2">EAPCET 2026 — Admission status</h2>
-        <p className="text-xs text-white/80 mb-4">Reviewed {COUNSELLING_STATUS_AS_OF}. Historical notices below retain their publication dates.</p>
+        <p className="text-xs text-white/80 mb-4">Review dates are shown for each state. Historical notices below retain their publication dates.</p>
         <div className="grid sm:grid-cols-2 gap-4">
           {(["AP", "TS"] as const).map(state => {
             const status = getCounsellingStatus(state);
             return (
               <div key={state} className="bg-white/10 rounded-xl p-4">
                 <h3 className="font-bold mb-2">{state} · {status.stage}</h3>
+                <p className="text-xs text-white/80 mb-2">Reviewed {status.asOf}.</p>
                 <p className="text-sm font-semibold">{status.headline}</p>
                 <p className="text-sm text-white/80 mt-2">{status.next}</p>
                 <a href={status.portalUrl} target="_blank" rel="noopener noreferrer" className="inline-block mt-3 text-sm underline">Official counselling portal →</a>

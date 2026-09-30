@@ -17,6 +17,21 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  {
+    id: "ap-eapcet-2026-final-allotments-released-september-30",
+    date: "2026-09-30",
+    title: "AP EAPCET: MPC and BiPC Final-Phase Allotments Released",
+    summary: "The official AP Common Admissions Portal confirms that MPC third and final phase and BiPC final-phase allotments have been released. The published BiPC reporting window was September 24–26 and has passed; check official notices before assuming any extension.",
+    body: "Reviewed September 30, 2026: The AP Common Admissions Portal confirms that AP EAPCET 2026 MPC (engineering) third and final phase allotments and BiPC final-phase allotments have been released. This supersedes the September 24 bulletin saying BiPC allotment was due.\n\nThe revised official BiPC schedule (https://cap.apcfss.in/TET-PDF/EAPCET-BIPC-DOCS/EAPCETBIPCFINALPHASEREVISEDSCHEDULE.pdf) lists self-reporting and reporting at college for September 24–26, 2026. That published window has passed. The release announcement alone does not establish a reporting extension.\n\nCheck your allotment order and the latest notices on cap.apcfss.in, and confirm your applicable deadline with the allotted college. Do not assume reporting remains open. This update covers AP only; Telangana guidance retains its own review date.",
+    category: "counselling",
+    state: "AP",
+    priority: "high",
+    source: "AP Common Admissions Portal — final-phase allotment notices and revised BiPC schedule",
+    sourceUrl: "https://cap.apcfss.in/",
+    verifiedAt: "2026-09-30T18:15:00+05:30",
+    expiresAt: "2026-10-07T00:00:00+05:30",
+    tags: ["AP EAPCET", "2026", "Counselling", "Final Phase", "BiPC", "Seat Allotment"],
+  },
   // ── New: September 24, 2026 ──────────────────────────────────
   {
     id: "eapcet-2026-final-phase-status-september-24",
@@ -30,7 +45,7 @@ export const NEWS_ITEMS: NewsItem[] = [
     source: "AP Common Admissions Portal (APSCHE) and TGCHE — TG EAPCET BiPC 2026 detailed notification",
     sourceUrl: "https://cap.apcfss.in/",
     verifiedAt: "2026-09-24T14:00:00+05:30",
-    expiresAt: "2026-10-02T00:00:00+05:30",
+    expiresAt: "2026-09-30T18:15:00+05:30",
     tags: ["EAPCET", "2026", "Counselling", "Final Phase", "BiPC", "Seat Allotment"],
   },
   {
