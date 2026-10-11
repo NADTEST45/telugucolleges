@@ -8,7 +8,7 @@ import {
 } from "@/lib/counselling-schedule";
 import { AddMilestoneButton, AddPhaseButton } from "@/components/AddToCalendar";
 import { isDeadlinePast } from "@/lib/content-freshness";
-import { getCounsellingStatus, TG_SCHEDULE_SOURCE, TG_SPOT_SOURCE, TG_BIPC_SCHEDULE_SOURCE } from "@/lib/counselling-status";
+import { getCounsellingStatus, TG_SCHEDULE_SOURCE, TG_SPOT_SOURCE, TG_BIPC_SCHEDULE_SOURCE, TG_BIPC_SPOT_SOURCE, TG_BIPC_SPOT_EXTENSION_SOURCE } from "@/lib/counselling-status";
 
 export const revalidate = 300;
 
@@ -185,18 +185,14 @@ export default function TsCounsellingDates2026Page() {
         <p className="text-sm text-blue-900 mb-3">{status.next}</p>
         <div className="flex flex-wrap gap-4 text-sm font-semibold text-accent">
           <a href={status.portalUrl} target="_blank" rel="noopener noreferrer" className="underline">BiPC counselling portal →</a>
-          <a href={TG_BIPC_SCHEDULE_SOURCE} target="_blank" rel="noopener noreferrer" className="underline">BiPC 2026 notification (PDF; last verified September 24) →</a>
+          <a href={TG_BIPC_SCHEDULE_SOURCE} target="_blank" rel="noopener noreferrer" className="underline">BiPC 2026 notification (PDF) →</a>
+          <a href={TG_BIPC_SPOT_SOURCE} target="_blank" rel="noopener noreferrer" className="underline">BiPC spot-admission guidelines (PDF) →</a>
+          <a href={TG_BIPC_SPOT_EXTENSION_SOURCE} target="_blank" rel="noopener noreferrer" className="underline">BiPC spot extension to October 10 (PDF) →</a>
           <a href={TG_SCHEDULE_SOURCE} target="_blank" rel="noopener noreferrer" className="underline">Historical MPC 2026 schedule (PDF) →</a>
           <a href={TG_SPOT_SOURCE} target="_blank" rel="noopener noreferrer" className="underline">Historical MPC spot-admission guidelines (PDF) →</a>
         </div>
-        <p className="text-sm text-blue-900 mt-3">
-          CBIT&apos;s final-phase BiPC notice lists September 30–October 1 reporting for its own allottees.
-          This is college-specific evidence, not confirmation of a statewide deadline or extension.{" "}
-          <a href="https://www.cbit.ac.in/wp-content/uploads/2021/07/TGEPACET-B-BIOTECH-BI.P.C.-STREAM-FINAL-PHASE-GUIDELINES-2026.pdf" target="_blank" rel="noopener noreferrer" className="underline">CBIT BiPC reporting notice (PDF) →</a>
-        </p>
         <p className="text-xs text-blue-900 mt-3">
-          Last successful statewide BiPC review: {status.asOf}. Partial review: September 30, 2026.
-          The statewide BiPC portal could not be loaded securely during the partial review; statewide deadlines remain unverified.
+          Statewide BiPC sources last reviewed: {status.asOf}.
         </p>
       </section>
 
@@ -280,7 +276,7 @@ export default function TsCounsellingDates2026Page() {
 
       <p className="text-xs text-gray-500 leading-relaxed">
         The tables above are historical engineering (MPC) dates from the TGCHE notification dated June 8, 2026.
-        MPC schedule and spot-admission sources were checked September 30. BiPC statewide dates were last successfully reviewed September 24; the September 30 review was partial.
+        MPC schedule and spot-admission sources were checked September 30. BiPC notification, spot guidelines and extension press note were reviewed October 11.
         Confirm current instructions with the appropriate stream portal and your allotted college.
       </p>
     </main>

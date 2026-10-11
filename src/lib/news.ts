@@ -17,6 +17,22 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
+  // ── New: October 11, 2026 ──────────────────────────────────
+  {
+    id: "tg-eapcet-bipc-2026-spot-admissions-closed-october-10",
+    date: "2026-10-11",
+    title: "TG EAPCET BiPC 2026: Institutional Spot Admissions Closed October 10",
+    summary: "TGCHE extended BiPC-stream institutional spot admissions for B.Pharmacy, Pharm.D, Bio-Technology, Bio-Medical and Pharmaceutical Engineering up to October 10, 2026. That window has now passed, completing the published 2026 TG EAPCET counselling schedule.",
+    body: "Reviewed October 11, 2026: The official TGCHE spot-admission guidelines for the TG EAPCET 2026 BiPC stream (https://tgeapcetbd.nic.in/files/TGEAPCETBiPC2026CANDIDATESGUIDELINES.pdf) scheduled institutional spot admissions for October 5–6, 2026. A press note from the Convenor dated October 7 (https://tgeapcetbd.nic.in/files/PressNoteExtnofSpotAdmissions.pdf) extended spot admissions at institutions into B.Pharmacy, Pharm-D, Bio-Technology, Bio-Medical Engineering and Pharmaceutical Engineering up to October 10, 2026.\n\nThat extended window has now passed. The guidelines required candidates to attend in person with original certificates, and they state that fee reimbursement does not apply to institutional spot admissions.\n\nWith this, every published 2026 TG EAPCET window has passed: the engineering (MPC) phases, internal sliding, the August engineering spot admissions, the MPC-stream pharmacy round and the BiPC final phase and spot admissions. Confirm any later admission directly with the college and current official notices.\n\nAndhra Pradesh: As of October 11, the AP Common Admissions Portal (https://cap.apcfss.in/) lists no newer public EAPCET notice after the MPC and BiPC final-phase allotments.\n\nOur cutoff tables remain historical references, with their source years shown. They are not official 2026 closing ranks.",
+    category: "counselling",
+    state: "TS",
+    priority: "medium",
+    source: "TGCHE — TG EAPCET BiPC 2026 spot-admission guidelines and October 7 extension press note",
+    sourceUrl: "https://tgeapcetbd.nic.in/files/PressNoteExtnofSpotAdmissions.pdf",
+    verifiedAt: "2026-10-11T22:30:00+05:30",
+    expiresAt: "2026-10-25T00:00:00+05:30",
+    tags: ["TG EAPCET", "2026", "Counselling", "BiPC", "Spot Admission"],
+  },
   {
     id: "ap-eapcet-2026-final-allotments-released-september-30",
     date: "2026-09-30",

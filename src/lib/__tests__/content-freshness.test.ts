@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { indiaDate, isDeadlinePast, isNewsActionable, isNewsArchived } from "../content-freshness";
-import { getCounsellingStatus, TG_BIPC_SCHEDULE_SOURCE, TG_SCHEDULE_SOURCE } from "../counselling-status";
+import { getCounsellingStatus, TG_BIPC_SCHEDULE_SOURCE, TG_BIPC_SPOT_EXTENSION_SOURCE, TG_SCHEDULE_SOURCE } from "../counselling-status";
 import { NEWS_ITEMS, type NewsItem } from "../news";
 import { COUNSELLING_PHASES, buildIcs } from "../counselling-schedule";
 
@@ -36,45 +36,47 @@ describe("dated admission information", () => {
     const now = Date.parse("2026-09-05T12:00:00Z");
     expect(NEWS_ITEMS.filter(n => n.date < "2026-08-01").every(n => !isNewsActionable(n, now))).toBe(true);
     expect(COUNSELLING_PHASES.flatMap(p => p.milestones).every(m => isDeadlinePast(m.deadline, now))).toBe(true);
-    expect(getCounsellingStatus("TS", now).headline).toContain("TG engineering dates have passed");
-    expect(getCounsellingStatus("TS", Date.parse("2026-09-30T23:59:59+05:30")).stage).not.toBe("Review needed");
-    expect(getCounsellingStatus("TS", Date.parse("2026-10-01T00:00:00+05:30")).stage).toBe("Review needed");
+    expect(getCounsellingStatus("TS", now).next).toContain("August spot-admission windows have passed");
+    expect(getCounsellingStatus("TS", Date.parse("2026-10-17T23:59:59+05:30")).stage).not.toBe("Review needed");
+    expect(getCounsellingStatus("TS", Date.parse("2026-10-18T00:00:00+05:30")).stage).toBe("Review needed");
   });
 
-  it("reviews AP independently without extending the TG freshness window", () => {
-    const now = Date.parse("2026-10-01T00:00:00+05:30");
+  it("keeps AP and TG review dates as separate fields", () => {
+    const now = Date.parse("2026-10-12T00:00:00+05:30");
     const ap = getCounsellingStatus("AP", now);
     const tg = getCounsellingStatus("TS", now);
     expect(ap.headline).toContain("BiPC final-phase allotments released");
     expect(ap.next).toContain("that window has passed");
-    expect(ap.asOf).toBe("September 30, 2026");
-    expect(tg.asOf).toBe("September 24, 2026");
-    expect(tg.stage).toBe("Review needed");
-    const expiration = Date.parse("2026-10-07T00:00:00+05:30");
+    expect(ap.next).toContain("no newer public EAPCET notice");
+    expect(ap.reviewedAt).toBe("2026-10-11");
+    expect(tg.reviewedAt).toBe("2026-10-11");
+    const expiration = Date.parse("2026-10-18T00:00:00+05:30");
     expect(getCounsellingStatus("AP", expiration - 1).stage).not.toBe("Review needed");
-    expect(getCounsellingStatus("AP", expiration).next).toContain("September 30, 2026");
+    expect(getCounsellingStatus("AP", expiration).next).toContain("October 11, 2026");
     expect(getCounsellingStatus("AP", expiration).stage).toBe("Review needed");
   });
 
-  it("flags the partial TG review without refreshing statewide BiPC dates", () => {
-    const tg = getCounsellingStatus("TS", Date.parse("2026-09-30T12:00:00+05:30"));
-    expect(tg.reviewedAt).toBe("2026-09-24");
-    expect(tg.headline).not.toContain("opens September 25");
-    expect(tg.next).toContain("partial September 30 review");
-    expect(tg.next).toContain("could not re-verify the statewide BiPC deadlines");
-    expect(tg.next).toContain("last successful statewide review was September 24");
+  it("reports the closed TG BiPC spot window from official sources", () => {
+    const tg = getCounsellingStatus("TS", Date.parse("2026-10-11T23:00:00+05:30"));
+    expect(tg.headline).toContain("BiPC spot admissions closed October 10");
+    expect(tg.next).toContain("press note dated October 7");
+    expect(tg.next).not.toContain("could not re-verify");
     expect(TG_BIPC_SCHEDULE_SOURCE).toContain("tgeapcetbd.nic.in/files/BIPC2026DETAILEDNOTIFICATION.pdf");
+    expect(TG_BIPC_SPOT_EXTENSION_SOURCE).toContain("tgeapcetbd.nic.in/files/");
     expect(TG_SCHEDULE_SOURCE).not.toBe(TG_BIPC_SCHEDULE_SOURCE);
   });
 
-  it("replaces the superseded September 24 alert with an AP-only update", () => {
-    const now = Date.parse("2026-09-30T18:15:00+05:30");
+  it("replaces superseded alerts and keeps the BiPC spot closure informational", () => {
+    const now = Date.parse("2026-10-11T23:00:00+05:30");
     const old = NEWS_ITEMS.find(n => n.id === "eapcet-2026-final-phase-status-september-24")!;
-    const current = NEWS_ITEMS.find(n => n.id === "ap-eapcet-2026-final-allotments-released-september-30")!;
+    const ap = NEWS_ITEMS.find(n => n.id === "ap-eapcet-2026-final-allotments-released-september-30")!;
+    const current = NEWS_ITEMS.find(n => n.id === "tg-eapcet-bipc-2026-spot-admissions-closed-october-10")!;
     expect(isNewsArchived(old, now)).toBe(true);
-    expect(isNewsActionable(current, now)).toBe(true);
-    expect(current.state).toBe("AP");
-    expect(current.summary).toContain("has passed");
+    expect(isNewsArchived(ap, now)).toBe(true);
+    expect(isNewsArchived(current, now)).toBe(false);
+    expect(isNewsActionable(current, now)).toBe(false);
+    expect(current.state).toBe("TS");
+    expect(current.summary).toContain("has now passed");
   });
 
   it("keeps schedule IDs unique, ordered windows and calendar links on the counselling portal", () => {
