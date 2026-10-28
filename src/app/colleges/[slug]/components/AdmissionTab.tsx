@@ -28,7 +28,7 @@ export default function AdmissionTab({ collegeName, medical, admissionExam }: { 
             {[
               ["Qualifying Exam", "NEET-UG (single national exam)"],
               ["Counselling Authority", medical.primaryCounsellor],
-              ["All India Quota (15%)", medical.aiqAuthority],
+              ["Seat Allocation", medical.seatAllocationShort],
               ["Eligibility", "10+2 with Physics, Chemistry, Biology + qualified NEET-UG"],
             ].map(([label, value]) => (
               <div key={label} className="flex justify-between py-2 border-b border-gray-50">

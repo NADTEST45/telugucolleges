@@ -2,7 +2,7 @@ import { SITE_URL } from "@/lib/site";
 import { COLLEGES } from "@/lib/colleges";
 import { isCollegeSectionIndexable } from "@/lib/college-page-quality";
 import { getCollegeBySlugMerged, getCollegesMerged } from "@/lib/colleges-merged";
-import { isMedicalCollege } from "@/lib/medical-admission";
+import { getMedicalAdmission, isMedicalCollege } from "@/lib/medical-admission";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
 import CollegeDetail from "../CollegeDetail";
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const title = `${c.name} Admission 2026 — Process, Dates, Eligibility | TeluguColleges`;
   const description = isMedical
-    ? `How to get admission in ${c.name}. NEET-UG counselling process, eligibility criteria, ${c.state === "Telangana" ? "KNRUHS" : "NTRUHS"} state quota, All India Quota, and important dates.`
+    ? `How to get admission in ${c.name}. NEET-UG counselling process, eligibility criteria, seat allocation (${getMedicalAdmission(c).seatAllocationShort}), and important dates.`
     : isDeemed
     ? `How to get admission in ${c.name}. University entrance exam and counselling process, eligibility criteria, important dates, and direct admission details.`
     : `How to get admission in ${c.name}. ${exam} counselling process, eligibility criteria, important dates, and management quota details.`;

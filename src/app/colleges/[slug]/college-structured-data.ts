@@ -319,7 +319,7 @@ function branchesFAQ(c: College, med?: MedicalAdmissionInfo | null): FAQItem | n
   return {
     question: `What ${med ? "courses" : "branches"} are available at ${c.name}?`,
     answer: med
-      ? `${c.name} offers ${c.branches.join(", ")}. Seats are filled through NEET-UG based counselling conducted by ${med.authority} (state quota) and MCC (All India Quota).`
+      ? `${c.name} offers ${c.branches.join(", ")}. Seats are filled through NEET-UG based counselling: ${med.seatAllocationShort}.`
       : isDeemed
       ? `${c.name} offers ${c.branches.length} branches: ${c.branches.join(", ")}. As a deemed university, admissions are conducted by the university through its own entrance exam and counselling process.`
       : isPvtUni
@@ -386,7 +386,7 @@ function admissionFAQ(c: College, med?: MedicalAdmissionInfo | null): FAQItem {
 function neetFAQ(c: College, med: MedicalAdmissionInfo): FAQItem {
   return {
     question: `Is admission to ${c.name} through EAPCET or NEET?`,
-    answer: `Admission to ${c.name} is through NEET-UG, not EAPCET/EAMCET. AP/TS EAPCET is only for engineering, pharmacy, and agriculture courses. MBBS seats are filled solely on the basis of a valid NEET-UG score and rank — 15% through the All India Quota (MCC) and 85% through ${med.authority} state-quota counselling.`,
+    answer: `Admission to ${c.name} is through NEET-UG, not EAPCET/EAMCET. AP/TS EAPCET is only for engineering, pharmacy, and agriculture courses. MBBS seats are filled solely on the basis of a valid NEET-UG score and rank, allotted by ${med.seatAllocation}.`,
   };
 }
 

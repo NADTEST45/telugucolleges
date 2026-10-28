@@ -32,6 +32,10 @@ export interface MedicalAdmissionInfo {
   primaryUrl: string;
   /** One-line summary of the counselling route, varies by college type */
   counsellingSummary: string;
+  /** Who allots the seats; the 15% AIQ split applies to government colleges only */
+  seatAllocation: string;
+  /** Short form of seatAllocation for FAQs, metadata and table rows */
+  seatAllocationShort: string;
   /** Seat-quota breakdown lines */
   quotas: { label: string; detail: string }[];
 }
@@ -91,6 +95,16 @@ export function getMedicalAdmission(c: {
     primaryCounsellor: isDeemed ? "Medical Counselling Committee (MCC), DGHS" : authorityFullName,
     primaryUrl: isDeemed ? "https://mcc.nic.in" : officialUrl,
     counsellingSummary,
+    seatAllocation: isDeemed
+      ? "the Medical Counselling Committee (MCC) through its deemed-university counselling"
+      : isGovt
+      ? `${authorityFullName} (85% state quota) and the Medical Counselling Committee (15% All India Quota)`
+      : `${authorityFullName} (Convener, Management and NRI quotas)`,
+    seatAllocationShort: isDeemed
+      ? "MCC deemed-university counselling (all seats)"
+      : isGovt
+      ? `${authority} (85% state quota) and MCC (15% All India Quota)`
+      : `${authority} (Convener, Management and NRI quotas)`,
     quotas,
   };
 }

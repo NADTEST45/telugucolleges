@@ -195,7 +195,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
 
                 {c.nirf > 0 ? `The institution is ranked in the ${nirfBand(c.nirf)} band under the NIRF 2025 ${medical ? "Medical" : "Engineering"} category. ` : ""}
                 {medical
-                  ? `${c.name} offers the ${c.branches.join(", ")} programme, with seats filled through NEET-UG based counselling conducted by ${medical.authorityFullName} (state quota) and the Medical Counselling Committee (All India Quota).`
+                  ? `${c.name} offers the ${c.branches.join(", ")} programme, with seats filled through NEET-UG based counselling by ${medical.seatAllocation}.`
                   : <>{c.name} offers B.Tech programmes in {c.branches.length} {c.branches.length === 1 ? "branch" : "branches"} including {c.branches.slice(0, 5).join(", ")}{c.branches.length > 5 ? `, and ${c.branches.length - 5} more` : ""}.</>}
               </p>
               <p>
@@ -601,7 +601,7 @@ export default function CollegeDetail({ c, similar, historicalCutoffs, cutoffYea
                   <div className="text-3xl mb-3">🩺</div>
                   <p className="font-semibold text-amber-800 mb-2">MBBS cutoffs are NEET-rank based — not EAPCET</p>
                   <p className="text-sm text-amber-700 mb-4">
-                    {c.name} admits students through NEET-UG ranks, with seats allotted by {medical.authorityFullName} (state quota) and the Medical Counselling Committee (All India Quota). It does not participate in AP/TS EAPCET counselling.
+                    {c.name} admits students through NEET-UG ranks, with seats allotted by {medical.seatAllocation}. It does not participate in AP/TS EAPCET counselling.
                   </p>
                   <div className="bg-white rounded-lg p-4 text-left text-sm text-gray-600 max-w-md mx-auto">
                     <p className="font-semibold text-gray-800 mb-2">Closing ranks</p>
