@@ -223,6 +223,8 @@ export function getCollegesForBand(
   const matches: RankBandMatch[] = [];
   for (const c of colleges) {
     if (c.state !== state.full) continue;
+    // Deemed universities admit outside EAPCET; their old ranks are not options.
+    if (c.type === "Deemed University") continue;
     const closing = getOcClosingRank(c.code, branch, state);
     if (closing <= 0) continue;
     if (closing < rank) continue; // college is out of reach

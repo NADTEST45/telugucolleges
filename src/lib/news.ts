@@ -17,7 +17,37 @@ export interface NewsItem {
 }
 
 export const NEWS_ITEMS: NewsItem[] = [
-  // ── New: October 11, 2026 ──────────────────────────────────
+  // ── New: October 28, 2026 ──────────────────────────────────
+  {
+    id: "ap-eapcet-bipc-2026-third-final-phase-allotment-october-27",
+    date: "2026-10-28",
+    title: "AP EAPCET BiPC 2026 Third & Final Phase: Seats Allotted October 27, Report by October 30",
+    summary: "After the September round, APSCHE held a further third and final phase of AP EAPCET 2026 BiPC-stream counselling for B.Pharmacy, Pharm.D and BiPC-eligible B.Tech courses. Seats were allotted on October 27, and self-reporting and reporting at the allotted college run from October 28 to 30, 2026.",
+    body: "Reviewed October 28, 2026: The AP Common Admissions Portal (https://cap.apcfss.in/) confirms that the AP EAPCET 2026 (BiPC stream) third and final phase allotment has been released. The detailed notification (https://cap.apcfss.in/TET-PDF/EAPCET-BIPC-DOCS/EAPCET2026BIPCTHIRDANDFINALPHASEDETAILEDNOTIFICATION.pdf) and schedule were published on October 22. This round follows the September BiPC final phase that our September 30 update described.\n\nOfficial third and final phase schedule:\n• Processing fee payment cum registration: October 24 – 25, 2026\n• Online verification of uploaded certificates at help line centres: October 24 – 25, 2026\n• Web options: October 24 – 25, 2026\n• Change of options: October 26, 2026\n• Allotment of seats: October 27, 2026\n• Self-reporting and reporting at college: October 28 – 30, 2026\n• Updating of joining details by colleges: October 30, 2026\n• Class work: already commenced\n\nCourses covered: B.Pharmacy, Pharm.D and B.Tech in Bio-Technology, Food Technology, Food Engineering, Agricultural Engineering and Pharmaceutical Engineering, under the Convenor quota in university and private colleges and private universities in Andhra Pradesh.\n\nCandidates from earlier phases had to exercise options afresh and did not pay the processing fee again. The notification states that intermediate vocational candidates with the bridge course are eligible only for the BiPC B.Tech courses, not B.Pharmacy or Pharm.D, and that special-category certificates were not verified in this phase.\n\nIf you were allotted a seat, download the allotment order from the candidate login on cap.apcfss.in, complete self-reporting and report at the college by October 30. Confirm any change to the deadline on the portal and with the college.\n\nOur cutoff tables remain historical references, with their source years shown. They are not official 2026 closing ranks.",
+    category: "counselling",
+    state: "AP",
+    priority: "high",
+    source: "AP Common Admissions Portal (APSCHE) — AP EAPCET 2026 BiPC third & final phase detailed notification",
+    sourceUrl: "https://cap.apcfss.in/TET-PDF/EAPCET-BIPC-DOCS/EAPCET2026BIPCTHIRDANDFINALPHASEDETAILEDNOTIFICATION.pdf",
+    verifiedAt: "2026-10-28T10:15:00+05:30",
+    expiresAt: "2026-10-31T00:00:00+05:30",
+    tags: ["AP EAPCET", "2026", "Counselling", "BiPC", "Final Phase", "Seat Allotment", "Pharmacy"],
+  },
+  {
+    id: "deemed-universities-ap-tg-ugc-list-check-october-2026",
+    date: "2026-10-28",
+    title: "Deemed Universities in AP & Telangana: GMRIT and Malla Reddy Listings Updated; SR Academy Not Yet on UGC List",
+    summary: "UGC's list of deemed-to-be universities, checked October 28, 2026, shows nine headquartered in Andhra Pradesh and eight in Telangana. We have corrected GMRIT's listing and now show five Malla Reddy institutions as deemed-university units that admit students outside EAPCET counselling.",
+    body: "Reviewed October 28, 2026 against the University Grants Commission's state-wise list of deemed-to-be universities (ugc.gov.in).\n\nAndhra Pradesh (9): Audisankara, Dr. RVR NRI Institute of Technology, GITAM, GMR Institute of Technology (GMRIT), Koneru Lakshmaiah Education Foundation (KL), Madanapalle Institute of Technology & Science (MITS), Siddhartha Academy of Higher Education, Sri Sathya Sai Institute of Higher Learning and Vignan's Foundation for Science, Technology and Research.\n\nTelangana (8): Aurora Higher Education and Research Academy, Chaitanya (Hanamkonda), Heartfulness Academy of Research and Innovation, ICFAI Foundation for Higher Education, IIIT Hyderabad, Malla Reddy (MR), Malla Reddy Vishwavidyapeeth and PHFI Institute of Public Health Sciences.\n\nThese counts cover each university's headquarters. Campuses of universities headquartered elsewhere, such as BITS Pilani Hyderabad, GITAM Hyderabad and KL Hyderabad, are listed under the parent university.\n\nWhat we changed:\n• GMRIT, Rajam: The institute states that the Ministry of Education notified it as a deemed to be university by letter No. 9-13/2024-U.3(A) dated January 19, 2026, and UGC now lists it. We have corrected its name to GMRIT Deemed to be University. It admits B.Tech students through its own process, not AP EAPCET counselling.\n• Malla Reddy (MR) Deemed to be University, Maisammaguda: This is the former Malla Reddy Engineering College (MREC), which we previously listed as a JNTUH-affiliated college. It admits B.Tech students through its own MRJEE entrance test. UGC records an off-campus centre at Krishnapuram village, Renigunta mandal, Tirupati, notified under No. 10-4/2026-U.3(A) dated July 9, 2026.\n• Malla Reddy Vishwavidyapeeth, Suraram: Recognised under Notification No. 9-4/2024-U.3(A). Its constituent units include Malla Reddy Institute of Medical Sciences, Malla Reddy Medical College for Women and Malla Reddy Institute of Pharmaceutical Sciences. A November 2024 Telangana Today report on the notification also names Malla Reddy College of Engineering for Women. We now list these four as deemed-university units. MBBS seats at deemed universities are filled through Medical Counselling Committee (MCC) deemed-university counselling, not KNRUHS state counselling.\n\nFor the five Malla Reddy units, we have removed the fees carried over from their affiliated-college years. Check the current fee with the institution.\n\nNot yet on UGC's list: Telangana Today reported on October 17, 2026 that SR Academy of Higher Education (SRAHE), at Rampally Dayara in Keesara mandal, Medchal district, has been granted deemed-to-be university status by the Union Ministry of Education, quoting its chancellor. SRAHE did not appear on UGC's Telangana list on October 28. We will add it once the notification is published.\n\nDeemed universities do not take part in AP or TG EAPCET convenor-quota counselling. Each university sets its own fees and admission rules, so verify them on its official website before applying.",
+    category: "general",
+    state: "Both",
+    priority: "medium",
+    source: "University Grants Commission — state-wise list of deemed to be universities",
+    sourceUrl: "https://www.ugc.gov.in/universitydetails/university?type=UCL6fMspL2LJS89kv%2B%2BN3A%3D%3D",
+    verifiedAt: "2026-10-28T10:30:00+05:30",
+    tags: ["Deemed University", "UGC", "GMRIT", "Malla Reddy", "Telangana", "Andhra Pradesh"],
+  },
+  // ── October 11, 2026 ──────────────────────────────────
   {
     id: "tg-eapcet-bipc-2026-spot-admissions-closed-october-10",
     date: "2026-10-11",

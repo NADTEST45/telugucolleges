@@ -60,6 +60,8 @@ export function predict(input: PredictInput, colleges: College[] = COLLEGES): Pr
 
   for (const c of colleges) {
     if (c.state !== state.full) continue;
+    // Deemed universities admit outside EAPCET; their old ranks are not options.
+    if (c.type === "Deemed University") continue;
     for (const b of branches) {
       const res = getHistoricalCutoff(
         c.code,

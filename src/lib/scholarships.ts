@@ -495,9 +495,9 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
     sourceLabel: "Amrita Official — B.Tech Fee Structure & Scholarship Terms 2026-27",
   },
 
-  // ─── GMR University ─────────────────────────────────────────────────
+  // ─── GMRIT Deemed to be University ──────────────────────────────────
   "GMRI": {
-    collegeName: "GMR University (formerly GMRIT)",
+    collegeName: "GMRIT Deemed to be University (GMR Institute of Technology)",
     tables: [
       {
         examName: "JEE Main / State Entrance Ranks / Class XII Performance",
@@ -516,7 +516,7 @@ export const SCHOLARSHIPS: Record<string, ScholarshipInfo> = {
       "Base B.Tech fee: ~₹2,50,000/yr (as a Deemed University; formerly ~₹78,000/yr when GMRIT was affiliated)",
     ],
     source: "https://gmrit.edu.in/du/faqs.php",
-    sourceLabel: "GMR University Official — Deemed University FAQs",
+    sourceLabel: "GMRIT Deemed to be University Official — FAQs",
   },
 
   // ─── Audisankara University ─────────────────────────────────────────

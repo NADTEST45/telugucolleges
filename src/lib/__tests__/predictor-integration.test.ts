@@ -13,6 +13,7 @@ describe("predictor data integration", () => {
             const matches = predict({ rank, state, category, gender, branches: BRANCH_OPTIONS });
             for (const match of matches) {
               expect(match.college.state).toBe(state.full);
+              expect(match.college.type).not.toBe("Deemed University");
               expect(Number.isFinite(match.closingRank)).toBe(true);
               expect(match.closingRank).toBeGreaterThan(0);
             }

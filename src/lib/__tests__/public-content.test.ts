@@ -10,11 +10,11 @@ const source = (path: string) => readFileSync(`src/${path}`, "utf8");
 
 describe("public admissions copy", () => {
   it("labels archived homepage and related news and links directly to articles", async () => {
-    vi.spyOn(Date, "now").mockReturnValue(Date.parse("2026-09-30T19:00:00+05:30"));
+    vi.spyOn(Date, "now").mockReturnValue(Date.parse("2026-10-28T12:00:00+05:30"));
     try {
       const home = renderToStaticMarkup(await Home());
       expect(home).toContain("Archived update");
-      expect(home).toContain('href="/news/eapcet-2026-final-phase-status-september-24"');
+      expect(home).toContain('href="/news/tg-eapcet-bipc-2026-spot-admissions-closed-october-10"');
       expect(home).not.toContain("Top CSE Colleges");
       const related = renderToStaticMarkup(await NewsItemPage({ params: Promise.resolve({ slug: "ap-eapcet-2026-final-allotments-released-september-30" }) }));
       expect(related).toContain("Archived update — check current notices");

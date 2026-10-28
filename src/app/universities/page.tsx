@@ -131,7 +131,7 @@ export default function UniversitiesPage() {
       return true;
     });
     if (sort === "name") list.sort((a, b) => a.name.localeCompare(b.name));
-    if (sort === "fee_low") list.sort((a, b) => a.fee - b.fee);
+    if (sort === "fee_low") list.sort((a, b) => (a.fee > 0 ? a.fee : Infinity) - (b.fee > 0 ? b.fee : Infinity));
     if (sort === "fee_high") list.sort((a, b) => b.fee - a.fee);
     if (sort === "placements") list.sort((a, b) => b.placements.avg - a.placements.avg);
     if (sort === "nirf")

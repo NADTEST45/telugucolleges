@@ -238,7 +238,7 @@ export const ADMISSION_EXAMS: AdmissionExam[] = [
     collegeCodes: ["CVSR"],
   },
 
-  // ── GMR University (formerly GMRIT, Rajam) — Deemed — own admissions ──
+  // ── GMRIT Deemed to be University (Rajam) — own admissions ──
   {
     examName: "GMRCET / Student Interaction",
     examFullName: "GMRIT Deemed University Holistic Admission Process",

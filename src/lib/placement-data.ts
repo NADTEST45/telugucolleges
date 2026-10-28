@@ -154,7 +154,7 @@ export const PLACEMENT_DATA: Record<string, CollegePlacementData> = {
     ],
   },
 
-  /* ── GMR University (GMRIT), Rajam, AP ─── 3-year data ────────────── */
+  /* ── GMRIT Deemed to be University, Rajam, AP ─── 3-year data ────────────── */
   GMRI: {
     source: "AICTE-MD",
     sourceUrl: "https://gmrit.edu.in/PDFs/about_us/mandatory_disclosure.pdf",

@@ -515,7 +515,7 @@ export const UNIVERSITY_COURSES: Record<string, CourseInfo[]> = {
     { program: "M.Tech", fee: 100000, duration: 2, level: "PG" },
   ],
 
-  "GMRI": [ // GMR University (formerly GMRIT) — Rajam, Srikakulam (Deemed University) — AY 2026-27 from gmrit.edu.in/du/eligibility.php
+  "GMRI": [ // GMRIT Deemed to be University — Rajam (Deemed University) — AY 2026-27 from gmrit.edu.in/du/eligibility.php
     { program: "B.Tech", specialization: "CSE", fee: 250000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (AI & ML)", fee: 250000, duration: 4, level: "UG" },
     { program: "B.Tech", specialization: "CSE (AI & DS)", fee: 250000, duration: 4, level: "UG" },
